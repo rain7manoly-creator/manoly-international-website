@@ -15,17 +15,15 @@
             <div class="shelf-grid-col">
                 @foreach (var cell in slots)
                 {
-                    @{
-                        string cellClass = cell.IsEmpty ? "grid-cell-empty"
-                            : cell.IsFull ? "grid-cell-full"
-                            : cell.OccupiedSlots switch {
-                                1 => "grid-cell-partial-1",
-                                2 => "grid-cell-partial-2",
-                                3 => "grid-cell-partial-3",
-                                4 => "grid-cell-partial-4",
-                                _ => "grid-cell-partial-5",
-                            };
-                    }
+                    string cellClass = cell.IsEmpty ? "grid-cell-empty"
+                        : cell.IsFull ? "grid-cell-full"
+                        : cell.OccupiedSlots switch {
+                            1 => "grid-cell-partial-1",
+                            2 => "grid-cell-partial-2",
+                            3 => "grid-cell-partial-3",
+                            4 => "grid-cell-partial-4",
+                            _ => "grid-cell-partial-5",
+                        };
                     <a href="/shelves/@cell.Code"
                        class="shelf-grid-cell @cellClass"
                        title="@cell.Code — @cell.OccupiedSlots/6"
@@ -51,7 +49,7 @@
     width: 100%;
 }
 
-@media (min-width: 480px) {
+@@media (min-width: 480px) {
     .shelf-grid-wrapper { padding: 0 16px; }
     .shelf-grid-inner   { gap: 2px; }
 }
@@ -62,7 +60,7 @@
     gap: 1px;
 }
 
-@media (min-width: 480px) {
+@@media (min-width: 480px) {
     .shelf-grid-col { gap: 2px; }
 }
 
@@ -76,11 +74,11 @@
     min-width: 0;
 }
 
-@media (min-width: 480px) {
+@@media (min-width: 480px) {
     .shelf-grid-cell { border-radius: 2px; }
 }
 
-@media (hover: hover) {
+@@media (hover: hover) {
     .shelf-grid-cell:hover {
         transform: scale(1.4);
         z-index: 1;
