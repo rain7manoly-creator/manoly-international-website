@@ -40,42 +40,36 @@
     width: 100%;
     padding: 0 8px;
     box-sizing: border-box;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    /* hide scrollbar but keep scroll functionality */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
+.shelf-grid-wrapper::-webkit-scrollbar { display: none; }
 
 .shelf-grid-inner {
     display: grid;
-    grid-template-columns: repeat(var(--cols), 1fr);
-    gap: 1px;
-    width: 100%;
-}
-
-@@media (min-width: 480px) {
-    .shelf-grid-wrapper { padding: 0 16px; }
-    .shelf-grid-inner   { gap: 2px; }
+    /* Each column is at least 14px — grid scrolls horizontally if 69×14px > screen width */
+    grid-template-columns: repeat(var(--cols), minmax(14px, 1fr));
+    gap: 2px;
+    min-width: calc(var(--cols) * 16px); /* ensures cells never collapse below 16px */
 }
 
 .shelf-grid-col {
     display: flex;
     flex-direction: column;
-    gap: 1px;
-}
-
-@@media (min-width: 480px) {
-    .shelf-grid-col { gap: 2px; }
+    gap: 2px;
 }
 
 .shelf-grid-cell {
     display: block;
     aspect-ratio: 1 / 1;
     width: 100%;
-    border-radius: 1px;
+    border-radius: 2px;
     cursor: pointer;
     transition: opacity 100ms;
     min-width: 0;
-}
-
-@@media (min-width: 480px) {
-    .shelf-grid-cell { border-radius: 2px; }
 }
 
 @@media (hover: hover) {
