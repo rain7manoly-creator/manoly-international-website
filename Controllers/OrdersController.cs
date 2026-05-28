@@ -17,10 +17,13 @@ public class OrdersController : Controller
         _orderService = orderService;
     }
 
+    private const int PageSize = 20;
+
     [HttpGet("")]
-    public async Task<IActionResult> Index(string? status, CancellationToken ct)
+    public async Task<IActionResult> Index(string? status, int page = 1, CancellationToken ct = default)
     {
-        var model = await _orderService.ListAsync(status, ct);
+        page = Math.Max(1, page);
+        var model = await _orderService.ListAsync(status, page, PageSize, ct);
         return View(model);
     }
 

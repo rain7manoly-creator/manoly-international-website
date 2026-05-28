@@ -24,8 +24,8 @@ public class PurchaseOrderService : IPurchaseOrderService
         _logger = logger;
     }
 
-    public async Task<IReadOnlyList<OrderListItemViewModel>> ListAsync(
-        string? statusFilter, CancellationToken ct = default)
+    public async Task<PagedResult<OrderListItemViewModel>> ListAsync(
+        string? statusFilter, int page, int pageSize, CancellationToken ct = default)
     {
         var query = _db.PurchaseOrders.AsNoTracking();
 
@@ -35,8 +35,12 @@ public class PurchaseOrderService : IPurchaseOrderService
             query = query.Where(po => po.Status == status);
         }
 
-        return await query
+        var total = await query.CountAsync(ct);
+
+        var items = await query
             .OrderByDescending(po => po.OrderedAt)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .Select(po => new OrderListItemViewModel
             {
                 Id = po.Id,
@@ -50,6 +54,14 @@ public class PurchaseOrderService : IPurchaseOrderService
                     : 0
             })
             .ToListAsync(ct);
+
+        return new PagedResult<OrderListItemViewModel>
+        {
+            Items = items,
+            TotalCount = total,
+            Page = page,
+            PageSize = pageSize
+        };
     }
 
     public async Task<OrderDetailViewModel?> GetByIdAsync(int id, CancellationToken ct = default)

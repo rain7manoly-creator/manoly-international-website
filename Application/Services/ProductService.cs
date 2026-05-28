@@ -41,6 +41,38 @@ public class ProductService : IProductService
             .ToListAsync(ct);
     }
 
+    public async Task<PagedResult<ProductListItemViewModel>> ListPagedAsync(
+        int page, int pageSize, CancellationToken ct = default)
+    {
+        var query = _db.Products
+            .AsNoTracking()
+            .OrderBy(p => p.Category.Name)
+            .ThenBy(p => p.Name);
+
+        var total = await query.CountAsync(ct);
+
+        var items = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(p => new ProductListItemViewModel
+            {
+                Id = p.Id,
+                Name = p.Name,
+                CategoryName = p.Category.Name,
+                ShelfLocationCount = p.ShelfInventories.Count,
+                IsInAreaZ = p.AreaZInventories.Any(az => !az.IsDispatched)
+            })
+            .ToListAsync(ct);
+
+        return new PagedResult<ProductListItemViewModel>
+        {
+            Items = items,
+            TotalCount = total,
+            Page = page,
+            PageSize = pageSize
+        };
+    }
+
     public async Task<ProductDetailViewModel?> GetByIdAsync(int id, CancellationToken ct = default)
     {
         var product = await _db.Products

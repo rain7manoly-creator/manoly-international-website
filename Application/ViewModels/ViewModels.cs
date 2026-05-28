@@ -3,6 +3,30 @@ using ManolyWarehouse.Domain.Entities;
 
 namespace ManolyWarehouse.Application.ViewModels;
 
+// ─── Pagination ────────────────────────────────────────────────────────
+
+public class PagedResult<T>
+{
+    public IReadOnlyList<T> Items { get; init; } = Array.Empty<T>();
+    public int TotalCount { get; init; }
+    public int Page { get; init; }
+    public int PageSize { get; init; }
+    public int TotalPages => PageSize > 0 ? (int)Math.Ceiling((double)TotalCount / PageSize) : 1;
+    public bool HasPrev => Page > 1;
+    public bool HasNext => Page < TotalPages;
+}
+
+public class PaginationViewModel
+{
+    public int Page { get; init; }
+    public int TotalPages { get; init; }
+    public bool HasPrev => Page > 1;
+    public bool HasNext => Page < TotalPages;
+    public string BaseUrl { get; init; } = "";
+    public static PaginationViewModel From<T>(PagedResult<T> result, string baseUrl) =>
+        new() { Page = result.Page, TotalPages = result.TotalPages, BaseUrl = baseUrl };
+}
+
 // ─── Auth ──────────────────────────────────────────────────────────────
 
 public class LoginViewModel

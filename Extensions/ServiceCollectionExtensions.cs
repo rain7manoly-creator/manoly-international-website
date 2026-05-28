@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using ManolyWarehouse.Application.Interfaces;
 using ManolyWarehouse.Application.Services;
 using ManolyWarehouse.Domain.Entities;
@@ -14,9 +15,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("DefaultConnection")
-            ?? throw new InvalidOperationException(
-                "ConnectionStrings:DefaultConnection is missing. Set it in appsettings or environment variables.");
+        var connectionString = ResolveConnectionString(configuration);
 
         services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(connectionString, npg =>
@@ -26,6 +25,36 @@ public static class ServiceCollectionExtensions
             }));
 
         return services;
+    }
+
+    /// <summary>
+    /// Resolves the Npgsql connection string from either:
+    ///  1. DATABASE_URL env var — Render.com PostgreSQL (postgres://user:pass@host:port/db)
+    ///  2. ConnectionStrings:DefaultConnection — appsettings / env var override
+    /// </summary>
+    private static string ResolveConnectionString(IConfiguration configuration)
+    {
+        var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+        if (!string.IsNullOrEmpty(databaseUrl))
+        {
+            // Convert postgres://user:password@host:port/dbname → Npgsql format
+            var uri = new Uri(databaseUrl);
+            var userInfo = uri.UserInfo.Split(':', 2);
+            return new NpgsqlConnectionStringBuilder
+            {
+                Host               = uri.Host,
+                Port               = uri.Port > 0 ? uri.Port : 5432,
+                Database           = uri.AbsolutePath.TrimStart('/'),
+                Username           = userInfo[0],
+                Password           = userInfo.Length > 1 ? Uri.UnescapeDataString(userInfo[1]) : "",
+                SslMode            = SslMode.Require,
+                TrustServerCertificate = true
+            }.ConnectionString;
+        }
+
+        return configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException(
+                "No database connection configured. Set DATABASE_URL or ConnectionStrings__DefaultConnection.");
     }
 
     public static IServiceCollection AddIdentityServices(this IServiceCollection services)

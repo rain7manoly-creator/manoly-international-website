@@ -1,5 +1,8 @@
-@model IReadOnlyList<ManolyWarehouse.Application.ViewModels.AreaZItemViewModel>
-@{ ViewData["Title"] = "منطقة Z"; }
+@model ManolyWarehouse.Application.ViewModels.PagedResult<ManolyWarehouse.Application.ViewModels.AreaZItemViewModel>
+@{
+    ViewData["Title"] = "منطقة Z";
+    var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, "/area-z");
+}
 
 <div class="px-4 pt-5 pb-3 flex items-end justify-between">
     <div>
@@ -9,7 +12,7 @@
     <a href="/area-z/add" class="btn-primary btn-sm">+ إضافة</a>
 </div>
 
-@if (!Model.Any())
+@if (!Model.Items.Any())
 {
     <div class="empty-state">
         <div class="empty-state-icon">📦</div>
@@ -19,8 +22,8 @@
 }
 else
 {
-    <div class="mx-4 card mb-6">
-        @foreach (var item in Model)
+    <div class="mx-4 card mb-4">
+        @foreach (var item in Model.Items)
         {
             <a href="/area-z/@item.Id" class="list-item items-start flex-col gap-1">
                 <div class="flex items-center justify-between w-full">
@@ -42,4 +45,6 @@ else
             </a>
         }
     </div>
+
+    <partial name="_Pagination" model="pager" />
 }

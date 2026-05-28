@@ -18,6 +18,7 @@ public interface IShelfService
 public interface IProductService
 {
     Task<IReadOnlyList<ProductListItemViewModel>> ListAsync(CancellationToken ct = default);
+    Task<PagedResult<ProductListItemViewModel>> ListPagedAsync(int page, int pageSize, CancellationToken ct = default);
     Task<ProductDetailViewModel?> GetByIdAsync(int id, CancellationToken ct = default);
     Task<int> CreateAsync(string name, int categoryId, CancellationToken ct = default);
     Task UpdateAsync(int id, string name, int categoryId, CancellationToken ct = default);
@@ -35,7 +36,7 @@ public interface ICategoryService
 
 public interface IPurchaseOrderService
 {
-    Task<IReadOnlyList<OrderListItemViewModel>> ListAsync(string? statusFilter, CancellationToken ct = default);
+    Task<PagedResult<OrderListItemViewModel>> ListAsync(string? statusFilter, int page, int pageSize, CancellationToken ct = default);
     Task<OrderDetailViewModel?> GetByIdAsync(int id, CancellationToken ct = default);
     Task<int> CreateAsync(CreateOrderRequest request, CancellationToken ct = default);
     Task AddItemAsync(int orderId, int productId, int bundleCount, int unitsPerBundle, CancellationToken ct = default);
@@ -50,7 +51,7 @@ public interface IPurchaseOrderService
 
 public interface IAreaZService
 {
-    Task<IReadOnlyList<AreaZItemViewModel>> ListActiveAsync(CancellationToken ct = default);
+    Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(int page, int pageSize, CancellationToken ct = default);
     Task<AreaZItemViewModel?> GetByIdAsync(int id, CancellationToken ct = default);
     Task<int> AddAsync(int productId, int bundleCount, int unitsPerBundle, string? notes, CancellationToken ct = default);
     Task UpdateAsync(int id, int bundleCount, int unitsPerBundle, string? notes, CancellationToken ct = default);

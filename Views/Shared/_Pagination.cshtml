@@ -1,0 +1,89 @@
+@model ManolyWarehouse.Application.ViewModels.PaginationViewModel
+
+@if (Model.TotalPages <= 1) { return; }
+
+@{
+    string PageUrl(int p)
+    {
+        var sep = Model.BaseUrl.Contains('?') ? "&" : "?";
+        return $"{Model.BaseUrl}{sep}page={p}";
+    }
+
+    int window = 2;
+    int start  = Math.Max(1, Model.Page - window);
+    int end    = Math.Min(Model.TotalPages, Model.Page + window);
+    if (Model.Page - window < 1)               end   = Math.Min(Model.TotalPages, end + (window - Model.Page + 1));
+    if (Model.Page + window > Model.TotalPages) start = Math.Max(1, start - (Model.Page + window - Model.TotalPages));
+}
+
+<div class="flex items-center justify-center gap-1 px-4 pb-6 pt-1 font-ui text-sm select-none" dir="ltr">
+
+    @* Prev *@
+    @if (Model.HasPrev)
+    {
+        <a href="@PageUrl(Model.Page - 1)"
+           class="flex items-center justify-center w-8 h-8 rounded-lg text-bark-d hover:bg-sand transition-colors">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </a>
+    }
+    else
+    {
+        <span class="flex items-center justify-center w-8 h-8 rounded-lg text-bark-l opacity-30 cursor-not-allowed">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </span>
+    }
+
+    @* First page + ellipsis *@
+    @if (start > 1)
+    {
+        <a href="@PageUrl(1)" class="flex items-center justify-center w-8 h-8 rounded-lg text-bark-d hover:bg-sand transition-colors">1</a>
+        @if (start > 2) { <span class="px-1 text-bark-l">…</span> }
+    }
+
+    @* Page window *@
+    @for (int p = start; p <= end; p++)
+    {
+        if (p == Model.Page)
+        {
+            <span class="flex items-center justify-center w-8 h-8 rounded-lg font-semibold text-canvas"
+                  style="background:#1F1B17;">@p</span>
+        }
+        else
+        {
+            <a href="@PageUrl(p)"
+               class="flex items-center justify-center w-8 h-8 rounded-lg text-bark-d hover:bg-sand transition-colors">@p</a>
+        }
+    }
+
+    @* Last page + ellipsis *@
+    @if (end < Model.TotalPages)
+    {
+        @if (end < Model.TotalPages - 1) { <span class="px-1 text-bark-l">…</span> }
+        <a href="@PageUrl(Model.TotalPages)"
+           class="flex items-center justify-center w-8 h-8 rounded-lg text-bark-d hover:bg-sand transition-colors">@Model.TotalPages</a>
+    }
+
+    @* Next *@
+    @if (Model.HasNext)
+    {
+        <a href="@PageUrl(Model.Page + 1)"
+           class="flex items-center justify-center w-8 h-8 rounded-lg text-bark-d hover:bg-sand transition-colors">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+        </a>
+    }
+    else
+    {
+        <span class="flex items-center justify-center w-8 h-8 rounded-lg text-bark-l opacity-30 cursor-not-allowed">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+        </span>
+    }
+
+</div>

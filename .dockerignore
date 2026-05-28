@@ -1,0 +1,13 @@
+**/.git
+**/.gitignore
+**/bin
+**/obj
+**/tests
+**/*.user
+**/*.suo
+**/.vs
+**/node_modules
+**/npm-debug.log
+appsettings.Development.json
+appsettings.*.local.json
+Properties/launchSettings.json

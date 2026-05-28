@@ -62,13 +62,18 @@ using (var scope = app.Services.CreateScope())
 }
 
 // ─── Pipeline ──────────────────────────────────────────────────────────
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
+    // In dev, redirect HTTP → HTTPS locally
+    app.UseHttpsRedirection();
+}
+else
+{
+    // In production (Render.com), SSL is terminated at the load balancer.
+    // UseHttpsRedirection would cause infinite redirect loops — skip it.
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
-app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSerilogRequestLogging();
 

@@ -35,6 +35,8 @@ public class ProductServiceStub : IProductService
 {
     public Task<IReadOnlyList<ProductListItemViewModel>> ListAsync(CancellationToken ct = default)
         => Task.FromResult<IReadOnlyList<ProductListItemViewModel>>(Array.Empty<ProductListItemViewModel>());
+    public Task<PagedResult<ProductListItemViewModel>> ListPagedAsync(int page, int pageSize, CancellationToken ct = default)
+        => Task.FromResult(new PagedResult<ProductListItemViewModel> { Page = page, PageSize = pageSize });
     public Task<ProductDetailViewModel?> GetByIdAsync(int id, CancellationToken ct = default)
         => Task.FromResult<ProductDetailViewModel?>(null);
     public Task<int> CreateAsync(string name, int categoryId, CancellationToken ct = default)
@@ -61,8 +63,8 @@ public class CategoryServiceStub : ICategoryService
 
 public class PurchaseOrderServiceStub : IPurchaseOrderService
 {
-    public Task<IReadOnlyList<OrderListItemViewModel>> ListAsync(string? statusFilter, CancellationToken ct = default)
-        => Task.FromResult<IReadOnlyList<OrderListItemViewModel>>(Array.Empty<OrderListItemViewModel>());
+    public Task<PagedResult<OrderListItemViewModel>> ListAsync(string? statusFilter, int page, int pageSize, CancellationToken ct = default)
+        => Task.FromResult(new PagedResult<OrderListItemViewModel> { Page = page, PageSize = pageSize });
     public Task<OrderDetailViewModel?> GetByIdAsync(int id, CancellationToken ct = default)
         => Task.FromResult<OrderDetailViewModel?>(null);
     public Task<int> CreateAsync(CreateOrderRequest request, CancellationToken ct = default)
@@ -87,8 +89,8 @@ public class PurchaseOrderServiceStub : IPurchaseOrderService
 
 public class AreaZServiceStub : IAreaZService
 {
-    public Task<IReadOnlyList<AreaZItemViewModel>> ListActiveAsync(CancellationToken ct = default)
-        => Task.FromResult<IReadOnlyList<AreaZItemViewModel>>(Array.Empty<AreaZItemViewModel>());
+    public Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(int page, int pageSize, CancellationToken ct = default)
+        => Task.FromResult(new PagedResult<AreaZItemViewModel> { Page = page, PageSize = pageSize });
     public Task<AreaZItemViewModel?> GetByIdAsync(int id, CancellationToken ct = default)
         => Task.FromResult<AreaZItemViewModel?>(null);
     public Task<int> AddAsync(int productId, int bundleCount, int unitsPerBundle, string? notes, CancellationToken ct = default)

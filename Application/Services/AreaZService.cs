@@ -24,12 +24,19 @@ public class AreaZService : IAreaZService
         _logger = logger;
     }
 
-    public async Task<IReadOnlyList<AreaZItemViewModel>> ListActiveAsync(CancellationToken ct = default)
+    public async Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(
+        int page, int pageSize, CancellationToken ct = default)
     {
-        return await _db.AreaZInventory
+        var query = _db.AreaZInventory
             .AsNoTracking()
             .Where(az => !az.IsDispatched)
-            .OrderByDescending(az => az.CreatedAt)
+            .OrderByDescending(az => az.CreatedAt);
+
+        var total = await query.CountAsync(ct);
+
+        var items = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .Select(az => new AreaZItemViewModel
             {
                 Id = az.Id,
@@ -43,6 +50,14 @@ public class AreaZService : IAreaZService
                 EnteredBy = az.CreatedBy
             })
             .ToListAsync(ct);
+
+        return new PagedResult<AreaZItemViewModel>
+        {
+            Items = items,
+            TotalCount = total,
+            Page = page,
+            PageSize = pageSize
+        };
     }
 
     public async Task<AreaZItemViewModel?> GetByIdAsync(int id, CancellationToken ct = default)

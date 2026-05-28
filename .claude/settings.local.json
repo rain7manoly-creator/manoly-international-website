@@ -10,7 +10,10 @@
       "Bash(Select-Object -ExpandProperty FullName)",
       "Bash(Sort-Object)",
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Lenovo\\\\Downloads\" | Where-Object { $_.Extension -match '\\\\.\\(png|jpg|jpeg|webp|svg\\)' } | Select-Object Name, LastWriteTime | Sort-Object LastWriteTime -Descending | Select-Object -First 10)",
-      "Bash(dotnet test *)"
+      "Bash(dotnet test *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\manoly-international-website\\\\manoly-international-website\" -Force)",
+      "Bash(Select-Object Name, Mode)",
+      "Bash(dotnet build *)"
     ]
   }
 }

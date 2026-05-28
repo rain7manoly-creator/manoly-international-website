@@ -1,6 +1,11 @@
-@model IReadOnlyList<ManolyWarehouse.Application.ViewModels.OrderListItemViewModel>
+@model ManolyWarehouse.Application.ViewModels.PagedResult<ManolyWarehouse.Application.ViewModels.OrderListItemViewModel>
 @using ManolyWarehouse.Domain.Entities
-@{ ViewData["Title"] = "الطلبيات"; }
+@{
+    ViewData["Title"] = "الطلبيات";
+    var current = Context.Request.Query["status"].ToString();
+    var baseUrl = string.IsNullOrEmpty(current) ? "/orders" : $"/orders?status={current}";
+    var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, baseUrl);
+}
 
 <div class="px-4 pt-5 pb-3 flex items-end justify-between">
     <div>
@@ -24,7 +29,6 @@
             ("Received", "مستلم"),
             ("Cancelled", "ملغي")
         };
-        var current = Context.Request.Query["status"].ToString();
     }
     @foreach (var (val, label) in statuses)
     {
@@ -37,7 +41,7 @@
     }
 </div>
 
-@if (!Model.Any())
+@if (!Model.Items.Any())
 {
     <div class="empty-state">
         <div class="empty-state-icon">📋</div>
@@ -47,8 +51,8 @@
 }
 else
 {
-    <div class="mx-4 card mb-6">
-        @foreach (var o in Model)
+    <div class="mx-4 card mb-4">
+        @foreach (var o in Model.Items)
         {
             var badgeClass = o.Status switch {
                 OrderStatus.Ordered     => "badge-ordered",
@@ -86,4 +90,6 @@ else
             </a>
         }
     </div>
+
+    <partial name="_Pagination" model="pager" />
 }

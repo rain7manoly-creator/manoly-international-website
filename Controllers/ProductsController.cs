@@ -17,10 +17,13 @@ public class ProductsController : Controller
         _categoryService = categoryService;
     }
 
+    private const int PageSize = 20;
+
     [HttpGet("")]
-    public async Task<IActionResult> Index(CancellationToken ct)
+    public async Task<IActionResult> Index(int page = 1, CancellationToken ct = default)
     {
-        var model = await _productService.ListAsync(ct);
+        page = Math.Max(1, page);
+        var model = await _productService.ListPagedAsync(page, PageSize, ct);
         return View(model);
     }
 

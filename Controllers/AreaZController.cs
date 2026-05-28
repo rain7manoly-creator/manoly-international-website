@@ -16,10 +16,13 @@ public class AreaZController : Controller
         _areaZService = areaZService;
     }
 
+    private const int PageSize = 20;
+
     [HttpGet("")]
-    public async Task<IActionResult> Index(CancellationToken ct)
+    public async Task<IActionResult> Index(int page = 1, CancellationToken ct = default)
     {
-        var model = await _areaZService.ListActiveAsync(ct);
+        page = Math.Max(1, page);
+        var model = await _areaZService.ListActiveAsync(page, PageSize, ct);
         return View(model);
     }
 
