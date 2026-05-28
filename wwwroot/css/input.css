@@ -413,7 +413,11 @@
 ───────────────────────────────────────────── */
 @layer utilities {
   .pb-safe  { padding-bottom: calc(env(safe-area-inset-bottom) + 1rem); }
-  .pb-nav   { padding-bottom: calc(64px + env(safe-area-inset-bottom) + 16px); }
+  .pb-nav   {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom) + 16px);
+    /* Stretch content to fill the viewport so the fixed nav always looks anchored */
+    min-height: calc(100dvh - 52px);
+  }
   .font-display { font-family: 'Fraunces', Georgia, serif; }
   .font-arabic  { font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif; }
   .font-ui      { font-family: 'Inter', system-ui, sans-serif; }

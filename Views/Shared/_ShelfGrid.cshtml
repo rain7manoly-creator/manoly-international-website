@@ -1,82 +1,200 @@
 @model IReadOnlyList<ManolyWarehouse.Application.ViewModels.ShelfGridCell>
 @{
-    var columns = Model
-        .GroupBy(c => c.Number)
-        .OrderBy(g => g.Key)
-        .ToList();
-    int colCount = columns.Count; // 69
+    // Group by letter (row) then sort each row by number (column)
+    var rows    = Model.GroupBy(c => c.Label).OrderBy(g => g.Key).ToList();
+    var numbers = Model.Select(c => c.Number).Distinct().OrderBy(n => n).ToList();
 }
 
-<div class="shelf-grid-wrapper" style="--cols: @colCount;">
-    <div class="shelf-grid-inner">
-        @foreach (var col in columns)
+<div class="sgrid-scroll" role="region" aria-label="خريطة الأرفف">
+
+    @* ── Sticky column-number header ── *@
+    <div class="sgrid-header">
+        <div class="sgrid-corner"></div>
+        @foreach (var num in numbers)
         {
-            var slots = col.OrderBy(c => c.Label).ToList();
-            <div class="shelf-grid-col">
-                @foreach (var cell in slots)
-                {
-                    string cellClass = cell.IsEmpty ? "grid-cell-empty"
-                        : cell.IsFull ? "grid-cell-full"
-                        : cell.OccupiedSlots switch {
-                            1 => "grid-cell-partial-1",
-                            2 => "grid-cell-partial-2",
-                            3 => "grid-cell-partial-3",
-                            4 => "grid-cell-partial-4",
-                            _ => "grid-cell-partial-5",
-                        };
-                    <a href="/shelves/@cell.Code"
-                       class="shelf-grid-cell @cellClass"
-                       title="@cell.Code — @cell.OccupiedSlots/6"
-                       aria-label="رف @cell.Code — @cell.OccupiedSlots من 6 مشغول">
-                    </a>
-                }
-            </div>
+            <div class="sgrid-col-num">@num</div>
         }
     </div>
+
+    @* ── One row per shelf letter ── *@
+    @foreach (var row in rows)
+    {
+        <div class="sgrid-row">
+            <div class="sgrid-row-label">@row.Key</div>
+            @foreach (var cell in row.OrderBy(c => c.Number))
+            {
+                string bg = cell.IsEmpty  ? "sgrid-empty"
+                    : cell.IsFull         ? "sgrid-full"
+                    : cell.OccupiedSlots switch {
+                        1 => "sgrid-p1",
+                        2 => "sgrid-p2",
+                        3 => "sgrid-p3",
+                        4 => "sgrid-p4",
+                        _ => "sgrid-p5"
+                    };
+                <a href="/shelves/@cell.Code"
+                   class="sgrid-cell @bg"
+                   title="@cell.Code · @cell.OccupiedSlots/6"
+                   aria-label="رف @cell.Code">
+                    <span class="sgrid-num">@cell.Number</span>
+                    @if (cell.OccupiedSlots > 0)
+                    {
+                        <span class="sgrid-dots">
+                            @for (int s = 1; s <= 6; s++)
+                            {
+                                <span class="sgrid-dot @(s <= cell.OccupiedSlots ? "sgrid-dot-on" : "sgrid-dot-off")"></span>
+                            }
+                        </span>
+                    }
+                </a>
+            }
+        </div>
+    }
+
 </div>
 
 <style>
-.shelf-grid-wrapper {
-    width: 100%;
-    padding: 0 8px;
-    box-sizing: border-box;
+/* ── Scroll container ── */
+.sgrid-scroll {
     overflow-x: auto;
+    overflow-y: visible;
     -webkit-overflow-scrolling: touch;
-    /* hide scrollbar but keep scroll functionality */
     scrollbar-width: none;
-    -ms-overflow-style: none;
+    padding: 0 12px 8px;
+    position: relative;
 }
-.shelf-grid-wrapper::-webkit-scrollbar { display: none; }
+.sgrid-scroll::-webkit-scrollbar { display: none; }
 
-.shelf-grid-inner {
-    display: grid;
-    /* Each column is at least 14px — grid scrolls horizontally if 69×14px > screen width */
-    grid-template-columns: repeat(var(--cols), minmax(14px, 1fr));
-    gap: 2px;
-    min-width: calc(var(--cols) * 16px); /* ensures cells never collapse below 16px */
+/* ── Each "row" is a flex row ── */
+.sgrid-header,
+.sgrid-row {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-bottom: 3px;
 }
 
-.shelf-grid-col {
+/* ── Sticky letter label on the right (RTL) ── */
+.sgrid-corner,
+.sgrid-row-label {
+    width: 22px;
+    min-width: 22px;
+    text-align: center;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #847569;
+    flex-shrink: 0;
+    /* Sticky on RTL = stick to the right edge */
+    position: sticky;
+    right: 0;
+    background: #FAF8F4;
+    z-index: 2;
+    padding: 0 2px;
+}
+
+/* ── Column number header ── */
+.sgrid-col-num {
+    width: 38px;
+    min-width: 38px;
+    text-align: center;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: #A8A095;
+    padding-bottom: 2px;
+    flex-shrink: 0;
+}
+
+/* ── Individual shelf cell ── */
+.sgrid-cell {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    min-width: 38px;
+    height: 42px;
+    border-radius: 6px;
+    text-decoration: none;
+    gap: 3px;
+    flex-shrink: 0;
+    transition: transform 120ms, opacity 120ms;
+    position: relative;
+}
+.sgrid-cell:active {
+    transform: scale(0.92);
+    opacity: 0.8;
 }
 
-.shelf-grid-cell {
-    display: block;
-    aspect-ratio: 1 / 1;
-    width: 100%;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: opacity 100ms;
-    min-width: 0;
+/* ── Shelf number inside cell ── */
+.sgrid-num {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
 }
 
+/* ── Mini 6-dot occupancy strip ── */
+.sgrid-dots {
+    display: flex;
+    gap: 1.5px;
+}
+.sgrid-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+}
+
+/* ── Status colours ── */
+/* Empty: warm sand */
+.sgrid-empty              { background: #EDE7DA; }
+.sgrid-empty .sgrid-num   { color: #A8A095; }
+.sgrid-empty .sgrid-dot-on  { background: #A8A095; }
+.sgrid-empty .sgrid-dot-off { background: #D4CBBD; }
+
+/* Partial-1 (1/6) */
+.sgrid-p1              { background: #FFF3DE; }
+.sgrid-p1 .sgrid-num   { color: #B86B3A; }
+.sgrid-p1 .sgrid-dot-on  { background: #C8893B; }
+.sgrid-p1 .sgrid-dot-off { background: #EDE1C8; }
+
+/* Partial-2 (2/6) */
+.sgrid-p2              { background: #FDECD0; }
+.sgrid-p2 .sgrid-num   { color: #B86B3A; }
+.sgrid-p2 .sgrid-dot-on  { background: #C8893B; }
+.sgrid-p2 .sgrid-dot-off { background: #EDE1C8; }
+
+/* Partial-3 (3/6) */
+.sgrid-p3              { background: #F9E0BE; }
+.sgrid-p3 .sgrid-num   { color: #996030; }
+.sgrid-p3 .sgrid-dot-on  { background: #B86B3A; }
+.sgrid-p3 .sgrid-dot-off { background: #E8D5B0; }
+
+/* Partial-4 (4/6) */
+.sgrid-p4              { background: #F3D4A8; }
+.sgrid-p4 .sgrid-num   { color: #774A22; }
+.sgrid-p4 .sgrid-dot-on  { background: #996030; }
+.sgrid-p4 .sgrid-dot-off { background: #E0C898; }
+
+/* Partial-5 (5/6) */
+.sgrid-p5              { background: #E8C48A; }
+.sgrid-p5 .sgrid-num   { color: #5C3A14; }
+.sgrid-p5 .sgrid-dot-on  { background: #774A22; }
+.sgrid-p5 .sgrid-dot-off { background: #D4B070; }
+
+/* Full: moss green */
+.sgrid-full              { background: #2D5226; }
+.sgrid-full .sgrid-num   { color: #C8E6C0; }
+.sgrid-full .sgrid-dot-on  { background: #A8D498; }
+.sgrid-full .sgrid-dot-off { background: #3D6E34; }
+
+/* ── Hover on desktop ── */
 @@media (hover: hover) {
-    .shelf-grid-cell:hover {
-        transform: scale(1.4);
-        z-index: 1;
-        position: relative;
+    .sgrid-cell:hover {
+        transform: scale(1.12);
+        z-index: 3;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
 }
 </style>
