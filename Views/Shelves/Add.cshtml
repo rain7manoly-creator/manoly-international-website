@@ -1,0 +1,61 @@
+@model ManolyWarehouse.Application.ViewModels.AddShelfInventoryRequest
+@{ ViewData["Title"] = $"إضافة إلى رف {Model.ShelfCode}"; }
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/shelves/@Model.ShelfCode" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        رف @Model.ShelfCode
+    </a>
+    <p class="eyebrow mb-1">ADD INVENTORY · إضافة مخزون</p>
+    <h1 class="font-display text-2xl text-ink">إضافة إلى رف @Model.ShelfCode</h1>
+</div>
+
+<div class="mx-4 card p-5 mb-6">
+    <form asp-action="Add" asp-route-code="@Model.ShelfCode" method="post" class="flex flex-col gap-5">
+        @Html.AntiForgeryToken()
+        <input asp-for="ShelfCode" type="hidden"/>
+
+        <div class="form-group">
+            <label asp-for="ProductId" class="form-label">المنتج · PRODUCT</label>
+            <select asp-for="ProductId" class="form-select" required>
+                <option value="">— اختر منتجًا —</option>
+                @if (ViewBag.Products != null)
+                {
+                    foreach (var p in (IEnumerable<ManolyWarehouse.Application.ViewModels.ProductListItemViewModel>)ViewBag.Products)
+                    {
+                        <option value="@p.Id">@p.Name — @p.CategoryName</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="ProductId" class="form-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Position" class="form-label">الموضع · POSITION (1–6)</label>
+            <select asp-for="Position" class="form-select" required>
+                @for (int i = 1; i <= 6; i++) { <option value="@i">@i</option> }
+            </select>
+            <span asp-validation-for="Position" class="form-error"></span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+            <div class="form-group">
+                <label asp-for="BundleCount" class="form-label">عدد الربطات</label>
+                <input asp-for="BundleCount" type="number" min="1" class="form-input" placeholder="0"/>
+                <span asp-validation-for="BundleCount" class="form-error"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitsPerBundle" class="form-label">وحدات/ربطة</label>
+                <input asp-for="UnitsPerBundle" type="number" min="1" class="form-input" placeholder="0"/>
+                <span asp-validation-for="UnitsPerBundle" class="form-error"></span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-primary w-full">إضافة إلى الرف</button>
+        <a href="/shelves/@Model.ShelfCode" class="btn-secondary w-full text-center">إلغاء</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

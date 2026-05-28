@@ -1,0 +1,49 @@
+@{ ViewData["Title"] = "إضافة إلى منطقة Z"; }
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/area-z" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        AREA Z · منطقة Z
+    </a>
+    <p class="eyebrow mb-1">ADD · إضافة</p>
+    <h1 class="font-display text-2xl text-ink">إضافة إلى منطقة Z</h1>
+</div>
+
+<div class="mx-4 card p-5 mb-6">
+    <form asp-action="Add" method="post" class="flex flex-col gap-5">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label class="form-label">المنتج · PRODUCT</label>
+            <select name="productId" class="form-select" required>
+                <option value="">— اختر منتجًا —</option>
+                @if (ViewBag.Products != null)
+                {
+                    foreach (var p in (IEnumerable<ManolyWarehouse.Application.ViewModels.ProductListItemViewModel>)ViewBag.Products)
+                    {
+                        <option value="@p.Id">@p.Name — @p.CategoryName</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+            <div class="form-group">
+                <label class="form-label">عدد الربطات</label>
+                <input type="number" name="bundleCount" min="1" class="form-input" placeholder="0" required/>
+            </div>
+            <div class="form-group">
+                <label class="form-label">وحدات/ربطة</label>
+                <input type="number" name="unitsPerBundle" min="1" class="form-input" placeholder="0" required/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">ملاحظات (اختيارية)</label>
+            <textarea name="notes" class="form-input" rows="2" placeholder="ملاحظات..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary w-full">إضافة إلى منطقة Z</button>
+        <a href="/area-z" class="btn-secondary w-full text-center">إلغاء</a>
+    </form>
+</div>

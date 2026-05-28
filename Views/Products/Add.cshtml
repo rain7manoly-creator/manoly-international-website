@@ -1,0 +1,38 @@
+@{ ViewData["Title"] = "إضافة منتج"; }
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/products" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        المنتجات
+    </a>
+    <p class="eyebrow mb-1">ADD PRODUCT · إضافة منتج</p>
+    <h1 class="font-display text-2xl text-ink">منتج جديد</h1>
+</div>
+
+<div class="mx-4 card p-5 mb-6">
+    <form asp-action="Add" method="post" class="flex flex-col gap-5">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label class="form-label">اسم المنتج · PRODUCT NAME</label>
+            <input type="text" name="name" class="form-input" placeholder="اسم المنتج" required minlength="2" maxlength="200"/>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">التصنيف · CATEGORY</label>
+            <select name="categoryId" class="form-select" required>
+                <option value="">— اختر تصنيفًا —</option>
+                @if (ViewBag.Categories != null)
+                {
+                    foreach (var c in (IEnumerable<ManolyWarehouse.Application.ViewModels.CategoryViewModel>)ViewBag.Categories)
+                    {
+                        <option value="@c.Id">@c.Name</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn-primary w-full">إضافة المنتج</button>
+        <a href="/products" class="btn-secondary w-full text-center">إلغاء</a>
+    </form>
+</div>

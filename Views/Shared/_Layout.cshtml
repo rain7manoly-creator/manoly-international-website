@@ -1,0 +1,150 @@
+@using System.Security.Claims
+@{
+    var title = ViewData["Title"] as string ?? "مخزن منولي";
+    var currentPath = Context.Request.Path.Value ?? "/";
+    var isAdmin = User.IsInRole("Admin");
+    var userName = User.FindFirstValue(ClaimTypes.Name) ?? "";
+
+    bool IsActive(string path) =>
+        currentPath == path || (path != "/" && currentPath.StartsWith(path));
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#FAF8F4" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>@title — مخزن منولي</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="bg-paper text-ink font-sans">
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <header class="top-bar" role="banner">
+        <img src="~/images/logo.jpg" alt="Manoly International"
+             style="height:40px; width:auto; max-width:140px; mix-blend-mode:multiply; object-fit:contain;" />
+        <a href="/search" class="btn-icon text-bark hover:text-ink" title="بحث" aria-label="بحث">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
+            </svg>
+        </a>
+    </header>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert-error mx-4 mt-3 animate-fade-in" role="alert">@TempData["ErrorMessage"]</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert-success mx-4 mt-3 animate-fade-in" role="status">@TempData["SuccessMessage"]</div>
+}
+
+<main class="@(User.Identity?.IsAuthenticated == true ? "pb-nav" : "")">
+    @RenderBody()
+</main>
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <nav class="bottom-nav" role="navigation" aria-label="القائمة الرئيسية">
+        <a href="/" class="bottom-nav-item @(currentPath == "/" ? "active" : "")" aria-label="خريطة المستودع">
+            <svg class="w-6 h-6 nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </svg>
+            <span class="nav-label">المستودع</span>
+        </a>
+        <a href="/orders" class="bottom-nav-item @(IsActive("/orders") ? "active" : "")" aria-label="الطلبيات">
+            <svg class="w-6 h-6 nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+            <span class="nav-label">الطلبيات</span>
+        </a>
+        <a href="/area-z" class="bottom-nav-item @(IsActive("/area-z") ? "active" : "")" aria-label="منطقة Z">
+            <svg class="w-6 h-6 nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+            </svg>
+            <span class="nav-label">منطقة Z</span>
+        </a>
+        <button class="bottom-nav-item" onclick="toggleMoreMenu()" aria-label="المزيد" id="more-btn" aria-expanded="false">
+            <svg class="w-6 h-6 nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <span class="nav-label">المزيد</span>
+        </button>
+    </nav>
+
+    <div id="more-menu" class="hidden overlay-backdrop" onclick="closeMoreMenu(event)" role="dialog" aria-modal="true">
+        <div class="overlay-sheet" role="menu">
+            <div class="flex items-center justify-between mb-5">
+                <div>
+                    <p class="eyebrow mb-0.5">القائمة · MENU</p>
+                    <p class="text-xs text-bark-l">@userName</p>
+                </div>
+                <button onclick="closeMoreMenu()" class="btn-ghost btn-sm" aria-label="إغلاق">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-col">
+                @if (isAdmin)
+                {
+                    <a href="/products" class="list-item" role="menuitem">
+                        <span class="w-8 h-8 rounded bg-linen flex items-center justify-center text-bark shrink-0">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        </span>
+                        <span class="text-sm font-semibold text-ink">المنتجات</span>
+                    </a>
+                    <a href="/categories" class="list-item" role="menuitem">
+                        <span class="w-8 h-8 rounded bg-linen flex items-center justify-center text-bark shrink-0">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+                        </span>
+                        <span class="text-sm font-semibold text-ink">التصنيفات</span>
+                    </a>
+                    <a href="/users" class="list-item" role="menuitem">
+                        <span class="w-8 h-8 rounded bg-linen flex items-center justify-center text-bark shrink-0">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        </span>
+                        <span class="text-sm font-semibold text-ink">المستخدمون</span>
+                    </a>
+                    <a href="/export/inventory" class="list-item" role="menuitem">
+                        <span class="w-8 h-8 rounded bg-linen flex items-center justify-center text-bark shrink-0">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                        </span>
+                        <span class="text-sm font-semibold text-ink">تصدير PDF</span>
+                    </a>
+                    <div class="h-px bg-sand my-2"></div>
+                }
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="list-item w-full text-rust" role="menuitem">
+                        <span class="w-8 h-8 rounded bg-linen flex items-center justify-center shrink-0">
+                            <svg class="w-4 h-4 text-rust" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        </span>
+                        <span class="text-sm font-semibold">تسجيل الخروج</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+<div id="confirm-modal" class="hidden overlay-backdrop" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+    <div class="overlay-sheet">
+        <p class="eyebrow mb-1">تأكيد الإجراء · CONFIRM</p>
+        <h2 class="font-display text-2xl text-ink mb-2" id="confirm-title">تأكيد</h2>
+        <p class="text-sm text-bark-d mb-6" id="confirm-message"></p>
+        <div class="flex gap-3">
+            <button onclick="confirmAction()" id="confirm-ok-btn" class="btn-danger flex-1">تأكيد</button>
+            <button onclick="closeConfirm()" class="btn-secondary flex-1">لا</button>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/app.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

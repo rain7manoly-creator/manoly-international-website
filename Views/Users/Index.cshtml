@@ -1,0 +1,120 @@
+@model IReadOnlyList<ManolyWarehouse.Application.ViewModels.UserViewModel>
+@{ ViewData["Title"] = "المستخدمون"; }
+
+<div class="px-4 pt-5 pb-3 flex items-end justify-between">
+    <div>
+        <p class="eyebrow mb-1">USERS · المستخدمون</p>
+        <h1 class="font-display text-3xl text-ink">المستخدمون</h1>
+    </div>
+    <a href="/users/create" class="btn-primary btn-sm">+ إضافة</a>
+</div>
+
+<div class="mx-4 card mb-6">
+    @foreach (var u in Model)
+    {
+        <div class="px-4 py-3">
+            <div class="flex items-start justify-between">
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="font-display text-base text-ink">@u.FullName</span>
+                        @if (u.IsAdmin) { <span class="badge-admin">مسؤول</span> }
+                        else { <span class="badge-worker">موظف</span> }
+                        @if (!u.IsActive) { <span class="badge" style="background:rgba(168,68,58,0.15);color:#A8443A;">معطل</span> }
+                    </div>
+                    <div class="text-xs text-bark-l mt-0.5 font-ui">@@u.UserName</div>
+                </div>
+                <button onclick="toggleUserMenu('@u.Id')" class="btn-ghost btn-sm">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="user-menu-@u.Id" class="hidden mt-3 flex flex-wrap gap-2 animate-fade-in">
+                <button onclick="showEditUser('@u.Id', '@u.FullName', @u.IsAdmin.ToString().ToLower())"
+                        class="btn-secondary btn-sm">تعديل</button>
+                <button onclick="showResetPwd('@u.Id')"
+                        class="btn-secondary btn-sm">كلمة المرور</button>
+                <form id="toggle-active-@u.Id" asp-action="ToggleActive" asp-route-id="@u.Id" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="button"
+                            onclick="confirmSubmit('@(u.IsActive ? "تعطيل" : "تفعيل") الحساب', 'هل أنت متأكد؟', 'toggle-active-@u.Id', '@(u.IsActive ? "تعطيل" : "تفعيل")')"
+                            class="@(u.IsActive ? "btn-danger" : "btn-secondary") btn-sm">
+                        @(u.IsActive ? "تعطيل" : "تفعيل")
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="h-px bg-sand mx-4"></div>
+    }
+</div>
+
+@* Edit user sheet *@
+<div id="edit-user-sheet" class="hidden overlay-backdrop" onclick="if(event.target===this)closeEditUser()">
+    <div class="overlay-sheet">
+        <p class="eyebrow mb-1">EDIT USER · تعديل</p>
+        <h2 class="font-display text-2xl text-ink mb-4">تعديل المستخدم</h2>
+        <form id="edit-user-form" method="post" class="flex flex-col gap-5">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label class="form-label">الاسم الكامل</label>
+                <input type="text" name="fullName" id="edit-fullname" class="form-input" required/>
+            </div>
+            <label class="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" name="isAdmin" id="edit-is-admin" value="true" class="w-5 h-5 rounded cursor-pointer accent-ink"/>
+                <span class="text-sm font-semibold text-ink">مسؤول (Admin)</span>
+            </label>
+            <div class="flex gap-3">
+                <button type="submit" class="btn-primary flex-1">حفظ</button>
+                <button type="button" onclick="closeEditUser()" class="btn-secondary flex-1">إلغاء</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* Reset password sheet *@
+<div id="reset-pwd-sheet" class="hidden overlay-backdrop" onclick="if(event.target===this)closeResetPwd()">
+    <div class="overlay-sheet">
+        <p class="eyebrow mb-1">RESET PASSWORD · كلمة المرور</p>
+        <h2 class="font-display text-2xl text-ink mb-4">إعادة تعيين كلمة المرور</h2>
+        <form id="reset-pwd-form" method="post" class="flex flex-col gap-5">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label class="form-label">كلمة المرور الجديدة</label>
+                <input type="password" name="newPassword" class="form-input"
+                       minlength="8" required placeholder="8 أحرف على الأقل"/>
+            </div>
+            <div class="flex gap-3">
+                <button type="submit" class="btn-primary flex-1">تعيين</button>
+                <button type="button" onclick="closeResetPwd()" class="btn-secondary flex-1">إلغاء</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+function toggleUserMenu(id) {
+    document.getElementById('user-menu-' + id).classList.toggle('hidden');
+}
+function showEditUser(id, name, isAdmin) {
+    document.getElementById('edit-fullname').value = name;
+    document.getElementById('edit-is-admin').checked = isAdmin;
+    document.getElementById('edit-user-form').action = '/users/' + id + '/edit';
+    document.getElementById('edit-user-sheet').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+function closeEditUser() {
+    document.getElementById('edit-user-sheet').classList.add('hidden');
+    document.body.style.overflow = '';
+}
+function showResetPwd(id) {
+    document.getElementById('reset-pwd-form').action = '/users/' + id + '/reset-password';
+    document.getElementById('reset-pwd-sheet').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+function closeResetPwd() {
+    document.getElementById('reset-pwd-sheet').classList.add('hidden');
+    document.body.style.overflow = '';
+}
+</script>
+}

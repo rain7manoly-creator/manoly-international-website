@@ -1,0 +1,82 @@
+@model IReadOnlyList<ManolyWarehouse.Application.ViewModels.ShelfGridCell>
+@{
+    var columns = Model
+        .GroupBy(c => c.Number)
+        .OrderBy(g => g.Key)
+        .ToList();
+    int colCount = columns.Count; // 69
+    int rowCount = columns.FirstOrDefault()?.Count() ?? 3; // 3 rows (A/B/C or D/E/F)
+}
+
+@*
+    Grid fills full screen width.
+    69 columns × 2px gap = 68 gaps.
+    Cell size = (100vw - 32px padding - 68 * 2px) / 69 columns
+    We set this via CSS custom properties so it's exact.
+*@
+<div class="shelf-grid-wrapper px-4"
+     style="--cols: @colCount; --rows: @rowCount;">
+    <div class="shelf-grid-inner">
+        @foreach (var col in columns)
+        {
+            var slots = col.OrderBy(c => c.Label).ToList();
+            <div class="shelf-grid-col">
+                @foreach (var cell in slots)
+                {
+                    var cellClass = cell.IsEmpty ? "grid-cell-empty"
+                        : cell.IsFull ? "grid-cell-full"
+                        : cell.OccupiedSlots switch {
+                            1 => "grid-cell-partial-1",
+                            2 => "grid-cell-partial-2",
+                            3 => "grid-cell-partial-3",
+                            4 => "grid-cell-partial-4",
+                            _ => "grid-cell-partial-5",
+                        };
+                    <a href="/shelves/@cell.Code"
+                       class="shelf-grid-cell @cellClass"
+                       title="@cell.Code — @cell.OccupiedSlots/6"
+                       aria-label="رف @cell.Code — @cell.OccupiedSlots من 6 مشغول">
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+.shelf-grid-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.shelf-grid-inner {
+    /* 69 equal columns, 2px gap between each */
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    gap: 2px;
+    width: 100%;
+}
+
+.shelf-grid-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.shelf-grid-cell {
+    display: block;
+    /* height = width of each cell (square) — use aspect-ratio */
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: transform 100ms, opacity 100ms;
+    min-width: 0;
+}
+
+.shelf-grid-cell:hover {
+    transform: scale(1.3);
+    z-index: 1;
+    position: relative;
+}
+</style>

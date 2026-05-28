@@ -1,0 +1,50 @@
+@model ManolyWarehouse.Application.ViewModels.CreateUserRequest
+@{ ViewData["Title"] = "إضافة مستخدم"; }
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/users" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        المستخدمون
+    </a>
+    <p class="eyebrow mb-1">CREATE USER · إضافة مستخدم</p>
+    <h1 class="font-display text-2xl text-ink">مستخدم جديد</h1>
+</div>
+
+<div class="mx-4 card p-5 mb-6">
+    <form asp-action="Create" method="post" class="flex flex-col gap-5">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label asp-for="UserName" class="form-label">اسم المستخدم · USERNAME</label>
+            <input asp-for="UserName" class="form-input" autocomplete="username"
+                   autocapitalize="none" autocorrect="off" spellcheck="false"
+                   placeholder="أحرف لاتينية وأرقام فقط"/>
+            <span asp-validation-for="UserName" class="form-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="FullName" class="form-label">الاسم الكامل · FULL NAME</label>
+            <input asp-for="FullName" class="form-input" placeholder="الاسم بالكامل"/>
+            <span asp-validation-for="FullName" class="form-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Password" class="form-label">كلمة المرور · PASSWORD</label>
+            <input asp-for="Password" type="password" class="form-input"
+                   autocomplete="new-password" placeholder="8 أحرف على الأقل"/>
+            <span asp-validation-for="Password" class="form-error"></span>
+        </div>
+
+        <label class="flex items-center gap-3 cursor-pointer">
+            <input asp-for="IsAdmin" type="checkbox" value="true" class="w-5 h-5 rounded cursor-pointer accent-ink"/>
+            <span class="text-sm font-semibold text-ink">منح صلاحيات المسؤول</span>
+        </label>
+
+        <button type="submit" class="btn-primary w-full">إنشاء المستخدم</button>
+        <a href="/users" class="btn-secondary w-full text-center">إلغاء</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

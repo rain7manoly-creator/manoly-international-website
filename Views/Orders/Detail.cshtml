@@ -1,0 +1,239 @@
+@model ManolyWarehouse.Application.ViewModels.OrderDetailViewModel
+@using ManolyWarehouse.Domain.Entities
+@{ ViewData["Title"] = $"طلبية — {Model.Supplier}"; }
+
+@{
+    var badgeClass = Model.Status switch {
+        OrderStatus.Ordered     => "badge-ordered",
+        OrderStatus.Shipped     => "badge-shipped",
+        OrderStatus.ArrivingSoon=> "badge-arriving",
+        OrderStatus.Received    => "badge-received",
+        OrderStatus.Cancelled   => "badge-cancelled",
+        _ => "badge"
+    };
+    var statusLabel = Model.Status switch {
+        OrderStatus.Ordered     => "مطلوب",
+        OrderStatus.Shipped     => "مشحون",
+        OrderStatus.ArrivingSoon=> "وصول قريب",
+        OrderStatus.Received    => "مستلم",
+        OrderStatus.Cancelled   => "ملغي",
+        _ => ""
+    };
+}
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/orders" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        ORDERS · الطلبيات
+    </a>
+    <div class="flex items-start justify-between gap-3">
+        <h1 class="font-display text-2xl text-ink leading-tight flex-1">@Model.Supplier</h1>
+        <span class="@badgeClass shrink-0 mt-1">@statusLabel</span>
+    </div>
+</div>
+
+<div class="px-4 space-y-4 mb-6">
+
+    @* Meta card *@
+    <div class="card">
+        <div class="list-item justify-between">
+            <span class="text-xs text-bark-l font-ui uppercase tracking-wide">تاريخ الطلب</span>
+            <span class="font-display text-base text-ink">@Model.OrderedAt.ToString("yyyy/MM/dd")</span>
+        </div>
+        @if (Model.ExpectedArrivalDate.HasValue)
+        {
+            <div class="list-item justify-between">
+                <span class="text-xs text-bark-l font-ui uppercase tracking-wide">الوصول المتوقع</span>
+                <span class="font-display text-base text-ink">@Model.ExpectedArrivalDate.Value.ToString("yyyy/MM/dd")</span>
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.Notes))
+        {
+            <div class="px-4 py-3">
+                <span class="text-xs text-bark-l font-ui uppercase tracking-wide block mb-1">ملاحظات</span>
+                <p class="text-sm text-ink">@Model.Notes</p>
+            </div>
+        }
+        <div class="list-item justify-between">
+            <span class="text-xs text-bark-l font-ui uppercase tracking-wide">أنشأها</span>
+            <span class="text-sm text-ink">@Model.CreatedBy</span>
+        </div>
+    </div>
+
+    @* Status actions *@
+    @if (!Model.IsTerminal)
+    {
+        <div class="flex gap-2">
+            @if (Model.CanAdvance)
+            {
+                var nextLabel = Model.NextStatus switch {
+                    OrderStatus.Shipped     => "تقدم: مشحونة",
+                    OrderStatus.ArrivingSoon=> "تقدم: وصول قريب",
+                    OrderStatus.Received    => "تأكيد الاستلام",
+                    _ => "تقدم"
+                };
+                <form asp-action="Advance" asp-route-id="@Model.Id" method="post" class="flex-1">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn-primary w-full">@nextLabel</button>
+                </form>
+            }
+            @if (User.IsInRole("Admin"))
+            {
+                <form id="cancel-form-@Model.Id" asp-action="Cancel" asp-route-id="@Model.Id" method="post" class="@(Model.CanAdvance ? "" : "flex-1")">
+                    @Html.AntiForgeryToken()
+                    <button type="button"
+                            onclick="confirmSubmit('إلغاء الطلبية', 'هل أنت متأكد من إلغاء هذه الطلبية؟', 'cancel-form-@Model.Id', 'تأكيد الإلغاء')"
+                            class="btn-secondary w-full">إلغاء الطلبية</button>
+                </form>
+            }
+        </div>
+    }
+
+    @* Items *@
+    <div>
+        <div class="flex items-center justify-between mb-2">
+            <p class="eyebrow">ITEMS · الأصناف (@Model.Items.Count)</p>
+            @if (!Model.IsTerminal && User.IsInRole("Admin"))
+            {
+                <button onclick="toggleAddItem()" class="btn-ghost btn-sm">+ إضافة صنف</button>
+            }
+        </div>
+
+        @if (!Model.IsTerminal && User.IsInRole("Admin"))
+        {
+            <div id="add-item-form" class="hidden card p-4 mb-3 animate-fade-in">
+                <form asp-action="AddItem" asp-route-id="@Model.Id" method="post" class="flex flex-col gap-4">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="form-label">المنتج · PRODUCT</label>
+                        <select name="productId" class="form-select" required>
+                            <option value="">— اختر —</option>
+                            @if (ViewBag.Products != null)
+                            {
+                                foreach (var p in (IEnumerable<ManolyWarehouse.Application.ViewModels.ProductListItemViewModel>)ViewBag.Products)
+                                {
+                                    <option value="@p.Id">@p.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="form-group">
+                            <label class="form-label">ربطات</label>
+                            <input type="number" name="bundleCount" min="1" class="form-input" placeholder="0" required/>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">وحدات/ربطة</label>
+                            <input type="number" name="unitsPerBundle" min="1" class="form-input" placeholder="0" required/>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button type="submit" class="btn-primary flex-1">إضافة</button>
+                        <button type="button" onclick="toggleAddItem()" class="btn-secondary flex-1">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        }
+
+        @if (!Model.Items.Any())
+        {
+            <div class="card">
+                <div class="empty-state py-8">
+                    <p class="empty-state-title text-base">لا توجد أصناف</p>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card">
+                @foreach (var item in Model.Items)
+                {
+                    <div class="px-4 py-3">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="flex-1 min-w-0">
+                                <p class="font-display text-base text-ink">@item.ProductName</p>
+                                <p class="text-xs text-bark-l mt-0.5 font-ui">
+                                    @item.BundleCount ربطة × @item.UnitsPerBundle = <span class="text-bark-d font-semibold">@item.TotalQuantity وحدة</span>
+                                </p>
+                            </div>
+                            @if (item.IsShelved)
+                            {
+                                <span class="badge-received shrink-0">✓ @(item.GoesToAreaZ ? "منطقة Z" : item.ReceivedShelfCode)</span>
+                            }
+                            else if (Model.Status == OrderStatus.Received)
+                            {
+                                <span class="badge-arriving shrink-0">بانتظار</span>
+                            }
+                        </div>
+                        @if (!item.IsShelved && Model.Status == OrderStatus.Received)
+                        {
+                            <div class="mt-3 flex gap-2">
+                                <button onclick="showReceiveShelf(@item.Id)" class="btn-primary btn-sm flex-1">→ رف</button>
+                                <form asp-action="ReceiveToAreaZ" asp-route-id="@Model.Id" asp-route-itemId="@item.Id" method="post" class="flex-1">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn-secondary btn-sm w-full">→ منطقة Z</button>
+                                </form>
+                            </div>
+                        }
+                        @if (!item.IsShelved && !Model.IsTerminal && User.IsInRole("Admin") && Model.Status != OrderStatus.Received)
+                        {
+                            <form id="del-item-@item.Id" asp-action="RemoveItem" asp-route-id="@Model.Id" asp-route-itemId="@item.Id" method="post" class="mt-2">
+                                @Html.AntiForgeryToken()
+                                <button type="button"
+                                        onclick="confirmDelete('حذف الصنف', 'حذف هذا الصنف من الطلبية؟', 'del-item-@item.Id')"
+                                        class="text-xs text-rust hover:underline">حذف الصنف</button>
+                            </form>
+                        }
+                    </div>
+                    <div class="h-px bg-sand mx-4 last:hidden"></div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@* Receive to shelf overlay *@
+<div id="receive-shelf-overlay" class="hidden overlay-backdrop">
+    <div class="overlay-sheet">
+        <p class="eyebrow mb-1">RECEIVE · استلام</p>
+        <h2 class="font-display text-2xl text-ink mb-4">تعيين الرف</h2>
+        <form id="receive-shelf-form" method="post" class="flex flex-col gap-4">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label class="form-label">رمز الرف (مثال: A12)</label>
+                <input type="text" id="receive-shelf-code" name="shelfCode" class="form-input"
+                       placeholder="A1 ... F69" pattern="[A-Fa-f][1-9][0-9]?" required/>
+            </div>
+            <div class="form-group">
+                <label class="form-label">الموضع (1–6)</label>
+                <select name="position" class="form-select" required>
+                    @for (int i = 1; i <= 6; i++) { <option value="@i">@i</option> }
+                </select>
+            </div>
+            <div class="flex gap-3">
+                <button type="submit" class="btn-primary flex-1">تأكيد</button>
+                <button type="button" onclick="closeReceiveShelf()" class="btn-secondary flex-1">إلغاء</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+function toggleAddItem() { document.getElementById('add-item-form').classList.toggle('hidden'); }
+
+function showReceiveShelf(itemId) {
+    const form = document.getElementById('receive-shelf-form');
+    form.action = '/orders/@Model.Id/items/' + itemId + '/receive-shelf';
+    document.getElementById('receive-shelf-overlay').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+function closeReceiveShelf() {
+    document.getElementById('receive-shelf-overlay').classList.add('hidden');
+    document.body.style.overflow = '';
+}
+document.getElementById('receive-shelf-overlay')?.addEventListener('click', function(e) {
+    if (e.target === this) closeReceiveShelf();
+});
+</script>
+}

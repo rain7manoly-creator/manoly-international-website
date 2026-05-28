@@ -1,0 +1,45 @@
+@model IReadOnlyList<ManolyWarehouse.Application.ViewModels.AreaZItemViewModel>
+@{ ViewData["Title"] = "منطقة Z"; }
+
+<div class="px-4 pt-5 pb-3 flex items-end justify-between">
+    <div>
+        <p class="eyebrow mb-1">STAGING AREA · منطقة Z</p>
+        <h1 class="font-display text-3xl text-ink">منطقة Z</h1>
+    </div>
+    <a href="/area-z/add" class="btn-primary btn-sm">+ إضافة</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="empty-state">
+        <div class="empty-state-icon">📦</div>
+        <h2 class="empty-state-title">منطقة Z فارغة</h2>
+        <p class="empty-state-desc">لا توجد منتجات في منطقة الانتظار</p>
+    </div>
+}
+else
+{
+    <div class="mx-4 card mb-6">
+        @foreach (var item in Model)
+        {
+            <a href="/area-z/@item.Id" class="list-item items-start flex-col gap-1">
+                <div class="flex items-center justify-between w-full">
+                    <span class="font-display text-base text-ink">@item.ProductName</span>
+                    <div class="text-left">
+                        <span class="font-display text-lg text-ink">@item.BundleCount</span>
+                        <span class="text-xs text-bark-l"> ربطة</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-xs text-bark-l">@item.CategoryName</span>
+                    <span class="text-xs text-bark-l">@item.TotalQuantity وحدة</span>
+                    <span class="text-xs text-bark-l font-ui">@item.EnteredAt.ToString("yyyy/MM/dd")</span>
+                </div>
+                @if (!string.IsNullOrEmpty(item.Notes))
+                {
+                    <p class="text-xs text-bark-l italic">@item.Notes</p>
+                }
+            </a>
+        }
+    </div>
+}

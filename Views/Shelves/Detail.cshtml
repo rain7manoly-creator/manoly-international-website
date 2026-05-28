@@ -1,0 +1,109 @@
+@model ManolyWarehouse.Application.ViewModels.ShelfDetailViewModel
+@{ ViewData["Title"] = $"رف {Model.Code}"; }
+
+@* Back + header *@
+<div class="px-4 pt-5 pb-2">
+    <a href="/" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        WAREHOUSE · المستودع
+    </a>
+    @* Split shelf code: letter · number *@
+    @{
+        var letter = Model.Label;
+        var number = Model.Number;
+    }
+    <div class="flex items-end justify-between mt-1">
+        <h1 class="font-display text-4xl text-ink leading-none">
+            @letter
+            <span class="text-bark-l mx-1">·</span>
+            @number
+        </h1>
+        <a href="/shelves/@Model.Code/add" class="btn-primary btn-sm">+ إضافة</a>
+    </div>
+</div>
+
+@* Capacity bar (3px) *@
+<div class="px-4 mb-5">
+    <div class="flex items-center justify-between mb-1">
+        <span class="text-xs text-bark-l">@Model.OccupiedCount / @Model.Capacity مواضع</span>
+        @{
+            var pct = (double)Model.OccupiedCount / Model.Capacity * 100;
+            var barColor = pct >= 100 ? "bg-rust" : pct > 0 ? "bg-ember" : "bg-sand";
+        }
+        <span class="font-display text-sm text-ink">@pct.ToString("F0")%</span>
+    </div>
+    <div class="capacity-bar">
+        <div class="capacity-fill @barColor" style="width: @pct.ToString("F0")%"></div>
+    </div>
+</div>
+
+@* 6 slot rows editorial layout *@
+<div class="mx-4 card mb-6">
+    @foreach (var slot in Model.Slots)
+    {
+        if (slot.IsEmpty)
+        {
+            <a href="/shelves/@Model.Code/add?position=@slot.Position"
+               class="slot-row"
+               aria-label="الموضع @slot.Position — فارغ، اضغط للإضافة">
+                <span class="slot-pos text-sand">@slot.Position</span>
+                <div class="flex-1 flex items-center gap-2">
+                    <span class="slot-empty-hint">— فارغ، اضغط للإضافة</span>
+                </div>
+                <svg class="w-4 h-4 text-ember shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+                </svg>
+            </a>
+        }
+        else
+        {
+            <div class="slot-row" onclick="toggleSlotMenu(@slot.InventoryId)" style="cursor:pointer;">
+                <span class="slot-pos">@slot.Position</span>
+                <div class="flex-1 min-w-0">
+                    <div class="slot-product-name truncate">@slot.ProductName</div>
+                    <div class="slot-category">@slot.CategoryName</div>
+                </div>
+                <div class="text-left shrink-0">
+                    <div class="slot-bundle-count">@slot.BundleCount</div>
+                    <div class="slot-unit-breakdown">ربطة × @slot.UnitsPerBundle</div>
+                </div>
+                <button class="text-bark-l hover:text-bark p-1 shrink-0"
+                        onclick="toggleSlotMenu(@slot.InventoryId); event.stopPropagation()"
+                        aria-label="خيارات الموضع @slot.Position">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/>
+                    </svg>
+                </button>
+            </div>
+            @* Inline action row (hidden) *@
+            <div id="slot-menu-@slot.InventoryId" class="hidden px-4 py-3 flex gap-2 animate-fade-in" style="background:#F1ECE3; border-top:0.5px solid #E4DCCC; border-bottom:0.5px solid #E4DCCC;">
+                <a href="/shelves/@Model.Code/inventory/@slot.InventoryId/edit" class="btn-secondary btn-sm flex-1">تعديل الكمية</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <form id="delete-inv-@slot.InventoryId"
+                          asp-action="Delete"
+                          asp-route-code="@Model.Code"
+                          asp-route-id="@slot.InventoryId"
+                          method="post" class="flex-1">
+                        @Html.AntiForgeryToken()
+                        <button type="button"
+                                onclick="confirmDelete('حذف المخزون', 'هل أنت متأكد من حذف هذا المنتج من الرف؟', 'delete-inv-@slot.InventoryId')"
+                                class="btn-danger btn-sm w-full">
+                            حذف
+                        </button>
+                    </form>
+                }
+                <button onclick="toggleSlotMenu(@slot.InventoryId)" class="btn-ghost btn-sm">إغلاق</button>
+            </div>
+        }
+    }
+</div>
+
+@section Scripts {
+<script>
+function toggleSlotMenu(id) {
+    const menu = document.getElementById('slot-menu-' + id);
+    if (menu) menu.classList.toggle('hidden');
+}
+</script>
+}

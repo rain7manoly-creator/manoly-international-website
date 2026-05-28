@@ -1,0 +1,16 @@
+@{ ViewData["Title"] = "إضافة تصنيف"; }
+<div class="px-4 pt-5 pb-3">
+    <a href="/categories" class="eyebrow text-bark-l hover:text-bark mb-2 inline-block">← التصنيفات</a>
+    <h1 class="font-display text-2xl text-ink">إضافة تصنيف</h1>
+</div>
+<div class="mx-4 card p-5 mb-6">
+    <form asp-action="Add" method="post" class="flex flex-col gap-4">
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label class="form-label">اسم التصنيف</label>
+            <input type="text" name="name" class="form-input" required/>
+        </div>
+        <button type="submit" class="btn-primary w-full">إضافة</button>
+        <a href="/categories" class="btn-secondary w-full text-center">إلغاء</a>
+    </form>
+</div>

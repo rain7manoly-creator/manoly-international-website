@@ -1,0 +1,94 @@
+@model IReadOnlyList<ManolyWarehouse.Application.ViewModels.CategoryViewModel>
+@{ ViewData["Title"] = "التصنيفات"; }
+
+<div class="px-4 pt-5 pb-3">
+    <p class="eyebrow mb-1">CATEGORIES · التصنيفات</p>
+    <h1 class="font-display text-3xl text-ink">التصنيفات</h1>
+</div>
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="px-4 mb-5">
+        <div class="card p-4">
+            <p class="eyebrow mb-3">ADD · إضافة تصنيف</p>
+            <form asp-action="Add" method="post" class="flex gap-2">
+                @Html.AntiForgeryToken()
+                <input type="text" name="name" class="form-input flex-1"
+                       placeholder="اسم التصنيف" required minlength="2" maxlength="100"/>
+                <button type="submit" class="btn-primary btn-sm shrink-0">+ إضافة</button>
+            </form>
+        </div>
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="empty-state">
+        <div class="empty-state-icon">🏷</div>
+        <h2 class="empty-state-title">لا توجد تصنيفات</h2>
+    </div>
+}
+else
+{
+    <div class="mx-4 card mb-6">
+        @foreach (var c in Model)
+        {
+            <div class="list-item" id="cat-@c.Id">
+                <div class="flex-1 min-w-0">
+                    <div class="font-display text-base text-ink" id="cat-name-@c.Id">@c.Name</div>
+                    <div class="text-xs text-bark-l font-ui">@c.ProductCount منتج</div>
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="flex gap-2 shrink-0">
+                        <button onclick="editCategory(@c.Id, '@c.Name')"
+                                class="btn-ghost btn-sm">تعديل</button>
+                        @if (c.ProductCount == 0)
+                        {
+                            <form id="del-cat-@c.Id" asp-action="Delete" asp-route-id="@c.Id" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="button"
+                                        onclick="confirmDelete('حذف التصنيف', 'حذف التصنيف: @c.Name؟', 'del-cat-@c.Id')"
+                                        class="btn-danger btn-sm">حذف</button>
+                            </form>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}
+
+@* Edit category sheet *@
+<div id="edit-cat-form" class="hidden overlay-backdrop" onclick="if(event.target===this)closeEditCat()">
+    <div class="overlay-sheet">
+        <p class="eyebrow mb-1">EDIT · تعديل</p>
+        <h2 class="font-display text-2xl text-ink mb-4">تعديل التصنيف</h2>
+        <form id="edit-cat-form-inner" method="post" class="flex flex-col gap-4">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label class="form-label">الاسم الجديد</label>
+                <input type="text" name="name" id="edit-cat-name" class="form-input" required/>
+            </div>
+            <div class="flex gap-3">
+                <button type="submit" class="btn-primary flex-1">حفظ</button>
+                <button type="button" onclick="closeEditCat()" class="btn-secondary flex-1">إلغاء</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+function editCategory(id, name) {
+    document.getElementById('edit-cat-name').value = name;
+    document.getElementById('edit-cat-form-inner').action = '/categories/' + id + '/edit';
+    document.getElementById('edit-cat-form').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+function closeEditCat() {
+    document.getElementById('edit-cat-form').classList.add('hidden');
+    document.body.style.overflow = '';
+}
+</script>
+}

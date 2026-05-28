@@ -1,0 +1,101 @@
+@model ManolyWarehouse.Application.ViewModels.SearchResultsViewModel
+@{ ViewData["Title"] = "البحث"; }
+
+<div class="px-4 pt-5 pb-3">
+    <p class="eyebrow mb-1">SEARCH · بحث</p>
+    <h1 class="font-display text-2xl text-ink mb-3">بحث</h1>
+
+    <form asp-action="Index" method="get" class="flex gap-2">
+        <div class="relative flex-1">
+            <input type="search" name="q" value="@Model.Query"
+                   class="form-input ps-10 w-full"
+                   placeholder="ابحث عن منتج، رف، أو مورد..."
+                   autocomplete="off"
+                   autofocus="@(string.IsNullOrEmpty(Model.Query))"/>
+            <svg class="absolute top-1/2 -translate-y-1/2 end-3 w-4 h-4 text-bark-l" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
+            </svg>
+        </div>
+        <button type="submit" class="btn-primary btn-sm shrink-0">بحث</button>
+    </form>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Query))
+{
+    @if (!Model.HasResults)
+    {
+        <div class="empty-state pt-8">
+            <div class="empty-state-icon" style="font-size:36px;">🔍</div>
+            <h2 class="empty-state-title">لا توجد نتائج</h2>
+            <p class="empty-state-desc">لم يتم العثور على نتائج لـ «@Model.Query»</p>
+        </div>
+    }
+    else
+    {
+        <div class="px-4 space-y-5 mb-6">
+
+            @* Products *@
+            @if (Model.Products.Any())
+            {
+                <div>
+                    <p class="eyebrow mb-2">PRODUCTS · المنتجات (@Model.Products.Count)</p>
+                    <div class="card">
+                        @foreach (var p in Model.Products)
+                        {
+                            <a href="/products/@p.ProductId" class="list-item justify-between">
+                                <div class="min-w-0 flex-1">
+                                    <div class="font-display text-base text-ink truncate">@p.Name</div>
+                                    <div class="text-xs text-bark-l font-ui">@p.CategoryName</div>
+                                </div>
+                                <div class="flex items-center gap-1.5 shrink-0">
+                                    @if (p.IsInAreaZ) { <span class="badge-arriving">Z</span> }
+                                    @if (p.LocationCount > 0) { <span class="badge-ordered">@p.LocationCount رف</span> }
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+
+            @* Shelves *@
+            @if (Model.Shelves.Any())
+            {
+                <div>
+                    <p class="eyebrow mb-2">SHELVES · الأرفف (@Model.Shelves.Count)</p>
+                    <div class="card">
+                        @foreach (var s in Model.Shelves)
+                        {
+                            <a href="/shelves/@s.Code" class="list-item justify-between">
+                                <span class="font-display text-xl text-ink">@s.Code</span>
+                                <div class="text-left">
+                                    <div class="text-xs text-bark-l font-ui">@s.OccupiedSlots / 6 مشغول</div>
+                                    @{ var pct = (s.OccupiedSlots / 6.0 * 100); }
+                                    <div class="w-16 h-1 bg-sand rounded-full mt-1 overflow-hidden">
+                                        <div class="h-full bg-ember rounded-full" style="width:@pct.ToString("F0")%"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+
+            @* Suppliers *@
+            @if (Model.Suppliers.Any())
+            {
+                <div>
+                    <p class="eyebrow mb-2">SUPPLIERS · الموردون (@Model.Suppliers.Count)</p>
+                    <div class="card">
+                        @foreach (var sup in Model.Suppliers)
+                        {
+                            <a href="/orders?supplier=@Uri.EscapeDataString(sup.Supplier)" class="list-item justify-between">
+                                <span class="font-display text-base text-ink">@sup.Supplier</span>
+                                <span class="text-sm text-bark-l font-ui">@sup.OrderCount طلبية</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}

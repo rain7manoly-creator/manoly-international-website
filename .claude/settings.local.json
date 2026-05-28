@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\manoly-international-website\\\\manoly-international-website\" -Recurse -Force)",
+      "Bash(Select-Object FullName)",
+      "Bash(ConvertTo-Csv -NoTypeInformation)",
+      "Bash(Out-String)",
+      "PowerShell(cd \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\manoly-international-website\\\\manoly-international-website\"; $env:ASPNETCORE_ENVIRONMENT=\"Development\"; dotnet ef database update 2>&1)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\manoly-international-website\\\\manoly-international-website\" -Recurse -File)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Sort-Object)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Lenovo\\\\Downloads\" | Where-Object { $_.Extension -match '\\\\.\\(png|jpg|jpeg|webp|svg\\)' } | Select-Object Name, LastWriteTime | Sort-Object LastWriteTime -Descending | Select-Object -First 10)",
+      "Bash(dotnet test *)"
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+@model ManolyWarehouse.Application.ViewModels.CreateOrderRequest
+@{ ViewData["Title"] = "طلبية جديدة"; }
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/orders" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        الطلبيات
+    </a>
+    <p class="eyebrow mb-1">CREATE ORDER · طلبية جديدة</p>
+    <h1 class="font-display text-2xl text-ink">طلبية جديدة</h1>
+</div>
+
+<div class="mx-4 card p-5 mb-6">
+    <form asp-action="Create" method="post" class="flex flex-col gap-5">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label asp-for="Supplier" class="form-label">المورد · SUPPLIER</label>
+            <input asp-for="Supplier" class="form-input" placeholder="اسم المورد" autocomplete="organization"/>
+            <span asp-validation-for="Supplier" class="form-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ExpectedArrivalDate" class="form-label">تاريخ الوصول المتوقع (اختياري)</label>
+            <input asp-for="ExpectedArrivalDate" type="date" class="form-input" style="direction:rtl; text-align:right;"/>
+            <span asp-validation-for="ExpectedArrivalDate" class="form-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Notes" class="form-label">ملاحظات (اختيارية)</label>
+            <textarea asp-for="Notes" class="form-input" rows="3" placeholder="ملاحظات إضافية..."></textarea>
+            <span asp-validation-for="Notes" class="form-error"></span>
+        </div>
+
+        <button type="submit" class="btn-primary w-full">إنشاء الطلبية</button>
+        <a href="/orders" class="btn-secondary w-full text-center">إلغاء</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

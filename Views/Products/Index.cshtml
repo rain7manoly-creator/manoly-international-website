@@ -1,0 +1,68 @@
+@model IReadOnlyList<ManolyWarehouse.Application.ViewModels.ProductListItemViewModel>
+@{ ViewData["Title"] = "المنتجات"; }
+
+<div class="px-4 pt-5 pb-3 flex items-end justify-between">
+    <div>
+        <p class="eyebrow mb-1">PRODUCTS · المنتجات</p>
+        <h1 class="font-display text-3xl text-ink">المنتجات</h1>
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <a href="/products/add" class="btn-primary btn-sm">+ إضافة</a>
+    }
+</div>
+
+<div class="px-4 mb-4">
+    <input type="search" id="product-search" placeholder="بحث في المنتجات..."
+           class="form-input" oninput="filterProducts(this.value)"/>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="empty-state">
+        <div class="empty-state-icon">📦</div>
+        <h2 class="empty-state-title">لا توجد منتجات</h2>
+        @if (User.IsInRole("Admin"))
+        {
+            <a href="/products/add" class="btn-primary btn-sm">إضافة أول منتج</a>
+        }
+    </div>
+}
+else
+{
+    <div id="product-list" class="mx-4 card mb-6">
+        @foreach (var p in Model)
+        {
+            <a href="/products/@p.Id" class="list-item" data-name="@p.Name.ToLower()">
+                <div class="flex-1 min-w-0">
+                    <div class="font-display text-base text-ink truncate">@p.Name</div>
+                    <div class="text-xs text-bark-l mt-0.5 font-ui">@p.CategoryName</div>
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                    @if (p.IsInAreaZ)
+                    {
+                        <span class="badge-arriving">Z</span>
+                    }
+                    @if (p.ShelfLocationCount > 0)
+                    {
+                        <span class="badge-ordered">@p.ShelfLocationCount رف</span>
+                    }
+                    <svg class="w-4 h-4 text-bark-l" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </div>
+            </a>
+        }
+    </div>
+}
+
+@section Scripts {
+<script>
+function filterProducts(q) {
+    q = q.toLowerCase();
+    document.querySelectorAll('#product-list a[data-name]').forEach(el => {
+        el.style.display = el.dataset.name.includes(q) ? '' : 'none';
+    });
+}
+</script>
+}
