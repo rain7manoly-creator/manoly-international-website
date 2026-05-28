@@ -1,13 +1,11 @@
 @model ManolyWarehouse.Application.ViewModels.WarehouseGridViewModel
 @{ ViewData["Title"] = "خريطة المستودع"; }
 
-@* Page header *@
 <div class="px-4 pt-5 pb-3">
     <p class="eyebrow mb-1">OVERVIEW · نظرة عامة</p>
     <h1 class="font-display text-3xl text-ink">خريطة المستودع</h1>
 </div>
 
-@* Stat bar: 3 columns with hairline rules *@
 <div class="flex mx-4 mb-5 card">
     <div class="stat-block">
         <span class="stat-num">@Model.TotalLocations</span>
@@ -23,31 +21,28 @@
     </div>
 </div>
 
-@* Legend *@
-<div class="flex items-center gap-4 px-4 mb-4">
+<div class="flex items-center gap-4 px-4 mb-3">
     <div class="flex items-center gap-1.5">
-        <div class="w-3.5 h-3.5 rounded-sm grid-cell-empty"></div>
+        <div class="w-3 h-3 rounded-sm grid-cell-empty"></div>
         <span class="text-xs text-bark-l">فارغ</span>
     </div>
     <div class="flex items-center gap-1.5">
-        <div class="w-3.5 h-3.5 rounded-sm grid-cell-partial-3"></div>
+        <div class="w-3 h-3 rounded-sm grid-cell-partial-3"></div>
         <span class="text-xs text-bark-l">جزئي</span>
     </div>
     <div class="flex items-center gap-1.5">
-        <div class="w-3.5 h-3.5 rounded-sm grid-cell-full"></div>
+        <div class="w-3 h-3 rounded-sm grid-cell-full"></div>
         <span class="text-xs text-bark-l">ممتلئ</span>
     </div>
 </div>
 
-@* Side ABC *@
-<div class="mb-1">
+<div class="mb-2">
     <p class="eyebrow px-4 mb-2">الجانب أ · A B C</p>
     @await Html.PartialAsync("_ShelfGrid", Model.SideAbc)
 </div>
 
 <div class="divider"></div>
 
-@* Side DEF *@
 <div class="mb-6">
     <p class="eyebrow px-4 mb-2">الجانب ب · D E F</p>
     @await Html.PartialAsync("_ShelfGrid", Model.SideDef)
