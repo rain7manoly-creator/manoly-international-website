@@ -1,20 +1,10 @@
 @model IReadOnlyList<ManolyWarehouse.Application.ViewModels.ShelfGridCell>
 @{
     // Group by letter (row) then sort each row by number (column)
-    var rows    = Model.GroupBy(c => c.Label).OrderBy(g => g.Key).ToList();
-    var numbers = Model.Select(c => c.Number).Distinct().OrderBy(n => n).ToList();
+    var rows = Model.GroupBy(c => c.Label).OrderBy(g => g.Key).ToList();
 }
 
 <div class="sgrid-scroll" role="region" aria-label="خريطة الأرفف">
-
-    @* ── Sticky column-number header ── *@
-    <div class="sgrid-header">
-        <div class="sgrid-corner"></div>
-        @foreach (var num in numbers)
-        {
-            <div class="sgrid-col-num">@num</div>
-        }
-    </div>
 
     @* ── One row per shelf letter ── *@
     @foreach (var row in rows)
@@ -65,8 +55,7 @@
 }
 .sgrid-scroll::-webkit-scrollbar { display: none; }
 
-/* ── Each "row" is a flex row ── */
-.sgrid-header,
+/* ── Each row is a flex row ── */
 .sgrid-row {
     display: flex;
     align-items: center;
@@ -75,7 +64,6 @@
 }
 
 /* ── Sticky letter label on the right (RTL) ── */
-.sgrid-corner,
 .sgrid-row-label {
     width: 22px;
     min-width: 22px;
@@ -85,25 +73,11 @@
     font-weight: 700;
     color: #847569;
     flex-shrink: 0;
-    /* Sticky on RTL = stick to the right edge */
     position: sticky;
     right: 0;
     background: #FAF8F4;
     z-index: 2;
     padding: 0 2px;
-}
-
-/* ── Column number header ── */
-.sgrid-col-num {
-    width: 38px;
-    min-width: 38px;
-    text-align: center;
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 9px;
-    font-weight: 600;
-    color: #A8A095;
-    padding-bottom: 2px;
-    flex-shrink: 0;
 }
 
 /* ── Individual shelf cell ── */
