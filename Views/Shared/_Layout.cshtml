@@ -102,7 +102,7 @@
                         <span class="w-8 h-8 rounded bg-linen flex items-center justify-center text-bark shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
                         </span>
-                        <span class="text-sm font-semibold text-ink">التصنيفات</span>
+                        <span class="text-sm font-semibold text-ink">الأصناف</span>
                     </a>
                     <a href="/users" class="list-item" role="menuitem">
                         <span class="w-8 h-8 rounded bg-linen flex items-center justify-center text-bark shrink-0">
@@ -118,13 +118,15 @@
                     </a>
                     <div class="h-px bg-sand my-2"></div>
                 }
-                <form asp-controller="Account" asp-action="Logout" method="post">
+                <form asp-controller="Account" asp-action="Logout" method="post" class="w-full">
                     @Html.AntiForgeryToken()
-                    <button type="submit" class="list-item w-full text-rust" role="menuitem">
+                    <button type="submit" role="menuitem"
+                            style="all:unset; display:flex; align-items:center; gap:0.75rem; width:100%; padding:0.75rem 1rem; cursor:pointer; transition:background 150ms; border-radius:0; box-sizing:border-box;"
+                            onmouseover="this.style.background='#F1ECE3'" onmouseout="this.style.background=''">
                         <span class="w-8 h-8 rounded bg-linen flex items-center justify-center shrink-0">
                             <svg class="w-4 h-4 text-rust" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                         </span>
-                        <span class="text-sm font-semibold">تسجيل الخروج</span>
+                        <span class="text-sm font-semibold text-rust">تسجيل الخروج</span>
                     </button>
                 </form>
             </div>
