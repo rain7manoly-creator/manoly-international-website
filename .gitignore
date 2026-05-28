@@ -17,7 +17,8 @@ Thumbs.db
 
 ## Secrets
 appsettings.*.local.json
-appsettings.json
+appsettings.Development.json
+
 *.pfx
 
 ## Logs
