@@ -17,13 +17,10 @@ Thumbs.db
 
 ## Secrets
 appsettings.*.local.json
+appsettings.json
 *.pfx
 
 ## Logs
 *.log
 logs/
 
-RBAC.md
-PLANNING.md
-INFORMATION_ARCHITECTURE.md
-BUSINESS_RULES.md
