@@ -47,13 +47,27 @@
 /* ── Scroll container ── */
 .sgrid-scroll {
     overflow-x: auto;
-    overflow-y: visible;
     -webkit-overflow-scrolling: touch;
+    /* Hide scrollbar on touch/mobile — users swipe naturally */
     scrollbar-width: none;
-    padding: 0 12px 8px;
+    -ms-overflow-style: none;
+    padding: 0 12px 12px;
     position: relative;
 }
 .sgrid-scroll::-webkit-scrollbar { display: none; }
+
+/* Show a thin scrollbar on desktop (pointer/hover devices) */
+@@media (hover: hover) {
+    .sgrid-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: #C8BFB2 #F1ECE3;
+        padding-bottom: 16px;
+    }
+    .sgrid-scroll::-webkit-scrollbar         { display: block; height: 5px; }
+    .sgrid-scroll::-webkit-scrollbar-track   { background: #F1ECE3; border-radius: 3px; }
+    .sgrid-scroll::-webkit-scrollbar-thumb   { background: #C8BFB2; border-radius: 3px; }
+    .sgrid-scroll::-webkit-scrollbar-thumb:hover { background: #A8A095; }
+}
 
 /* ── Each row is a flex row ── */
 .sgrid-row {
