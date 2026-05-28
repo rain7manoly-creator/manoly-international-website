@@ -1,0 +1,29 @@
+## Build
+bin/
+obj/
+publish/
+out/
+
+## IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Secrets
+appsettings.*.local.json
+*.pfx
+
+## Logs
+*.log
+logs/
+
+RBAC.md
+PLANNING.md
+INFORMATION_ARCHITECTURE.md
+BUSINESS_RULES.md
