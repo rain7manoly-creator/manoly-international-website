@@ -54,7 +54,6 @@ module.exports = {
       },
 
       spacing: {
-        'nav': '64px',
         '18':  '4.5rem',
       },
 
