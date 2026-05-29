@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -19,6 +20,13 @@ builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddIdentityServices();
 builder.Services.AddAuthorizationPolicies();
 builder.Services.AddApplicationServices();
+
+// ─── Data Protection ───────────────────────────────────────────────────
+// Persist encryption keys to PostgreSQL so antiforgery tokens and auth
+// cookies remain valid across container restarts / Render.com re-deploys.
+builder.Services.AddDataProtection()
+    .PersistKeysToDbContext<AppDbContext>()
+    .SetApplicationName("manoly-warehouse");
 
 builder.Services.AddControllersWithViews(options =>
 {
