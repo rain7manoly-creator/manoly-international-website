@@ -58,6 +58,8 @@ public class ShelvesController : Controller
         if (shelf == null) return NotFound();
         var slot = shelf.Slots.FirstOrDefault(s => s.InventoryId == id);
         if (slot == null) return NotFound();
+        ViewBag.ShelfCode = code;
+        ViewBag.InventoryId = id;
         ViewBag.BundleCount = slot.BundleCount;
         ViewBag.UnitsPerBundle = slot.UnitsPerBundle;
         return View("Edit");
