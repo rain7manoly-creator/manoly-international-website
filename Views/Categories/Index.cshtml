@@ -21,6 +21,14 @@
     </div>
 }
 
+@if (Model.Any())
+{
+    <div class="px-4 mb-4">
+        <input type="search" id="cat-search" placeholder="بحث في الأصناف..."
+               class="form-input" oninput="filterCategories(this.value)"/>
+    </div>
+}
+
 @if (!Model.Any())
 {
     <div class="empty-state">
@@ -30,7 +38,7 @@
 }
 else
 {
-    <div class="mx-4 card mb-6">
+    <div id="cat-list" class="mx-4 card mb-6">
         @foreach (var c in Model)
         {
             <div class="list-item" id="cat-@c.Id">
@@ -80,6 +88,13 @@ else
 
 @section Scripts {
 <script>
+function filterCategories(q) {
+    q = q.toLowerCase();
+    document.querySelectorAll('#cat-list .list-item').forEach(el => {
+        const name = el.querySelector('[id^="cat-name-"]')?.textContent.toLowerCase() ?? '';
+        el.style.display = name.includes(q) ? '' : 'none';
+    });
+}
 function editCategory(id, name) {
     document.getElementById('edit-cat-name').value = name;
     document.getElementById('edit-cat-form-inner').action = '/categories/' + id + '/edit';
