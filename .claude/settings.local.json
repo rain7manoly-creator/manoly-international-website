@@ -13,7 +13,18 @@
       "Bash(dotnet test *)",
       "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\manoly-international-website\\\\manoly-international-website\" -Force)",
       "Bash(Select-Object Name, Mode)",
-      "Bash(dotnet build *)"
+      "Bash(dotnet build *)",
+      "Bash(Get-ChildItem -Path . -Recurse -Filter \"api-url.helper.ts\" -ErrorAction SilentlyContinue)",
+      "Bash(cd \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\manoly-international-website\" && ls -la)",
+      "Bash(git log *)",
+      "Bash(grep -E \"\\\\.\\(ts|tsx|component\\\\.html\\)$\")",
+      "Bash(find \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\" -type d -name \"RamiLine*\" 2>/dev/null)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\manoly-international-website\\\\manoly-international-website\" -Recurse -Name -Include \"package.json\")",
+      "Bash(Select-Object -First 50)",
+      "Bash(grep -r \"price\\\\|cost\\\\|amount\\\\|\\\\$\\\\|format\" \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\manoly-international-website\\\\manoly-international-website\\\\Views\" --include=\"*.cshtml\" -i)",
+      "Bash(ls \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\\" 2>/dev/null || dir \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\\")",
+      "Bash(Select-String '\"@angular')",
+      "Bash(Get-ChildItem -Recurse -Depth 2)"
     ]
   }
 }

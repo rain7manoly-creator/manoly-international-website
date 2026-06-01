@@ -106,13 +106,20 @@
                     @Html.AntiForgeryToken()
                     <div class="form-group">
                         <label class="form-label">المنتج · PRODUCT</label>
-                        <select name="productId" class="form-select" required>
+                        <input type="text"
+                               id="product-search-input"
+                               class="form-input mb-2"
+                               placeholder="ابحث عن منتج..."
+                               autocomplete="off"
+                               oninput="filterProductList(this.value)"/>
+                        <select name="productId" id="product-select" class="form-select" size="6" required
+                                style="height:auto; border-radius:10px;">
                             <option value="">— اختر —</option>
                             @if (ViewBag.Products != null)
                             {
                                 foreach (var p in (IEnumerable<ManolyWarehouse.Application.ViewModels.ProductListItemViewModel>)ViewBag.Products)
                                 {
-                                    <option value="@p.Id">@p.Name</option>
+                                    <option value="@p.Id" data-name="@p.Name.ToLower()">@p.Name — @p.CategoryName</option>
                                 }
                             }
                         </select>
@@ -221,6 +228,20 @@
 @section Scripts {
 <script>
 function toggleAddItem() { document.getElementById('add-item-form').classList.toggle('hidden'); }
+
+function filterProductList(q) {
+    q = q.toLowerCase().trim();
+    const select = document.getElementById('product-select');
+    Array.from(select.options).forEach(opt => {
+        if (!opt.value) return; // keep the placeholder
+        const match = !q || opt.dataset.name.includes(q);
+        opt.style.display = match ? '' : 'none';
+        opt.disabled = !match;
+    });
+    // Auto-select if only one result
+    const visible = Array.from(select.options).filter(o => o.value && !o.disabled);
+    if (visible.length === 1) visible[0].selected = true;
+}
 
 function showReceiveShelf(itemId) {
     const form = document.getElementById('receive-shelf-form');
