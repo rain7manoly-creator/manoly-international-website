@@ -50,7 +50,17 @@ public class AreaZController : Controller
         return View(model);
     }
 
+    [HttpGet("{id:int}/edit")]
+    [Authorize(Policy = "AdminOnly")]
+    public async Task<IActionResult> Edit(int id, CancellationToken ct)
+    {
+        var model = await _areaZService.GetByIdAsync(id, ct);
+        if (model == null) return NotFound();
+        return View(model);
+    }
+
     [HttpPost("{id:int}/edit")]
+    [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(
         int id, int bundleCount, int unitsPerBundle, string? notes, CancellationToken ct)

@@ -47,7 +47,10 @@ public class AreaZService : IAreaZService
                 UnitsPerBundle = az.UnitsPerBundle,
                 Notes = az.Notes,
                 EnteredAt = az.CreatedAt,
-                EnteredBy = az.CreatedBy
+                EnteredBy = _db.Users
+                    .Where(u => u.Id == az.CreatedBy)
+                    .Select(u => u.FullName)
+                    .FirstOrDefault() ?? az.CreatedBy
             })
             .ToListAsync(ct);
 
@@ -75,7 +78,10 @@ public class AreaZService : IAreaZService
                 UnitsPerBundle = az.UnitsPerBundle,
                 Notes = az.Notes,
                 EnteredAt = az.CreatedAt,
-                EnteredBy = az.CreatedBy
+                EnteredBy = _db.Users
+                    .Where(u => u.Id == az.CreatedBy)
+                    .Select(u => u.FullName)
+                    .FirstOrDefault() ?? az.CreatedBy
             })
             .FirstOrDefaultAsync(ct);
     }
