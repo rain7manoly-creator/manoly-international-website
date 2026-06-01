@@ -60,6 +60,7 @@ public class OrdersController : Controller
     }
 
     [HttpPost("{id:int}/cancel")]
+    [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Cancel(int id, CancellationToken ct)
     {
