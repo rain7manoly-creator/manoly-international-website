@@ -294,39 +294,45 @@ public class PurchaseOrderService : IPurchaseOrderService
             .FirstOrDefaultAsync(s => s.Id == shelfId, ct)
             ?? throw new DomainException("الرف غير موجود.");
 
-        await using var tx = await _db.Database.BeginTransactionAsync(ct);
-        try
+        // EnableRetryOnFailure requires user-initiated transactions to run
+        // inside the execution strategy's retriable unit.
+        var strategy = _db.Database.CreateExecutionStrategy();
+        await strategy.ExecuteAsync(async () =>
         {
-            // SHELF-01: capacity check inside transaction
-            if (shelf.IsFull)
-                throw new ShelfFullException(shelf.Code);
+            await using var tx = await _db.Database.BeginTransactionAsync(ct);
+            try
+            {
+                // SHELF-01: capacity check inside transaction
+                if (shelf.IsFull)
+                    throw new ShelfFullException(shelf.Code);
 
-            // SHELF-02: position uniqueness
-            if (shelf.Inventories.Any(i => i.Position == position))
-                throw new PositionOccupiedException(shelf.Code, position);
+                // SHELF-02: position uniqueness
+                if (shelf.Inventories.Any(i => i.Position == position))
+                    throw new PositionOccupiedException(shelf.Code, position);
 
-            // Update the item to mark it as assigned
-            item.AssignToShelf(shelfId, position, userId);
+                // Update the item to mark it as assigned
+                item.AssignToShelf(shelfId, position, userId);
 
-            // ITEM-03: auto-create the ShelfInventory row with the item's quantities
-            var inventory = ShelfInventory.Create(
-                shelfId, item.ProductId, position,
-                item.BundleCount, item.UnitsPerBundle,
-                userId, orderItemId: item.Id);
+                // ITEM-03: auto-create the ShelfInventory row with the item's quantities
+                var inventory = ShelfInventory.Create(
+                    shelfId, item.ProductId, position,
+                    item.BundleCount, item.UnitsPerBundle,
+                    userId, orderItemId: item.Id);
 
-            _db.ShelfInventory.Add(inventory);
-            await _db.SaveChangesAsync(ct);
-            await tx.CommitAsync(ct);
+                _db.ShelfInventory.Add(inventory);
+                await _db.SaveChangesAsync(ct);
+                await tx.CommitAsync(ct);
 
-            _logger.LogInformation(
-                "Item {ItemId} (order {OrderId}) shelved at {Code} pos {Position} → inv {InvId} by {User}",
-                itemId, item.OrderId, shelf.Code, position, inventory.Id, userId);
-        }
-        catch
-        {
-            await tx.RollbackAsync(ct);
-            throw;
-        }
+                _logger.LogInformation(
+                    "Item {ItemId} (order {OrderId}) shelved at {Code} pos {Position} → inv {InvId} by {User}",
+                    itemId, item.OrderId, shelf.Code, position, inventory.Id, userId);
+            }
+            catch
+            {
+                await tx.RollbackAsync(ct);
+                throw;
+            }
+        });
     }
 
     /// <summary>
@@ -345,43 +351,49 @@ public class PurchaseOrderService : IPurchaseOrderService
         if (item.IsShelved)
             throw new DomainException("هذا الصنف تم استلامه بالفعل.");
 
-        await using var tx = await _db.Database.BeginTransactionAsync(ct);
-        try
+        // EnableRetryOnFailure requires user-initiated transactions to run
+        // inside the execution strategy's retriable unit.
+        var strategy = _db.Database.CreateExecutionStrategy();
+        await strategy.ExecuteAsync(async () =>
         {
-            item.AssignToAreaZ(userId);
-
-            // AREAZ-01: if an active row exists for this product, increase it;
-            // otherwise create a new row. The partial unique index keeps us honest.
-            var existing = await _db.AreaZInventory
-                .FirstOrDefaultAsync(az => az.ProductId == item.ProductId && !az.IsDispatched, ct);
-
-            if (existing != null)
+            await using var tx = await _db.Database.BeginTransactionAsync(ct);
+            try
             {
-                existing.Update(
-                    existing.BundleCount + item.BundleCount,
-                    item.UnitsPerBundle,
-                    existing.Notes,
-                    userId);
+                item.AssignToAreaZ(userId);
+
+                // AREAZ-01: if an active row exists for this product, increase it;
+                // otherwise create a new row. The partial unique index keeps us honest.
+                var existing = await _db.AreaZInventory
+                    .FirstOrDefaultAsync(az => az.ProductId == item.ProductId && !az.IsDispatched, ct);
+
+                if (existing != null)
+                {
+                    existing.Update(
+                        existing.BundleCount + item.BundleCount,
+                        item.UnitsPerBundle,
+                        existing.Notes,
+                        userId);
+                }
+                else
+                {
+                    var entry = AreaZInventory.Create(
+                        item.ProductId, item.BundleCount, item.UnitsPerBundle, userId);
+                    _db.AreaZInventory.Add(entry);
+                }
+
+                await _db.SaveChangesAsync(ct);
+                await tx.CommitAsync(ct);
+
+                _logger.LogInformation(
+                    "Item {ItemId} (order {OrderId}) received to Area Z by {User}",
+                    itemId, item.OrderId, userId);
             }
-            else
+            catch
             {
-                var entry = AreaZInventory.Create(
-                    item.ProductId, item.BundleCount, item.UnitsPerBundle, userId);
-                _db.AreaZInventory.Add(entry);
+                await tx.RollbackAsync(ct);
+                throw;
             }
-
-            await _db.SaveChangesAsync(ct);
-            await tx.CommitAsync(ct);
-
-            _logger.LogInformation(
-                "Item {ItemId} (order {OrderId}) received to Area Z by {User}",
-                itemId, item.OrderId, userId);
-        }
-        catch
-        {
-            await tx.RollbackAsync(ct);
-            throw;
-        }
+        });
     }
 
     private static void ValidateQuantities(int bundleCount, int unitsPerBundle)

@@ -30,8 +30,10 @@ function showConfirm(title, message, onConfirm, dangerLabel = 'حذف') {
 }
 
 function confirmAction() {
+  // Capture before closeConfirm() nulls _confirmCallback
+  const cb = _confirmCallback;
   closeConfirm();
-  if (typeof _confirmCallback === 'function') _confirmCallback();
+  if (typeof cb === 'function') cb();
 }
 
 function closeConfirm() {
