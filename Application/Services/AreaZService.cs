@@ -151,6 +151,19 @@ public class AreaZService : IAreaZService
             id, bundleCount, unitsPerBundle, userId);
     }
 
+    public async Task DeleteAsync(int id, CancellationToken ct = default)
+    {
+        var userId = RequireUserId();
+
+        var entry = await _db.AreaZInventory.FirstOrDefaultAsync(az => az.Id == id, ct)
+            ?? throw new DomainException("صف منطقة Z غير موجود.");
+
+        _db.AreaZInventory.Remove(entry);
+        await _db.SaveChangesAsync(ct);
+
+        _logger.LogInformation("Area Z entry {Id} deleted by {User}", id, userId);
+    }
+
     public async Task DispatchAsync(int id, CancellationToken ct = default)
     {
         var userId = RequireUserId();

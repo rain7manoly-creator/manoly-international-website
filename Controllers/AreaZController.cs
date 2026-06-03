@@ -69,6 +69,15 @@ public class AreaZController : Controller
         return RedirectToAction(nameof(Detail), new { id });
     }
 
+    [HttpPost("{id:int}/delete")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id, CancellationToken ct)
+    {
+        await _areaZService.DeleteAsync(id, ct);
+        return RedirectToAction(nameof(Index));
+    }
+
     [HttpPost("{id:int}/dispatch")]
     [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]

@@ -99,6 +99,8 @@ public class AreaZServiceStub : IAreaZService
         => throw new StubException(nameof(IAreaZService));
     public Task DispatchAsync(int id, CancellationToken ct = default)
         => throw new StubException(nameof(IAreaZService));
+    public Task DeleteAsync(int id, CancellationToken ct = default)
+        => throw new StubException(nameof(IAreaZService));
     public Task MoveToShelfAsync(int areaZId, int shelfId, int position, CancellationToken ct = default)
         => throw new StubException(nameof(IAreaZService));
 }

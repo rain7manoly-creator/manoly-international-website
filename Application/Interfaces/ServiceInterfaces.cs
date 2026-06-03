@@ -56,6 +56,7 @@ public interface IAreaZService
     Task<int> AddAsync(int productId, int bundleCount, int unitsPerBundle, string? notes, CancellationToken ct = default);
     Task UpdateAsync(int id, int bundleCount, int unitsPerBundle, string? notes, CancellationToken ct = default);
     Task DispatchAsync(int id, CancellationToken ct = default);
+    Task DeleteAsync(int id, CancellationToken ct = default);
     Task MoveToShelfAsync(int areaZId, int shelfId, int position, CancellationToken ct = default);
 }
 
