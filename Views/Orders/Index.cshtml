@@ -5,6 +5,7 @@
     var current = Context.Request.Query["status"].ToString();
     var baseUrl = string.IsNullOrEmpty(current) ? "/orders" : $"/orders?status={current}";
     var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, baseUrl);
+    var isAdmin = User.IsInRole("Admin");
 }
 
 <div class="px-4 pt-5 pb-3 flex items-end justify-between">
@@ -12,9 +13,13 @@
         <p class="eyebrow mb-1">ORDERS · الطلبيات</p>
         <h1 class="font-display text-3xl text-ink">الطلبيات</h1>
     </div>
-    @if (User.IsInRole("Admin"))
+    @if (isAdmin)
     {
-        <a href="/orders/create" class="btn-primary btn-sm">+ جديدة</a>
+        <div class="flex items-center gap-2">
+            <button id="select-btn" onclick="toggleSelectMode()"
+                    class="btn-ghost btn-sm hidden">تحديد</button>
+            <a href="/orders/create" class="btn-primary btn-sm">+ جديدة</a>
+        </div>
     }
 </div>
 
@@ -51,45 +56,153 @@
 }
 else
 {
-    <div class="mx-4 card mb-4">
-        @foreach (var o in Model.Items)
-        {
-            var badgeClass = o.Status switch {
-                OrderStatus.Ordered     => "badge-ordered",
-                OrderStatus.Shipped     => "badge-shipped",
-                OrderStatus.ArrivingSoon=> "badge-arriving",
-                OrderStatus.Received    => "badge-received",
-                OrderStatus.Cancelled   => "badge-cancelled",
-                _ => "badge"
-            };
-            var statusLabel = o.Status switch {
-                OrderStatus.Ordered     => "مطلوب",
-                OrderStatus.Shipped     => "مشحون",
-                OrderStatus.ArrivingSoon=> "وصول قريب",
-                OrderStatus.Received    => "مستلم",
-                OrderStatus.Cancelled   => "ملغي",
-                _ => ""
-            };
-            <a href="/orders/@o.Id" class="list-item items-start flex-col gap-1">
-                <div class="flex items-center justify-between w-full">
-                    <span class="font-display text-base text-ink">@o.Supplier</span>
-                    <span class="@badgeClass">@statusLabel</span>
-                </div>
-                <div class="flex items-center gap-3">
-                    <span class="text-xs text-bark-l font-ui">@o.OrderedAt.ToString("yyyy/MM/dd")</span>
-                    <span class="text-xs text-bark-l">@o.ItemCount صنف</span>
-                    @if (o.PendingShelvingCount > 0)
-                    {
-                        <span class="text-xs font-semibold text-amber">@o.PendingShelvingCount بانتظار الرف</span>
-                    }
-                    @if (o.ExpectedArrivalDate.HasValue)
-                    {
-                        <span class="text-xs text-bark-l">→ @o.ExpectedArrivalDate.Value.ToString("MM/dd")</span>
-                    }
-                </div>
-            </a>
-        }
-    </div>
+    <form id="bulk-form" asp-action="BulkDelete" method="post" style="display:contents;">
+        @Html.AntiForgeryToken()
 
-    <partial name="_Pagination" model="pager" />
+        <div class="mx-4 card mb-4">
+            @foreach (var o in Model.Items)
+            {
+                var badgeClass = o.Status switch {
+                    OrderStatus.Ordered      => "badge-ordered",
+                    OrderStatus.Shipped      => "badge-shipped",
+                    OrderStatus.ArrivingSoon => "badge-arriving",
+                    OrderStatus.Received     => "badge-received",
+                    OrderStatus.Cancelled    => "badge-cancelled",
+                    _ => "badge"
+                };
+                var statusLabel = o.Status switch {
+                    OrderStatus.Ordered      => "مطلوب",
+                    OrderStatus.Shipped      => "مشحون",
+                    OrderStatus.ArrivingSoon => "وصول قريب",
+                    OrderStatus.Received     => "مستلم",
+                    OrderStatus.Cancelled    => "ملغي",
+                    _ => ""
+                };
+
+                <div class="order-row relative" data-id="@o.Id">
+                    @* Checkbox — hidden until select mode *@
+                    @if (isAdmin)
+                    {
+                        <label class="select-checkbox hidden absolute inset-y-0 right-0 w-12 flex items-center justify-center cursor-pointer z-10"
+                               onclick="event.stopPropagation()">
+                            <input type="checkbox" name="ids" value="@o.Id"
+                                   class="order-cb w-5 h-5 rounded accent-ink cursor-pointer"
+                                   onchange="onCheckboxChange()"/>
+                        </label>
+                    }
+
+                    @* Navigable row — becomes non-clickable in select mode *@
+                    <a href="/orders/@o.Id"
+                       class="order-link list-item items-start flex-col gap-1 transition-all"
+                       onclick="return handleRowClick(event, @o.Id)">
+                        <div class="flex items-center justify-between w-full">
+                            <span class="font-display text-base text-ink">@o.Supplier</span>
+                            <span class="@badgeClass">@statusLabel</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs text-bark-l font-ui">@o.OrderedAt.ToString("yyyy/MM/dd")</span>
+                            <span class="text-xs text-bark-l">@o.ItemCount صنف</span>
+                            @if (o.PendingShelvingCount > 0)
+                            {
+                                <span class="text-xs font-semibold text-amber">@o.PendingShelvingCount بانتظار الرف</span>
+                            }
+                            @if (o.ExpectedArrivalDate.HasValue)
+                            {
+                                <span class="text-xs text-bark-l">→ @o.ExpectedArrivalDate.Value.ToString("MM/dd")</span>
+                            }
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+
+        <partial name="_Pagination" model="pager" />
+    </form>
+
+    @* Bulk-delete action bar — slides up when items are selected *@
+    @if (isAdmin)
+    {
+        <div id="bulk-bar"
+             class="hidden fixed bottom-0 left-0 right-0 z-40 px-4 pb-safe"
+             style="padding-bottom: calc(env(safe-area-inset-bottom) + 4.5rem);">
+            <div class="card p-3 flex items-center gap-3 shadow-lg"
+                 style="background:#fff; border:1px solid #d6cfc7;">
+                <span id="bulk-count" class="text-sm font-ui text-bark-d flex-1">0 محدد</span>
+                <button type="button" onclick="toggleSelectMode()"
+                        class="btn-secondary btn-sm">إلغاء</button>
+                <button type="button" onclick="confirmBulkDelete()"
+                        class="btn-danger btn-sm" id="bulk-delete-btn" disabled>حذف المحدد</button>
+            </div>
+        </div>
+    }
+}
+
+@section Scripts {
+<script>
+let selectMode = false;
+
+function toggleSelectMode() {
+    selectMode = !selectMode;
+
+    // Show/hide checkboxes
+    document.querySelectorAll('.select-checkbox').forEach(el =>
+        el.classList.toggle('hidden', !selectMode));
+
+    // Add padding to links so checkbox area doesn't overlap text
+    document.querySelectorAll('.order-link').forEach(el =>
+        el.style.paddingRight = selectMode ? '3rem' : '');
+
+    // Show/hide bulk bar
+    const bar = document.getElementById('bulk-bar');
+    if (bar) bar.classList.toggle('hidden', !selectMode);
+
+    // Toggle select button label
+    const btn = document.getElementById('select-btn');
+    if (btn) btn.textContent = selectMode ? 'إلغاء التحديد' : 'تحديد';
+
+    // Uncheck everything when exiting
+    if (!selectMode) {
+        document.querySelectorAll('.order-cb').forEach(cb => cb.checked = false);
+        updateCount();
+    }
+}
+
+function handleRowClick(event, id) {
+    if (!selectMode) return true; // normal navigation
+    event.preventDefault();
+    // Toggle the checkbox for this row
+    const cb = document.querySelector(`.order-row[data-id="${id}"] .order-cb`);
+    if (cb) { cb.checked = !cb.checked; onCheckboxChange(); }
+    return false;
+}
+
+function onCheckboxChange() {
+    updateCount();
+}
+
+function updateCount() {
+    const checked = document.querySelectorAll('.order-cb:checked').length;
+    const countEl = document.getElementById('bulk-count');
+    const deleteBtn = document.getElementById('bulk-delete-btn');
+    if (countEl)   countEl.textContent = checked + ' محدد';
+    if (deleteBtn) deleteBtn.disabled = checked === 0;
+}
+
+function confirmBulkDelete() {
+    const count = document.querySelectorAll('.order-cb:checked').length;
+    if (count === 0) return;
+    showConfirm(
+        'حذف الطلبيات',
+        'سيتم حذف ' + count + ' طلبية بشكل نهائي. هل أنت متأكد؟',
+        () => document.getElementById('bulk-form').submit(),
+        'حذف ' + count
+    );
+}
+
+// Show select button only when there are items
+document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('select-btn');
+    if (btn) btn.classList.remove('hidden');
+});
+</script>
 }

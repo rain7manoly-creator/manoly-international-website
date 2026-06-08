@@ -269,6 +269,22 @@ public class PurchaseOrderService : IPurchaseOrderService
         _logger.LogInformation("Order {Id} deleted by {User}", orderId, userId);
     }
 
+    public async Task BulkDeleteAsync(IEnumerable<int> orderIds, CancellationToken ct = default)
+    {
+        var userId = RequireUserId();
+        var ids = orderIds.ToList();
+        if (ids.Count == 0) return;
+
+        var orders = await _db.PurchaseOrders
+            .Where(po => ids.Contains(po.Id))
+            .ToListAsync(ct);
+
+        _db.PurchaseOrders.RemoveRange(orders);
+        await _db.SaveChangesAsync(ct);
+
+        _logger.LogInformation("Orders [{Ids}] bulk-deleted by {User}", string.Join(',', ids), userId);
+    }
+
     /// <summary>
     /// ITEM-03: Transactional receive — assigns item to a shelf AND creates the ShelfInventory row
     /// atomically. Capacity is checked under the same transaction to prevent races.

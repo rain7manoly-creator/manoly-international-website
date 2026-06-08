@@ -81,6 +81,8 @@ public class PurchaseOrderServiceStub : IPurchaseOrderService
         => throw new StubException(nameof(IPurchaseOrderService));
     public Task DeleteAsync(int orderId, CancellationToken ct = default)
         => throw new StubException(nameof(IPurchaseOrderService));
+    public Task BulkDeleteAsync(IEnumerable<int> orderIds, CancellationToken ct = default)
+        => throw new StubException(nameof(IPurchaseOrderService));
     public Task ReceiveItemToShelfAsync(int itemId, int shelfId, int position, CancellationToken ct = default)
         => throw new StubException(nameof(IPurchaseOrderService));
     public Task ReceiveItemToAreaZAsync(int itemId, CancellationToken ct = default)

@@ -77,6 +77,16 @@ public class OrdersController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    [HttpPost("bulk-delete")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> BulkDelete([FromForm] List<int> ids, CancellationToken ct)
+    {
+        if (ids.Count > 0)
+            await _orderService.BulkDeleteAsync(ids, ct);
+        return RedirectToAction(nameof(Index));
+    }
+
     [HttpPost("{id:int}/items/add")]
     [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]

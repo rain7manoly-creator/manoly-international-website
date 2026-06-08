@@ -45,6 +45,7 @@ public interface IPurchaseOrderService
     Task AdvanceStatusAsync(int orderId, CancellationToken ct = default);
     Task CancelAsync(int orderId, CancellationToken ct = default);
     Task DeleteAsync(int orderId, CancellationToken ct = default);
+    Task BulkDeleteAsync(IEnumerable<int> orderIds, CancellationToken ct = default);
     Task ReceiveItemToShelfAsync(int itemId, int shelfId, int position, CancellationToken ct = default);
     Task ReceiveItemToAreaZAsync(int itemId, CancellationToken ct = default);
 }
