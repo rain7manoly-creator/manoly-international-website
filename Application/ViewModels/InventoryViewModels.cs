@@ -4,9 +4,8 @@ public class InventorySummaryViewModel
 {
     public IReadOnlyList<InventoryCategoryGroup> Categories { get; init; } = Array.Empty<InventoryCategoryGroup>();
     public string? ActiveCategory { get; init; }
-    public int TotalProducts   { get; init; }
-    public int TotalBundles    { get; init; }
-    public int TotalUnits      { get; init; }
+    public int Page       { get; init; }
+    public int TotalPages { get; init; }
 }
 
 public class InventoryCategoryGroup

@@ -7,22 +7,6 @@
     <h1 class="font-display text-3xl text-ink">المخزون</h1>
 </div>
 
-@* ── Summary stat bar ─────────────────────────────────────────────────────── *@
-<div class="flex mx-4 mb-5 card">
-    <div class="stat-block">
-        <span class="stat-num">@Model.TotalProducts</span>
-        <span class="stat-label">منتج · PRODUCTS</span>
-    </div>
-    <div class="stat-block">
-        <span class="stat-num text-ember">@Model.TotalBundles</span>
-        <span class="stat-label">ربطة · BUNDLES</span>
-    </div>
-    <div class="stat-block">
-        <span class="stat-num text-moss">@Model.TotalUnits</span>
-        <span class="stat-label">وحدة · UNITS</span>
-    </div>
-</div>
-
 @* ── Category filter pills ────────────────────────────────────────────────── *@
 @if (Model.Categories.Any())
 {
@@ -201,6 +185,20 @@ else
         </div>
     }
 }
+
+@* ── Pagination ───────────────────────────────────────────────────────────── *@
+@{
+    var baseUrl = string.IsNullOrEmpty(Model.ActiveCategory)
+        ? "/inventory"
+        : $"/inventory?category={Uri.EscapeDataString(Model.ActiveCategory)}";
+    var pager = new ManolyWarehouse.Application.ViewModels.PaginationViewModel
+    {
+        Page       = Model.Page,
+        TotalPages = Model.TotalPages,
+        BaseUrl    = baseUrl
+    };
+}
+<partial name="_Pagination" model="pager" />
 
 @section Scripts {
 <script>

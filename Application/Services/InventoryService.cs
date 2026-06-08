@@ -6,7 +6,8 @@ namespace ManolyWarehouse.Application.Services;
 
 public interface IInventoryService
 {
-    Task<InventorySummaryViewModel> GetSummaryAsync(string? categoryFilter, CancellationToken ct = default);
+    Task<InventorySummaryViewModel> GetSummaryAsync(
+        string? categoryFilter, int page, int pageSize, CancellationToken ct = default);
 }
 
 public class InventoryService : IInventoryService
@@ -16,13 +17,28 @@ public class InventoryService : IInventoryService
     public InventoryService(AppDbContext db) => _db = db;
 
     public async Task<InventorySummaryViewModel> GetSummaryAsync(
-        string? categoryFilter, CancellationToken ct = default)
+        string? categoryFilter, int page, int pageSize, CancellationToken ct = default)
     {
-        var products = await _db.Products
+        // Base query: only products that have stock somewhere
+        var query = _db.Products
             .AsNoTracking()
             .Where(p =>
                 p.ShelfInventories.Any() ||
-                p.AreaZInventories.Any(az => !az.IsDispatched))
+                p.AreaZInventories.Any(az => !az.IsDispatched));
+
+        // Apply category filter at DB level so count + pagination are consistent
+        if (!string.IsNullOrEmpty(categoryFilter))
+            query = query.Where(p => p.Category.Name == categoryFilter);
+
+        var totalCount = await query.CountAsync(ct);
+        var totalPages = pageSize > 0 ? (int)Math.Ceiling((double)totalCount / pageSize) : 1;
+        page = Math.Clamp(page, 1, Math.Max(1, totalPages));
+
+        var products = await query
+            .OrderBy(p => p.Category.Name)
+            .ThenBy(p => p.Name)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .Select(p => new
             {
                 p.Id,
@@ -50,8 +66,6 @@ public class InventoryService : IInventoryService
                     .Where(az => !az.IsDispatched)
                     .Sum(az => (int?)(az.BundleCount * az.UnitsPerBundle)) ?? 0,
             })
-            .OrderBy(p => p.CategoryName)
-            .ThenBy(p => p.Name)
             .ToListAsync(ct);
 
         var rows = products.Select(p => new InventoryProductRow
@@ -67,7 +81,7 @@ public class InventoryService : IInventoryService
             Locations          = p.ShelfLocations,
         }).ToList();
 
-        var allGroups = rows
+        var groups = rows
             .GroupBy(r => r.CategoryName)
             .Select(g => new InventoryCategoryGroup
             {
@@ -79,17 +93,12 @@ public class InventoryService : IInventoryService
             .OrderBy(g => g.CategoryName)
             .ToList();
 
-        var filteredGroups = string.IsNullOrEmpty(categoryFilter)
-            ? allGroups
-            : allGroups.Where(g => g.CategoryName == categoryFilter).ToList();
-
         return new InventorySummaryViewModel
         {
-            Categories     = filteredGroups,
+            Categories     = groups,
             ActiveCategory = categoryFilter,
-            TotalProducts  = rows.Count,
-            TotalBundles   = rows.Sum(r => r.TotalBundles),
-            TotalUnits     = rows.Sum(r => r.TotalUnits),
+            Page           = page,
+            TotalPages     = totalPages,
         };
     }
 }
