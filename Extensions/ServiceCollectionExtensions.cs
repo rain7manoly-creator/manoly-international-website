@@ -116,6 +116,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
         services.AddScoped<IAreaZService, AreaZService>();
+        services.AddScoped<IInventoryService, InventoryService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ISearchService, SearchService>();
         services.AddScoped<IInventoryPdfExporter, InventoryPdfExporter>();
