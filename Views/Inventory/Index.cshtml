@@ -8,7 +8,7 @@
 </div>
 
 @* ── Category filter pills ────────────────────────────────────────────────── *@
-@if (Model.Categories.Any())
+@if (Model.AllCategories.Any())
 {
     <div class="overflow-x-auto px-4 mb-5" style="scrollbar-width:none;">
         <div class="flex gap-2 min-w-max pb-1">
@@ -20,7 +20,7 @@
                style="@(allActive ? "background:#1F1B17;color:#FAF8F4;" : "background:#F1ECE3;color:#847569;")">
                 الكل
             </a>
-            @foreach (var cat in Model.Categories.OrderBy(c => c.CategoryName))
+            @foreach (var cat in Model.AllCategories)
             {
                 var isActive = Model.ActiveCategory == cat.CategoryName;
                 <a href="/inventory?category=@Uri.EscapeDataString(cat.CategoryName)"

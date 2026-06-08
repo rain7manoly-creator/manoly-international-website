@@ -20,15 +20,27 @@ public class InventoryService : IInventoryService
         string? categoryFilter, int page, int pageSize, CancellationToken ct = default)
     {
         // Base query: only products that have stock somewhere
-        var query = _db.Products
+        var baseQuery = _db.Products
             .AsNoTracking()
             .Where(p =>
                 p.ShelfInventories.Any() ||
                 p.AreaZInventories.Any(az => !az.IsDispatched));
 
+        // All categories across the full stock — never filtered — for the filter pills
+        var allCategories = await baseQuery
+            .GroupBy(p => p.Category.Name)
+            .Select(g => new InventoryCategoryMeta
+            {
+                CategoryName = g.Key,
+                ProductCount = g.Count()
+            })
+            .OrderBy(c => c.CategoryName)
+            .ToListAsync(ct);
+
         // Apply category filter at DB level so count + pagination are consistent
-        if (!string.IsNullOrEmpty(categoryFilter))
-            query = query.Where(p => p.Category.Name == categoryFilter);
+        var query = string.IsNullOrEmpty(categoryFilter)
+            ? baseQuery
+            : baseQuery.Where(p => p.Category.Name == categoryFilter);
 
         var totalCount = await query.CountAsync(ct);
         var totalPages = pageSize > 0 ? (int)Math.Ceiling((double)totalCount / pageSize) : 1;
@@ -96,6 +108,7 @@ public class InventoryService : IInventoryService
         return new InventorySummaryViewModel
         {
             Categories     = groups,
+            AllCategories  = allCategories,
             ActiveCategory = categoryFilter,
             Page           = page,
             TotalPages     = totalPages,

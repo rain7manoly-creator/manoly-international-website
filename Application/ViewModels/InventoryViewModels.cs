@@ -3,9 +3,17 @@ namespace ManolyWarehouse.Application.ViewModels;
 public class InventorySummaryViewModel
 {
     public IReadOnlyList<InventoryCategoryGroup> Categories { get; init; } = Array.Empty<InventoryCategoryGroup>();
+    /// <summary>All categories that have any stock — used for filter pills, independent of pagination.</summary>
+    public IReadOnlyList<InventoryCategoryMeta> AllCategories { get; init; } = Array.Empty<InventoryCategoryMeta>();
     public string? ActiveCategory { get; init; }
     public int Page       { get; init; }
     public int TotalPages { get; init; }
+}
+
+public class InventoryCategoryMeta
+{
+    public string CategoryName { get; init; } = default!;
+    public int    ProductCount { get; init; }
 }
 
 public class InventoryCategoryGroup
