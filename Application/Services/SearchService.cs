@@ -22,12 +22,25 @@ public class SearchService : ISearchService
             return new SearchResultsViewModel { Query = string.Empty };
 
         var q = query.Trim();
-        // EF.Functions.ILike is PostgreSQL case-insensitive LIKE
-        var pattern = $"%{q}%";
 
-        var products = await _db.Products
-            .AsNoTracking()
-            .Where(p => EF.Functions.ILike(p.Name, pattern))
+        // Split into tokens so "جرار زجاج" matches "جرار ميترو زجاج ابيض 55/20"
+        // Each token must appear somewhere in the target — AND semantics.
+        var tokens = q
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Distinct()
+            .ToList();
+
+        // ── Products ──────────────────────────────────────────────────────
+        // Each token is checked against name OR category name (case-insensitive).
+        var productQuery = _db.Products.AsNoTracking();
+        foreach (var token in tokens)
+        {
+            var pat = $"%{token}%";
+            productQuery = productQuery.Where(p =>
+                EF.Functions.ILike(p.Name, pat) ||
+                EF.Functions.ILike(p.Category.Name, pat));
+        }
+        var products = await productQuery
             .OrderBy(p => p.Name)
             .Take(20)
             .Select(p => new ProductSearchResult
@@ -40,9 +53,12 @@ public class SearchService : ISearchService
             })
             .ToListAsync(ct);
 
+        // ── Shelves ───────────────────────────────────────────────────────
+        // Shelf codes are short (e.g. "A1") — use the full query as one pattern.
+        var shelfPattern = $"%{q}%";
         var shelves = await _db.Shelves
             .AsNoTracking()
-            .Where(s => EF.Functions.ILike(s.Code, pattern))
+            .Where(s => EF.Functions.ILike(s.Code, shelfPattern))
             .OrderBy(s => s.Code)
             .Take(20)
             .Select(s => new ShelfSearchResult
@@ -53,9 +69,15 @@ public class SearchService : ISearchService
             })
             .ToListAsync(ct);
 
-        var suppliers = await _db.PurchaseOrders
-            .AsNoTracking()
-            .Where(po => EF.Functions.ILike(po.Supplier, pattern))
+        // ── Suppliers ─────────────────────────────────────────────────────
+        // Supplier names can be multi-word — tokenise the same way as products.
+        var supplierQuery = _db.PurchaseOrders.AsNoTracking();
+        foreach (var token in tokens)
+        {
+            var pat = $"%{token}%";
+            supplierQuery = supplierQuery.Where(po => EF.Functions.ILike(po.Supplier, pat));
+        }
+        var suppliers = await supplierQuery
             .GroupBy(po => po.Supplier)
             .Select(g => new SupplierSearchResult
             {

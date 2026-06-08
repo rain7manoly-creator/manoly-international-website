@@ -121,7 +121,7 @@
                             {
                                 foreach (var p in (IEnumerable<ManolyWarehouse.Application.ViewModels.ProductListItemViewModel>)ViewBag.Products)
                                 {
-                                    <option value="@p.Id" data-name="@p.Name.ToLower()" data-label="@p.Name — @p.CategoryName">@p.Name — @p.CategoryName</option>
+                                    <option value="@p.Id" data-name="@((p.Name + " " + p.CategoryName).ToLower())" data-label="@p.Name — @p.CategoryName">@p.Name — @p.CategoryName</option>
                                 }
                             }
                         </select>
@@ -244,7 +244,9 @@ function filterProductList(q) {
 
     if (!q) { dropdown.style.display = 'none'; return; }
 
-    const matches = Array.from(select.options).filter(o => o.value && o.dataset.name.includes(q));
+    const tokens  = q.split(/\s+/).filter(Boolean);
+    const matches = Array.from(select.options).filter(o =>
+        o.value && tokens.every(t => (o.dataset.name || '').includes(t)));
 
     if (!matches.length) { dropdown.style.display = 'none'; return; }
 
