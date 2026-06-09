@@ -42,12 +42,26 @@ public class ProductService : IProductService
     }
 
     public async Task<PagedResult<ProductListItemViewModel>> ListPagedAsync(
-        int page, int pageSize, CancellationToken ct = default)
+        int page, int pageSize, string? search = null, CancellationToken ct = default)
     {
-        var query = _db.Products
-            .AsNoTracking()
-            .OrderBy(p => p.Category.Name)
-            .ThenBy(p => p.Name);
+        var query = _db.Products.AsNoTracking();
+
+        // Tokenised search: every token must appear in name OR category name
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            var tokens = search.Trim()
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Distinct();
+            foreach (var token in tokens)
+            {
+                var pat = $"%{token}%";
+                query = query.Where(p =>
+                    EF.Functions.ILike(p.Name, pat) ||
+                    EF.Functions.ILike(p.Category.Name, pat));
+            }
+        }
+
+        query = query.OrderBy(p => p.Category.Name).ThenBy(p => p.Name);
 
         var total = await query.CountAsync(ct);
 

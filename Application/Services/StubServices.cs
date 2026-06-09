@@ -35,7 +35,7 @@ public class ProductServiceStub : IProductService
 {
     public Task<IReadOnlyList<ProductListItemViewModel>> ListAsync(CancellationToken ct = default)
         => Task.FromResult<IReadOnlyList<ProductListItemViewModel>>(Array.Empty<ProductListItemViewModel>());
-    public Task<PagedResult<ProductListItemViewModel>> ListPagedAsync(int page, int pageSize, CancellationToken ct = default)
+    public Task<PagedResult<ProductListItemViewModel>> ListPagedAsync(int page, int pageSize, string? search = null, CancellationToken ct = default)
         => Task.FromResult(new PagedResult<ProductListItemViewModel> { Page = page, PageSize = pageSize });
     public Task<ProductDetailViewModel?> GetByIdAsync(int id, CancellationToken ct = default)
         => Task.FromResult<ProductDetailViewModel?>(null);

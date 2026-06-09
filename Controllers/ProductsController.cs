@@ -20,10 +20,11 @@ public class ProductsController : Controller
     private const int PageSize = 20;
 
     [HttpGet("")]
-    public async Task<IActionResult> Index(int page = 1, CancellationToken ct = default)
+    public async Task<IActionResult> Index(int page = 1, string? q = null, CancellationToken ct = default)
     {
         page = Math.Max(1, page);
-        var model = await _productService.ListPagedAsync(page, PageSize, ct);
+        var model = await _productService.ListPagedAsync(page, PageSize, q, ct);
+        ViewBag.SearchQuery = q ?? string.Empty;
         return View(model);
     }
 

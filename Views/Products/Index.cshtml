@@ -1,7 +1,11 @@
 @model ManolyWarehouse.Application.ViewModels.PagedResult<ManolyWarehouse.Application.ViewModels.ProductListItemViewModel>
 @{
     ViewData["Title"] = "المنتجات";
-    var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, "/products");
+    var searchQuery = (ViewBag.SearchQuery as string) ?? string.Empty;
+    var baseUrl = string.IsNullOrEmpty(searchQuery)
+        ? "/products"
+        : $"/products?q={Uri.EscapeDataString(searchQuery)}";
+    var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, baseUrl);
 }
 
 <div class="px-4 pt-5 pb-3 flex items-end justify-between">
@@ -15,10 +19,17 @@
     }
 </div>
 
-<div class="px-4 mb-4">
-    <input type="search" id="product-search" placeholder="بحث في المنتجات..."
-           class="form-input" oninput="filterProducts(this.value)"/>
-</div>
+<form method="get" action="/products" class="px-4 mb-4 flex gap-2">
+    <input type="search" name="q" value="@searchQuery"
+           placeholder="ابحث في المنتجات..."
+           class="form-input flex-1"
+           autocomplete="off"/>
+    <button type="submit" class="btn-primary btn-sm shrink-0">بحث</button>
+    @if (!string.IsNullOrEmpty(searchQuery))
+    {
+        <a href="/products" class="btn-ghost btn-sm shrink-0">✕</a>
+    }
+</form>
 
 @if (!Model.Items.Any())
 {
@@ -61,15 +72,3 @@ else
     <partial name="_Pagination" model="pager" />
 }
 
-@section Scripts {
-<script>
-function filterProducts(q) {
-    q = q.toLowerCase().trim();
-    const tokens = q.split(/\s+/).filter(Boolean);
-    document.querySelectorAll('#product-list a[data-name]').forEach(el => {
-        const name = el.dataset.name || '';
-        el.style.display = (!tokens.length || tokens.every(t => name.includes(t))) ? '' : 'none';
-    });
-}
-</script>
-}
