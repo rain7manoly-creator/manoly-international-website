@@ -1,5 +1,8 @@
 @model ManolyWarehouse.Application.ViewModels.AddShelfInventoryRequest
-@{ ViewData["Title"] = $"إضافة إلى رف {Model.ShelfCode}"; }
+@{
+    ViewData["Title"] = $"إضافة إلى رف {Model.ShelfCode}";
+    var occupied = ViewBag.OccupiedPositions as Dictionary<int, string> ?? new Dictionary<int, string>();
+}
 
 <div class="px-4 pt-5 pb-3">
     <a href="/shelves/@Model.ShelfCode" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
@@ -11,10 +14,11 @@
 </div>
 
 <div class="mx-4 card p-5 mb-6">
-    <form asp-action="Add" asp-route-code="@Model.ShelfCode" method="post" class="flex flex-col gap-5">
+    <form asp-action="Add" asp-route-code="@Model.ShelfCode" method="post" class="flex flex-col gap-5" id="add-form">
         @Html.AntiForgeryToken()
         <input asp-for="ShelfCode" type="hidden"/>
 
+        @* Product search *@
         <div class="form-group" style="position:relative;">
             <label asp-for="ProductId" class="form-label">المنتج · PRODUCT</label>
             <input type="text"
@@ -45,14 +49,42 @@
             <span asp-validation-for="ProductId" class="form-error"></span>
         </div>
 
+        @* Position picker grid *@
         <div class="form-group">
-            <label asp-for="Position" class="form-label">الموضع · POSITION (1–6)</label>
-            <select asp-for="Position" class="form-select" required>
-                @for (int i = 1; i <= 6; i++) { <option value="@i">@i</option> }
-            </select>
+            <label class="form-label">الموضع · POSITION</label>
+            <input type="hidden" name="Position" id="position-input" value="@(Model.Position >= 1 ? Model.Position.ToString() : "0")"/>
+            <div class="grid grid-cols-3 gap-2 mt-2">
+                @for (int i = 1; i <= 6; i++)
+                {
+                    if (occupied.ContainsKey(i))
+                    {
+                        var pname = occupied[i];
+                        <div class="rounded-xl p-3 text-center select-none"
+                             style="background:#F1ECE3; border:1.5px solid #E4DCCC; cursor:not-allowed; opacity:0.55;">
+                            <div class="font-display text-base" style="color:#1F1B17;">@i</div>
+                            <div class="text-xs mt-1 truncate leading-tight" style="color:#7a6a5e; font-family:'IBM Plex Sans Arabic',sans-serif;" title="@pname">
+                                @(pname.Length > 13 ? pname[..13] + "…" : pname)
+                            </div>
+                            <div class="text-xs mt-0.5" style="color:#7a6a5e; font-family:'IBM Plex Sans Arabic',sans-serif;">مشغول</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="slot-@i"
+                             onclick="pickPosition(@i, this)"
+                             class="rounded-xl p-3 text-center select-none"
+                             style="background:#FAF8F4; border:1.5px solid #E4DCCC; cursor:pointer; transition:border-color .15s, background .15s;">
+                            <div class="font-display text-base" style="color:#1F1B17;">@i</div>
+                            <div class="text-xs mt-1" style="color:#7a6a5e; font-family:'IBM Plex Sans Arabic',sans-serif;">فارغ</div>
+                        </div>
+                    }
+                }
+            </div>
+            <p id="position-error" class="form-error mt-1.5" style="display:none;">اختر موضعاً في الرف أولاً</p>
             <span asp-validation-for="Position" class="form-error"></span>
         </div>
 
+        @* Quantities *@
         <div class="grid grid-cols-2 gap-3">
             <div class="form-group">
                 <label asp-for="BundleCount" class="form-label">عدد الربطات</label>
@@ -74,19 +106,16 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 <script>
+// ── Product search ────────────────────────────────────────────────────────
 function filterProductList(q) {
     q = q.toLowerCase().trim();
     const select   = document.getElementById('product-select');
     const dropdown = document.getElementById('product-dropdown');
-
     if (!q) { dropdown.style.display = 'none'; return; }
-
     const tokens  = q.split(/\s+/).filter(Boolean);
     const matches = Array.from(select.options).filter(o =>
         o.value && tokens.every(t => (o.dataset.name || '').includes(t)));
-
     if (!matches.length) { dropdown.style.display = 'none'; return; }
-
     dropdown.innerHTML = '';
     matches.forEach(opt => {
         const item = document.createElement('div');
@@ -97,23 +126,17 @@ function filterProductList(q) {
         item.addEventListener('mouseout',  () => item.style.background = '');
         dropdown.appendChild(item);
     });
-
-    // Auto-pick if exactly one match
     if (matches.length === 1) {
         pickProduct(matches[0].value, matches[0].dataset.label || matches[0].textContent);
         return;
     }
-
     dropdown.style.display = 'block';
 }
 
 function pickProduct(value, label) {
-    const select   = document.getElementById('product-select');
-    const input    = document.getElementById('product-search-input');
-    const dropdown = document.getElementById('product-dropdown');
-    select.value   = value;
-    input.value    = label;
-    dropdown.style.display = 'none';
+    document.getElementById('product-select').value = value;
+    document.getElementById('product-search-input').value = label;
+    document.getElementById('product-dropdown').style.display = 'none';
 }
 
 function hideProductList() {
@@ -121,5 +144,38 @@ function hideProductList() {
         document.getElementById('product-dropdown').style.display = 'none';
     }, 150);
 }
+
+// ── Position picker ───────────────────────────────────────────────────────
+function pickPosition(pos, el) {
+    // Reset all free slots
+    document.querySelectorAll('[id^="slot-"]').forEach(s => {
+        s.style.borderColor = '#E4DCCC';
+        s.style.background  = '#FAF8F4';
+    });
+    // Highlight selected slot in ember
+    el.style.borderColor = '#B86B3A';
+    el.style.background  = '#fdf3ec';
+    document.getElementById('position-input').value = pos;
+    document.getElementById('position-error').style.display = 'none';
+}
+
+// Restore visual state after server-side re-render (e.g. validation failure)
+document.addEventListener('DOMContentLoaded', function () {
+    const saved = parseInt(document.getElementById('position-input').value, 10);
+    if (saved >= 1) {
+        const el = document.getElementById('slot-' + saved);
+        if (el) pickPosition(saved, el);
+    }
+});
+
+// Prevent submit if no position selected
+document.getElementById('add-form').addEventListener('submit', function (e) {
+    const pos = parseInt(document.getElementById('position-input').value, 10);
+    if (!pos || pos < 1) {
+        e.preventDefault();
+        document.getElementById('position-error').style.display = 'block';
+        document.getElementById('position-error').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+});
 </script>
 }

@@ -11,11 +11,13 @@ public class ShelvesController : Controller
 {
     private readonly IShelfService _shelfService;
     private readonly IWarehouseGridService _gridService;
+    private readonly IProductService _productService;
 
-    public ShelvesController(IShelfService shelfService, IWarehouseGridService gridService)
+    public ShelvesController(IShelfService shelfService, IWarehouseGridService gridService, IProductService productService)
     {
         _shelfService = shelfService;
         _gridService = gridService;
+        _productService = productService;
     }
 
     [HttpGet("")]
@@ -34,10 +36,17 @@ public class ShelvesController : Controller
     }
 
     [HttpGet("{code}/add")]
-    public async Task<IActionResult> Add(string code, [FromServices] IProductService productService, CancellationToken ct)
+    public async Task<IActionResult> Add(string code, CancellationToken ct)
     {
-        ViewBag.Products = await productService.ListAsync(ct);
-        return View(new AddShelfInventoryRequest { ShelfCode = code, Position = 1, BundleCount = 1, UnitsPerBundle = 1 });
+        var shelf = await _shelfService.GetByCodeAsync(code, ct);
+        if (shelf == null) return NotFound();
+
+        ViewBag.Products = await _productService.ListAsync(ct);
+        ViewBag.OccupiedPositions = shelf.Slots
+            .Where(s => !s.IsEmpty)
+            .ToDictionary(s => s.Position, s => s.ProductName ?? "");
+
+        return View(new AddShelfInventoryRequest { ShelfCode = code, BundleCount = 1, UnitsPerBundle = 1 });
     }
 
     [HttpPost("{code}/add")]
@@ -45,7 +54,16 @@ public class ShelvesController : Controller
     public async Task<IActionResult> Add(string code, AddShelfInventoryRequest request, CancellationToken ct)
     {
         request.ShelfCode = code;
-        if (!ModelState.IsValid) return View(request);
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Products = await _productService.ListAsync(ct);
+            var shelf = await _shelfService.GetByCodeAsync(code, ct);
+            ViewBag.OccupiedPositions = shelf?.Slots
+                .Where(s => !s.IsEmpty)
+                .ToDictionary(s => s.Position, s => s.ProductName ?? "")
+                ?? new Dictionary<int, string>();
+            return View(request);
+        }
 
         await _shelfService.AddInventoryAsync(request, ct);
         return RedirectToAction(nameof(Detail), new { code });
