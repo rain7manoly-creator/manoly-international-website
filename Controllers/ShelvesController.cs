@@ -46,7 +46,8 @@ public class ShelvesController : Controller
             .Where(s => !s.IsEmpty)
             .ToDictionary(s => s.Position, s => s.ProductName ?? "");
 
-        return View(new AddShelfInventoryRequest { ShelfCode = code, Position = position ?? 0, BundleCount = 1, UnitsPerBundle = 1 });
+        var firstFree = Enumerable.Range(1, 6).FirstOrDefault(p => !shelf.Slots.Any(s => s.Position == p && !s.IsEmpty));
+        return View(new AddShelfInventoryRequest { ShelfCode = code, Position = position ?? firstFree, BundleCount = 1, UnitsPerBundle = 1 });
     }
 
     [HttpPost("{code}/add")]
