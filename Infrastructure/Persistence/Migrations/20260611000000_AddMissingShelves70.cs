@@ -1,9 +1,13 @@
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using ManolyWarehouse.Infrastructure.Persistence;
 
 #nullable disable
 
 namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
 {
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20260611000000_AddMissingShelves70")]
     public partial class AddMissingShelves70 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
