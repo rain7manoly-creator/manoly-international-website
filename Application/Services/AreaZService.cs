@@ -189,9 +189,6 @@ public class AreaZService : IAreaZService
     {
         var userId = RequireUserId();
 
-        if (position is < 1 or > Shelf.MaxSlots)
-            throw new DomainException($"الموضع يجب أن يكون بين 1 و {Shelf.MaxSlots}.");
-
         var entry = await _db.AreaZInventory.FirstOrDefaultAsync(az => az.Id == areaZId, ct)
             ?? throw new DomainException("صف منطقة Z غير موجود.");
 
@@ -202,6 +199,10 @@ public class AreaZService : IAreaZService
             .Include(s => s.Inventories)
             .FirstOrDefaultAsync(s => s.Id == shelfId, ct)
             ?? throw new DomainException("الرف غير موجود.");
+
+        // Position must fall within this shelf's capacity (racks hold more than shelves)
+        if (position < 1 || position > shelf.MaxPositions)
+            throw new DomainException("رقم الموضع خارج نطاق سعة الرف.");
 
         await using var tx = await _db.Database.BeginTransactionAsync(ct);
         try

@@ -294,9 +294,6 @@ public class PurchaseOrderService : IPurchaseOrderService
     {
         var userId = RequireUserId();
 
-        if (position is < 1 or > Shelf.MaxSlots)
-            throw new DomainException($"الموضع يجب أن يكون بين 1 و {Shelf.MaxSlots}.");
-
         var item = await _db.PurchaseOrderItems
             .Include(i => i.Order)
             .FirstOrDefaultAsync(i => i.Id == itemId, ct)
@@ -309,6 +306,10 @@ public class PurchaseOrderService : IPurchaseOrderService
             .Include(s => s.Inventories)
             .FirstOrDefaultAsync(s => s.Id == shelfId, ct)
             ?? throw new DomainException("الرف غير موجود.");
+
+        // Position must fall within this shelf's capacity (racks hold more than shelves)
+        if (position < 1 || position > shelf.MaxPositions)
+            throw new DomainException("رقم الموضع خارج نطاق سعة الرف.");
 
         // EnableRetryOnFailure requires user-initiated transactions to run
         // inside the execution strategy's retriable unit.

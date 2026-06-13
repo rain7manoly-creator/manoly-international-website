@@ -423,6 +423,11 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                         .HasMaxLength(1)
                         .HasColumnType("character varying(1)");
 
+                    b.Property<int>("MaxPositions")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(6);
+
                     b.Property<int>("Number")
                         .HasColumnType("integer");
 
@@ -446,6 +451,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 1,
                             Code = "A1",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 1,
                             Side = "ABC"
                         },
@@ -454,6 +460,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 2,
                             Code = "B1",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 1,
                             Side = "ABC"
                         },
@@ -462,6 +469,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 3,
                             Code = "C1",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 1,
                             Side = "ABC"
                         },
@@ -470,6 +478,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 4,
                             Code = "A2",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 2,
                             Side = "ABC"
                         },
@@ -478,6 +487,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 5,
                             Code = "B2",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 2,
                             Side = "ABC"
                         },
@@ -486,6 +496,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 6,
                             Code = "C2",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 2,
                             Side = "ABC"
                         },
@@ -494,6 +505,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 7,
                             Code = "A3",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 3,
                             Side = "ABC"
                         },
@@ -502,6 +514,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 8,
                             Code = "B3",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 3,
                             Side = "ABC"
                         },
@@ -510,6 +523,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 9,
                             Code = "C3",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 3,
                             Side = "ABC"
                         },
@@ -518,6 +532,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 10,
                             Code = "A4",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 4,
                             Side = "ABC"
                         },
@@ -526,6 +541,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 11,
                             Code = "B4",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 4,
                             Side = "ABC"
                         },
@@ -534,6 +550,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 12,
                             Code = "C4",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 4,
                             Side = "ABC"
                         },
@@ -542,6 +559,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 13,
                             Code = "A5",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 5,
                             Side = "ABC"
                         },
@@ -550,6 +568,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 14,
                             Code = "B5",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 5,
                             Side = "ABC"
                         },
@@ -558,6 +577,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 15,
                             Code = "C5",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 5,
                             Side = "ABC"
                         },
@@ -566,6 +586,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 16,
                             Code = "A6",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 6,
                             Side = "ABC"
                         },
@@ -574,6 +595,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 17,
                             Code = "B6",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 6,
                             Side = "ABC"
                         },
@@ -582,6 +604,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 18,
                             Code = "C6",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 6,
                             Side = "ABC"
                         },
@@ -590,6 +613,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 19,
                             Code = "A7",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 7,
                             Side = "ABC"
                         },
@@ -598,6 +622,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 20,
                             Code = "B7",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 7,
                             Side = "ABC"
                         },
@@ -606,6 +631,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 21,
                             Code = "C7",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 7,
                             Side = "ABC"
                         },
@@ -614,6 +640,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 22,
                             Code = "A8",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 8,
                             Side = "ABC"
                         },
@@ -622,6 +649,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 23,
                             Code = "B8",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 8,
                             Side = "ABC"
                         },
@@ -630,6 +658,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 24,
                             Code = "C8",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 8,
                             Side = "ABC"
                         },
@@ -638,6 +667,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 25,
                             Code = "A9",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 9,
                             Side = "ABC"
                         },
@@ -646,6 +676,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 26,
                             Code = "B9",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 9,
                             Side = "ABC"
                         },
@@ -654,6 +685,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 27,
                             Code = "C9",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 9,
                             Side = "ABC"
                         },
@@ -662,6 +694,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 28,
                             Code = "A10",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 10,
                             Side = "ABC"
                         },
@@ -670,6 +703,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 29,
                             Code = "B10",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 10,
                             Side = "ABC"
                         },
@@ -678,6 +712,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 30,
                             Code = "C10",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 10,
                             Side = "ABC"
                         },
@@ -686,6 +721,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 31,
                             Code = "A11",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 11,
                             Side = "ABC"
                         },
@@ -694,6 +730,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 32,
                             Code = "B11",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 11,
                             Side = "ABC"
                         },
@@ -702,6 +739,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 33,
                             Code = "C11",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 11,
                             Side = "ABC"
                         },
@@ -710,6 +748,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 34,
                             Code = "A12",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 12,
                             Side = "ABC"
                         },
@@ -718,6 +757,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 35,
                             Code = "B12",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 12,
                             Side = "ABC"
                         },
@@ -726,6 +766,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 36,
                             Code = "C12",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 12,
                             Side = "ABC"
                         },
@@ -734,6 +775,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 37,
                             Code = "A13",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 13,
                             Side = "ABC"
                         },
@@ -742,6 +784,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 38,
                             Code = "B13",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 13,
                             Side = "ABC"
                         },
@@ -750,6 +793,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 39,
                             Code = "C13",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 13,
                             Side = "ABC"
                         },
@@ -758,6 +802,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 40,
                             Code = "A14",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 14,
                             Side = "ABC"
                         },
@@ -766,6 +811,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 41,
                             Code = "B14",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 14,
                             Side = "ABC"
                         },
@@ -774,6 +820,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 42,
                             Code = "C14",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 14,
                             Side = "ABC"
                         },
@@ -782,6 +829,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 43,
                             Code = "A15",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 15,
                             Side = "ABC"
                         },
@@ -790,6 +838,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 44,
                             Code = "B15",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 15,
                             Side = "ABC"
                         },
@@ -798,6 +847,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 45,
                             Code = "C15",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 15,
                             Side = "ABC"
                         },
@@ -806,6 +856,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 46,
                             Code = "A16",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 16,
                             Side = "ABC"
                         },
@@ -814,6 +865,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 47,
                             Code = "B16",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 16,
                             Side = "ABC"
                         },
@@ -822,6 +874,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 48,
                             Code = "C16",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 16,
                             Side = "ABC"
                         },
@@ -830,6 +883,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 49,
                             Code = "A17",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 17,
                             Side = "ABC"
                         },
@@ -838,6 +892,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 50,
                             Code = "B17",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 17,
                             Side = "ABC"
                         },
@@ -846,6 +901,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 51,
                             Code = "C17",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 17,
                             Side = "ABC"
                         },
@@ -854,6 +910,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 52,
                             Code = "A18",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 18,
                             Side = "ABC"
                         },
@@ -862,6 +919,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 53,
                             Code = "B18",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 18,
                             Side = "ABC"
                         },
@@ -870,6 +928,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 54,
                             Code = "C18",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 18,
                             Side = "ABC"
                         },
@@ -878,6 +937,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 55,
                             Code = "A19",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 19,
                             Side = "ABC"
                         },
@@ -886,6 +946,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 56,
                             Code = "B19",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 19,
                             Side = "ABC"
                         },
@@ -894,6 +955,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 57,
                             Code = "C19",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 19,
                             Side = "ABC"
                         },
@@ -902,6 +964,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 58,
                             Code = "A20",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 20,
                             Side = "ABC"
                         },
@@ -910,6 +973,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 59,
                             Code = "B20",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 20,
                             Side = "ABC"
                         },
@@ -918,6 +982,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 60,
                             Code = "C20",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 20,
                             Side = "ABC"
                         },
@@ -926,6 +991,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 61,
                             Code = "A21",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 21,
                             Side = "ABC"
                         },
@@ -934,6 +1000,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 62,
                             Code = "B21",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 21,
                             Side = "ABC"
                         },
@@ -942,6 +1009,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 63,
                             Code = "C21",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 21,
                             Side = "ABC"
                         },
@@ -950,6 +1018,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 64,
                             Code = "A22",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 22,
                             Side = "ABC"
                         },
@@ -958,6 +1027,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 65,
                             Code = "B22",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 22,
                             Side = "ABC"
                         },
@@ -966,6 +1036,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 66,
                             Code = "C22",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 22,
                             Side = "ABC"
                         },
@@ -974,6 +1045,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 67,
                             Code = "A23",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 23,
                             Side = "ABC"
                         },
@@ -982,6 +1054,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 68,
                             Code = "B23",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 23,
                             Side = "ABC"
                         },
@@ -990,6 +1063,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 69,
                             Code = "C23",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 23,
                             Side = "ABC"
                         },
@@ -998,6 +1072,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 70,
                             Code = "A24",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 24,
                             Side = "ABC"
                         },
@@ -1006,6 +1081,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 71,
                             Code = "B24",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 24,
                             Side = "ABC"
                         },
@@ -1014,6 +1090,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 72,
                             Code = "C24",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 24,
                             Side = "ABC"
                         },
@@ -1022,6 +1099,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 73,
                             Code = "A25",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 25,
                             Side = "ABC"
                         },
@@ -1030,6 +1108,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 74,
                             Code = "B25",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 25,
                             Side = "ABC"
                         },
@@ -1038,6 +1117,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 75,
                             Code = "C25",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 25,
                             Side = "ABC"
                         },
@@ -1046,6 +1126,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 76,
                             Code = "A26",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 26,
                             Side = "ABC"
                         },
@@ -1054,6 +1135,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 77,
                             Code = "B26",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 26,
                             Side = "ABC"
                         },
@@ -1062,6 +1144,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 78,
                             Code = "C26",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 26,
                             Side = "ABC"
                         },
@@ -1070,6 +1153,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 79,
                             Code = "A27",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 27,
                             Side = "ABC"
                         },
@@ -1078,6 +1162,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 80,
                             Code = "B27",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 27,
                             Side = "ABC"
                         },
@@ -1086,6 +1171,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 81,
                             Code = "C27",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 27,
                             Side = "ABC"
                         },
@@ -1094,6 +1180,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 82,
                             Code = "A28",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 28,
                             Side = "ABC"
                         },
@@ -1102,6 +1189,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 83,
                             Code = "B28",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 28,
                             Side = "ABC"
                         },
@@ -1110,6 +1198,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 84,
                             Code = "C28",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 28,
                             Side = "ABC"
                         },
@@ -1118,6 +1207,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 85,
                             Code = "A29",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 29,
                             Side = "ABC"
                         },
@@ -1126,6 +1216,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 86,
                             Code = "B29",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 29,
                             Side = "ABC"
                         },
@@ -1134,6 +1225,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 87,
                             Code = "C29",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 29,
                             Side = "ABC"
                         },
@@ -1142,6 +1234,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 88,
                             Code = "A30",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 30,
                             Side = "ABC"
                         },
@@ -1150,6 +1243,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 89,
                             Code = "B30",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 30,
                             Side = "ABC"
                         },
@@ -1158,6 +1252,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 90,
                             Code = "C30",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 30,
                             Side = "ABC"
                         },
@@ -1166,6 +1261,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 91,
                             Code = "A31",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 31,
                             Side = "ABC"
                         },
@@ -1174,6 +1270,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 92,
                             Code = "B31",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 31,
                             Side = "ABC"
                         },
@@ -1182,6 +1279,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 93,
                             Code = "C31",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 31,
                             Side = "ABC"
                         },
@@ -1190,6 +1288,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 94,
                             Code = "A32",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 32,
                             Side = "ABC"
                         },
@@ -1198,6 +1297,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 95,
                             Code = "B32",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 32,
                             Side = "ABC"
                         },
@@ -1206,6 +1306,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 96,
                             Code = "C32",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 32,
                             Side = "ABC"
                         },
@@ -1214,6 +1315,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 97,
                             Code = "A33",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 33,
                             Side = "ABC"
                         },
@@ -1222,6 +1324,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 98,
                             Code = "B33",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 33,
                             Side = "ABC"
                         },
@@ -1230,6 +1333,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 99,
                             Code = "C33",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 33,
                             Side = "ABC"
                         },
@@ -1238,6 +1342,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 100,
                             Code = "A34",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 34,
                             Side = "ABC"
                         },
@@ -1246,6 +1351,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 101,
                             Code = "B34",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 34,
                             Side = "ABC"
                         },
@@ -1254,6 +1360,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 102,
                             Code = "C34",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 34,
                             Side = "ABC"
                         },
@@ -1262,6 +1369,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 103,
                             Code = "A35",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 35,
                             Side = "ABC"
                         },
@@ -1270,6 +1378,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 104,
                             Code = "B35",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 35,
                             Side = "ABC"
                         },
@@ -1278,6 +1387,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 105,
                             Code = "C35",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 35,
                             Side = "ABC"
                         },
@@ -1286,6 +1396,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 106,
                             Code = "A36",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 36,
                             Side = "ABC"
                         },
@@ -1294,6 +1405,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 107,
                             Code = "B36",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 36,
                             Side = "ABC"
                         },
@@ -1302,6 +1414,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 108,
                             Code = "C36",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 36,
                             Side = "ABC"
                         },
@@ -1310,6 +1423,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 109,
                             Code = "A37",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 37,
                             Side = "ABC"
                         },
@@ -1318,6 +1432,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 110,
                             Code = "B37",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 37,
                             Side = "ABC"
                         },
@@ -1326,6 +1441,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 111,
                             Code = "C37",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 37,
                             Side = "ABC"
                         },
@@ -1334,6 +1450,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 112,
                             Code = "A38",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 38,
                             Side = "ABC"
                         },
@@ -1342,6 +1459,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 113,
                             Code = "B38",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 38,
                             Side = "ABC"
                         },
@@ -1350,6 +1468,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 114,
                             Code = "C38",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 38,
                             Side = "ABC"
                         },
@@ -1358,6 +1477,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 115,
                             Code = "A39",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 39,
                             Side = "ABC"
                         },
@@ -1366,6 +1486,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 116,
                             Code = "B39",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 39,
                             Side = "ABC"
                         },
@@ -1374,6 +1495,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 117,
                             Code = "C39",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 39,
                             Side = "ABC"
                         },
@@ -1382,6 +1504,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 118,
                             Code = "A40",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 40,
                             Side = "ABC"
                         },
@@ -1390,6 +1513,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 119,
                             Code = "B40",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 40,
                             Side = "ABC"
                         },
@@ -1398,6 +1522,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 120,
                             Code = "C40",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 40,
                             Side = "ABC"
                         },
@@ -1406,6 +1531,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 121,
                             Code = "A41",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 41,
                             Side = "ABC"
                         },
@@ -1414,6 +1540,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 122,
                             Code = "B41",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 41,
                             Side = "ABC"
                         },
@@ -1422,6 +1549,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 123,
                             Code = "C41",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 41,
                             Side = "ABC"
                         },
@@ -1430,6 +1558,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 124,
                             Code = "A42",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 42,
                             Side = "ABC"
                         },
@@ -1438,6 +1567,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 125,
                             Code = "B42",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 42,
                             Side = "ABC"
                         },
@@ -1446,6 +1576,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 126,
                             Code = "C42",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 42,
                             Side = "ABC"
                         },
@@ -1454,6 +1585,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 127,
                             Code = "A43",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 43,
                             Side = "ABC"
                         },
@@ -1462,6 +1594,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 128,
                             Code = "B43",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 43,
                             Side = "ABC"
                         },
@@ -1470,6 +1603,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 129,
                             Code = "C43",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 43,
                             Side = "ABC"
                         },
@@ -1478,6 +1612,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 130,
                             Code = "A44",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 44,
                             Side = "ABC"
                         },
@@ -1486,6 +1621,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 131,
                             Code = "B44",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 44,
                             Side = "ABC"
                         },
@@ -1494,6 +1630,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 132,
                             Code = "C44",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 44,
                             Side = "ABC"
                         },
@@ -1502,6 +1639,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 133,
                             Code = "A45",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 45,
                             Side = "ABC"
                         },
@@ -1510,6 +1648,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 134,
                             Code = "B45",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 45,
                             Side = "ABC"
                         },
@@ -1518,6 +1657,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 135,
                             Code = "C45",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 45,
                             Side = "ABC"
                         },
@@ -1526,6 +1666,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 136,
                             Code = "A46",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 46,
                             Side = "ABC"
                         },
@@ -1534,6 +1675,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 137,
                             Code = "B46",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 46,
                             Side = "ABC"
                         },
@@ -1542,6 +1684,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 138,
                             Code = "C46",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 46,
                             Side = "ABC"
                         },
@@ -1550,6 +1693,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 139,
                             Code = "A47",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 47,
                             Side = "ABC"
                         },
@@ -1558,6 +1702,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 140,
                             Code = "B47",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 47,
                             Side = "ABC"
                         },
@@ -1566,6 +1711,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 141,
                             Code = "C47",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 47,
                             Side = "ABC"
                         },
@@ -1574,6 +1720,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 142,
                             Code = "A48",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 48,
                             Side = "ABC"
                         },
@@ -1582,6 +1729,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 143,
                             Code = "B48",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 48,
                             Side = "ABC"
                         },
@@ -1590,6 +1738,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 144,
                             Code = "C48",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 48,
                             Side = "ABC"
                         },
@@ -1598,6 +1747,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 145,
                             Code = "A49",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 49,
                             Side = "ABC"
                         },
@@ -1606,6 +1756,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 146,
                             Code = "B49",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 49,
                             Side = "ABC"
                         },
@@ -1614,6 +1765,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 147,
                             Code = "C49",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 49,
                             Side = "ABC"
                         },
@@ -1622,6 +1774,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 148,
                             Code = "A50",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 50,
                             Side = "ABC"
                         },
@@ -1630,6 +1783,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 149,
                             Code = "B50",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 50,
                             Side = "ABC"
                         },
@@ -1638,6 +1792,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 150,
                             Code = "C50",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 50,
                             Side = "ABC"
                         },
@@ -1646,6 +1801,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 151,
                             Code = "A51",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 51,
                             Side = "ABC"
                         },
@@ -1654,6 +1810,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 152,
                             Code = "B51",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 51,
                             Side = "ABC"
                         },
@@ -1662,6 +1819,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 153,
                             Code = "C51",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 51,
                             Side = "ABC"
                         },
@@ -1670,6 +1828,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 154,
                             Code = "A52",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 52,
                             Side = "ABC"
                         },
@@ -1678,6 +1837,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 155,
                             Code = "B52",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 52,
                             Side = "ABC"
                         },
@@ -1686,6 +1846,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 156,
                             Code = "C52",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 52,
                             Side = "ABC"
                         },
@@ -1694,6 +1855,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 157,
                             Code = "A53",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 53,
                             Side = "ABC"
                         },
@@ -1702,6 +1864,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 158,
                             Code = "B53",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 53,
                             Side = "ABC"
                         },
@@ -1710,6 +1873,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 159,
                             Code = "C53",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 53,
                             Side = "ABC"
                         },
@@ -1718,6 +1882,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 160,
                             Code = "A54",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 54,
                             Side = "ABC"
                         },
@@ -1726,6 +1891,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 161,
                             Code = "B54",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 54,
                             Side = "ABC"
                         },
@@ -1734,6 +1900,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 162,
                             Code = "C54",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 54,
                             Side = "ABC"
                         },
@@ -1742,6 +1909,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 163,
                             Code = "A55",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 55,
                             Side = "ABC"
                         },
@@ -1750,6 +1918,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 164,
                             Code = "B55",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 55,
                             Side = "ABC"
                         },
@@ -1758,6 +1927,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 165,
                             Code = "C55",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 55,
                             Side = "ABC"
                         },
@@ -1766,6 +1936,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 166,
                             Code = "A56",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 56,
                             Side = "ABC"
                         },
@@ -1774,6 +1945,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 167,
                             Code = "B56",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 56,
                             Side = "ABC"
                         },
@@ -1782,6 +1954,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 168,
                             Code = "C56",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 56,
                             Side = "ABC"
                         },
@@ -1790,6 +1963,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 169,
                             Code = "A57",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 57,
                             Side = "ABC"
                         },
@@ -1798,6 +1972,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 170,
                             Code = "B57",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 57,
                             Side = "ABC"
                         },
@@ -1806,6 +1981,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 171,
                             Code = "C57",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 57,
                             Side = "ABC"
                         },
@@ -1814,6 +1990,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 172,
                             Code = "A58",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 58,
                             Side = "ABC"
                         },
@@ -1822,6 +1999,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 173,
                             Code = "B58",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 58,
                             Side = "ABC"
                         },
@@ -1830,6 +2008,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 174,
                             Code = "C58",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 58,
                             Side = "ABC"
                         },
@@ -1838,6 +2017,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 175,
                             Code = "A59",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 59,
                             Side = "ABC"
                         },
@@ -1846,6 +2026,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 176,
                             Code = "B59",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 59,
                             Side = "ABC"
                         },
@@ -1854,6 +2035,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 177,
                             Code = "C59",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 59,
                             Side = "ABC"
                         },
@@ -1862,6 +2044,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 178,
                             Code = "A60",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 60,
                             Side = "ABC"
                         },
@@ -1870,6 +2053,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 179,
                             Code = "B60",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 60,
                             Side = "ABC"
                         },
@@ -1878,6 +2062,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 180,
                             Code = "C60",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 60,
                             Side = "ABC"
                         },
@@ -1886,6 +2071,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 181,
                             Code = "A61",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 61,
                             Side = "ABC"
                         },
@@ -1894,6 +2080,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 182,
                             Code = "B61",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 61,
                             Side = "ABC"
                         },
@@ -1902,6 +2089,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 183,
                             Code = "C61",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 61,
                             Side = "ABC"
                         },
@@ -1910,6 +2098,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 184,
                             Code = "A62",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 62,
                             Side = "ABC"
                         },
@@ -1918,6 +2107,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 185,
                             Code = "B62",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 62,
                             Side = "ABC"
                         },
@@ -1926,6 +2116,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 186,
                             Code = "C62",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 62,
                             Side = "ABC"
                         },
@@ -1934,6 +2125,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 187,
                             Code = "A63",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 63,
                             Side = "ABC"
                         },
@@ -1942,6 +2134,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 188,
                             Code = "B63",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 63,
                             Side = "ABC"
                         },
@@ -1950,6 +2143,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 189,
                             Code = "C63",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 63,
                             Side = "ABC"
                         },
@@ -1958,6 +2152,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 190,
                             Code = "A64",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 64,
                             Side = "ABC"
                         },
@@ -1966,6 +2161,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 191,
                             Code = "B64",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 64,
                             Side = "ABC"
                         },
@@ -1974,6 +2170,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 192,
                             Code = "C64",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 64,
                             Side = "ABC"
                         },
@@ -1982,6 +2179,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 193,
                             Code = "A65",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 65,
                             Side = "ABC"
                         },
@@ -1990,6 +2188,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 194,
                             Code = "B65",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 65,
                             Side = "ABC"
                         },
@@ -1998,6 +2197,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 195,
                             Code = "C65",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 65,
                             Side = "ABC"
                         },
@@ -2006,6 +2206,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 196,
                             Code = "A66",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 66,
                             Side = "ABC"
                         },
@@ -2014,6 +2215,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 197,
                             Code = "B66",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 66,
                             Side = "ABC"
                         },
@@ -2022,6 +2224,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 198,
                             Code = "C66",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 66,
                             Side = "ABC"
                         },
@@ -2030,6 +2233,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 199,
                             Code = "A67",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 67,
                             Side = "ABC"
                         },
@@ -2038,6 +2242,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 200,
                             Code = "B67",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 67,
                             Side = "ABC"
                         },
@@ -2046,6 +2251,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 201,
                             Code = "C67",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 67,
                             Side = "ABC"
                         },
@@ -2054,6 +2260,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 202,
                             Code = "A68",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 68,
                             Side = "ABC"
                         },
@@ -2062,6 +2269,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 203,
                             Code = "B68",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 68,
                             Side = "ABC"
                         },
@@ -2070,6 +2278,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 204,
                             Code = "C68",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 68,
                             Side = "ABC"
                         },
@@ -2078,6 +2287,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 205,
                             Code = "A69",
                             Label = "A",
+                            MaxPositions = 6,
                             Number = 69,
                             Side = "ABC"
                         },
@@ -2086,6 +2296,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 206,
                             Code = "B69",
                             Label = "B",
+                            MaxPositions = 6,
                             Number = 69,
                             Side = "ABC"
                         },
@@ -2094,6 +2305,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 207,
                             Code = "C69",
                             Label = "C",
+                            MaxPositions = 6,
                             Number = 69,
                             Side = "ABC"
                         },
@@ -2102,6 +2314,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 208,
                             Code = "D1",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 1,
                             Side = "DEF"
                         },
@@ -2110,6 +2323,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 209,
                             Code = "E1",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 1,
                             Side = "DEF"
                         },
@@ -2118,6 +2332,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 210,
                             Code = "F1",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 1,
                             Side = "DEF"
                         },
@@ -2126,6 +2341,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 211,
                             Code = "D2",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 2,
                             Side = "DEF"
                         },
@@ -2134,6 +2350,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 212,
                             Code = "E2",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 2,
                             Side = "DEF"
                         },
@@ -2142,6 +2359,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 213,
                             Code = "F2",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 2,
                             Side = "DEF"
                         },
@@ -2150,6 +2368,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 214,
                             Code = "D3",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 3,
                             Side = "DEF"
                         },
@@ -2158,6 +2377,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 215,
                             Code = "E3",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 3,
                             Side = "DEF"
                         },
@@ -2166,6 +2386,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 216,
                             Code = "F3",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 3,
                             Side = "DEF"
                         },
@@ -2174,6 +2395,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 217,
                             Code = "D4",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 4,
                             Side = "DEF"
                         },
@@ -2182,6 +2404,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 218,
                             Code = "E4",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 4,
                             Side = "DEF"
                         },
@@ -2190,6 +2413,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 219,
                             Code = "F4",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 4,
                             Side = "DEF"
                         },
@@ -2198,6 +2422,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 220,
                             Code = "D5",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 5,
                             Side = "DEF"
                         },
@@ -2206,6 +2431,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 221,
                             Code = "E5",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 5,
                             Side = "DEF"
                         },
@@ -2214,6 +2440,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 222,
                             Code = "F5",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 5,
                             Side = "DEF"
                         },
@@ -2222,6 +2449,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 223,
                             Code = "D6",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 6,
                             Side = "DEF"
                         },
@@ -2230,6 +2458,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 224,
                             Code = "E6",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 6,
                             Side = "DEF"
                         },
@@ -2238,6 +2467,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 225,
                             Code = "F6",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 6,
                             Side = "DEF"
                         },
@@ -2246,6 +2476,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 226,
                             Code = "D7",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 7,
                             Side = "DEF"
                         },
@@ -2254,6 +2485,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 227,
                             Code = "E7",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 7,
                             Side = "DEF"
                         },
@@ -2262,6 +2494,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 228,
                             Code = "F7",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 7,
                             Side = "DEF"
                         },
@@ -2270,6 +2503,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 229,
                             Code = "D8",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 8,
                             Side = "DEF"
                         },
@@ -2278,6 +2512,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 230,
                             Code = "E8",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 8,
                             Side = "DEF"
                         },
@@ -2286,6 +2521,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 231,
                             Code = "F8",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 8,
                             Side = "DEF"
                         },
@@ -2294,6 +2530,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 232,
                             Code = "D9",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 9,
                             Side = "DEF"
                         },
@@ -2302,6 +2539,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 233,
                             Code = "E9",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 9,
                             Side = "DEF"
                         },
@@ -2310,6 +2548,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 234,
                             Code = "F9",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 9,
                             Side = "DEF"
                         },
@@ -2318,6 +2557,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 235,
                             Code = "D10",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 10,
                             Side = "DEF"
                         },
@@ -2326,6 +2566,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 236,
                             Code = "E10",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 10,
                             Side = "DEF"
                         },
@@ -2334,6 +2575,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 237,
                             Code = "F10",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 10,
                             Side = "DEF"
                         },
@@ -2342,6 +2584,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 238,
                             Code = "D11",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 11,
                             Side = "DEF"
                         },
@@ -2350,6 +2593,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 239,
                             Code = "E11",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 11,
                             Side = "DEF"
                         },
@@ -2358,6 +2602,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 240,
                             Code = "F11",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 11,
                             Side = "DEF"
                         },
@@ -2366,6 +2611,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 241,
                             Code = "D12",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 12,
                             Side = "DEF"
                         },
@@ -2374,6 +2620,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 242,
                             Code = "E12",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 12,
                             Side = "DEF"
                         },
@@ -2382,6 +2629,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 243,
                             Code = "F12",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 12,
                             Side = "DEF"
                         },
@@ -2390,6 +2638,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 244,
                             Code = "D13",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 13,
                             Side = "DEF"
                         },
@@ -2398,6 +2647,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 245,
                             Code = "E13",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 13,
                             Side = "DEF"
                         },
@@ -2406,6 +2656,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 246,
                             Code = "F13",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 13,
                             Side = "DEF"
                         },
@@ -2414,6 +2665,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 247,
                             Code = "D14",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 14,
                             Side = "DEF"
                         },
@@ -2422,6 +2674,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 248,
                             Code = "E14",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 14,
                             Side = "DEF"
                         },
@@ -2430,6 +2683,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 249,
                             Code = "F14",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 14,
                             Side = "DEF"
                         },
@@ -2438,6 +2692,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 250,
                             Code = "D15",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 15,
                             Side = "DEF"
                         },
@@ -2446,6 +2701,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 251,
                             Code = "E15",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 15,
                             Side = "DEF"
                         },
@@ -2454,6 +2710,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 252,
                             Code = "F15",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 15,
                             Side = "DEF"
                         },
@@ -2462,6 +2719,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 253,
                             Code = "D16",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 16,
                             Side = "DEF"
                         },
@@ -2470,6 +2728,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 254,
                             Code = "E16",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 16,
                             Side = "DEF"
                         },
@@ -2478,6 +2737,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 255,
                             Code = "F16",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 16,
                             Side = "DEF"
                         },
@@ -2486,6 +2746,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 256,
                             Code = "D17",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 17,
                             Side = "DEF"
                         },
@@ -2494,6 +2755,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 257,
                             Code = "E17",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 17,
                             Side = "DEF"
                         },
@@ -2502,6 +2764,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 258,
                             Code = "F17",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 17,
                             Side = "DEF"
                         },
@@ -2510,6 +2773,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 259,
                             Code = "D18",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 18,
                             Side = "DEF"
                         },
@@ -2518,6 +2782,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 260,
                             Code = "E18",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 18,
                             Side = "DEF"
                         },
@@ -2526,6 +2791,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 261,
                             Code = "F18",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 18,
                             Side = "DEF"
                         },
@@ -2534,6 +2800,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 262,
                             Code = "D19",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 19,
                             Side = "DEF"
                         },
@@ -2542,6 +2809,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 263,
                             Code = "E19",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 19,
                             Side = "DEF"
                         },
@@ -2550,6 +2818,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 264,
                             Code = "F19",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 19,
                             Side = "DEF"
                         },
@@ -2558,6 +2827,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 265,
                             Code = "D20",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 20,
                             Side = "DEF"
                         },
@@ -2566,6 +2836,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 266,
                             Code = "E20",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 20,
                             Side = "DEF"
                         },
@@ -2574,6 +2845,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 267,
                             Code = "F20",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 20,
                             Side = "DEF"
                         },
@@ -2582,6 +2854,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 268,
                             Code = "D21",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 21,
                             Side = "DEF"
                         },
@@ -2590,6 +2863,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 269,
                             Code = "E21",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 21,
                             Side = "DEF"
                         },
@@ -2598,6 +2872,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 270,
                             Code = "F21",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 21,
                             Side = "DEF"
                         },
@@ -2606,6 +2881,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 271,
                             Code = "D22",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 22,
                             Side = "DEF"
                         },
@@ -2614,6 +2890,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 272,
                             Code = "E22",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 22,
                             Side = "DEF"
                         },
@@ -2622,6 +2899,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 273,
                             Code = "F22",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 22,
                             Side = "DEF"
                         },
@@ -2630,6 +2908,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 274,
                             Code = "D23",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 23,
                             Side = "DEF"
                         },
@@ -2638,6 +2917,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 275,
                             Code = "E23",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 23,
                             Side = "DEF"
                         },
@@ -2646,6 +2926,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 276,
                             Code = "F23",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 23,
                             Side = "DEF"
                         },
@@ -2654,6 +2935,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 277,
                             Code = "D24",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 24,
                             Side = "DEF"
                         },
@@ -2662,6 +2944,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 278,
                             Code = "E24",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 24,
                             Side = "DEF"
                         },
@@ -2670,6 +2953,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 279,
                             Code = "F24",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 24,
                             Side = "DEF"
                         },
@@ -2678,6 +2962,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 280,
                             Code = "D25",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 25,
                             Side = "DEF"
                         },
@@ -2686,6 +2971,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 281,
                             Code = "E25",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 25,
                             Side = "DEF"
                         },
@@ -2694,6 +2980,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 282,
                             Code = "F25",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 25,
                             Side = "DEF"
                         },
@@ -2702,6 +2989,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 283,
                             Code = "D26",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 26,
                             Side = "DEF"
                         },
@@ -2710,6 +2998,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 284,
                             Code = "E26",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 26,
                             Side = "DEF"
                         },
@@ -2718,6 +3007,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 285,
                             Code = "F26",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 26,
                             Side = "DEF"
                         },
@@ -2726,6 +3016,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 286,
                             Code = "D27",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 27,
                             Side = "DEF"
                         },
@@ -2734,6 +3025,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 287,
                             Code = "E27",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 27,
                             Side = "DEF"
                         },
@@ -2742,6 +3034,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 288,
                             Code = "F27",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 27,
                             Side = "DEF"
                         },
@@ -2750,6 +3043,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 289,
                             Code = "D28",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 28,
                             Side = "DEF"
                         },
@@ -2758,6 +3052,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 290,
                             Code = "E28",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 28,
                             Side = "DEF"
                         },
@@ -2766,6 +3061,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 291,
                             Code = "F28",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 28,
                             Side = "DEF"
                         },
@@ -2774,6 +3070,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 292,
                             Code = "D29",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 29,
                             Side = "DEF"
                         },
@@ -2782,6 +3079,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 293,
                             Code = "E29",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 29,
                             Side = "DEF"
                         },
@@ -2790,6 +3088,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 294,
                             Code = "F29",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 29,
                             Side = "DEF"
                         },
@@ -2798,6 +3097,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 295,
                             Code = "D30",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 30,
                             Side = "DEF"
                         },
@@ -2806,6 +3106,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 296,
                             Code = "E30",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 30,
                             Side = "DEF"
                         },
@@ -2814,6 +3115,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 297,
                             Code = "F30",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 30,
                             Side = "DEF"
                         },
@@ -2822,6 +3124,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 298,
                             Code = "D31",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 31,
                             Side = "DEF"
                         },
@@ -2830,6 +3133,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 299,
                             Code = "E31",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 31,
                             Side = "DEF"
                         },
@@ -2838,6 +3142,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 300,
                             Code = "F31",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 31,
                             Side = "DEF"
                         },
@@ -2846,6 +3151,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 301,
                             Code = "D32",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 32,
                             Side = "DEF"
                         },
@@ -2854,6 +3160,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 302,
                             Code = "E32",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 32,
                             Side = "DEF"
                         },
@@ -2862,6 +3169,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 303,
                             Code = "F32",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 32,
                             Side = "DEF"
                         },
@@ -2870,6 +3178,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 304,
                             Code = "D33",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 33,
                             Side = "DEF"
                         },
@@ -2878,6 +3187,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 305,
                             Code = "E33",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 33,
                             Side = "DEF"
                         },
@@ -2886,6 +3196,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 306,
                             Code = "F33",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 33,
                             Side = "DEF"
                         },
@@ -2894,6 +3205,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 307,
                             Code = "D34",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 34,
                             Side = "DEF"
                         },
@@ -2902,6 +3214,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 308,
                             Code = "E34",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 34,
                             Side = "DEF"
                         },
@@ -2910,6 +3223,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 309,
                             Code = "F34",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 34,
                             Side = "DEF"
                         },
@@ -2918,6 +3232,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 310,
                             Code = "D35",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 35,
                             Side = "DEF"
                         },
@@ -2926,6 +3241,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 311,
                             Code = "E35",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 35,
                             Side = "DEF"
                         },
@@ -2934,6 +3250,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 312,
                             Code = "F35",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 35,
                             Side = "DEF"
                         },
@@ -2942,6 +3259,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 313,
                             Code = "D36",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 36,
                             Side = "DEF"
                         },
@@ -2950,6 +3268,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 314,
                             Code = "E36",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 36,
                             Side = "DEF"
                         },
@@ -2958,6 +3277,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 315,
                             Code = "F36",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 36,
                             Side = "DEF"
                         },
@@ -2966,6 +3286,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 316,
                             Code = "D37",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 37,
                             Side = "DEF"
                         },
@@ -2974,6 +3295,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 317,
                             Code = "E37",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 37,
                             Side = "DEF"
                         },
@@ -2982,6 +3304,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 318,
                             Code = "F37",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 37,
                             Side = "DEF"
                         },
@@ -2990,6 +3313,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 319,
                             Code = "D38",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 38,
                             Side = "DEF"
                         },
@@ -2998,6 +3322,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 320,
                             Code = "E38",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 38,
                             Side = "DEF"
                         },
@@ -3006,6 +3331,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 321,
                             Code = "F38",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 38,
                             Side = "DEF"
                         },
@@ -3014,6 +3340,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 322,
                             Code = "D39",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 39,
                             Side = "DEF"
                         },
@@ -3022,6 +3349,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 323,
                             Code = "E39",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 39,
                             Side = "DEF"
                         },
@@ -3030,6 +3358,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 324,
                             Code = "F39",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 39,
                             Side = "DEF"
                         },
@@ -3038,6 +3367,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 325,
                             Code = "D40",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 40,
                             Side = "DEF"
                         },
@@ -3046,6 +3376,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 326,
                             Code = "E40",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 40,
                             Side = "DEF"
                         },
@@ -3054,6 +3385,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 327,
                             Code = "F40",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 40,
                             Side = "DEF"
                         },
@@ -3062,6 +3394,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 328,
                             Code = "D41",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 41,
                             Side = "DEF"
                         },
@@ -3070,6 +3403,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 329,
                             Code = "E41",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 41,
                             Side = "DEF"
                         },
@@ -3078,6 +3412,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 330,
                             Code = "F41",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 41,
                             Side = "DEF"
                         },
@@ -3086,6 +3421,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 331,
                             Code = "D42",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 42,
                             Side = "DEF"
                         },
@@ -3094,6 +3430,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 332,
                             Code = "E42",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 42,
                             Side = "DEF"
                         },
@@ -3102,6 +3439,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 333,
                             Code = "F42",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 42,
                             Side = "DEF"
                         },
@@ -3110,6 +3448,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 334,
                             Code = "D43",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 43,
                             Side = "DEF"
                         },
@@ -3118,6 +3457,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 335,
                             Code = "E43",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 43,
                             Side = "DEF"
                         },
@@ -3126,6 +3466,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 336,
                             Code = "F43",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 43,
                             Side = "DEF"
                         },
@@ -3134,6 +3475,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 337,
                             Code = "D44",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 44,
                             Side = "DEF"
                         },
@@ -3142,6 +3484,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 338,
                             Code = "E44",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 44,
                             Side = "DEF"
                         },
@@ -3150,6 +3493,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 339,
                             Code = "F44",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 44,
                             Side = "DEF"
                         },
@@ -3158,6 +3502,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 340,
                             Code = "D45",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 45,
                             Side = "DEF"
                         },
@@ -3166,6 +3511,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 341,
                             Code = "E45",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 45,
                             Side = "DEF"
                         },
@@ -3174,6 +3520,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 342,
                             Code = "F45",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 45,
                             Side = "DEF"
                         },
@@ -3182,6 +3529,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 343,
                             Code = "D46",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 46,
                             Side = "DEF"
                         },
@@ -3190,6 +3538,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 344,
                             Code = "E46",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 46,
                             Side = "DEF"
                         },
@@ -3198,6 +3547,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 345,
                             Code = "F46",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 46,
                             Side = "DEF"
                         },
@@ -3206,6 +3556,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 346,
                             Code = "D47",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 47,
                             Side = "DEF"
                         },
@@ -3214,6 +3565,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 347,
                             Code = "E47",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 47,
                             Side = "DEF"
                         },
@@ -3222,6 +3574,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 348,
                             Code = "F47",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 47,
                             Side = "DEF"
                         },
@@ -3230,6 +3583,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 349,
                             Code = "D48",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 48,
                             Side = "DEF"
                         },
@@ -3238,6 +3592,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 350,
                             Code = "E48",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 48,
                             Side = "DEF"
                         },
@@ -3246,6 +3601,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 351,
                             Code = "F48",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 48,
                             Side = "DEF"
                         },
@@ -3254,6 +3610,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 352,
                             Code = "D49",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 49,
                             Side = "DEF"
                         },
@@ -3262,6 +3619,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 353,
                             Code = "E49",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 49,
                             Side = "DEF"
                         },
@@ -3270,6 +3628,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 354,
                             Code = "F49",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 49,
                             Side = "DEF"
                         },
@@ -3278,6 +3637,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 355,
                             Code = "D50",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 50,
                             Side = "DEF"
                         },
@@ -3286,6 +3646,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 356,
                             Code = "E50",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 50,
                             Side = "DEF"
                         },
@@ -3294,6 +3655,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 357,
                             Code = "F50",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 50,
                             Side = "DEF"
                         },
@@ -3302,6 +3664,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 358,
                             Code = "D51",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 51,
                             Side = "DEF"
                         },
@@ -3310,6 +3673,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 359,
                             Code = "E51",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 51,
                             Side = "DEF"
                         },
@@ -3318,6 +3682,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 360,
                             Code = "F51",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 51,
                             Side = "DEF"
                         },
@@ -3326,6 +3691,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 361,
                             Code = "D52",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 52,
                             Side = "DEF"
                         },
@@ -3334,6 +3700,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 362,
                             Code = "E52",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 52,
                             Side = "DEF"
                         },
@@ -3342,6 +3709,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 363,
                             Code = "F52",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 52,
                             Side = "DEF"
                         },
@@ -3350,6 +3718,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 364,
                             Code = "D53",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 53,
                             Side = "DEF"
                         },
@@ -3358,6 +3727,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 365,
                             Code = "E53",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 53,
                             Side = "DEF"
                         },
@@ -3366,6 +3736,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 366,
                             Code = "F53",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 53,
                             Side = "DEF"
                         },
@@ -3374,6 +3745,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 367,
                             Code = "D54",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 54,
                             Side = "DEF"
                         },
@@ -3382,6 +3754,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 368,
                             Code = "E54",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 54,
                             Side = "DEF"
                         },
@@ -3390,6 +3763,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 369,
                             Code = "F54",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 54,
                             Side = "DEF"
                         },
@@ -3398,6 +3772,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 370,
                             Code = "D55",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 55,
                             Side = "DEF"
                         },
@@ -3406,6 +3781,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 371,
                             Code = "E55",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 55,
                             Side = "DEF"
                         },
@@ -3414,6 +3790,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 372,
                             Code = "F55",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 55,
                             Side = "DEF"
                         },
@@ -3422,6 +3799,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 373,
                             Code = "D56",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 56,
                             Side = "DEF"
                         },
@@ -3430,6 +3808,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 374,
                             Code = "E56",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 56,
                             Side = "DEF"
                         },
@@ -3438,6 +3817,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 375,
                             Code = "F56",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 56,
                             Side = "DEF"
                         },
@@ -3446,6 +3826,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 376,
                             Code = "D57",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 57,
                             Side = "DEF"
                         },
@@ -3454,6 +3835,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 377,
                             Code = "E57",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 57,
                             Side = "DEF"
                         },
@@ -3462,6 +3844,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 378,
                             Code = "F57",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 57,
                             Side = "DEF"
                         },
@@ -3470,6 +3853,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 379,
                             Code = "D58",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 58,
                             Side = "DEF"
                         },
@@ -3478,6 +3862,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 380,
                             Code = "E58",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 58,
                             Side = "DEF"
                         },
@@ -3486,6 +3871,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 381,
                             Code = "F58",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 58,
                             Side = "DEF"
                         },
@@ -3494,6 +3880,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 382,
                             Code = "D59",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 59,
                             Side = "DEF"
                         },
@@ -3502,6 +3889,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 383,
                             Code = "E59",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 59,
                             Side = "DEF"
                         },
@@ -3510,6 +3898,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 384,
                             Code = "F59",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 59,
                             Side = "DEF"
                         },
@@ -3518,6 +3907,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 385,
                             Code = "D60",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 60,
                             Side = "DEF"
                         },
@@ -3526,6 +3916,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 386,
                             Code = "E60",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 60,
                             Side = "DEF"
                         },
@@ -3534,6 +3925,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 387,
                             Code = "F60",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 60,
                             Side = "DEF"
                         },
@@ -3542,6 +3934,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 388,
                             Code = "D61",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 61,
                             Side = "DEF"
                         },
@@ -3550,6 +3943,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 389,
                             Code = "E61",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 61,
                             Side = "DEF"
                         },
@@ -3558,6 +3952,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 390,
                             Code = "F61",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 61,
                             Side = "DEF"
                         },
@@ -3566,6 +3961,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 391,
                             Code = "D62",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 62,
                             Side = "DEF"
                         },
@@ -3574,6 +3970,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 392,
                             Code = "E62",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 62,
                             Side = "DEF"
                         },
@@ -3582,6 +3979,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 393,
                             Code = "F62",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 62,
                             Side = "DEF"
                         },
@@ -3590,6 +3988,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 394,
                             Code = "D63",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 63,
                             Side = "DEF"
                         },
@@ -3598,6 +3997,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 395,
                             Code = "E63",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 63,
                             Side = "DEF"
                         },
@@ -3606,6 +4006,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 396,
                             Code = "F63",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 63,
                             Side = "DEF"
                         },
@@ -3614,6 +4015,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 397,
                             Code = "D64",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 64,
                             Side = "DEF"
                         },
@@ -3622,6 +4024,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 398,
                             Code = "E64",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 64,
                             Side = "DEF"
                         },
@@ -3630,6 +4033,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 399,
                             Code = "F64",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 64,
                             Side = "DEF"
                         },
@@ -3638,6 +4042,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 400,
                             Code = "D65",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 65,
                             Side = "DEF"
                         },
@@ -3646,6 +4051,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 401,
                             Code = "E65",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 65,
                             Side = "DEF"
                         },
@@ -3654,6 +4060,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 402,
                             Code = "F65",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 65,
                             Side = "DEF"
                         },
@@ -3662,6 +4069,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 403,
                             Code = "D66",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 66,
                             Side = "DEF"
                         },
@@ -3670,6 +4078,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 404,
                             Code = "E66",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 66,
                             Side = "DEF"
                         },
@@ -3678,6 +4087,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 405,
                             Code = "F66",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 66,
                             Side = "DEF"
                         },
@@ -3686,6 +4096,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 406,
                             Code = "D67",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 67,
                             Side = "DEF"
                         },
@@ -3694,6 +4105,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 407,
                             Code = "E67",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 67,
                             Side = "DEF"
                         },
@@ -3702,6 +4114,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 408,
                             Code = "F67",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 67,
                             Side = "DEF"
                         },
@@ -3710,6 +4123,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 409,
                             Code = "D68",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 68,
                             Side = "DEF"
                         },
@@ -3718,6 +4132,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 410,
                             Code = "E68",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 68,
                             Side = "DEF"
                         },
@@ -3726,6 +4141,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 411,
                             Code = "F68",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 68,
                             Side = "DEF"
                         },
@@ -3734,6 +4150,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 412,
                             Code = "D69",
                             Label = "D",
+                            MaxPositions = 6,
                             Number = 69,
                             Side = "DEF"
                         },
@@ -3742,6 +4159,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 413,
                             Code = "E69",
                             Label = "E",
+                            MaxPositions = 6,
                             Number = 69,
                             Side = "DEF"
                         },
@@ -3750,6 +4168,7 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                             Id = 414,
                             Code = "F69",
                             Label = "F",
+                            MaxPositions = 6,
                             Number = 69,
                             Side = "DEF"
                         });

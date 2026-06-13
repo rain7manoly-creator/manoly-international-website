@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ManolyWarehouse.Application.Interfaces;
 using ManolyWarehouse.Application.ViewModels;
+using ManolyWarehouse.Domain.Entities;
 
 namespace ManolyWarehouse.Controllers;
 
@@ -42,11 +43,12 @@ public class ShelvesController : Controller
         if (shelf == null) return NotFound();
 
         ViewBag.Products = await _productService.ListAsync(ct);
+        ViewBag.MaxPositions = shelf.MaxPositions;
         ViewBag.OccupiedPositions = shelf.Slots
             .Where(s => !s.IsEmpty)
             .ToDictionary(s => s.Position, s => s.ProductName ?? "");
 
-        var firstFree = Enumerable.Range(1, 6).FirstOrDefault(p => !shelf.Slots.Any(s => s.Position == p && !s.IsEmpty));
+        var firstFree = Enumerable.Range(1, shelf.MaxPositions).FirstOrDefault(p => !shelf.Slots.Any(s => s.Position == p && !s.IsEmpty));
         return View(new AddShelfInventoryRequest { ShelfCode = code, Position = position ?? firstFree, BundleCount = 1, UnitsPerBundle = 1 });
     }
 
@@ -59,6 +61,7 @@ public class ShelvesController : Controller
         {
             ViewBag.Products = await _productService.ListAsync(ct);
             var shelf = await _shelfService.GetByCodeAsync(code, ct);
+            ViewBag.MaxPositions = shelf?.MaxPositions ?? Shelf.MaxSlots;
             ViewBag.OccupiedPositions = shelf?.Slots
                 .Where(s => !s.IsEmpty)
                 .ToDictionary(s => s.Position, s => s.ProductName ?? "")

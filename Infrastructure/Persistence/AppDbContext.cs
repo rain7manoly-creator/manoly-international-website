@@ -73,7 +73,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>, IDataProtectionK
                         Code = $"{label}{number}",
                         Label = label.ToString(),
                         Number = number,
-                        Side = side
+                        Side = side,
+                        MaxPositions = Shelf.MaxSlots
                     });
                 }
             }

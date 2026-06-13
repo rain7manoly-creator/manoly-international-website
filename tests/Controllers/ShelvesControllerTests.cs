@@ -13,11 +13,12 @@ public class ShelvesControllerTests
 {
     private readonly Mock<IShelfService> _shelfSvc = new();
     private readonly Mock<IWarehouseGridService> _gridSvc = new();
+    private readonly Mock<IProductService> _productSvc = new();
     private readonly ShelvesController _sut;
 
     public ShelvesControllerTests()
     {
-        _sut = new ShelvesController(_shelfSvc.Object, _gridSvc.Object);
+        _sut = new ShelvesController(_shelfSvc.Object, _gridSvc.Object, _productSvc.Object);
         _sut.ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() };
     }
 

@@ -34,7 +34,8 @@ public class ShelfService : IShelfService
                 s.Id,
                 s.Code,
                 s.Label,
-                s.Number
+                s.Number,
+                s.MaxPositions
             })
             .FirstOrDefaultAsync(ct);
 
@@ -59,8 +60,8 @@ public class ShelfService : IShelfService
             })
             .ToListAsync(ct);
 
-        // Build all 6 slots — empty slots are filled in for visual rendering
-        var slots = Enumerable.Range(1, Shelf.MaxSlots).Select(pos =>
+        // Build all positions for this shelf — empty slots are filled in for visual rendering
+        var slots = Enumerable.Range(1, shelf.MaxPositions).Select(pos =>
         {
             var inv = inventories.FirstOrDefault(i => i.Position == pos);
             return new ShelfSlotViewModel
@@ -82,7 +83,8 @@ public class ShelfService : IShelfService
             Label = shelf.Label,
             Number = shelf.Number,
             Slots = slots,
-            OccupiedCount = inventories.Count
+            OccupiedCount = inventories.Count,
+            MaxPositions = shelf.MaxPositions
         };
     }
 
@@ -94,6 +96,10 @@ public class ShelfService : IShelfService
             .Include(s => s.Inventories)
             .FirstOrDefaultAsync(s => s.Code == request.ShelfCode, ct)
             ?? throw new DomainException($"الرف {request.ShelfCode} غير موجود.");
+
+        // Position must be within this shelf's capacity (racks hold more than shelves)
+        if (request.Position < 1 || request.Position > shelf.MaxPositions)
+            throw new DomainException("رقم الموضع خارج نطاق سعة الرف.");
 
         // SHELF-01: Capacity check (also enforced by the DB unique index on Position)
         if (shelf.IsFull)

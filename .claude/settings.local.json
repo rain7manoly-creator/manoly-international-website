@@ -24,7 +24,8 @@
       "Bash(grep -r \"price\\\\|cost\\\\|amount\\\\|\\\\$\\\\|format\" \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\manoly-international-website\\\\manoly-international-website\\\\Views\" --include=\"*.cshtml\" -i)",
       "Bash(ls \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\\" 2>/dev/null || dir \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\\")",
       "Bash(Select-String '\"@angular')",
-      "Bash(Get-ChildItem -Recurse -Depth 2)"
+      "Bash(Get-ChildItem -Recurse -Depth 2)",
+      "PowerShell(dotnet ef migrations add AddMaxPositionsToShelves --no-build 2>&1)"
     ]
   }
 }

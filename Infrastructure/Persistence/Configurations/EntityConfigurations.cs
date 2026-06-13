@@ -78,6 +78,10 @@ public class ShelfConfiguration : IEntityTypeConfiguration<Shelf>
 
         builder.Property(s => s.Number).IsRequired();
 
+        builder.Property(s => s.MaxPositions)
+            .IsRequired()
+            .HasDefaultValue(Shelf.MaxSlots);
+
         builder.Property(s => s.Side)
             .HasConversion<string>()
             .HasMaxLength(10)

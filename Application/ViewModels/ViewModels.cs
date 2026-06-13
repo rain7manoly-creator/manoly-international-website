@@ -59,7 +59,8 @@ public class ShelfGridCell
     public string Label { get; init; } = default!;
     public int Number { get; init; }
     public int OccupiedSlots { get; init; }
-    public bool IsFull => OccupiedSlots >= Shelf.MaxSlots;
+    public int MaxPositions { get; init; } = Shelf.MaxSlots;
+    public bool IsFull => OccupiedSlots >= MaxPositions;
     public bool IsEmpty => OccupiedSlots == 0;
 }
 
@@ -73,7 +74,8 @@ public class ShelfDetailViewModel
     public int Number { get; init; }
     public IReadOnlyList<ShelfSlotViewModel> Slots { get; init; } = Array.Empty<ShelfSlotViewModel>();
     public int OccupiedCount { get; init; }
-    public int Capacity => Shelf.MaxSlots;
+    public int MaxPositions { get; init; } = Shelf.MaxSlots;
+    public int Capacity => MaxPositions;
 }
 
 public class ShelfSlotViewModel
@@ -96,7 +98,8 @@ public class AddShelfInventoryRequest
     [Range(1, int.MaxValue, ErrorMessage = "اختر المنتج")]
     public int ProductId { get; set; }
 
-    [Range(1, Shelf.MaxSlots, ErrorMessage = "الموضع يجب أن يكون بين 1 و 6")]
+    // Upper bound is per-shelf (Shelf.MaxPositions) and enforced in ShelfService.
+    [Range(1, 99, ErrorMessage = "رقم الموضع غير صالح")]
     public int Position { get; set; }
 
     [Range(1, int.MaxValue, ErrorMessage = "عدد الربطات يجب أن يكون 1 أو أكثر")]

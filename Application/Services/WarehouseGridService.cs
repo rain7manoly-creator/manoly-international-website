@@ -33,6 +33,7 @@ public class WarehouseGridService : IWarehouseGridService
                 s.Label,
                 s.Number,
                 s.Side,
+                s.MaxPositions,
                 OccupiedSlots = _db.ShelfInventory.Count(si => si.ShelfId == s.Id)
             })
             .ToListAsync(ct);
@@ -43,7 +44,8 @@ public class WarehouseGridService : IWarehouseGridService
             Code = s.Code,
             Label = s.Label,
             Number = s.Number,
-            OccupiedSlots = s.OccupiedSlots
+            OccupiedSlots = s.OccupiedSlots,
+            MaxPositions = s.MaxPositions
         }).ToList();
 
         var sideAbc = cells.Where(c => c.Label is "A" or "B" or "C").ToList();
@@ -51,7 +53,7 @@ public class WarehouseGridService : IWarehouseGridService
 
         var totalLocations = cells.Count;
         var occupiedLocations = cells.Count(c => c.OccupiedSlots > 0);
-        var fullLocations = cells.Count(c => c.OccupiedSlots >= Shelf.MaxSlots);
+        var fullLocations = cells.Count(c => c.IsFull);
 
         _logger.LogDebug(
             "Grid loaded: {Total} locations, {Occupied} occupied, {Full} full",

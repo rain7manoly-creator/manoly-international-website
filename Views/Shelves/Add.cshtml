@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = $"إضافة إلى رف {Model.ShelfCode}";
     var occupied = ViewBag.OccupiedPositions as Dictionary<int, string> ?? new Dictionary<int, string>();
+    var maxPositions = ViewBag.MaxPositions as int? ?? 6;
 }
 
 <div class="px-4 pt-5 pb-3">
@@ -54,7 +55,7 @@
             <label class="form-label">الموضع · POSITION</label>
             <input type="hidden" name="Position" id="position-input" value="@(Model.Position >= 1 ? Model.Position.ToString() : "0")"/>
             <div class="grid grid-cols-3 gap-2 mt-2">
-                @for (int i = 1; i <= 6; i++)
+                @for (int i = 1; i <= maxPositions; i++)
                 {
                     if (occupied.ContainsKey(i))
                     {
