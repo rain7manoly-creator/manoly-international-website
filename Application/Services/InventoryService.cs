@@ -7,7 +7,10 @@ namespace ManolyWarehouse.Application.Services;
 public interface IInventoryService
 {
     Task<InventorySummaryViewModel> GetSummaryAsync(
-        string? categoryFilter, bool outOfStockOnly, int page, int pageSize, CancellationToken ct = default);
+        string? categoryFilter, int page, int pageSize, CancellationToken ct = default);
+
+    Task<OutOfStockViewModel> GetOutOfStockAsync(
+        int page, int pageSize, CancellationToken ct = default);
 }
 
 public class InventoryService : IInventoryService
@@ -17,14 +20,16 @@ public class InventoryService : IInventoryService
     public InventoryService(AppDbContext db) => _db = db;
 
     public async Task<InventorySummaryViewModel> GetSummaryAsync(
-        string? categoryFilter, bool outOfStockOnly, int page, int pageSize, CancellationToken ct = default)
+        string? categoryFilter, int page, int pageSize, CancellationToken ct = default)
     {
-        // Base query: every product in the catalog. Out-of-stock rows show up
-        // here too so the worker can see what needs restocking.
-        var baseQuery = _db.Products.AsNoTracking();
+        // Base query: only products that have stock somewhere
+        var baseQuery = _db.Products
+            .AsNoTracking()
+            .Where(p =>
+                p.ShelfInventories.Any() ||
+                p.AreaZInventories.Any(az => !az.IsDispatched));
 
-        // Categories with at least one product — counts include out-of-stock products
-        // so the pill count matches what the user sees when they tap through.
+        // All categories across the full stock — never filtered — for the filter pills
         var allCategories = await baseQuery
             .GroupBy(p => p.Category.Name)
             .Select(g => new InventoryCategoryMeta
@@ -35,20 +40,10 @@ public class InventoryService : IInventoryService
             .OrderBy(c => c.CategoryName)
             .ToListAsync(ct);
 
-        // Out-of-stock badge count is global — independent of the active category filter.
-        var outOfStockCount = await baseQuery
-            .CountAsync(p =>
-                !p.ShelfInventories.Any() &&
-                !p.AreaZInventories.Any(az => !az.IsDispatched), ct);
-
-        // Apply filters at DB level so count + pagination stay consistent.
-        var query = baseQuery;
-        if (!string.IsNullOrEmpty(categoryFilter))
-            query = query.Where(p => p.Category.Name == categoryFilter);
-        if (outOfStockOnly)
-            query = query.Where(p =>
-                !p.ShelfInventories.Any() &&
-                !p.AreaZInventories.Any(az => !az.IsDispatched));
+        // Apply category filter at DB level so count + pagination are consistent
+        var query = string.IsNullOrEmpty(categoryFilter)
+            ? baseQuery
+            : baseQuery.Where(p => p.Category.Name == categoryFilter);
 
         var totalCount = await query.CountAsync(ct);
         var totalPages = pageSize > 0 ? (int)Math.Ceiling((double)totalCount / pageSize) : 1;
@@ -115,13 +110,57 @@ public class InventoryService : IInventoryService
 
         return new InventorySummaryViewModel
         {
-            Categories        = groups,
-            AllCategories     = allCategories,
-            ActiveCategory    = categoryFilter,
-            ActiveStockFilter = outOfStockOnly ? "out" : null,
-            OutOfStockCount   = outOfStockCount,
-            Page              = page,
-            TotalPages        = totalPages,
+            Categories     = groups,
+            AllCategories  = allCategories,
+            ActiveCategory = categoryFilter,
+            Page           = page,
+            TotalPages     = totalPages,
+        };
+    }
+
+    public async Task<OutOfStockViewModel> GetOutOfStockAsync(
+        int page, int pageSize, CancellationToken ct = default)
+    {
+        // Every catalog product with zero shelf inventory AND no active Area Z stock.
+        var query = _db.Products
+            .AsNoTracking()
+            .Where(p =>
+                !p.ShelfInventories.Any() &&
+                !p.AreaZInventories.Any(az => !az.IsDispatched));
+
+        var totalMissing = await query.CountAsync(ct);
+        var totalPages   = pageSize > 0 ? (int)Math.Ceiling((double)totalMissing / pageSize) : 1;
+        page = Math.Clamp(page, 1, Math.Max(1, totalPages));
+
+        var rows = await query
+            .OrderBy(p => p.Category.Name)
+            .ThenBy(p => p.Name)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Select(p => new OutOfStockProductRow
+            {
+                ProductId    = p.Id,
+                ProductName  = p.Name,
+                CategoryName = p.Category.Name,
+            })
+            .ToListAsync(ct);
+
+        var groups = rows
+            .GroupBy(r => r.CategoryName)
+            .Select(g => new OutOfStockCategoryGroup
+            {
+                CategoryName = g.Key,
+                Products     = g.ToList(),
+            })
+            .OrderBy(g => g.CategoryName)
+            .ToList();
+
+        return new OutOfStockViewModel
+        {
+            Categories   = groups,
+            Page         = page,
+            TotalPages   = totalPages,
+            TotalMissing = totalMissing,
         };
     }
 }

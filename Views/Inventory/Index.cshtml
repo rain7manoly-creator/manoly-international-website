@@ -7,48 +7,23 @@
     <h1 class="font-display text-3xl text-ink">المخزون</h1>
 </div>
 
-@* ── Filter pills (status + category, stackable) ─────────────────────────── *@
-@{
-    string PillsUrl(string? category, bool outOfStockOnly)
-    {
-        var qs = new List<string>();
-        if (!string.IsNullOrEmpty(category))
-            qs.Add($"category={Uri.EscapeDataString(category)}");
-        if (outOfStockOnly)
-            qs.Add("stock=out");
-        return qs.Count == 0 ? "/inventory" : "/inventory?" + string.Join("&", qs);
-    }
-
-    var outActive = Model.ActiveStockFilter == "out";
-    var allActive = string.IsNullOrEmpty(Model.ActiveCategory) && !outActive;
-}
-@if (Model.AllCategories.Any() || Model.OutOfStockCount > 0)
+@* ── Category filter pills ────────────────────────────────────────────────── *@
+@if (Model.AllCategories.Any())
 {
     <div class="overflow-x-auto px-4 mb-5" style="scrollbar-width:none;">
         <div class="flex gap-2 min-w-max pb-1">
-            @* "All" clears every filter *@
+            @{
+                var allActive = string.IsNullOrEmpty(Model.ActiveCategory);
+            }
             <a href="/inventory"
                class="shrink-0 px-3 py-1.5 text-xs font-ui font-semibold rounded-full transition-colors"
                style="@(allActive ? "background:#1F1B17;color:#FAF8F4;" : "background:#F1ECE3;color:#847569;")">
                 الكل
             </a>
-
-            @* Status filter — stacks with the active category *@
-            <a href="@PillsUrl(Model.ActiveCategory, !outActive)"
-               class="shrink-0 px-3 py-1.5 text-xs font-ui font-semibold rounded-full transition-colors"
-               style="@(outActive ? "background:#B91C1C;color:#FAF8F4;" : "background:#FEE2E2;color:#B91C1C;")">
-                نفد المخزون
-                @if (Model.OutOfStockCount > 0)
-                {
-                    <span class="opacity-80 ms-1">@Model.OutOfStockCount</span>
-                }
-            </a>
-
-            @* Category filters — preserve any active status filter when tapped *@
             @foreach (var cat in Model.AllCategories)
             {
                 var isActive = Model.ActiveCategory == cat.CategoryName;
-                <a href="@PillsUrl(cat.CategoryName, outActive)"
+                <a href="/inventory?category=@Uri.EscapeDataString(cat.CategoryName)"
                    class="shrink-0 px-3 py-1.5 text-xs font-ui font-semibold rounded-full transition-colors"
                    style="@(isActive ? "background:#1F1B17;color:#FAF8F4;" : "background:#F1ECE3;color:#847569;")">
                     @cat.CategoryName
@@ -59,38 +34,13 @@
     </div>
 }
 
-@* ── Empty state (context-aware) ──────────────────────────────────────────── *@
+@* ── Empty state ──────────────────────────────────────────────────────────── *@
 @if (!Model.Categories.Any())
 {
-    string icon, title, desc;
-    if (outActive && !string.IsNullOrEmpty(Model.ActiveCategory))
-    {
-        icon  = "✅";
-        title = "لا منتجات نافدة في هذه الفئة";
-        desc  = $"كل منتجات فئة \"{Model.ActiveCategory}\" مخزّنة.";
-    }
-    else if (outActive)
-    {
-        icon  = "🎉";
-        title = "لا منتجات نافدة";
-        desc  = "كل المنتجات لديها مخزون.";
-    }
-    else if (!string.IsNullOrEmpty(Model.ActiveCategory))
-    {
-        icon  = "📦";
-        title = "لا توجد منتجات في هذه الفئة";
-        desc  = $"الفئة \"{Model.ActiveCategory}\" فارغة.";
-    }
-    else
-    {
-        icon  = "📦";
-        title = "المستودع فارغ";
-        desc  = "لا توجد منتجات في الأرفف أو منطقة Z";
-    }
     <div class="empty-state">
-        <div class="empty-state-icon">@icon</div>
-        <h2 class="empty-state-title">@title</h2>
-        <p class="empty-state-desc">@desc</p>
+        <div class="empty-state-icon">📦</div>
+        <h2 class="empty-state-title">المستودع فارغ</h2>
+        <p class="empty-state-desc">لا توجد منتجات في الأرفف أو منطقة Z</p>
     </div>
 }
 else
@@ -116,27 +66,6 @@ else
                     <div class="border-b last:border-b-0"
                          style="border-color: #E4DCCC; border-width: 0.5px;">
 
-                        @if (product.IsOutOfStock)
-                        {
-                            @* Static row — nothing to expand for an empty product *@
-                            <div class="w-full px-4 py-3 flex items-center gap-3 text-right">
-                                <div class="flex-1 min-w-0">
-                                    <div class="font-display text-base text-ink truncate">@product.ProductName</div>
-                                    <div class="flex items-center gap-2 mt-0.5 flex-wrap">
-                                        <span class="text-xs font-ui font-semibold px-2 py-0.5 rounded-full"
-                                              style="background:#FEE2E2;color:#B91C1C;">نفد المخزون</span>
-                                    </div>
-                                </div>
-                                <div class="text-left shrink-0">
-                                    <div class="flex items-baseline gap-1 justify-end">
-                                        <span class="font-display text-xl" style="color:#B91C1C;">0</span>
-                                        <span class="text-xs text-bark-l">ربطة</span>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
                         @* Main product row — tappable to expand *@
                         <button onclick="toggleProduct(@product.ProductId)"
                                 class="w-full px-4 py-3 flex items-center gap-3 text-right hover:bg-linen transition-colors"
@@ -250,7 +179,6 @@ else
                                 </div>
                             }
                         </div>
-                        }
                     </div>
                 }
             </div>
@@ -258,9 +186,11 @@ else
     }
 }
 
-@* ── Pagination (preserves both filters) ──────────────────────────────────── *@
+@* ── Pagination ───────────────────────────────────────────────────────────── *@
 @{
-    var baseUrl = PillsUrl(Model.ActiveCategory, outActive);
+    var baseUrl = string.IsNullOrEmpty(Model.ActiveCategory)
+        ? "/inventory"
+        : $"/inventory?category={Uri.EscapeDataString(Model.ActiveCategory)}";
     var pager = new ManolyWarehouse.Application.ViewModels.PaginationViewModel
     {
         Page       = Model.Page,

@@ -17,13 +17,21 @@ public class InventoryController : Controller
     [HttpGet("/inventory")]
     public async Task<IActionResult> Index(
         [FromQuery] string? category,
-        [FromQuery] string? stock,
         [FromQuery] int page = 1,
         CancellationToken ct = default)
     {
         page = Math.Max(1, page);
-        var outOfStockOnly = string.Equals(stock, "out", StringComparison.OrdinalIgnoreCase);
-        var vm = await _inventorySvc.GetSummaryAsync(category, outOfStockOnly, page, PageSize, ct);
+        var vm = await _inventorySvc.GetSummaryAsync(category, page, PageSize, ct);
+        return View(vm);
+    }
+
+    [HttpGet("/inventory/out-of-stock")]
+    public async Task<IActionResult> OutOfStock(
+        [FromQuery] int page = 1,
+        CancellationToken ct = default)
+    {
+        page = Math.Max(1, page);
+        var vm = await _inventorySvc.GetOutOfStockAsync(page, PageSize, ct);
         return View(vm);
     }
 }

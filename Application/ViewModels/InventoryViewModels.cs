@@ -3,15 +3,34 @@ namespace ManolyWarehouse.Application.ViewModels;
 public class InventorySummaryViewModel
 {
     public IReadOnlyList<InventoryCategoryGroup> Categories { get; init; } = Array.Empty<InventoryCategoryGroup>();
-    /// <summary>All categories with at least one product — used for filter pills, independent of pagination.</summary>
+    /// <summary>All categories that have any stock — used for filter pills, independent of pagination.</summary>
     public IReadOnlyList<InventoryCategoryMeta> AllCategories { get; init; } = Array.Empty<InventoryCategoryMeta>();
-    public string? ActiveCategory    { get; init; }
-    /// <summary>Currently null or "out". Drives the out-of-stock filter pill state.</summary>
-    public string? ActiveStockFilter { get; init; }
-    /// <summary>Total count of out-of-stock products across the whole catalog (ignores ActiveCategory).</summary>
-    public int     OutOfStockCount   { get; init; }
-    public int     Page              { get; init; }
-    public int     TotalPages        { get; init; }
+    public string? ActiveCategory { get; init; }
+    public int Page       { get; init; }
+    public int TotalPages { get; init; }
+}
+
+/// <summary>Page model for the dedicated "out of stock" view (linked from the menu).</summary>
+public class OutOfStockViewModel
+{
+    /// <summary>Out-of-stock products grouped by category, alphabetical.</summary>
+    public IReadOnlyList<OutOfStockCategoryGroup> Categories { get; init; } = Array.Empty<OutOfStockCategoryGroup>();
+    public int Page         { get; init; }
+    public int TotalPages   { get; init; }
+    public int TotalMissing { get; init; }
+}
+
+public class OutOfStockCategoryGroup
+{
+    public string CategoryName { get; init; } = default!;
+    public IReadOnlyList<OutOfStockProductRow> Products { get; init; } = Array.Empty<OutOfStockProductRow>();
+}
+
+public class OutOfStockProductRow
+{
+    public int    ProductId    { get; init; }
+    public string ProductName  { get; init; } = default!;
+    public string CategoryName { get; init; } = default!;
 }
 
 public class InventoryCategoryMeta
@@ -40,7 +59,6 @@ public class InventoryProductRow
     public int    AreaZUnits         { get; init; }
     public int    TotalBundles       => ShelfBundles + AreaZBundles;
     public int    TotalUnits         => ShelfUnits   + AreaZUnits;
-    public bool   IsOutOfStock       => TotalBundles == 0 && ShelfLocationCount == 0;
     public IReadOnlyList<InventoryShelfLocation> Locations { get; init; } = Array.Empty<InventoryShelfLocation>();
 }
 

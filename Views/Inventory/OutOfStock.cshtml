@@ -1,0 +1,64 @@
+@model ManolyWarehouse.Application.ViewModels.OutOfStockViewModel
+@{ ViewData["Title"] = "نفد المخزون"; }
+
+@* ── Page header ──────────────────────────────────────────────────────────── *@
+<div class="px-4 pt-5 pb-3">
+    <p class="eyebrow mb-1">OUT OF STOCK · نفد المخزون</p>
+    <h1 class="font-display text-3xl text-ink">نفد المخزون</h1>
+    @if (Model.TotalMissing > 0)
+    {
+        <p class="text-sm text-bark-l mt-1">
+            <span class="font-semibold" style="color:#B91C1C;">@Model.TotalMissing</span>
+            منتج يحتاج إعادة تخزين
+        </p>
+    }
+</div>
+
+@* ── Empty state — celebrate when nothing is missing ──────────────────────── *@
+@if (!Model.Categories.Any())
+{
+    <div class="empty-state">
+        <div class="empty-state-icon">🎉</div>
+        <h2 class="empty-state-title">لا منتجات نافدة</h2>
+        <p class="empty-state-desc">كل منتجات الكتالوج لديها مخزون.</p>
+    </div>
+}
+else
+{
+    @foreach (var cat in Model.Categories)
+    {
+        <div class="mb-6">
+            <div class="flex items-center justify-between px-4 mb-2">
+                <p class="eyebrow">@cat.CategoryName</p>
+                <span class="text-xs text-bark-l font-ui">@cat.Products.Count منتج</span>
+            </div>
+
+            <div class="mx-4 card">
+                @foreach (var product in cat.Products)
+                {
+                    <div class="w-full px-4 py-3 flex items-center gap-3 text-right border-b last:border-b-0"
+                         style="border-color:#E4DCCC; border-width:0.5px;">
+                        <div class="flex-1 min-w-0">
+                            <div class="font-display text-base text-ink truncate">@product.ProductName</div>
+                            <div class="flex items-center gap-2 mt-0.5">
+                                <span class="text-xs font-ui font-semibold px-2 py-0.5 rounded-full"
+                                      style="background:#FEE2E2;color:#B91C1C;">نفد المخزون</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
+
+@* ── Pagination ───────────────────────────────────────────────────────────── *@
+@{
+    var pager = new ManolyWarehouse.Application.ViewModels.PaginationViewModel
+    {
+        Page       = Model.Page,
+        TotalPages = Model.TotalPages,
+        BaseUrl    = "/inventory/out-of-stock"
+    };
+}
+<partial name="_Pagination" model="pager" />
