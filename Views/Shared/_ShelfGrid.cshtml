@@ -1,7 +1,19 @@
 @model IReadOnlyList<ManolyWarehouse.Application.ViewModels.ShelfGridCell>
 @{
-    // Group by letter (row) then sort each row by number (column)
-    var rows = Model.GroupBy(c => c.Label).OrderBy(g => g.Key).ToList();
+    // Row order matches physical top-to-bottom stacking on each side:
+    //   ABC side: A, B, C
+    //   DEF side: H, G, D, E, F  (H and G sit on top of the D/E/F rack)
+    // Any unknown label sorts to the end alphabetically.
+    static int RowOrder(string label) => label switch
+    {
+        "A" => 0, "B" => 1, "C" => 2,
+        "H" => 3, "G" => 4, "D" => 5, "E" => 6, "F" => 7,
+        _ => 100
+    };
+    var rows = Model.GroupBy(c => c.Label)
+        .OrderBy(g => RowOrder(g.Key))
+        .ThenBy(g => g.Key)
+        .ToList();
 }
 
 <div class="sgrid-scroll" role="region" aria-label="خريطة الأرفف">

@@ -61,11 +61,13 @@ public class BusinessRuleTests
     [InlineData("C", 69)]
     [InlineData("D", 1)]
     [InlineData("F", 69)]
+    [InlineData("G", 1)]
+    [InlineData("H", 76)]
     public void ShelfCodes_FollowExpectedFormat(string label, int number)
     {
         var code = $"{label}{number:D2}";
-        code.Should().MatchRegex(@"^[A-F]\d{1,2}$",
-            $"shelf code {code} must be a letter A-F followed by 1-2 digits");
+        code.Should().MatchRegex(@"^[A-H]\d{1,2}$",
+            $"shelf code {code} must be a letter A-H followed by 1-2 digits");
     }
 
     // ────────────────────────────────────────────────────────────────────────

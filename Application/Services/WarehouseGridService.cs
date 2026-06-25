@@ -49,7 +49,7 @@ public class WarehouseGridService : IWarehouseGridService
         }).ToList();
 
         var sideAbc = cells.Where(c => c.Label is "A" or "B" or "C").ToList();
-        var sideDef = cells.Where(c => c.Label is "D" or "E" or "F").ToList();
+        var sideDef = cells.Where(c => c.Label is "D" or "E" or "F" or "G" or "H").ToList();
 
         var totalLocations = cells.Count;
         var occupiedLocations = cells.Count(c => c.OccupiedSlots > 0);
