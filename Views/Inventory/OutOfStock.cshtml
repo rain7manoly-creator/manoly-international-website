@@ -1,10 +1,10 @@
 @model ManolyWarehouse.Application.ViewModels.OutOfStockViewModel
-@{ ViewData["Title"] = "نفد المخزون"; }
+@{ ViewData["Title"] = "غير متوفر حالياً"; }
 
 @* ── Page header ──────────────────────────────────────────────────────────── *@
 <div class="px-4 pt-5 pb-3">
-    <p class="eyebrow mb-1">OUT OF STOCK · نفد المخزون</p>
-    <h1 class="font-display text-3xl text-ink">نفد المخزون</h1>
+    <p class="eyebrow mb-1">OUT OF STOCK · غير متوفر حالياً</p>
+    <h1 class="font-display text-3xl text-ink">غير متوفر حالياً</h1>
     @if (Model.TotalMissing > 0)
     {
         <p class="text-sm text-bark-l mt-1">
