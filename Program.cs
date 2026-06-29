@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -43,6 +44,19 @@ builder.Services.AddAntiforgery(options =>
 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
 var app = builder.Build();
+
+// ─── Forwarded Headers ─────────────────────────────────────────────────
+// Required on Fly.io / Render — SSL is terminated at the proxy layer. Without
+// this, Request.Scheme stays "http" so auth cookies miss the Secure flag and
+// the real client IP is lost. KnownNetworks/KnownProxies are cleared because
+// the proxy is not on a loopback address (the default trust list).
+var forwardedHeadersOptions = new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+};
+forwardedHeadersOptions.KnownNetworks.Clear();
+forwardedHeadersOptions.KnownProxies.Clear();
+app.UseForwardedHeaders(forwardedHeadersOptions);
 
 // ─── Database Migration + Seeding ──────────────────────────────────────
 using (var scope = app.Services.CreateScope())

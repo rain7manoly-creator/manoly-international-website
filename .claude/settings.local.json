@@ -25,7 +25,8 @@
       "Bash(ls \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\\" 2>/dev/null || dir \"C:\\\\Users\\\\Lenovo\\\\OneDrive\\\\Desktop\\\\.net 2026\\\\\")",
       "Bash(Select-String '\"@angular')",
       "Bash(Get-ChildItem -Recurse -Depth 2)",
-      "PowerShell(dotnet ef migrations add AddMaxPositionsToShelves --no-build 2>&1)"
+      "PowerShell(dotnet ef migrations add AddMaxPositionsToShelves --no-build 2>&1)",
+      "PowerShell(dotnet build --nologo -v q 2>&1)"
     ]
   }
 }
