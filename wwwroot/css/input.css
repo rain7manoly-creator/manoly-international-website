@@ -294,7 +294,8 @@
 
   /* ── Bottom sheet / overlay ───────────────── */
   .overlay-backdrop {
-    @apply fixed inset-0 z-50 flex items-end justify-center;
+    @apply fixed inset-0 flex items-end justify-center;
+    z-index: 60;
     background: rgba(31,27,23,0.55);
   }
   .overlay-sheet {
