@@ -94,12 +94,12 @@ public class UserService : IUserService
     {
         var currentUserId = RequireUserId();
 
-        // AUTH-05: Admin cannot change their own role
-        if (id == currentUserId)
-            throw new DomainException("لا يمكنك تعديل صلاحيات حسابك الخاص.");
-
         var user = await _userManager.FindByIdAsync(id)
             ?? throw new DomainException("المستخدم غير موجود.");
+
+        // AUTH-05: Admin cannot change their own role, but can rename themselves
+        if (id == currentUserId && isAdmin != user.IsAdmin)
+            throw new DomainException("لا يمكنك تعديل صلاحيات حسابك الخاص.");
 
         var wasAdmin = user.IsAdmin;
         user.UpdateProfile(fullName.Trim(), isAdmin);

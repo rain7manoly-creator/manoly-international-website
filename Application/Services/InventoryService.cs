@@ -22,11 +22,11 @@ public class InventoryService : IInventoryService
     public async Task<InventorySummaryViewModel> GetSummaryAsync(
         string? categoryFilter, int page, int pageSize, CancellationToken ct = default)
     {
-        // Base query: only products that have stock somewhere
+        // Base query: only products that have stock somewhere (BundleCount=0 rows don't count)
         var baseQuery = _db.Products
             .AsNoTracking()
             .Where(p =>
-                p.ShelfInventories.Any() ||
+                p.ShelfInventories.Any(si => si.BundleCount > 0) ||
                 p.AreaZInventories.Any(az => !az.IsDispatched));
 
         // All categories across the full stock — never filtered — for the filter pills
@@ -121,11 +121,12 @@ public class InventoryService : IInventoryService
     public async Task<OutOfStockViewModel> GetOutOfStockAsync(
         int page, int pageSize, CancellationToken ct = default)
     {
-        // Every catalog product with zero shelf inventory AND no active Area Z stock.
+        // Every catalog product with no real shelf stock AND no active Area Z stock.
+        // BundleCount=0 rows are treated the same as having no row at all.
         var query = _db.Products
             .AsNoTracking()
             .Where(p =>
-                !p.ShelfInventories.Any() &&
+                !p.ShelfInventories.Any(si => si.BundleCount > 0) &&
                 !p.AreaZInventories.Any(az => !az.IsDispatched));
 
         var totalMissing = await query.CountAsync(ct);
