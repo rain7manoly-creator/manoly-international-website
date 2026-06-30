@@ -1,0 +1,23 @@
+app = "manoly-warehouse"
+primary_region = "dxb"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  ASPNETCORE_ENVIRONMENT = "Production"
+
+# Secrets — set these once via the Fly.io dashboard or CLI, never commit them:
+#   fly secrets set DATABASE_URL="postgres://user:pass@host:port/db"
+#   fly secrets set Seed__AdminPassword="YourPassword1"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
