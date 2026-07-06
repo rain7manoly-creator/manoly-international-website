@@ -151,22 +151,13 @@ public class ShelfService : IShelfService
             .FirstOrDefaultAsync(si => si.Id == inventoryId, ct)
             ?? throw new DomainException("صف المخزون غير موجود.");
 
-        // SHELF-04 + SHELF-05: Adjust auto-creates the log; returns true if quantity hit zero
-        var shouldDelete = inventory.Adjust(bundleCount, unitsPerBundle, userId, notes);
+        // SHELF-04: Adjust auto-creates the log. BundleCount=0 means out-of-stock — keep the
+        // row so the out-of-stock page can surface it; do NOT delete it here.
+        inventory.Adjust(bundleCount, unitsPerBundle, userId, notes);
 
-        if (shouldDelete)
-        {
-            _db.ShelfInventory.Remove(inventory);
-            _logger.LogInformation(
-                "Inventory {Id} on shelf {Code} auto-deleted (qty=0) by {User}",
-                inventoryId, inventory.Shelf.Code, userId);
-        }
-        else
-        {
-            _logger.LogInformation(
-                "Inventory {Id} on shelf {Code} adjusted to {Bundles}x{Units} by {User}",
-                inventoryId, inventory.Shelf.Code, bundleCount, unitsPerBundle, userId);
-        }
+        _logger.LogInformation(
+            "Inventory {Id} on shelf {Code} adjusted to {Bundles}x{Units} by {User}",
+            inventoryId, inventory.Shelf.Code, bundleCount, unitsPerBundle, userId);
 
         await _db.SaveChangesAsync(ct);
     }
