@@ -13,18 +13,33 @@
     <form asp-action="Add" method="post" class="flex flex-col gap-5">
         @Html.AntiForgeryToken()
 
-        <div class="form-group">
+        <div class="form-group" style="position:relative;">
             <label class="form-label">المنتج · PRODUCT</label>
-            <select name="productId" class="form-select" required>
-                <option value="">— اختر منتجًا —</option>
+            <input type="text"
+                   id="product-search-input"
+                   class="form-input"
+                   placeholder="ابحث عن منتج..."
+                   autocomplete="off"
+                   oninput="filterProductList(this.value)"
+                   onblur="hideProductList()"
+                   onfocus="if(this.value) filterProductList(this.value)"/>
+            <select name="productId" id="product-select" required style="display:none;">
+                <option value="">— اختر —</option>
                 @if (ViewBag.Products != null)
                 {
                     foreach (var p in (IEnumerable<ManolyWarehouse.Application.ViewModels.ProductListItemViewModel>)ViewBag.Products)
                     {
-                        <option value="@p.Id">@p.Name — @p.CategoryName</option>
+                        <option value="@p.Id"
+                                data-name="@((p.Name + " " + p.CategoryName).ToLower())"
+                                data-label="@p.Name — @p.CategoryName">@p.Name — @p.CategoryName</option>
                     }
                 }
             </select>
+            <div id="product-dropdown"
+                 style="display:none; position:absolute; z-index:50; left:0; right:0;
+                        background:#fff; border:1px solid #d6cfc7; border-radius:10px;
+                        max-height:220px; overflow-y:auto; box-shadow:0 4px 16px rgba(0,0,0,.10);">
+            </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
@@ -47,3 +62,45 @@
         <a href="/area-z" class="btn-secondary w-full text-center">إلغاء</a>
     </form>
 </div>
+
+@section Scripts {
+<script>
+function filterProductList(q) {
+    q = q.toLowerCase().trim();
+    const select   = document.getElementById('product-select');
+    const dropdown = document.getElementById('product-dropdown');
+    if (!q) { dropdown.style.display = 'none'; return; }
+    const tokens  = q.split(/\s+/).filter(Boolean);
+    const matches = Array.from(select.options).filter(o =>
+        o.value && tokens.every(t => (o.dataset.name || '').includes(t)));
+    if (!matches.length) { dropdown.style.display = 'none'; return; }
+    dropdown.innerHTML = '';
+    matches.forEach(opt => {
+        const item = document.createElement('div');
+        item.textContent = opt.dataset.label || opt.textContent;
+        item.style.cssText = 'padding:10px 14px; cursor:pointer; font-size:.9rem; border-bottom:1px solid #f0ebe4;';
+        item.addEventListener('mousedown', () => pickProduct(opt.value, opt.dataset.label || opt.textContent));
+        item.addEventListener('mouseover', () => item.style.background = '#f7f3ef');
+        item.addEventListener('mouseout',  () => item.style.background = '');
+        dropdown.appendChild(item);
+    });
+    if (matches.length === 1) {
+        pickProduct(matches[0].value, matches[0].dataset.label || matches[0].textContent);
+        return;
+    }
+    dropdown.style.display = 'block';
+}
+
+function pickProduct(value, label) {
+    document.getElementById('product-select').value = value;
+    document.getElementById('product-search-input').value = label;
+    document.getElementById('product-dropdown').style.display = 'none';
+}
+
+function hideProductList() {
+    setTimeout(() => {
+        document.getElementById('product-dropdown').style.display = 'none';
+    }, 150);
+}
+</script>
+}
