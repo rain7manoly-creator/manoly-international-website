@@ -22,6 +22,11 @@ builder.Services.AddIdentityServices();
 builder.Services.AddAuthorizationPolicies();
 builder.Services.AddApplicationServices();
 
+// Health check hits the DB — Fly's http_service.checks calls /health so a
+// wedged app or unreachable Neon is taken out of rotation instead of serving errors.
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<AppDbContext>();
+
 // ─── Data Protection ───────────────────────────────────────────────────
 // Persist encryption keys to PostgreSQL so antiforgery tokens and auth
 // cookies remain valid across container restarts / Render.com re-deploys.
@@ -110,6 +115,8 @@ app.UseAuthorization();
 
 // Domain exceptions translated to user-friendly messages
 app.UseMiddleware<DomainExceptionMiddleware>();
+
+app.MapHealthChecks("/health").AllowAnonymous();
 
 app.MapControllerRoute(
     name: "default",
