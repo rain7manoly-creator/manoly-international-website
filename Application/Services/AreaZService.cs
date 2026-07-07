@@ -204,38 +204,44 @@ public class AreaZService : IAreaZService
         if (position < 1 || position > shelf.MaxPositions)
             throw new DomainException("رقم الموضع خارج نطاق سعة الرف.");
 
-        await using var tx = await _db.Database.BeginTransactionAsync(ct);
-        try
+        // EnableRetryOnFailure requires user-initiated transactions to run
+        // inside the execution strategy's retriable unit.
+        var strategy = _db.Database.CreateExecutionStrategy();
+        await strategy.ExecuteAsync(async () =>
         {
-            if (shelf.IsFull)
-                throw new ShelfFullException(shelf.Code);
+            await using var tx = await _db.Database.BeginTransactionAsync(ct);
+            try
+            {
+                if (shelf.IsFull)
+                    throw new ShelfFullException(shelf.Code);
 
-            if (shelf.Inventories.Any(i => i.Position == position))
-                throw new PositionOccupiedException(shelf.Code, position);
+                if (shelf.Inventories.Any(i => i.Position == position))
+                    throw new PositionOccupiedException(shelf.Code, position);
 
-            // Create the ShelfInventory row using Area Z's quantities
-            var inventory = ShelfInventory.Create(
-                shelfId, entry.ProductId, position,
-                entry.BundleCount, entry.UnitsPerBundle, userId);
+                // Create the ShelfInventory row using Area Z's quantities
+                var inventory = ShelfInventory.Create(
+                    shelfId, entry.ProductId, position,
+                    entry.BundleCount, entry.UnitsPerBundle, userId);
 
-            _db.ShelfInventory.Add(inventory);
+                _db.ShelfInventory.Add(inventory);
 
-            // Mark Area Z entry as dispatched (using the dispatch method —
-            // semantically "left Area Z", which is true)
-            entry.Dispatch(userId);
+                // Mark Area Z entry as dispatched (using the dispatch method —
+                // semantically "left Area Z", which is true)
+                entry.Dispatch(userId);
 
-            await _db.SaveChangesAsync(ct);
-            await tx.CommitAsync(ct);
+                await _db.SaveChangesAsync(ct);
+                await tx.CommitAsync(ct);
 
-            _logger.LogInformation(
-                "Area Z entry {Id} moved to shelf {Code} pos {Position} by {User}",
-                areaZId, shelf.Code, position, userId);
-        }
-        catch
-        {
-            await tx.RollbackAsync(ct);
-            throw;
-        }
+                _logger.LogInformation(
+                    "Area Z entry {Id} moved to shelf {Code} pos {Position} by {User}",
+                    areaZId, shelf.Code, position, userId);
+            }
+            catch
+            {
+                await tx.RollbackAsync(ct);
+                throw;
+            }
+        });
     }
 
     private static void ValidateQuantities(int bundleCount, int unitsPerBundle)

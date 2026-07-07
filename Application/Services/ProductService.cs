@@ -216,39 +216,45 @@ public class ProductService : IProductService
         // ShelfInventory and AreaZ rows must be removed first (the UI shows a warning)
         var hasOrderHistory = await _db.PurchaseOrderItems.AnyAsync(poi => poi.ProductId == id, ct);
 
-        await using var tx = await _db.Database.BeginTransactionAsync(ct);
-        try
+        // EnableRetryOnFailure requires user-initiated transactions to run
+        // inside the execution strategy's retriable unit.
+        var strategy = _db.Database.CreateExecutionStrategy();
+        await strategy.ExecuteAsync(async () =>
         {
-            // Remove all linked shelf inventory rows (their logs cascade automatically)
-            var shelfRows = await _db.ShelfInventory.Where(si => si.ProductId == id).ToListAsync(ct);
-            _db.ShelfInventory.RemoveRange(shelfRows);
-
-            // Remove all Area Z rows (both active and dispatched)
-            var areaZRows = await _db.AreaZInventory.Where(az => az.ProductId == id).ToListAsync(ct);
-            _db.AreaZInventory.RemoveRange(areaZRows);
-
-            // If there's order history, refuse — the product has a paper trail we can't break
-            if (hasOrderHistory)
+            await using var tx = await _db.Database.BeginTransactionAsync(ct);
+            try
             {
-                _logger.LogWarning(
-                    "Delete of product {Id} blocked: linked to existing purchase order items", id);
-                throw new DomainException(
-                    "لا يمكن حذف هذا المنتج لأنه مرتبط بطلبيات سابقة. تواصل مع المسؤول.");
+                // Remove all linked shelf inventory rows (their logs cascade automatically)
+                var shelfRows = await _db.ShelfInventory.Where(si => si.ProductId == id).ToListAsync(ct);
+                _db.ShelfInventory.RemoveRange(shelfRows);
+
+                // Remove all Area Z rows (both active and dispatched)
+                var areaZRows = await _db.AreaZInventory.Where(az => az.ProductId == id).ToListAsync(ct);
+                _db.AreaZInventory.RemoveRange(areaZRows);
+
+                // If there's order history, refuse — the product has a paper trail we can't break
+                if (hasOrderHistory)
+                {
+                    _logger.LogWarning(
+                        "Delete of product {Id} blocked: linked to existing purchase order items", id);
+                    throw new DomainException(
+                        "لا يمكن حذف هذا المنتج لأنه مرتبط بطلبيات سابقة. تواصل مع المسؤول.");
+                }
+
+                _db.Products.Remove(product);
+                await _db.SaveChangesAsync(ct);
+                await tx.CommitAsync(ct);
+
+                _logger.LogInformation(
+                    "Product {Id} deleted by {User} ({ShelfRows} shelf, {AreaZRows} area-z rows removed)",
+                    id, userId, shelfRows.Count, areaZRows.Count);
             }
-
-            _db.Products.Remove(product);
-            await _db.SaveChangesAsync(ct);
-            await tx.CommitAsync(ct);
-
-            _logger.LogInformation(
-                "Product {Id} deleted by {User} ({ShelfRows} shelf, {AreaZRows} area-z rows removed)",
-                id, userId, shelfRows.Count, areaZRows.Count);
-        }
-        catch
-        {
-            await tx.RollbackAsync(ct);
-            throw;
-        }
+            catch
+            {
+                await tx.RollbackAsync(ct);
+                throw;
+            }
+        });
     }
 
     private static string ValidateName(string name)
