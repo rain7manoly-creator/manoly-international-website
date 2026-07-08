@@ -82,8 +82,9 @@ public class ProductsController : Controller
         if (product == null) return NotFound();
 
         var impact = await _productService.GetDeletionImpactAsync(id, ct);
-        ViewBag.Impact = impact;
-        return View(product);
+        ViewBag.ProductId = product.Id;
+        ViewBag.ProductName = product.Name;
+        return View(impact);
     }
 
     [HttpPost("{id:int}/delete")]
