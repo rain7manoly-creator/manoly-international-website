@@ -25,3 +25,4 @@ appsettings.Development.json
 *.log
 logs/
 
+.claude/
