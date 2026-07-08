@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: manoly-warehouse
+    runtime: docker
+    plan: free                  # upgrade to starter/standard for production
+    dockerfilePath: ./Dockerfile
+
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+
+      # Render injects DATABASE_URL automatically when a database is linked below.
+      # The app reads this in ServiceCollectionExtensions.ResolveConnectionString().
+      - key: DATABASE_URL
+        fromDatabase:
+          name: manoly-db
+          property: connectionString
+
+      # Set this in the Render dashboard (Environment → Secret Files or Env Vars).
+      # Must meet password policy: ≥8 chars, 1 uppercase, 1 digit.
+      - key: Seed__AdminPassword
+        sync: false
+
+    healthCheckPath: /
+
+databases:
+  - name: manoly-db
+    plan: free                  # Render free PostgreSQL (90-day expiry on free tier)
+    databaseName: manoly_warehouse
+    user: manoly_user
