@@ -102,3 +102,11 @@ Prod config lives in Fly secrets:
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+## Author
+## Built By
+
+**Fares Ibrahim** — .NET / full-stack engineer.
+[LinkedIn]([https://linkedin.com/in/YOUR_HANDLE](https://www.linkedin.com/in/fares-ibrahim-012715201/)) · [Email](mailto:fares.a.ibrahim@gmail.com) · [Portfolio](https://faresibrahim.github.io/)
+
+
