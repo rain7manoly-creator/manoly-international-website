@@ -103,7 +103,6 @@ Prod config lives in Fly secrets:
 
 MIT — see [LICENSE](LICENSE).
 
-## Author
 ## Built By
 
 **Fares Ibrahim** — .NET / full-stack engineer.
