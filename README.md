@@ -2,7 +2,6 @@
 
 A production warehouse management system for a real-world tile & fixtures distributor. Built with ASP.NET Core 8 on the back of a clean-architecture domain model, persisted in PostgreSQL via EF Core, and deployed on Fly.io.
 
-**Live app:** [manoly-warehouse.fly.dev](https://manoly-warehouse.fly.dev)
 
 ---
 
