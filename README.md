@@ -2,7 +2,6 @@
 
 A production warehouse management system for a real-world tile & fixtures distributor. Built with ASP.NET Core 8 on the back of a clean-architecture domain model, persisted in PostgreSQL via EF Core, and deployed on Fly.io.
 
-**Live app:** [manoly-warehouse.fly.dev](https://manoly-warehouse.fly.dev)
 
 ---
 
@@ -103,3 +102,10 @@ Prod config lives in Fly secrets:
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+## Built By
+
+**Fares Ibrahim** — .NET / full-stack engineer.
+[LinkedIn]([https://www.linkedin.com/in/fares-ibrahim-012715201]) · [Email](mailto:fares.a.ibrahim@gmail.com) · [Portfolio](https://faresibrahim.github.io/)
+
+
