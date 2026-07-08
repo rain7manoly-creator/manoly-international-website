@@ -26,3 +26,4 @@ appsettings.Development.json
 logs/
 
 .claude/
+*.csproj.user
