@@ -1,0 +1,67 @@
+@model ManolyWarehouse.Application.ViewModels.PagedResult<ManolyWarehouse.Application.ViewModels.ActivityLogViewModel>
+@{
+    ViewData["Title"] = "السجل";
+    var activeArea = ViewBag.ActiveArea as string;
+    var baseUrl = string.IsNullOrEmpty(activeArea) ? "/logs" : $"/logs?area={activeArea}";
+    var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, baseUrl);
+
+    (string key, string label)[] filters =
+    {
+        ("",        "الكل"),
+        ("Shelves", "الرفوف"),
+        ("AreaZ",   "منطقة Z"),
+        ("Orders",  "الطلبيات")
+    };
+}
+
+<div class="px-4 pt-5 pb-3">
+    <p class="eyebrow mb-1">ACTIVITY LOG · السجل</p>
+    <h1 class="font-display text-3xl text-ink">سجل النشاط</h1>
+    <p class="text-xs text-bark-l mt-1">كل تغيير على الرفوف ومنطقة Z والطلبيات — ومن قام به.</p>
+</div>
+
+@* Area filter pills *@
+<div class="px-4 mb-4 flex gap-2 flex-wrap">
+    @foreach (var (key, label) in filters)
+    {
+        var isActive = (activeArea ?? "") == key;
+        var href = string.IsNullOrEmpty(key) ? "/logs" : $"/logs?area={key}";
+        <a href="@href"
+           class="btn-sm rounded-lg font-ui transition-colors"
+           style="@(isActive
+               ? "background:#1F1B17;color:#FAF8F4;padding:7px 14px;"
+               : "background:#F1ECE3;color:#5C5246;padding:7px 14px;")">@label</a>
+    }
+</div>
+
+@if (!Model.Items.Any())
+{
+    <div class="empty-state">
+        <div class="empty-state-icon">📋</div>
+        <h2 class="empty-state-title">لا توجد سجلات</h2>
+        <p class="empty-state-desc">لم يُسجَّل أي نشاط بعد ضمن هذا التصنيف</p>
+    </div>
+}
+else
+{
+    <div class="mx-4 card mb-4">
+        @foreach (var log in Model.Items)
+        {
+            <div class="list-item items-start flex-col gap-1.5" style="cursor:default;">
+                <div class="flex items-start justify-between w-full gap-3">
+                    <span class="text-sm text-ink leading-tight">@log.Action</span>
+                    <span class="text-xs text-bark-l font-ui shrink-0" dir="ltr">@log.CreatedAt.ToString("yyyy/MM/dd HH:mm")</span>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-xs px-2 py-0.5 rounded-sm font-ui"
+                          style="background:#F1ECE3;color:#7a6a5e;">@log.AreaLabel</span>
+                    <span class="text-xs text-bark-d font-semibold">@log.PerformedByName</span>
+                    @if (log.IsAdmin) { <span class="badge-admin">@log.RoleLabel</span> }
+                    else { <span class="badge-worker">@log.RoleLabel</span> }
+                </div>
+            </div>
+        }
+    </div>
+
+    <partial name="_Pagination" model="pager" />
+}

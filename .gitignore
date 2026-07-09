@@ -24,7 +24,8 @@ appsettings.Development.json
 
 ## Logs
 *.log
-logs/
+# Anchor to repo root so it can't match the Views/Logs MVC folder
+/logs/
 
 .claude/
 *.csproj.user
