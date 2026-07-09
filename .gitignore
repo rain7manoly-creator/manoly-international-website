@@ -29,3 +29,5 @@ appsettings.Development.json
 
 .claude/
 *.csproj.user
+
+replace.txt
