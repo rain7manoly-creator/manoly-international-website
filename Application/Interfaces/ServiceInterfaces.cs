@@ -1,6 +1,20 @@
 using ManolyWarehouse.Application.ViewModels;
+using ManolyWarehouse.Domain.Entities;
 
 namespace ManolyWarehouse.Application.Interfaces;
+
+public interface IActivityLogService
+{
+    /// <summary>
+    /// Writes one audit entry for a warehouse change. Self-contained: resolves the
+    /// current user's name + role and persists the row on its own. Call it only
+    /// after the action's own SaveChanges has succeeded so the log reflects reality.
+    /// </summary>
+    Task RecordAsync(ActivityArea area, string action, CancellationToken ct = default);
+
+    Task<PagedResult<ActivityLogViewModel>> ListAsync(
+        string? areaFilter, int page, int pageSize, CancellationToken ct = default);
+}
 
 public interface IWarehouseGridService
 {

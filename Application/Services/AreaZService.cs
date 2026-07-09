@@ -12,15 +12,18 @@ public class AreaZService : IAreaZService
 {
     private readonly AppDbContext _db;
     private readonly ICurrentUserService _currentUser;
+    private readonly IActivityLogService _activityLog;
     private readonly ILogger<AreaZService> _logger;
 
     public AreaZService(
         AppDbContext db,
         ICurrentUserService currentUser,
+        IActivityLogService activityLog,
         ILogger<AreaZService> logger)
     {
         _db = db;
         _currentUser = currentUser;
+        _activityLog = activityLog;
         _logger = logger;
     }
 
@@ -101,6 +104,8 @@ public class AreaZService : IAreaZService
         var existing = await _db.AreaZInventory
             .FirstOrDefaultAsync(az => az.ProductId == productId && !az.IsDispatched, ct);
 
+        var productName = await ProductNameAsync(productId, ct);
+
         if (existing != null)
         {
             // Increment existing row instead of creating a duplicate
@@ -116,6 +121,9 @@ public class AreaZService : IAreaZService
                 "Area Z entry {Id} incremented (+{Bundles}x{Units}) by {User}",
                 existing.Id, bundleCount, unitsPerBundle, userId);
 
+            await _activityLog.RecordAsync(ActivityArea.AreaZ,
+                $"زاد كمية «{productName}» في منطقة Z (+{bundleCount} ربطة)", ct);
+
             return existing.Id;
         }
 
@@ -126,6 +134,9 @@ public class AreaZService : IAreaZService
         _logger.LogInformation(
             "Area Z entry {Id} created for product {ProductId} by {User}",
             entry.Id, productId, userId);
+
+        await _activityLog.RecordAsync(ActivityArea.AreaZ,
+            $"أضاف «{productName}» إلى منطقة Z ({bundleCount} ربطة)", ct);
 
         return entry.Id;
     }
@@ -149,6 +160,9 @@ public class AreaZService : IAreaZService
         _logger.LogInformation(
             "Area Z entry {Id} updated to {Bundles}x{Units} by {User}",
             id, bundleCount, unitsPerBundle, userId);
+
+        await _activityLog.RecordAsync(ActivityArea.AreaZ,
+            $"عدّل «{await ProductNameAsync(entry.ProductId, ct)}» في منطقة Z إلى {bundleCount} ربطة", ct);
     }
 
     public async Task DeleteAsync(int id, CancellationToken ct = default)
@@ -158,10 +172,14 @@ public class AreaZService : IAreaZService
         var entry = await _db.AreaZInventory.FirstOrDefaultAsync(az => az.Id == id, ct)
             ?? throw new DomainException("صف منطقة Z غير موجود.");
 
+        var productName = await ProductNameAsync(entry.ProductId, ct);
         _db.AreaZInventory.Remove(entry);
         await _db.SaveChangesAsync(ct);
 
         _logger.LogInformation("Area Z entry {Id} deleted by {User}", id, userId);
+
+        await _activityLog.RecordAsync(ActivityArea.AreaZ,
+            $"حذف «{productName}» من منطقة Z", ct);
     }
 
     public async Task DispatchAsync(int id, CancellationToken ct = default)
@@ -174,10 +192,14 @@ public class AreaZService : IAreaZService
         if (entry.IsDispatched)
             throw new DomainException("هذا الصف تم شحنه بالفعل.");
 
+        var productName = await ProductNameAsync(entry.ProductId, ct);
         entry.Dispatch(userId);
         await _db.SaveChangesAsync(ct);
 
         _logger.LogInformation("Area Z entry {Id} dispatched by {User}", id, userId);
+
+        await _activityLog.RecordAsync(ActivityArea.AreaZ,
+            $"شحن «{productName}» من منطقة Z", ct);
     }
 
     /// <summary>
@@ -242,7 +264,17 @@ public class AreaZService : IAreaZService
                 throw;
             }
         });
+
+        await _activityLog.RecordAsync(ActivityArea.Shelves,
+            $"نقل «{await ProductNameAsync(entry.ProductId, ct)}» من منطقة Z إلى الرف {shelf.Code} — الموضع {position}", ct);
     }
+
+    private async Task<string> ProductNameAsync(int productId, CancellationToken ct) =>
+        await _db.Products
+            .AsNoTracking()
+            .Where(p => p.Id == productId)
+            .Select(p => p.Name)
+            .FirstOrDefaultAsync(ct) ?? "منتج";
 
     private static void ValidateQuantities(int bundleCount, int unitsPerBundle)
     {

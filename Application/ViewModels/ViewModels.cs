@@ -237,6 +237,32 @@ public class AreaZItemViewModel
     public string EnteredBy { get; init; } = default!;
 }
 
+// ─── Activity Log ──────────────────────────────────────────────────────
+
+public class ActivityLogViewModel
+{
+    public int Id { get; init; }
+    public ActivityArea Area { get; init; }
+    public string Action { get; init; } = default!;
+    public string PerformedByName { get; init; } = default!;
+    public string PerformedByRole { get; init; } = default!;
+    public DateTime CreatedAt { get; init; }
+
+    public bool IsAdmin => PerformedByRole == "Admin";
+
+    /// <summary>Arabic label for the area, for filter pills and rows.</summary>
+    public string AreaLabel => Area switch
+    {
+        ActivityArea.Shelves => "الرفوف",
+        ActivityArea.AreaZ   => "منطقة Z",
+        ActivityArea.Orders  => "الطلبيات",
+        _ => Area.ToString()
+    };
+
+    /// <summary>Arabic label for the performer's role.</summary>
+    public string RoleLabel => IsAdmin ? "مسؤول" : "موظف";
+}
+
 // ─── Users ─────────────────────────────────────────────────────────────
 
 public class UserViewModel

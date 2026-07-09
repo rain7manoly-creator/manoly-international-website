@@ -12,15 +12,18 @@ public class ShelfService : IShelfService
 {
     private readonly AppDbContext _db;
     private readonly ICurrentUserService _currentUser;
+    private readonly IActivityLogService _activityLog;
     private readonly ILogger<ShelfService> _logger;
 
     public ShelfService(
         AppDbContext db,
         ICurrentUserService currentUser,
+        IActivityLogService activityLog,
         ILogger<ShelfService> logger)
     {
         _db = db;
         _currentUser = currentUser;
+        _activityLog = activityLog;
         _logger = logger;
     }
 
@@ -117,8 +120,11 @@ public class ShelfService : IShelfService
         }
 
         // Confirm product exists
-        var productExists = await _db.Products.AnyAsync(p => p.Id == request.ProductId, ct);
-        if (!productExists)
+        var productName = await _db.Products
+            .Where(p => p.Id == request.ProductId)
+            .Select(p => p.Name)
+            .FirstOrDefaultAsync(ct);
+        if (productName is null)
             throw new DomainException("المنتج غير موجود.");
 
         var inventory = ShelfInventory.Create(
@@ -131,6 +137,9 @@ public class ShelfService : IShelfService
         _logger.LogInformation(
             "Inventory {Id} added to shelf {Code} pos {Position} by {User}",
             inventory.Id, shelf.Code, request.Position, userId);
+
+        await _activityLog.RecordAsync(ActivityArea.Shelves,
+            $"أضاف «{productName}» إلى الرف {shelf.Code} — الموضع {request.Position} ({request.BundleCount} ربطة)", ct);
 
         return inventory.Id;
     }
@@ -148,6 +157,7 @@ public class ShelfService : IShelfService
 
         var inventory = await _db.ShelfInventory
             .Include(si => si.Shelf)
+            .Include(si => si.Product)
             .FirstOrDefaultAsync(si => si.Id == inventoryId, ct)
             ?? throw new DomainException("صف المخزون غير موجود.");
 
@@ -160,6 +170,11 @@ public class ShelfService : IShelfService
             inventoryId, inventory.Shelf.Code, bundleCount, unitsPerBundle, userId);
 
         await _db.SaveChangesAsync(ct);
+
+        var action = bundleCount == 0
+            ? $"حدّد «{inventory.Product.Name}» كنافد من المخزون في الرف {inventory.Shelf.Code}"
+            : $"عدّل كمية «{inventory.Product.Name}» في الرف {inventory.Shelf.Code} إلى {bundleCount} ربطة";
+        await _activityLog.RecordAsync(ActivityArea.Shelves, action, ct);
     }
 
     public async Task DeleteInventoryAsync(int inventoryId, CancellationToken ct = default)
@@ -168,16 +183,21 @@ public class ShelfService : IShelfService
 
         var inventory = await _db.ShelfInventory
             .Include(si => si.Shelf)
+            .Include(si => si.Product)
             .FirstOrDefaultAsync(si => si.Id == inventoryId, ct)
             ?? throw new DomainException("صف المخزون غير موجود.");
 
         var shelfCode = inventory.Shelf.Code;
+        var productName = inventory.Product.Name;
         _db.ShelfInventory.Remove(inventory);
         await _db.SaveChangesAsync(ct);
 
         _logger.LogInformation(
             "Inventory {Id} on shelf {Code} deleted by {User}",
             inventoryId, shelfCode, userId);
+
+        await _activityLog.RecordAsync(ActivityArea.Shelves,
+            $"حذف «{productName}» من الرف {shelfCode}", ct);
     }
 
     private string RequireUserId() =>

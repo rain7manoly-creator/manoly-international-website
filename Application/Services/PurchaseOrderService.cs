@@ -12,17 +12,30 @@ public class PurchaseOrderService : IPurchaseOrderService
 {
     private readonly AppDbContext _db;
     private readonly ICurrentUserService _currentUser;
+    private readonly IActivityLogService _activityLog;
     private readonly ILogger<PurchaseOrderService> _logger;
 
     public PurchaseOrderService(
         AppDbContext db,
         ICurrentUserService currentUser,
+        IActivityLogService activityLog,
         ILogger<PurchaseOrderService> logger)
     {
         _db = db;
         _currentUser = currentUser;
+        _activityLog = activityLog;
         _logger = logger;
     }
+
+    private static string StatusLabel(OrderStatus status) => status switch
+    {
+        OrderStatus.Ordered      => "مطلوبة",
+        OrderStatus.Shipped      => "تم الشحن",
+        OrderStatus.ArrivingSoon => "قريبة الوصول",
+        OrderStatus.Received     => "تم الاستلام",
+        OrderStatus.Cancelled    => "ملغاة",
+        _ => status.ToString()
+    };
 
     public async Task<PagedResult<OrderListItemViewModel>> ListAsync(
         string? statusFilter, int page, int pageSize, CancellationToken ct = default)
@@ -156,6 +169,9 @@ public class PurchaseOrderService : IPurchaseOrderService
             "Order {Id} created for supplier {Supplier} by {User}",
             order.Id, request.Supplier, userId);
 
+        await _activityLog.RecordAsync(ActivityArea.Orders,
+            $"أنشأ طلبية جديدة #{order.Id} — المورّد {order.Supplier}", ct);
+
         return order.Id;
     }
 
@@ -239,6 +255,9 @@ public class PurchaseOrderService : IPurchaseOrderService
         _logger.LogInformation(
             "Order {Id} advanced {From} -> {To} by {User}",
             orderId, previousStatus, order.Status, userId);
+
+        await _activityLog.RecordAsync(ActivityArea.Orders,
+            $"غيّر حالة الطلبية #{orderId} إلى «{StatusLabel(order.Status)}»", ct);
     }
 
     public async Task CancelAsync(int orderId, CancellationToken ct = default)
@@ -252,6 +271,9 @@ public class PurchaseOrderService : IPurchaseOrderService
         await _db.SaveChangesAsync(ct);
 
         _logger.LogInformation("Order {Id} cancelled by {User}", orderId, userId);
+
+        await _activityLog.RecordAsync(ActivityArea.Orders,
+            $"ألغى الطلبية #{orderId} — المورّد {order.Supplier}", ct);
     }
 
     public async Task DeleteAsync(int orderId, CancellationToken ct = default)
@@ -263,10 +285,14 @@ public class PurchaseOrderService : IPurchaseOrderService
 
         // Items cascade by FK config; if any ShelfInventory references items via OrderItemId,
         // those refs are set to null per DeleteBehavior.SetNull
+        var supplier = order.Supplier;
         _db.PurchaseOrders.Remove(order);
         await _db.SaveChangesAsync(ct);
 
         _logger.LogInformation("Order {Id} deleted by {User}", orderId, userId);
+
+        await _activityLog.RecordAsync(ActivityArea.Orders,
+            $"حذف الطلبية #{orderId} — المورّد {supplier}", ct);
     }
 
     public async Task BulkDeleteAsync(IEnumerable<int> orderIds, CancellationToken ct = default)
@@ -283,6 +309,9 @@ public class PurchaseOrderService : IPurchaseOrderService
         await _db.SaveChangesAsync(ct);
 
         _logger.LogInformation("Orders [{Ids}] bulk-deleted by {User}", string.Join(',', ids), userId);
+
+        await _activityLog.RecordAsync(ActivityArea.Orders,
+            $"حذف {orders.Count} طلبيات", ct);
     }
 
     /// <summary>
@@ -350,6 +379,9 @@ public class PurchaseOrderService : IPurchaseOrderService
                 throw;
             }
         });
+
+        await _activityLog.RecordAsync(ActivityArea.Shelves,
+            $"استلم «{await ProductNameAsync(item.ProductId, ct)}» من الطلبية #{item.OrderId} إلى الرف {shelf.Code} — الموضع {position}", ct);
     }
 
     /// <summary>
@@ -411,7 +443,17 @@ public class PurchaseOrderService : IPurchaseOrderService
                 throw;
             }
         });
+
+        await _activityLog.RecordAsync(ActivityArea.AreaZ,
+            $"استلم «{await ProductNameAsync(item.ProductId, ct)}» من الطلبية #{item.OrderId} إلى منطقة Z", ct);
     }
+
+    private async Task<string> ProductNameAsync(int productId, CancellationToken ct) =>
+        await _db.Products
+            .AsNoTracking()
+            .Where(p => p.Id == productId)
+            .Select(p => p.Name)
+            .FirstOrDefaultAsync(ct) ?? "منتج";
 
     private static void ValidateQuantities(int bundleCount, int unitsPerBundle)
     {

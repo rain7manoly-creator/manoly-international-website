@@ -244,6 +244,30 @@ public class PurchaseOrderItemConfiguration : IEntityTypeConfiguration<PurchaseO
     }
 }
 
+public class ActivityLogConfiguration : IEntityTypeConfiguration<ActivityLog>
+{
+    public void Configure(EntityTypeBuilder<ActivityLog> builder)
+    {
+        builder.ToTable("ActivityLogs");
+        builder.HasKey(a => a.Id);
+
+        builder.Property(a => a.Area)
+            .HasConversion<string>()
+            .HasMaxLength(20)
+            .IsRequired();
+
+        builder.Property(a => a.Action).IsRequired().HasMaxLength(500);
+        builder.Property(a => a.PerformedByUserId).IsRequired().HasMaxLength(450);
+        builder.Property(a => a.PerformedByName).IsRequired().HasMaxLength(100);
+        builder.Property(a => a.PerformedByRole).IsRequired().HasMaxLength(20);
+        builder.Property(a => a.CreatedAt).IsRequired();
+
+        // Newest-first listing + area filter
+        builder.HasIndex(a => a.CreatedAt).HasDatabaseName("IX_ActivityLogs_CreatedAt");
+        builder.HasIndex(a => a.Area).HasDatabaseName("IX_ActivityLogs_Area");
+    }
+}
+
 public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)
