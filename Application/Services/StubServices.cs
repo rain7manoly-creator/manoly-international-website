@@ -29,6 +29,8 @@ public class ShelfServiceStub : IShelfService
         => throw new StubException(nameof(IShelfService));
     public Task DeleteInventoryAsync(int inventoryId, CancellationToken ct = default)
         => throw new StubException(nameof(IShelfService));
+    public Task<InventoryHistoryViewModel?> GetInventoryHistoryAsync(int inventoryId, CancellationToken ct = default)
+        => Task.FromResult<InventoryHistoryViewModel?>(null);
 }
 
 public class ProductServiceStub : IProductService

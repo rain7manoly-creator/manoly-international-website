@@ -27,6 +27,7 @@ public interface IShelfService
     Task<int> AddInventoryAsync(AddShelfInventoryRequest request, CancellationToken ct = default);
     Task AdjustInventoryAsync(int inventoryId, int bundleCount, int unitsPerBundle, string? notes, CancellationToken ct = default);
     Task DeleteInventoryAsync(int inventoryId, CancellationToken ct = default);
+    Task<InventoryHistoryViewModel?> GetInventoryHistoryAsync(int inventoryId, CancellationToken ct = default);
 }
 
 public interface IProductService

@@ -161,9 +161,14 @@ public class ShelfService : IShelfService
             .FirstOrDefaultAsync(si => si.Id == inventoryId, ct)
             ?? throw new DomainException("صف المخزون غير موجود.");
 
+        var previousBundles = inventory.BundleCount;
+        var previousUnits = inventory.UnitsPerBundle;
+        if (previousBundles == bundleCount && previousUnits == unitsPerBundle)
+            return; // nothing changed — don't clutter the history
+
         // SHELF-04: Adjust auto-creates the log. BundleCount=0 means out-of-stock — keep the
         // row so the out-of-stock page can surface it; do NOT delete it here.
-        inventory.Adjust(bundleCount, unitsPerBundle, userId, notes);
+        inventory.Adjust(bundleCount, unitsPerBundle, userId, string.IsNullOrWhiteSpace(notes) ? null : notes.Trim());
 
         _logger.LogInformation(
             "Inventory {Id} on shelf {Code} adjusted to {Bundles}x{Units} by {User}",
@@ -173,7 +178,8 @@ public class ShelfService : IShelfService
 
         var action = bundleCount == 0
             ? $"حدّد «{inventory.Product.Name}» كنافد من المخزون في الرف {inventory.Shelf.Code}"
-            : $"عدّل كمية «{inventory.Product.Name}» في الرف {inventory.Shelf.Code} إلى {bundleCount} ربطة";
+            : $"عدّل كمية «{inventory.Product.Name}» في الرف {inventory.Shelf.Code} من {previousBundles} إلى {bundleCount} ربطة"
+              + (previousUnits != unitsPerBundle ? $" (الوحدات/ربطة من {previousUnits} إلى {unitsPerBundle})" : "");
         await _activityLog.RecordAsync(ActivityArea.Shelves, action, ct);
     }
 
@@ -198,6 +204,70 @@ public class ShelfService : IShelfService
 
         await _activityLog.RecordAsync(ActivityArea.Shelves,
             $"حذف «{productName}» من الرف {shelfCode}", ct);
+    }
+
+    public async Task<InventoryHistoryViewModel?> GetInventoryHistoryAsync(
+        int inventoryId, CancellationToken ct = default)
+    {
+        var inv = await _db.ShelfInventory
+            .AsNoTracking()
+            .Where(si => si.Id == inventoryId)
+            .Select(si => new
+            {
+                si.Id,
+                ShelfCode = si.Shelf.Code,
+                si.Position,
+                ProductName = si.Product.Name,
+                si.BundleCount,
+                si.UnitsPerBundle,
+                si.CreatedAt,
+                si.CreatedBy
+            })
+            .FirstOrDefaultAsync(ct);
+        if (inv is null) return null;
+
+        var logs = await _db.InventoryAdjustmentLogs
+            .AsNoTracking()
+            .Where(l => l.ShelfInventoryId == inventoryId)
+            .OrderByDescending(l => l.AdjustedAt)
+            .ThenByDescending(l => l.Id)
+            .ToListAsync(ct);
+
+        // Stored values are user ids — resolve them to display names in one query.
+        var userIds = logs.Select(l => l.AdjustedBy).Append(inv.CreatedBy).Distinct().ToList();
+        var names = await _db.Users
+            .AsNoTracking()
+            .Where(u => userIds.Contains(u.Id))
+            .Select(u => new { u.Id, u.FullName })
+            .ToDictionaryAsync(u => u.Id, u => u.FullName, ct);
+        string NameOf(string id) => names.TryGetValue(id, out var n) ? n : "مستخدم محذوف";
+
+        // The oldest change's "previous" value is what was originally put on the shelf.
+        var first = logs.LastOrDefault();
+
+        return new InventoryHistoryViewModel
+        {
+            InventoryId = inv.Id,
+            ShelfCode = inv.ShelfCode,
+            Position = inv.Position,
+            ProductName = inv.ProductName,
+            BundleCount = inv.BundleCount,
+            UnitsPerBundle = inv.UnitsPerBundle,
+            OriginalBundleCount = first?.PreviousBundleCount ?? inv.BundleCount,
+            OriginalUnitsPerBundle = first?.PreviousUnitsPerBundle ?? inv.UnitsPerBundle,
+            AddedByName = NameOf(inv.CreatedBy),
+            AddedAt = inv.CreatedAt,
+            Changes = logs.Select(l => new InventoryHistoryEntry
+            {
+                PreviousBundleCount = l.PreviousBundleCount,
+                NewBundleCount = l.NewBundleCount,
+                PreviousUnitsPerBundle = l.PreviousUnitsPerBundle,
+                NewUnitsPerBundle = l.NewUnitsPerBundle,
+                AdjustedByName = NameOf(l.AdjustedBy),
+                AdjustedAt = l.AdjustedAt,
+                Notes = l.Notes
+            }).ToList()
+        };
     }
 
     private string RequireUserId() =>

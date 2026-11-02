@@ -72,13 +72,13 @@
 @@media (hover: hover) {
     .sgrid-scroll {
         scrollbar-width: thin;
-        scrollbar-color: #C8BFB2 #F1ECE3;
+        scrollbar-color: #C9CACC #F1F1F2;
         padding-bottom: 16px;
     }
     .sgrid-scroll::-webkit-scrollbar         { display: block; height: 5px; }
-    .sgrid-scroll::-webkit-scrollbar-track   { background: #F1ECE3; border-radius: 3px; }
-    .sgrid-scroll::-webkit-scrollbar-thumb   { background: #C8BFB2; border-radius: 3px; }
-    .sgrid-scroll::-webkit-scrollbar-thumb:hover { background: #A8A095; }
+    .sgrid-scroll::-webkit-scrollbar-track   { background: #F1F1F2; border-radius: 3px; }
+    .sgrid-scroll::-webkit-scrollbar-thumb   { background: #C9CACC; border-radius: 3px; }
+    .sgrid-scroll::-webkit-scrollbar-thumb:hover { background: #A7A9AC; }
 }
 
 /* ── Each row is a flex row ── */
@@ -94,14 +94,14 @@
     width: 22px;
     min-width: 22px;
     text-align: center;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 11px;
     font-weight: 700;
-    color: #847569;
+    color: #58595B;
     flex-shrink: 0;
     position: sticky;
     right: 0;
-    background: #FAF8F4;
+    background: #FFFFFF;
     z-index: 2;
     padding: 0 2px;
 }
@@ -129,7 +129,7 @@
 
 /* ── Shelf number inside cell ── */
 .sgrid-num {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 11px;
     font-weight: 700;
     line-height: 1;
@@ -147,47 +147,48 @@
 }
 
 /* ── Status colours ── */
-/* Empty: warm sand */
-.sgrid-empty              { background: #EDE7DA; }
-.sgrid-empty .sgrid-num   { color: #A8A095; }
-.sgrid-empty .sgrid-dot-on  { background: #A8A095; }
-.sgrid-empty .sgrid-dot-off { background: #D4CBBD; }
+/* Fullness scale in Manoly brand colours: grey (empty) → red tints → dark red (full) */
+/* Empty */
+.sgrid-empty              { background: #EEEFF0; }
+.sgrid-empty .sgrid-num   { color: #A7A9AC; }
+.sgrid-empty .sgrid-dot-on  { background: #A7A9AC; }
+.sgrid-empty .sgrid-dot-off { background: #D9DADC; }
 
 /* Partial-1 (1/6) */
-.sgrid-p1              { background: #FFF3DE; }
-.sgrid-p1 .sgrid-num   { color: #B86B3A; }
-.sgrid-p1 .sgrid-dot-on  { background: #C8893B; }
-.sgrid-p1 .sgrid-dot-off { background: #EDE1C8; }
+.sgrid-p1              { background: #FCEFEF; }
+.sgrid-p1 .sgrid-num   { color: #CA292E; }
+.sgrid-p1 .sgrid-dot-on  { background: #CA292E; }
+.sgrid-p1 .sgrid-dot-off { background: #F2D3D4; }
 
 /* Partial-2 (2/6) */
-.sgrid-p2              { background: #FDECD0; }
-.sgrid-p2 .sgrid-num   { color: #B86B3A; }
-.sgrid-p2 .sgrid-dot-on  { background: #C8893B; }
-.sgrid-p2 .sgrid-dot-off { background: #EDE1C8; }
+.sgrid-p2              { background: #F9E0E0; }
+.sgrid-p2 .sgrid-num   { color: #CA292E; }
+.sgrid-p2 .sgrid-dot-on  { background: #CA292E; }
+.sgrid-p2 .sgrid-dot-off { background: #EEC3C4; }
 
 /* Partial-3 (3/6) */
-.sgrid-p3              { background: #F9E0BE; }
-.sgrid-p3 .sgrid-num   { color: #996030; }
-.sgrid-p3 .sgrid-dot-on  { background: #B86B3A; }
-.sgrid-p3 .sgrid-dot-off { background: #E8D5B0; }
+.sgrid-p3              { background: #F4C9CA; }
+.sgrid-p3 .sgrid-num   { color: #A81F24; }
+.sgrid-p3 .sgrid-dot-on  { background: #A81F24; }
+.sgrid-p3 .sgrid-dot-off { background: #E6AEB0; }
 
 /* Partial-4 (4/6) */
-.sgrid-p4              { background: #F3D4A8; }
-.sgrid-p4 .sgrid-num   { color: #774A22; }
-.sgrid-p4 .sgrid-dot-on  { background: #996030; }
-.sgrid-p4 .sgrid-dot-off { background: #E0C898; }
+.sgrid-p4              { background: #ECA9AB; }
+.sgrid-p4 .sgrid-num   { color: #871518; }
+.sgrid-p4 .sgrid-dot-on  { background: #871518; }
+.sgrid-p4 .sgrid-dot-off { background: #DD9093; }
 
 /* Partial-5 (5/6) */
-.sgrid-p5              { background: #E8C48A; }
-.sgrid-p5 .sgrid-num   { color: #5C3A14; }
-.sgrid-p5 .sgrid-dot-on  { background: #774A22; }
-.sgrid-p5 .sgrid-dot-off { background: #D4B070; }
+.sgrid-p5              { background: #E07F82; }
+.sgrid-p5 .sgrid-num   { color: #5E0E10; }
+.sgrid-p5 .sgrid-dot-on  { background: #5E0E10; }
+.sgrid-p5 .sgrid-dot-off { background: #CC6B6E; }
 
-/* Full: moss green */
-.sgrid-full              { background: #2D5226; }
-.sgrid-full .sgrid-num   { color: #C8E6C0; }
-.sgrid-full .sgrid-dot-on  { background: #A8D498; }
-.sgrid-full .sgrid-dot-off { background: #3D6E34; }
+/* Full: brand dark red */
+.sgrid-full              { background: #871518; }
+.sgrid-full .sgrid-num   { color: #FFFFFF; }
+.sgrid-full .sgrid-dot-on  { background: #FFFFFF; }
+.sgrid-full .sgrid-dot-off { background: #A8383B; }
 
 /* ── Hover on desktop ── */
 @@media (hover: hover) {

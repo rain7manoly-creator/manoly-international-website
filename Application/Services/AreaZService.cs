@@ -154,6 +154,8 @@ public class AreaZService : IAreaZService
         if (entry.IsDispatched)
             throw new DomainException("لا يمكن تعديل صف تم شحنه.");
 
+        var previousBundles = entry.BundleCount;
+        var previousUnits = entry.UnitsPerBundle;
         entry.Update(bundleCount, unitsPerBundle, notes?.Trim(), userId);
         await _db.SaveChangesAsync(ct);
 
@@ -162,7 +164,8 @@ public class AreaZService : IAreaZService
             id, bundleCount, unitsPerBundle, userId);
 
         await _activityLog.RecordAsync(ActivityArea.AreaZ,
-            $"عدّل «{await ProductNameAsync(entry.ProductId, ct)}» في منطقة Z إلى {bundleCount} ربطة", ct);
+            $"عدّل «{await ProductNameAsync(entry.ProductId, ct)}» في منطقة Z من {previousBundles} إلى {bundleCount} ربطة"
+            + (previousUnits != unitsPerBundle ? $" (الوحدات/ربطة من {previousUnits} إلى {unitsPerBundle})" : ""), ct);
     }
 
     public async Task DeleteAsync(int id, CancellationToken ct = default)

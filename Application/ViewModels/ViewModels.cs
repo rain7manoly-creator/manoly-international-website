@@ -91,6 +91,39 @@ public class ShelfSlotViewModel
     public bool IsEmpty => InventoryId == null;
 }
 
+/// <summary>Full quantity history for one shelf slot — shown on the edit page.</summary>
+public class InventoryHistoryViewModel
+{
+    public int InventoryId { get; init; }
+    public string ShelfCode { get; init; } = default!;
+    public int Position { get; init; }
+    public string ProductName { get; init; } = default!;
+    public int BundleCount { get; init; }
+    public int UnitsPerBundle { get; init; }
+
+    /// <summary>Quantity when the item was first put on the shelf (before any edit).</summary>
+    public int OriginalBundleCount { get; init; }
+    public int OriginalUnitsPerBundle { get; init; }
+    public string AddedByName { get; init; } = default!;
+    public DateTime AddedAt { get; init; }
+
+    /// <summary>Newest first.</summary>
+    public IReadOnlyList<InventoryHistoryEntry> Changes { get; init; } = Array.Empty<InventoryHistoryEntry>();
+}
+
+public class InventoryHistoryEntry
+{
+    public int PreviousBundleCount { get; init; }
+    public int NewBundleCount { get; init; }
+    public int PreviousUnitsPerBundle { get; init; }
+    public int NewUnitsPerBundle { get; init; }
+    public string AdjustedByName { get; init; } = default!;
+    public DateTime AdjustedAt { get; init; }
+    public string? Notes { get; init; }
+    public int BundleDelta => NewBundleCount - PreviousBundleCount;
+    public bool UnitsChanged => NewUnitsPerBundle != PreviousUnitsPerBundle;
+}
+
 public class AddShelfInventoryRequest
 {
     public string ShelfCode { get; set; } = default!;

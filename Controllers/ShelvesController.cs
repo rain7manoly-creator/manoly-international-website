@@ -76,15 +76,10 @@ public class ShelvesController : Controller
     [HttpGet("{code}/inventory/{id:int}/edit")]
     public async Task<IActionResult> Edit(string code, int id, CancellationToken ct)
     {
-        var shelf = await _shelfService.GetByCodeAsync(code, ct);
-        if (shelf == null) return NotFound();
-        var slot = shelf.Slots.FirstOrDefault(s => s.InventoryId == id);
-        if (slot == null) return NotFound();
-        ViewBag.ShelfCode = code;
-        ViewBag.InventoryId = id;
-        ViewBag.BundleCount = slot.BundleCount;
-        ViewBag.UnitsPerBundle = slot.UnitsPerBundle;
-        return View("Edit");
+        var model = await _shelfService.GetInventoryHistoryAsync(id, ct);
+        if (model == null || !string.Equals(model.ShelfCode, code, StringComparison.OrdinalIgnoreCase))
+            return NotFound();
+        return View("Edit", model);
     }
 
     [HttpPost("{code}/inventory/{id:int}/adjust")]
@@ -93,6 +88,12 @@ public class ShelvesController : Controller
         string code, int id, int bundleCount, int unitsPerBundle, string? notes, CancellationToken ct)
     {
         await _shelfService.AdjustInventoryAsync(id, bundleCount, unitsPerBundle, notes, ct);
+        if (TempData is not null) TempData["SuccessMessage"] = "تم حفظ الكمية.";
+
+        // The restore buttons on the history page send ?back=edit so the user stays there
+        // and immediately sees the restore recorded as a new history entry.
+        if (string.Equals(Request?.Query["back"].ToString(), "edit", StringComparison.Ordinal))
+            return RedirectToAction(nameof(Edit), new { code, id });
         return RedirectToAction(nameof(Detail), new { code });
     }
 

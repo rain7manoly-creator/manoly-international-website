@@ -44,7 +44,7 @@
             <!-- visible dropdown list -->
             <div id="product-dropdown"
                  style="display:none; position:absolute; z-index:50; left:0; right:0;
-                        background:#fff; border:1px solid #d6cfc7; border-radius:10px;
+                        background:#fff; border:1px solid #E3E4E5; border-radius:10px;
                         max-height:220px; overflow-y:auto; box-shadow:0 4px 16px rgba(0,0,0,.10);">
             </div>
             <span asp-validation-for="ProductId" class="form-error"></span>
@@ -61,12 +61,12 @@
                     {
                         var pname = occupied[i];
                         <div class="rounded-xl p-3 text-center select-none"
-                             style="background:#F1ECE3; border:1.5px solid #E4DCCC; cursor:not-allowed; opacity:0.55;">
-                            <div class="font-display text-base" style="color:#1F1B17;">@i</div>
-                            <div class="text-xs mt-1 truncate leading-tight" style="color:#7a6a5e; font-family:'IBM Plex Sans Arabic',sans-serif;" title="@pname">
+                             style="background:#F1F1F2; border:1.5px solid #E3E4E5; cursor:not-allowed; opacity:0.55;">
+                            <div class="font-display text-base" style="color:#111111;">@i</div>
+                            <div class="text-xs mt-1 truncate leading-tight" style="color:#58595B; " title="@pname">
                                 @(pname.Length > 13 ? pname[..13] + "…" : pname)
                             </div>
-                            <div class="text-xs mt-0.5" style="color:#7a6a5e; font-family:'IBM Plex Sans Arabic',sans-serif;">مشغول</div>
+                            <div class="text-xs mt-0.5" style="color:#58595B; ">مشغول</div>
                         </div>
                     }
                     else
@@ -74,9 +74,9 @@
                         <div id="slot-@i"
                              onclick="pickPosition(@i, this)"
                              class="rounded-xl p-3 text-center select-none"
-                             style="background:#FAF8F4; border:1.5px solid #E4DCCC; cursor:pointer; transition:border-color .15s, background .15s;">
-                            <div class="font-display text-base" style="color:#1F1B17;">@i</div>
-                            <div class="text-xs mt-1" style="color:#7a6a5e; font-family:'IBM Plex Sans Arabic',sans-serif;">فارغ</div>
+                             style="background:#FFFFFF; border:1.5px solid #E3E4E5; cursor:pointer; transition:border-color .15s, background .15s;">
+                            <div class="font-display text-base" style="color:#111111;">@i</div>
+                            <div class="text-xs mt-1" style="color:#58595B; ">فارغ</div>
                         </div>
                     }
                 }
@@ -121,9 +121,9 @@ function filterProductList(q) {
     matches.forEach(opt => {
         const item = document.createElement('div');
         item.textContent = opt.dataset.label || opt.textContent;
-        item.style.cssText = 'padding:10px 14px; cursor:pointer; font-size:.9rem; border-bottom:1px solid #f0ebe4;';
+        item.style.cssText = 'padding:10px 14px; cursor:pointer; font-size:.9rem; border-bottom:1px solid #F1F1F2;';
         item.addEventListener('mousedown', () => pickProduct(opt.value, opt.dataset.label || opt.textContent));
-        item.addEventListener('mouseover', () => item.style.background = '#f7f3ef');
+        item.addEventListener('mouseover', () => item.style.background = '#F4F4F5');
         item.addEventListener('mouseout',  () => item.style.background = '');
         dropdown.appendChild(item);
     });
@@ -150,11 +150,11 @@ function hideProductList() {
 function pickPosition(pos, el) {
     // Reset all free slots
     document.querySelectorAll('[id^="slot-"]').forEach(s => {
-        s.style.borderColor = '#E4DCCC';
-        s.style.background  = '#FAF8F4';
+        s.style.borderColor = '#E3E4E5';
+        s.style.background  = '#FFFFFF';
     });
     // Highlight selected slot in ember
-    el.style.borderColor = '#B86B3A';
+    el.style.borderColor = '#CA292E';
     el.style.background  = '#fdf3ec';
     document.getElementById('position-input').value = pos;
     document.getElementById('position-error').style.display = 'none';

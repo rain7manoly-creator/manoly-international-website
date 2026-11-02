@@ -17,7 +17,7 @@
             }
             <a href="/inventory"
                class="shrink-0 px-3 py-1.5 text-xs font-ui font-semibold rounded-full transition-colors"
-               style="@(allActive ? "background:#1F1B17;color:#FAF8F4;" : "background:#F1ECE3;color:#847569;")">
+               style="@(allActive ? "background:#111111;color:#FFFFFF;" : "background:#F1F1F2;color:#58595B;")">
                 الكل
             </a>
             @foreach (var cat in Model.AllCategories)
@@ -25,7 +25,7 @@
                 var isActive = Model.ActiveCategory == cat.CategoryName;
                 <a href="/inventory?category=@Uri.EscapeDataString(cat.CategoryName)"
                    class="shrink-0 px-3 py-1.5 text-xs font-ui font-semibold rounded-full transition-colors"
-                   style="@(isActive ? "background:#1F1B17;color:#FAF8F4;" : "background:#F1ECE3;color:#847569;")">
+                   style="@(isActive ? "background:#111111;color:#FFFFFF;" : "background:#F1F1F2;color:#58595B;")">
                     @cat.CategoryName
                     <span class="opacity-60 ms-1">@cat.ProductCount</span>
                 </a>
@@ -64,7 +64,7 @@ else
                 {
                     @* ── Product row ───────────────────────────────────────── *@
                     <div class="border-b last:border-b-0"
-                         style="border-color: #E4DCCC; border-width: 0.5px;">
+                         style="border-color: #E3E4E5; border-width: 0.5px;">
 
                         @* Main product row — tappable to expand *@
                         <button onclick="toggleProduct(@product.ProductId)"
@@ -110,18 +110,18 @@ else
                         @* ── Expandable location rows ───────────────────── *@
                         <div id="product-@product.ProductId"
                              class="hidden"
-                             style="background:#F1ECE3; border-top: 0.5px solid #E4DCCC;">
+                             style="background:#F1F1F2; border-top: 0.5px solid #E3E4E5;">
 
                             @* Shelf locations *@
                             @foreach (var loc in product.Locations)
                             {
                                 <a href="/shelves/@loc.ShelfCode"
                                    class="flex items-center gap-3 px-5 py-2.5 hover:bg-sand transition-colors"
-                                   style="border-bottom: 0.5px solid #E4DCCC;">
+                                   style="border-bottom: 0.5px solid #E3E4E5;">
 
                                     @* Shelf code badge *@
                                     <div class="shrink-0 w-12 h-8 rounded flex items-center justify-center"
-                                         style="background:#E4DCCC;">
+                                         style="background:#E3E4E5;">
                                         <span class="font-display text-sm text-ink">@loc.ShelfCode</span>
                                     </div>
 

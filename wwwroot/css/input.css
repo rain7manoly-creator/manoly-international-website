@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=IBM+Plex+Sans+Arabic:wght@400;600&family=Inter:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap');
+/* Wordmark only: the 5 letters of «منولي», so this font costs a few hundred bytes */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@700&text=%D9%85%D9%86%D9%88%D9%84%D9%8A&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -22,7 +24,7 @@
   }
 
   body {
-    @apply bg-paper text-ink font-sans text-base antialiased;
+    @apply bg-canvas text-ink font-sans text-base antialiased;
     min-height: 100dvh;
     overscroll-behavior: none;
   }
@@ -35,7 +37,7 @@
   /* Focus ring — ember accent */
   :focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px #B86B3A;
+    box-shadow: 0 0 0 2px #CA292E;
     border-radius: 4px;
   }
 
@@ -49,19 +51,19 @@
 
   input:focus, textarea:focus, select:focus {
     outline: none;
-    border-color: #B86B3A;
-    box-shadow: 0 0 0 1px #B86B3A;
+    border-color: #CA292E;
+    box-shadow: 0 0 0 1px #CA292E;
   }
 
   /* Dividers as hairlines, never shadows */
   hr { @apply border-0 border-t border-sand; border-width: 0.5px; }
 
   /* Headings default to display font */
-  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; }
+  h1, h2, h3 { font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif; font-weight: 700; }
 
   /* Numbers in display font */
   .num {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif;
     font-variant-numeric: tabular-nums;
     font-weight: 500;
   }
@@ -74,7 +76,7 @@
 
   /* ── Eyebrow label ─────────────────────────── */
   .eyebrow {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif;
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.14em;
@@ -88,8 +90,8 @@
   }
 
   .page-title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 500;
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif;
+    font-weight: 700;
     font-size: 28px;
     line-height: 1.15;
     @apply text-ink;
@@ -108,8 +110,19 @@
   /* ── Top bar ────────────────────────────────── */
   .top-bar {
     @apply sticky top-0 z-40 flex items-center justify-between px-4 bg-paper;
-    height: 52px;
-    border-bottom: 0.5px solid #E4DCCC;
+    height: 56px;
+    border-bottom: 1px solid #E3E4E5;
+    box-shadow: inset 0 3px 0 #CA292E;
+  }
+  .brand-mark { @apply flex items-center gap-2; text-decoration: none; }
+  .brand-mark img { width: 30px; height: 30px; border-radius: 6px; }
+  .brand-name {
+    font-family: 'Noto Naskh Arabic', serif; font-weight: 700; font-size: 18px; line-height: 1;
+    @apply text-ink;
+  }
+  .brand-sub {
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif; font-size: 9px; letter-spacing: 0.3em;
+    @apply text-bark-l uppercase;
   }
 
   /* ── Bottom nav ─────────────────────────────── */
@@ -118,7 +131,7 @@
     /* Height grows to cover the home-indicator safe area so background is flush with screen edge */
     height: calc(64px + env(safe-area-inset-bottom));
     padding-bottom: env(safe-area-inset-bottom);
-    border-top: 0.5px solid #E4DCCC;
+    border-top: 0.5px solid #E3E4E5;
   }
 
   .bottom-nav-item {
@@ -130,7 +143,7 @@
 
   .bottom-nav-item .nav-icon { @apply text-bark opacity-60 transition-colors; }
   .bottom-nav-item .nav-label {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif;
     font-size: 10px;
     font-weight: 600;
     @apply text-bark opacity-60 transition-colors;
@@ -158,19 +171,19 @@
   .btn:active { transform: scale(0.97); }
 
   .btn-primary {
-    @apply btn bg-ink text-paper;
+    @apply btn bg-brand text-white;
   }
-  .btn-primary:hover { @apply opacity-90; }
+  .btn-primary:hover { @apply bg-brand-d; }
 
   .btn-secondary {
-    @apply btn bg-linen text-ink;
-    border: 1px solid #E4DCCC;
+    @apply btn bg-paper text-ink;
+    border: 1px solid #E3E4E5;
   }
-  .btn-secondary:hover { border-color: #847569; }
+  .btn-secondary:hover { border-color: #58595B; }
 
   .btn-danger {
     @apply btn text-paper;
-    background-color: #A8443A;
+    background-color: #871518;
   }
   .btn-danger:hover { opacity: 0.9; }
 
@@ -198,7 +211,7 @@
   .form-group { @apply flex flex-col gap-1.5; }
 
   .form-label {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -207,7 +220,7 @@
 
   .form-input {
     @apply w-full text-ink bg-linen;
-    border: 1px solid #E4DCCC;
+    border: 1px solid #E3E4E5;
     border-radius: 10px;
     padding: 10px 14px;
     font-size: 15px;
@@ -215,8 +228,8 @@
     transition: border-color 150ms;
   }
   .form-input:focus {
-    border-color: #B86B3A;
-    box-shadow: 0 0 0 1px #B86B3A;
+    border-color: #CA292E;
+    box-shadow: 0 0 0 1px #CA292E;
     outline: none;
   }
   .form-input::placeholder { @apply text-bark-l; }
@@ -232,8 +245,8 @@
 
   /* ── Cards / surfaces ──────────────────────── */
   .card {
-    @apply bg-paper;
-    border: 0.5px solid #E4DCCC;
+    @apply bg-paper shadow-card;
+    border: 1px solid #E3E4E5;
     border-radius: 12px;
     overflow: hidden;
   }
@@ -242,7 +255,7 @@
 
   .card-header {
     @apply px-4 pt-4 pb-3;
-    border-bottom: 0.5px solid #E4DCCC;
+    border-bottom: 0.5px solid #E3E4E5;
   }
 
   /* ── Status badges ────────────────────────── */
@@ -260,16 +273,17 @@
   .badge-shipped   { @apply badge bg-ember; }
   .badge-arriving  { @apply badge bg-amber; }
   .badge-received  { @apply badge bg-moss; }
-  .badge-cancelled { @apply badge; background-color: rgba(168,68,58,0.70); }
+  .badge-latest    { @apply badge bg-brand-tint text-brand-d; height: 20px; font-size: 10px; }
+  .badge-cancelled { @apply badge; background-color: rgba(135,21,24,0.70); }
   .badge-admin     { @apply badge bg-walnut; }
-  .badge-worker    { @apply badge; background-color: #E4DCCC; color: #5C5246; }
+  .badge-worker    { @apply badge; background-color: #E3E4E5; color: #5C5246; }
 
   /* ── List rows ─────────────────────────────── */
   .list-item {
     @apply flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors;
   }
   .list-item:hover { @apply bg-linen; }
-  .list-item + .list-item { border-top: 0.5px solid #E4DCCC; }
+  .list-item + .list-item { border-top: 0.5px solid #E3E4E5; }
 
   /* ── Empty states ──────────────────────────── */
   .empty-state {
@@ -277,7 +291,7 @@
   }
   .empty-state-icon  { font-size: 40px; }
   .empty-state-title {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif;
     font-size: 20px;
     @apply text-bark-d;
   }
@@ -288,15 +302,15 @@
     @apply px-4 py-3 text-sm font-semibold;
     border-radius: 8px;
   }
-  .alert-error   { @apply alert text-rust;  background: rgba(168,68,58,0.08);  border: 1px solid rgba(168,68,58,0.25); }
-  .alert-success { @apply alert text-moss;  background: rgba(74,107,63,0.08);  border: 1px solid rgba(74,107,63,0.25); }
-  .alert-warning { @apply alert text-amber; background: rgba(200,137,59,0.08); border: 1px solid rgba(200,137,59,0.25); }
+  .alert-error   { @apply alert text-rust;  background: rgba(135,21,24,0.08);  border: 1px solid rgba(135,21,24,0.25); }
+  .alert-success { @apply alert text-moss;  background: rgba(47,122,74,0.08);  border: 1px solid rgba(47,122,74,0.25); }
+  .alert-warning { @apply alert text-amber; background: rgba(201,138,30,0.08); border: 1px solid rgba(201,138,30,0.25); }
 
   /* ── Bottom sheet / overlay ───────────────── */
   .overlay-backdrop {
     @apply fixed inset-0 flex items-end justify-center;
     z-index: 60;
-    background: rgba(31,27,23,0.55);
+    background: rgba(17,17,17,0.55);
   }
   .overlay-sheet {
     @apply w-full max-w-lg bg-paper p-6 animate-slide-up;
@@ -318,11 +332,11 @@
     @apply flex items-center gap-3 px-4 py-3 cursor-pointer;
     min-height: 56px;
   }
-  .slot-row + .slot-row { border-top: 0.5px solid #E4DCCC; }
+  .slot-row + .slot-row { border-top: 0.5px solid #E3E4E5; }
   .slot-row:hover { @apply bg-linen; }
 
   .slot-pos {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif;
     font-size: 22px;
     font-weight: 400;
     @apply text-bark shrink-0;
@@ -331,9 +345,9 @@
   }
 
   .slot-product-name {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: 'IBM Plex Sans Arabic', 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif;
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 600;
     @apply text-ink;
   }
 
@@ -343,9 +357,9 @@
   }
 
   .slot-bundle-count {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 18px;
-    font-weight: 500;
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
     @apply text-ink;
   }
 
@@ -356,7 +370,6 @@
 
   .slot-empty-hint {
     font-size: 14px;
-    font-style: italic;
     @apply text-bark-l;
   }
 
@@ -374,9 +387,9 @@
   }
 
   .stat-num {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif;
     font-size: 34px;
-    font-weight: 500;
+    font-weight: 700;
     font-variant-numeric: tabular-nums;
     @apply text-ink;
   }
@@ -396,17 +409,97 @@
   }
   .grid-cell:hover { transform: scale(1.25); }
 
-  .grid-cell-empty   { background-color: #E4DCCC; }
-  .grid-cell-partial-1 { background-color: rgba(184,107,58,0.32); }
-  .grid-cell-partial-2 { background-color: rgba(184,107,58,0.48); }
-  .grid-cell-partial-3 { background-color: rgba(184,107,58,0.62); }
-  .grid-cell-partial-4 { background-color: rgba(184,107,58,0.76); }
-  .grid-cell-partial-5 { background-color: rgba(184,107,58,0.92); }
-  .grid-cell-full    { background-color: #4A6B3F; }
+  .grid-cell-empty   { background-color: #E3E4E5; }
+  .grid-cell-partial-1 { background-color: rgba(202,41,46,0.32); }
+  .grid-cell-partial-2 { background-color: rgba(202,41,46,0.48); }
+  .grid-cell-partial-3 { background-color: rgba(202,41,46,0.62); }
+  .grid-cell-partial-4 { background-color: rgba(202,41,46,0.76); }
+  .grid-cell-partial-5 { background-color: rgba(202,41,46,0.92); }
+  .grid-cell-full    { background-color: #871518; }
 
   /* ── Section divider ───────────────────── */
   .divider { height: 0.5px; @apply bg-sand my-4 mx-4; }
   .divider-full { height: 0.5px; @apply bg-sand my-4; }
+
+  /* ── Section title ─────────────────────── */
+  .section-title {
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif; font-weight: 700; font-size: 18px; line-height: 1.3;
+    @apply text-ink;
+  }
+
+  /* ── Number stepper (− / +) ─────────────── */
+  .stepper {
+    @apply flex items-stretch w-full overflow-hidden bg-paper;
+    border: 1px solid #E3E4E5;
+    border-radius: 10px;
+    min-height: 48px;
+  }
+  .stepper:focus-within { border-color: #CA292E; box-shadow: 0 0 0 1px #CA292E; }
+  .stepper .stepper-input {
+    @apply flex-1 text-center bg-paper;
+    border: 0 !important; box-shadow: none !important; border-radius: 0;
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif; font-size: 20px; font-weight: 700;
+    -moz-appearance: textfield; min-width: 0;
+  }
+  .stepper .stepper-input::-webkit-outer-spin-button,
+  .stepper .stepper-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .stepper-btn {
+    @apply flex items-center justify-center shrink-0 bg-linen text-ink cursor-pointer select-none;
+    width: 52px; border: 0; touch-action: manipulation;
+    transition: background-color 120ms;
+  }
+  .stepper-btn svg { width: 20px; height: 20px; }
+  .stepper-btn:first-child { border-left: 1px solid #E3E4E5; }
+  .stepper-btn:last-child  { border-right: 1px solid #E3E4E5; }
+  .stepper-btn:hover:not(:disabled)  { @apply bg-brand-tint text-brand; }
+  .stepper-btn:active:not(:disabled) { @apply bg-brand text-white; }
+  .stepper-btn:disabled { @apply text-bark-l cursor-not-allowed; opacity: .5; }
+
+  /* ── Quantity edit preview ─────────────── */
+  .qty-preview {
+    @apply text-sm px-3 py-2 bg-brand-tint text-brand-d;
+    border-radius: 8px; font-weight: 600;
+  }
+
+  /* ── Slot quick-edit menu ──────────────── */
+  .slot-menu {
+    @apply px-4 py-3 bg-linen;
+    border-top: 1px solid #E3E4E5; border-bottom: 1px solid #E3E4E5;
+  }
+
+  /* ── Quantity history ──────────────────── */
+  .history-original { border-right: 3px solid #CA292E; }
+  .history-qty {
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif; font-size: 24px; font-weight: 700;
+    @apply text-ink;
+  }
+  .history-unit { font-size: 12px; font-weight: 400; @apply text-bark; }
+  .history-row { @apply px-4 py-3; }
+  .history-row + .history-row { border-top: 1px solid #E3E4E5; }
+  .history-from {
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif; font-size: 16px;
+    @apply text-bark-l line-through;
+  }
+  .history-to {
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif; font-size: 18px; font-weight: 700;
+    @apply text-ink;
+  }
+  .history-note { @apply text-sm text-bark-d mt-1; }
+  .delta-chip {
+    @apply inline-flex items-center px-1.5 rounded text-xs font-semibold;
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif;
+  }
+  .delta-up   { background: rgba(47,122,74,.10);  color: #2F7A4A; }
+  .delta-down { background: rgba(202,41,46,.10);  color: #CA292E; }
+
+  /* ── Recent searches ───────────────────── */
+  .recent-item { @apply flex items-center; }
+  .recent-item + .recent-item { border-top: 1px solid #E3E4E5; }
+  .recent-link { @apply flex-1 min-w-0 flex items-center gap-3 px-4 py-3 text-ink text-sm; }
+  .recent-link svg { @apply text-bark-l; }
+  .recent-link:hover { @apply bg-linen; }
+  .recent-remove { @apply p-3 text-bark-l; min-width: 44px; min-height: 44px; display:flex; align-items:center; justify-content:center; }
+  .recent-remove:hover { @apply text-brand; }
 
 }
 
@@ -420,12 +513,12 @@
     /* Stretch content to fill the viewport so the fixed nav always looks anchored */
     min-height: calc(100dvh - 52px);
   }
-  .font-display { font-family: 'Fraunces', Georgia, serif; }
+  .font-display { font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif; }
   .font-arabic  { font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif; }
-  .font-ui      { font-family: 'Inter', system-ui, sans-serif; }
+  .font-ui      { font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif; }
   .text-rtl { direction: rtl; }
   .num-display {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: 'Helvetica Neue', Helvetica, 'IBM Plex Sans Arabic', Arial, sans-serif;
     font-variant-numeric: tabular-nums;
     font-weight: 500;
   }

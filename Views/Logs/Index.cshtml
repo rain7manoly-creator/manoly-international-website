@@ -29,8 +29,8 @@
         <a href="@href"
            class="btn-sm rounded-lg font-ui transition-colors"
            style="@(isActive
-               ? "background:#1F1B17;color:#FAF8F4;padding:7px 14px;"
-               : "background:#F1ECE3;color:#5C5246;padding:7px 14px;")">@label</a>
+               ? "background:#111111;color:#FFFFFF;padding:7px 14px;"
+               : "background:#F1F1F2;color:#3D3E40;padding:7px 14px;")">@label</a>
     }
 </div>
 
@@ -50,11 +50,11 @@ else
             <div class="list-item items-start flex-col gap-1.5" style="cursor:default;">
                 <div class="flex items-start justify-between w-full gap-3">
                     <span class="text-sm text-ink leading-tight">@log.Action</span>
-                    <span class="text-xs text-bark-l font-ui shrink-0" dir="ltr">@log.CreatedAt.ToString("yyyy/MM/dd HH:mm")</span>
+                    <span class="text-xs text-bark-l font-ui shrink-0" dir="ltr">@log.CreatedAt.ToLocalString()</span>
                 </div>
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="text-xs px-2 py-0.5 rounded-sm font-ui"
-                          style="background:#F1ECE3;color:#7a6a5e;">@log.AreaLabel</span>
+                          style="background:#F1F1F2;color:#58595B;">@log.AreaLabel</span>
                     <span class="text-xs text-bark-d font-semibold">@log.PerformedByName</span>
                     @if (log.IsAdmin) { <span class="badge-admin">@log.RoleLabel</span> }
                     else { <span class="badge-worker">@log.RoleLabel</span> }

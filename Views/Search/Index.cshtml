@@ -20,6 +20,15 @@
     </form>
 </div>
 
+@* Recent searches — filled in by script from this device's history *@
+<div id="recent-searches" class="px-4 mb-5 hidden" data-current="@Model.Query">
+    <div class="flex items-center justify-between mb-2">
+        <p class="eyebrow">RECENT · عمليات بحث سابقة</p>
+        <button type="button" class="text-xs text-bark-l hover:text-ink" onclick="clearRecentSearches(); renderRecentSearches();">مسح الكل</button>
+    </div>
+    <ul id="recent-list" class="card"></ul>
+</div>
+
 @if (!string.IsNullOrEmpty(Model.Query))
 {
     @if (!Model.HasResults)
@@ -98,4 +107,49 @@
             }
         </div>
     }
+}
+
+@section Scripts {
+<script>
+function renderRecentSearches() {
+    const box = document.getElementById('recent-searches');
+    const list = document.getElementById('recent-list');
+    const current = box.dataset.current || '';
+    // On a results page, show history only as a compact strip of the other searches
+    const items = readRecentSearches().filter(s => s !== current);
+    list.innerHTML = '';
+    if (!items.length) { box.classList.add('hidden'); return; }
+    items.forEach(q => {
+        const li = document.createElement('li');
+        li.className = 'recent-item';
+
+        const a = document.createElement('a');
+        a.href = '/search?q=' + encodeURIComponent(q);
+        a.className = 'recent-link';
+        a.innerHTML = '<svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+        const label = document.createElement('span');
+        label.className = 'truncate';
+        label.textContent = q;              // textContent: never inject search text as HTML
+        a.appendChild(label);
+
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'recent-remove';
+        del.setAttribute('aria-label', 'حذف من السجل');
+        del.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>';
+        del.addEventListener('click', () => { removeRecentSearch(q); renderRecentSearches(); });
+
+        li.appendChild(a);
+        li.appendChild(del);
+        list.appendChild(li);
+    });
+    box.classList.remove('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const current = document.getElementById('recent-searches').dataset.current;
+    if (current) saveRecentSearch(current);
+    renderRecentSearches();
+});
+</script>
 }

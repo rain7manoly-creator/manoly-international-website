@@ -1,9 +1,9 @@
+@model ManolyWarehouse.Application.ViewModels.InventoryHistoryViewModel
 @{
     ViewData["Title"] = "تعديل الكمية";
-    var code        = ViewBag.ShelfCode      as string ?? "";
-    var inventoryId = ViewBag.InventoryId    as int?   ?? 0;
-    var bundleCount = ViewBag.BundleCount    as int?   ?? 1;
-    var unitsPer    = ViewBag.UnitsPerBundle as int?   ?? 1;
+    var code = Model.ShelfCode;
+    var isChanged = Model.OriginalBundleCount != Model.BundleCount
+                 || Model.OriginalUnitsPerBundle != Model.UnitsPerBundle;
 }
 
 <div class="px-4 pt-5 pb-3">
@@ -11,33 +11,159 @@
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
         </svg>
-        رف @code
+        رف @code · الموضع @Model.Position
     </a>
     <p class="eyebrow mb-1">EDIT · تعديل</p>
-    <h1 class="font-display text-2xl text-ink">تعديل الكمية</h1>
+    <h1 class="page-title">@Model.ProductName</h1>
 </div>
 
-<div class="mx-4 card p-5 mb-6">
-    <form action="/shelves/@code/inventory/@inventoryId/adjust" method="post" class="flex flex-col gap-5">
+@* ── Edit form ─────────────────────────────────────────────── *@
+<div class="mx-4 card p-5 mb-5">
+    <form action="/shelves/@code/inventory/@Model.InventoryId/adjust" method="post" class="flex flex-col gap-5">
         @Html.AntiForgeryToken()
 
-        <div class="grid grid-cols-2 gap-3">
-            <div class="form-group">
-                <label class="form-label">عدد الربطات</label>
-                <input type="number" name="bundleCount" min="0" value="@bundleCount" class="form-input" required />
-            </div>
-            <div class="form-group">
-                <label class="form-label">وحدات / ربطة</label>
-                <input type="number" name="unitsPerBundle" min="1" value="@unitsPer" class="form-input" required />
-            </div>
+        <div class="form-group">
+            <label class="form-label" for="bundleCount">عدد الربطات</label>
+            <input type="number" id="bundleCount" name="bundleCount" min="0" value="@Model.BundleCount"
+                   class="form-input" inputmode="numeric" required data-current="@Model.BundleCount" />
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="unitsPerBundle">وحدات / ربطة</label>
+            <input type="number" id="unitsPerBundle" name="unitsPerBundle" min="1" value="@Model.UnitsPerBundle"
+                   class="form-input" inputmode="numeric" required data-current="@Model.UnitsPerBundle" />
         </div>
 
+        <p id="qty-preview" class="qty-preview hidden"></p>
+
         <div class="form-group">
-            <label class="form-label">ملاحظات (اختيارية)</label>
-            <input type="text" name="notes" class="form-input" placeholder="سبب التعديل..." />
+            <label class="form-label" for="notes">ملاحظات (اختيارية)</label>
+            <input type="text" id="notes" name="notes" class="form-input" placeholder="سبب التعديل..." maxlength="200" />
         </div>
 
         <button type="submit" class="btn-primary w-full">حفظ التعديلات</button>
         <a href="/shelves/@code" class="btn-secondary w-full text-center">إلغاء</a>
     </form>
 </div>
+
+@* ── History ───────────────────────────────────────────────── *@
+<div class="px-4 mb-2 flex items-end justify-between">
+    <div>
+        <p class="eyebrow mb-1">HISTORY · السجل</p>
+        <h2 class="section-title">سجل التغييرات</h2>
+    </div>
+    <span class="text-xs text-bark-l">@Model.Changes.Count تعديل</span>
+</div>
+
+@* Original value — always first thing people look for after a mistake *@
+<div class="mx-4 card p-4 mb-3 history-original">
+    <div class="flex items-center justify-between gap-3">
+        <div class="min-w-0">
+            <div class="text-xs text-bark-l mb-1">القيمة الأصلية عند الإضافة</div>
+            <div class="history-qty">
+                @Model.OriginalBundleCount <span class="history-unit">ربطة × @Model.OriginalUnitsPerBundle</span>
+            </div>
+            <div class="text-xs text-bark-l mt-1">
+                @Model.AddedByName · <span dir="ltr">@Model.AddedAt.ToLocalString()</span>
+            </div>
+        </div>
+        @if (isChanged)
+        {
+            <form action="/shelves/@code/inventory/@Model.InventoryId/adjust?back=edit" method="post" id="restore-original">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="bundleCount" value="@Model.OriginalBundleCount" />
+                <input type="hidden" name="unitsPerBundle" value="@Model.OriginalUnitsPerBundle" />
+                <input type="hidden" name="notes" value="استرجاع القيمة الأصلية" />
+                <button type="button" class="btn-secondary btn-sm shrink-0"
+                        onclick="confirmSubmit('استرجاع القيمة الأصلية', 'سيتم إرجاع الكمية إلى @Model.OriginalBundleCount ربطة × @Model.OriginalUnitsPerBundle. يبقى هذا التغيير مسجلاً في السجل.', 'restore-original', 'استرجاع')">
+                    استرجاع
+                </button>
+            </form>
+        }
+    </div>
+</div>
+
+@if (!Model.Changes.Any())
+{
+    <p class="mx-4 mb-6 text-sm text-bark-l">لم يتم تعديل هذه الكمية منذ إضافتها.</p>
+}
+else
+{
+    <ol class="mx-4 card mb-6 history-list">
+        @for (var i = 0; i < Model.Changes.Count; i++)
+        {
+            var c = Model.Changes[i];
+            var formId = $"restore-{i}";
+            var isLatest = i == 0;
+            var deltaClass = c.BundleDelta > 0 ? "delta-up" : c.BundleDelta < 0 ? "delta-down" : "delta-zero";
+            <li class="history-row">
+                <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="history-from">@c.PreviousBundleCount</span>
+                            <svg class="w-3.5 h-3.5 text-bark-l shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-label="إلى">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            <span class="history-to">@c.NewBundleCount</span>
+                            <span class="text-xs text-bark-l">ربطة</span>
+                            @if (c.BundleDelta != 0)
+                            {
+                                <span class="delta-chip @deltaClass" dir="ltr">@(c.BundleDelta > 0 ? "+" : "")@c.BundleDelta</span>
+                            }
+                            @if (isLatest) { <span class="badge-latest">آخر تعديل</span> }
+                        </div>
+                        @if (c.UnitsChanged)
+                        {
+                            <div class="text-xs text-bark mt-1">وحدات/ربطة: @c.PreviousUnitsPerBundle ← @c.NewUnitsPerBundle</div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(c.Notes))
+                        {
+                            <div class="history-note">«@c.Notes»</div>
+                        }
+                        <div class="text-xs text-bark-l mt-1">
+                            @c.AdjustedByName · <span dir="ltr">@c.AdjustedAt.ToLocalString()</span>
+                        </div>
+                    </div>
+                    @if (c.PreviousBundleCount != Model.BundleCount || c.PreviousUnitsPerBundle != Model.UnitsPerBundle)
+                    {
+                        <form action="/shelves/@code/inventory/@Model.InventoryId/adjust?back=edit" method="post" id="@formId">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="bundleCount" value="@c.PreviousBundleCount" />
+                            <input type="hidden" name="unitsPerBundle" value="@c.PreviousUnitsPerBundle" />
+                            <input type="hidden" name="notes" value="استرجاع القيمة السابقة (@c.PreviousBundleCount)" />
+                            <button type="button" class="btn-ghost btn-sm shrink-0" title="إرجاع الكمية إلى ما كانت عليه قبل هذا التعديل"
+                                    onclick="confirmSubmit('استرجاع', 'سيتم إرجاع الكمية إلى @c.PreviousBundleCount ربطة × @c.PreviousUnitsPerBundle (ما كانت عليه قبل هذا التعديل).', '@formId', 'استرجاع')">
+                                استرجاع @c.PreviousBundleCount
+                            </button>
+                        </form>
+                    }
+                </div>
+            </li>
+        }
+    </ol>
+}
+
+@section Scripts {
+<script>
+// Live preview of the change before saving: "5 ← 3  (−2)"
+(function () {
+    const b = document.getElementById('bundleCount');
+    const u = document.getElementById('unitsPerBundle');
+    const out = document.getElementById('qty-preview');
+    if (!b || !u || !out) return;
+    function render() {
+        const b0 = +b.dataset.current, u0 = +u.dataset.current;
+        const b1 = parseInt(b.value, 10), u1 = parseInt(u.value, 10);
+        if (isNaN(b1) || isNaN(u1) || (b1 === b0 && u1 === u0)) { out.classList.add('hidden'); return; }
+        const d = b1 - b0;
+        // \u2066…\u2069 isolates the signed number so RTL text doesn't flip "+4" into "4+"
+        let txt = 'الربطات: ' + b0 + ' ← ' + b1 + (d ? ' (\u2066' + (d > 0 ? '+' : '−') + Math.abs(d) + '\u2069)' : '');
+        if (u1 !== u0) txt += ' · وحدات/ربطة: ' + u0 + ' ← ' + u1;
+        if (b1 === 0) txt += ' — سيظهر كنافد من المخزون';
+        out.textContent = txt;
+        out.classList.remove('hidden');
+    }
+    b.addEventListener('input', render);
+    u.addEventListener('input', render);
+})();
+</script>
+}

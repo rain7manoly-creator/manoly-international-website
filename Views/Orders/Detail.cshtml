@@ -38,7 +38,7 @@
     <div class="card">
         <div class="list-item justify-between">
             <span class="text-xs text-bark-l font-ui uppercase tracking-wide">تاريخ الطلب</span>
-            <span class="font-display text-base text-ink">@Model.OrderedAt.ToString("yyyy/MM/dd")</span>
+            <span class="font-display text-base text-ink">@Model.OrderedAt.ToLocal().ToString("yyyy/MM/dd")</span>
         </div>
         @if (Model.ExpectedArrivalDate.HasValue)
         {
@@ -128,7 +128,7 @@
                         <!-- visible dropdown list -->
                         <div id="product-dropdown"
                              style="display:none; position:absolute; z-index:50; left:0; right:0;
-                                    background:#fff; border:1px solid #d6cfc7; border-radius:10px;
+                                    background:#fff; border:1px solid #E3E4E5; border-radius:10px;
                                     max-height:220px; overflow-y:auto; box-shadow:0 4px 16px rgba(0,0,0,.10);">
                         </div>
                     </div>
@@ -254,9 +254,9 @@ function filterProductList(q) {
     matches.forEach(opt => {
         const item = document.createElement('div');
         item.textContent = opt.dataset.label || opt.textContent;
-        item.style.cssText = 'padding:10px 14px; cursor:pointer; font-size:.9rem; border-bottom:1px solid #f0ebe4;';
+        item.style.cssText = 'padding:10px 14px; cursor:pointer; font-size:.9rem; border-bottom:1px solid #F1F1F2;';
         item.addEventListener('mousedown', () => pickProduct(opt.value, opt.dataset.label || opt.textContent));
-        item.addEventListener('mouseover', () => item.style.background = '#f7f3ef');
+        item.addEventListener('mouseover', () => item.style.background = '#F4F4F5');
         item.addEventListener('mouseout',  () => item.style.background = '');
         dropdown.appendChild(item);
     });

@@ -13,13 +13,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#FAF8F4" />
+    <meta name="theme-color" content="#FFFFFF" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>@title — مخزن منولي</title>
+    <link rel="icon" href="~/favicon.ico" />
+    <link rel="apple-touch-icon" href="~/images/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="مخزن منولي" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body class="bg-paper text-ink font-sans">
+<body class="bg-canvas text-ink font-sans">
 
 @if (User.Identity?.IsAuthenticated == true)
 {
@@ -30,7 +33,14 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
         </button>
-<a href="/search" class="btn-icon text-bark hover:text-ink" aria-label="بحث">
+        <a href="/" class="brand-mark" aria-label="منولي العالمية — الرئيسية">
+            <img src="~/images/logo-icon.png" alt="" width="30" height="30" />
+            <span class="flex flex-col gap-0.5">
+                <span class="brand-name">منولي</span>
+                <span class="brand-sub">Warehouse</span>
+            </span>
+        </a>
+        <a href="/search" class="btn-icon text-bark hover:text-ink" aria-label="بحث">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
             </svg>
@@ -96,7 +106,7 @@
             <div class="flex flex-col">
                 <a href="/inventory/out-of-stock" class="list-item" role="menuitem">
                     <span class="w-8 h-8 rounded flex items-center justify-center shrink-0"
-                          style="background:#FEE2E2;color:#B91C1C;">
+                          style="background:#FBECEC;color:#CA292E;">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M5.07 19h13.86a2 2 0 001.74-2.99l-6.93-12a2 2 0 00-3.48 0l-6.93 12A2 2 0 005.07 19z"/>
                         </svg>
@@ -142,7 +152,7 @@
                     @Html.AntiForgeryToken()
                     <button type="submit" role="menuitem"
                             style="all:unset; display:flex; align-items:center; gap:0.75rem; width:100%; padding:0.75rem 1rem; cursor:pointer; transition:background 150ms; border-radius:0; box-sizing:border-box;"
-                            onmouseover="this.style.background='#F1ECE3'" onmouseout="this.style.background=''">
+                            onmouseover="this.style.background='#F1F1F2'" onmouseout="this.style.background=''">
                         <span class="w-8 h-8 rounded bg-linen flex items-center justify-center shrink-0">
                             <svg class="w-4 h-4 text-rust" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                         </span>

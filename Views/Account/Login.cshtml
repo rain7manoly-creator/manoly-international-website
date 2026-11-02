@@ -5,19 +5,23 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-    <meta name="theme-color" content="#FAF8F4"/>
+    <meta name="theme-color" content="#FFFFFF"/>
     <title>تسجيل الدخول — مخزن منولي</title>
+    <link rel="icon" href="~/favicon.ico" />
+    <link rel="apple-touch-icon" href="~/images/apple-touch-icon.png" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body class="bg-linen min-h-screen flex flex-col items-center justify-center px-5">
+<body class="bg-canvas min-h-screen flex flex-col items-center justify-center px-5">
 
     <div class="w-full max-w-sm animate-fade-in">
 
         @* Brand mark *@
         <div class="text-center mb-10">
-            <img src="~/images/logo.jpg" alt="Manoly International"
-                 style="height:140px; width:auto; max-width:280px; mix-blend-mode:multiply; object-fit:contain; margin:0 auto 12px;" />
-            <h1 class="font-display text-2xl text-ink">مخزن منولي</h1>
+            <img src="~/images/logo-ar.png" alt="منولي العالمية — Manoly International"
+                 style="width:100%; max-width:300px; height:auto; margin:0 auto 20px;" />
+            <div class="h-[3px] w-10 bg-brand mx-auto mb-4 rounded-full"></div>
+            <h1 class="text-xl text-ink">نظام المستودع</h1>
+            <p class="eyebrow mt-1 text-bark-l">MANOLY INTERNATIONAL · WAREHOUSE</p>
         </div>
 
         @if (!ViewData.ModelState.IsValid)

@@ -7,28 +7,38 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Warm Editorial palette
-        paper:    '#FAF8F4',
-        linen:    '#F1ECE3',
-        sand:     '#E4DCCC',
+        // Manoly brand palette (from the identity sheet). Token names kept
+        // from the original design so every view picks up the new colours.
+        paper:    '#FFFFFF',   // cards, bars
+        canvas:   '#F4F4F5',   // page background
+        linen:    '#F1F1F2',   // inputs, hover
+        sand:     '#E3E4E5',   // hairlines
         bark: {
-          DEFAULT: '#847569',
-          d:       '#5C5246',
-          l:       '#A8A095',
+          DEFAULT: '#58595B',  // brand grey
+          d:       '#3D3E40',
+          l:       '#A7A9AC',  // brand light grey
         },
-        walnut:   '#443830',
-        ink:      '#1F1B17',
-        ember:    '#B86B3A',
-        moss:     '#4A6B3F',
-        amber:    '#C8893B',
-        rust:     '#A8443A',
+        walnut:   '#2B2B2C',
+        ink:      '#111111',   // logo black
+        brand: {
+          DEFAULT: '#CA292E',  // Manoly red
+          d:       '#871518',  // Manoly dark red
+          tint:    '#FBECEC',
+        },
+        ember:    '#CA292E',   // accent → brand red
+        rust:     '#871518',   // danger → brand dark red
+        moss:     '#2F7A4A',   // success / received
+        amber:    '#C98A1E',   // arriving
       },
 
       fontFamily: {
-        display: ['"Fraunces"', 'Georgia', 'serif'],
+        // Brand type is Helvetica (Latin). The brand's Arabic face (Muna) is not
+        // available on the web, so Arabic text uses IBM Plex Sans Arabic. It is
+        // listed before Arial so Windows doesn't fall back to Arial's Arabic.
+        display: ['"Helvetica Neue"', 'Helvetica', '"IBM Plex Sans Arabic"', 'Arial', 'sans-serif'],
         arabic:  ['"IBM Plex Sans Arabic"', 'system-ui', 'sans-serif'],
-        ui:      ['"Inter"', 'system-ui', 'sans-serif'],
-        sans:    ['"IBM Plex Sans Arabic"', '"Inter"', 'system-ui', 'sans-serif'],
+        ui:      ['"Helvetica Neue"', 'Helvetica', '"IBM Plex Sans Arabic"', 'Arial', 'sans-serif'],
+        sans:    ['"IBM Plex Sans Arabic"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'system-ui', 'sans-serif'],
       },
 
       fontSize: {
@@ -57,9 +67,9 @@ module.exports = {
         '18':  '4.5rem',
       },
 
-      // No shadows — design spec says no shadows anywhere
       boxShadow: {
         none: 'none',
+        card: '0 1px 2px rgba(17,17,17,0.04), 0 1px 1px rgba(17,17,17,0.03)',
       },
 
       animation: {

@@ -40,7 +40,7 @@
         var isActive = current == val;
         <a href="/orders@(string.IsNullOrEmpty(val) ? "" : "?status=" + val)"
            class="shrink-0 px-3 py-1.5 text-xs font-ui font-semibold rounded-full transition-colors"
-           style="@(isActive ? "background:#1F1B17; color:#FAF8F4;" : "background:#F1ECE3; color:#847569;")">
+           style="@(isActive ? "background:#111111; color:#FFFFFF;" : "background:#F1F1F2; color:#58595B;")">
             @label
         </a>
     }
@@ -100,7 +100,7 @@ else
                             <span class="@badgeClass">@statusLabel</span>
                         </div>
                         <div class="flex items-center gap-3">
-                            <span class="text-xs text-bark-l font-ui">@o.OrderedAt.ToString("yyyy/MM/dd")</span>
+                            <span class="text-xs text-bark-l font-ui">@o.OrderedAt.ToLocal().ToString("yyyy/MM/dd")</span>
                             <span class="text-xs text-bark-l">@o.ItemCount صنف</span>
                             @if (o.PendingShelvingCount > 0)
                             {
@@ -126,7 +126,7 @@ else
              class="hidden fixed bottom-0 left-0 right-0 z-40 px-4 pb-safe"
              style="padding-bottom: calc(env(safe-area-inset-bottom) + 4.5rem);">
             <div class="card p-3 flex items-center gap-3 shadow-lg"
-                 style="background:#fff; border:1px solid #d6cfc7;">
+                 style="background:#fff; border:1px solid #E3E4E5;">
                 <span id="bulk-count" class="text-sm font-ui text-bark-d flex-1">0 محدد</span>
                 <button type="button" onclick="toggleSelectMode()"
                         class="btn-secondary btn-sm">إلغاء</button>

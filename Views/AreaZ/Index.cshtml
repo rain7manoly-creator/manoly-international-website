@@ -36,7 +36,7 @@ else
                 <div class="flex items-center gap-3">
                     <span class="text-xs text-bark-l">@item.CategoryName</span>
                     <span class="text-xs text-bark-l">@item.TotalQuantity وحدة</span>
-                    <span class="text-xs text-bark-l font-ui">@item.EnteredAt.ToString("yyyy/MM/dd")</span>
+                    <span class="text-xs text-bark-l font-ui">@item.EnteredAt.ToLocal().ToString("yyyy/MM/dd")</span>
                 </div>
                 @if (!string.IsNullOrEmpty(item.Notes))
                 {
