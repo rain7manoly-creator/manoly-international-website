@@ -289,6 +289,7 @@ public class ActivityLogViewModel
         ActivityArea.Shelves => "الرفوف",
         ActivityArea.AreaZ   => "منطقة Z",
         ActivityArea.Orders  => "الطلبيات",
+        ActivityArea.Stock   => "المخزون",
         _ => Area.ToString()
     };
 

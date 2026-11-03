@@ -18,6 +18,18 @@
 
 <div class="px-4 space-y-4 mb-6">
 
+    @{ var linkedStock = ViewBag.Stock as ManolyWarehouse.Application.Services.StockItemDto; }
+    @if (linkedStock != null)
+    {
+        <a href="/stock/items/@linkedStock.Id" class="card list-item justify-between">
+            <div class="min-w-0">
+                <div class="text-xs text-bark-l">مرتبط بالمخزون</div>
+                <div class="text-sm font-semibold text-ink truncate">@linkedStock.Name@(linkedStock.Color == "white" ? " — أبيض" : linkedStock.Color == "grey" ? " — سكني" : "")</div>
+            </div>
+            <span class="history-qty">@(linkedStock.Total?.ToString("N0") ?? "—")</span>
+        </a>
+    }
+
     @* Shelf locations *@
     @if (Model.ShelfLocations.Any())
     {

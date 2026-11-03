@@ -17,12 +17,16 @@ public static class ServiceCollectionExtensions
     {
         var connectionString = ResolveConnectionString(configuration);
 
-        services.AddDbContext<AppDbContext>(options =>
+        services.AddHttpContextAccessor();
+        services.AddSingleton<StockSyncInterceptor>();
+        services.AddDbContext<AppDbContext>((sp, options) =>
             options.UseNpgsql(connectionString, npg =>
             {
                 npg.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName);
                 npg.EnableRetryOnFailure(maxRetryCount: 3);
-            }));
+            })
+            // Shelf changes on linked products move the company stock list (see StockSyncInterceptor)
+            .AddInterceptors(sp.GetRequiredService<StockSyncInterceptor>()));
 
         return services;
     }
@@ -117,6 +121,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
         services.AddScoped<IAreaZService, AreaZService>();
         services.AddScoped<IInventoryService, InventoryService>();
+        services.AddScoped<IStockService, StockService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IActivityLogService, ActivityLogService>();
         services.AddScoped<ISearchService, SearchService>();

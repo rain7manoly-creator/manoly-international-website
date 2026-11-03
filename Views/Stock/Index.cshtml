@@ -1,0 +1,246 @@
+@model ManolyWarehouse.Application.Services.StockPageViewModel
+@using System.Text.Json
+@{
+    ViewData["Title"] = "المخزون";
+    var json = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+    var itemsJson = JsonSerializer.Serialize(Model.Items, json);
+    var othersJson = JsonSerializer.Serialize(Model.OtherProducts.Select(p => new { id = p.ProductId, name = p.ProductName, cat = p.CategoryName, qty = p.TotalBundles }), json);
+}
+
+<style>
+    .st-search { background:#fff; border-bottom:1px solid #E3E4E5; padding:12px 0 14px; display:grid; gap:10px; }
+    .st-box { position:relative; margin:0 16px; }
+    .st-box input { width:100%; font-size:17px; background:#F1F1F2; border:1.5px solid #E3E4E5; border-radius:12px; padding:12px 44px; min-height:50px; }
+    .st-box input:focus { border-color:#CA292E; background:#fff; box-shadow:none; }
+    .st-box .ic { position:absolute; top:50%; right:14px; transform:translateY(-50%); width:20px; height:20px; color:#A7A9AC; pointer-events:none; }
+    .st-box .clear { position:absolute; top:50%; left:6px; transform:translateY(-50%); width:38px; height:38px; border-radius:8px; display:grid; place-items:center; color:#58595B; }
+    .st-box .clear[hidden] { display:none; }
+    .st-chips { display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; padding:0 16px; }
+    .st-chips::-webkit-scrollbar { display:none; }
+    .st-chip { flex:none; font-size:13px; font-weight:600; color:#111; background:#fff; border:1px solid #E3E4E5; border-radius:999px; padding:6px 13px; min-height:34px; white-space:nowrap; }
+    .st-chip[aria-pressed="true"] { background:#CA292E; border-color:#CA292E; color:#fff; }
+    .st-chip.out[aria-pressed="true"] { background:#871518; border-color:#871518; }
+    .st-sec { display:flex; align-items:baseline; justify-content:space-between; margin:4px 2px -6px; }
+    .st-sec h2 { font-size:19px; font-weight:700; }
+    .st-sec span { font-size:12px; color:#A7A9AC; }
+    .st-card-h { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 14px; border-bottom:1px solid #E3E4E5; }
+    .st-card-h h3 { font-size:15px; font-weight:700; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .st-card-h small { font-size:12px; color:#A7A9AC; white-space:nowrap; }
+    .st-tag { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; background:#FBECEC; color:#871518; }
+    .st-tag.h { background:#F1F1F2; color:#58595B; }
+    .st-card table { width:100%; border-collapse:collapse; }
+    .st-card th { font-size:11px; font-weight:600; color:#58595B; text-align:start; padding:8px 14px 6px; background:#F1F1F2; white-space:nowrap; }
+    .st-card td { padding:0; border-top:1px solid #E3E4E5; }
+    .st-card tr:first-child td { border-top:0; }
+    .st-card td > * { display:block; padding:10px 14px; }
+    .st-len { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:700; font-size:15px; white-space:nowrap; width:1%; }
+    .st-len small { font-weight:400; color:#A7A9AC; font-size:11px; margin-inline-start:2px; }
+    .st-sw { display:inline-block; width:10px; height:10px; border-radius:3px; vertical-align:-1px; margin-inline-end:5px; border:1px solid #C9CACC; background:#fff; }
+    .st-sw.g { background:#7B7D80; border-color:#7B7D80; }
+    .st-q { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:19px; font-weight:700; color:#111; }
+    .st-q.zero { color:#CA292E; }
+    .st-q.none { color:#A7A9AC; font-weight:400; font-size:15px; }
+    a.st-cell:hover, a.st-row:hover { background:#F4F4F5; }
+    .st-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 14px; border-top:1px solid #E3E4E5; }
+    .st-row:first-child { border-top:0; }
+    .st-row .nm { font-weight:600; min-width:0; overflow-wrap:anywhere; }
+    .st-row .nm.code { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:700; }
+    .st-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .st-grid .st-row { border-top:1px solid #E3E4E5; }
+    .st-grid .st-row:nth-child(even) { border-inline-start:1px solid #E3E4E5; }
+    .st-grid .st-row:nth-child(-n+2) { border-top:0; }
+    .st-link-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:#2F7A4A; margin-inline-start:4px; vertical-align:middle; }
+</style>
+
+<div class="px-4 pt-5 pb-3 flex items-end justify-between gap-3">
+    <div>
+        <p class="eyebrow mb-1">STOCK · المخزون</p>
+        <h1 class="page-title">المخزون</h1>
+    </div>
+    <div class="flex items-center gap-2 shrink-0">
+        <a href="/inventory" class="btn-ghost btn-sm">حسب الرف</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a href="/stock/export" class="btn-secondary btn-sm">تحميل Excel</a>
+        }
+    </div>
+</div>
+
+<div class="st-search">
+    <div class="st-box">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg>
+        <input id="q" type="text" placeholder="ابحث: جرار ميترو سلم 500، براغي 4x30، كنت 4275…" autocomplete="off" enterkeyhint="search" aria-label="بحث في المخزون" />
+        <button class="clear" id="clear" type="button" aria-label="مسح البحث" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+    </div>
+    <div class="st-chips" role="group" aria-label="الأصناف">
+        <button class="st-chip" type="button" data-cat="all" aria-pressed="true">الكل</button>
+        <button class="st-chip" type="button" data-cat="metro" aria-pressed="false">جرار ميترو</button>
+        <button class="st-chip" type="button" data-cat="sh" aria-pressed="false">جرار SH</button>
+        <button class="st-chip" type="button" data-cat="screws" aria-pressed="false">براغي اتيكو</button>
+        <button class="st-chip" type="button" data-cat="kent" aria-pressed="false">الكنت</button>
+        <button class="st-chip" type="button" data-cat="other" aria-pressed="false">منتجات أخرى</button>
+        <button class="st-chip out" type="button" id="outOnly" aria-pressed="false">نفد فقط</button>
+    </div>
+</div>
+
+<div class="px-4 pt-4 pb-6 flex flex-col gap-4" id="results"></div>
+
+<script id="stock-items" type="application/json">@Html.Raw(itemsJson.Replace("</", "<\\/"))</script>
+<script id="stock-others" type="application/json">@Html.Raw(othersJson.Replace("</", "<\\/"))</script>
+
+@section Scripts {
+<script>
+(function () {
+    const IS_ADMIN = @(User.IsInRole("Admin") ? "true" : "false");
+    const ITEMS = JSON.parse(document.getElementById('stock-items').textContent);
+    const OTHERS = JSON.parse(document.getElementById('stock-others').textContent);
+    const qEl = document.getElementById('q'), resEl = document.getElementById('results');
+    const clearBtn = document.getElementById('clear'), outBtn = document.getElementById('outOnly');
+    let cat = 'all', outOnly = false;
+
+    function norm(s) {
+        return String(s == null ? '' : s).toLowerCase()
+            .replace(/[ً-ْـ]/g, '')
+            .replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي')
+            .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+            .replace(/[×*]/g, 'x').replace(/(\d)\s*x\s*(\d)/g, '$1x$2')
+            .replace(/(\d)\s*mm/g, '$1').replace(/\s+/g, ' ').trim();
+    }
+    const COLOR_W = ['ابيض', 'white'], COLOR_G = ['سكني', 'رمادي', 'grey', 'gray'];
+    const STOP = ['جرار', 'جرارات', 'سحاب', 'كم', 'عنا', 'عندنا', 'في', 'يوجد', 'مخزون'];
+    const CAT_WORDS = {
+        metro: ['ميترو', 'مترو', 'metro'], sh: ['sh', 'اسش', 'اساتش'],
+        screws: ['براغي', 'برغي', 'اتيكو', 'atiko'], kent: ['كنت', 'كانت', 'حواف']
+    };
+    const fmt = n => typeof n === 'number' ? n.toLocaleString('en-US') : n;
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+    const famOf = i => i.family.startsWith('metro') ? 'metro' : i.family;
+    ITEMS.forEach(i => {
+        const alias = { metro: 'metro ميترو مترو', sh: 'sh اس اتش اسش', screws: 'براغي برغي اتيكو atiko', kent: 'كنت كانت حواف edge' }[famOf(i)] || '';
+        const extra = i.family === 'metro-tandem' ? 'سحاب تندم tandem' : i.family === 'metro-code' ? 'كود code' : '';
+        i.key = norm([alias, extra, i.type || '', i.h || '', i.len || '', i.name].join(' '));
+    });
+    OTHERS.forEach(o => o.key = norm(o.name + ' ' + o.cat));
+
+    function parse(raw) {
+        let t = norm(raw).replace(/اس\s+اتش/g, 'اساتش').split(' ').filter(Boolean)
+            .map(x => x.replace(/^و(?=ال)/, ''))
+            .map(x => (x.length > 3 && x.startsWith('ال')) ? x.slice(2) : x)
+            .filter(x => x !== 'ال' && x !== 'و');
+        const cats = new Set();
+        t = t.filter(x => { for (const c in CAT_WORDS) if (CAT_WORDS[c].includes(x)) { cats.add(c); return false; } return true; });
+        let color = null;
+        if (t.some(x => COLOR_W.includes(x))) color = 'white';
+        if (t.some(x => COLOR_G.includes(x))) color = color ? null : 'grey';
+        t = t.filter(x => !COLOR_W.includes(x) && !COLOR_G.includes(x) && !STOP.includes(x));
+        return { tokens: t, color, cats };
+    }
+    const match = (key, tokens) => tokens.every(t => key.includes(t));
+    const isOut = i => typeof i.total === 'number' && i.total <= 0;
+
+    function q(i) {
+        if (!i) return '<span><span class="st-q none">—</span></span>';
+        const v = i.qtyText != null ? i.qtyText : i.total;
+        const cls = v == null ? ' none' : (isOut(i) || /^0×/.test(i.qtyText || '') ? ' zero' : '');
+        return '<a class="st-cell" href="/stock/items/' + i.id + '"><span class="st-q' + cls + '"' + (i.qtyText ? ' dir="ltr"' : '') + '>' +
+            esc(v == null ? '—' : fmt(v)) + '</span>' + (i.linked ? '<span class="st-link-dot" title="مرتبط برف"></span>' : '') + '</a>';
+    }
+
+    function drawerCards(list, color) {
+        const groups = new Map();
+        list.forEach(i => {
+            const k = i.family + '|' + i.type + '|' + i.h;
+            if (!groups.has(k)) groups.set(k, new Map());
+            const byLen = groups.get(k);
+            if (!byLen.has(i.len)) byLen.set(i.len, {});
+            byLen.get(i.len)[i.color] = i;
+        });
+        let html = '';
+        groups.forEach((byLen, k) => {
+            const [fam, type, h] = k.split('|');
+            const rows = [...byLen.entries()];
+            const hasW = rows.some(([, r]) => r.white), hasG = rows.some(([, r]) => r.grey);
+            const showW = hasW && color !== 'grey', showG = hasG && color !== 'white';
+            html += '<article class="card st-card"><div class="st-card-h"><h3><span class="st-tag">' + esc(fam.toUpperCase()) + '</span>' + esc(type) +
+                (h && h !== 'null' ? ' <span class="st-tag h">' + esc(h) + '</span>' : '') + '</h3><small>' + rows.length + ' مقاس</small></div>' +
+                '<div style="overflow-x:auto"><table><thead><tr><th>الطول</th>' +
+                (showW ? '<th><span class="st-sw"></span>أبيض</th>' : '') + (showG ? '<th><span class="st-sw g"></span>سكني</th>' : '') +
+                '</tr></thead><tbody>' +
+                rows.map(([len, r]) => '<tr><td class="st-len"><span>' + (len || '—') + '<small>mm</small></span></td>' +
+                    (showW ? '<td>' + q(r.white) + '</td>' : '') + (showG ? '<td>' + q(r.grey) + '</td>' : '') + '</tr>').join('') +
+                '</tbody></table></div></article>';
+        });
+        return html;
+    }
+
+    function listCard(tag, title, list, grid, code) {
+        if (!list.length) return '';
+        return '<article class="card st-card"><div class="st-card-h"><h3><span class="st-tag">' + tag + '</span>' + title + '</h3><small>' + list.length + '</small></div>' +
+            '<div class="' + (grid ? 'st-grid' : '') + '">' + list.map(i => {
+                const v = i.qtyText != null ? i.qtyText : i.total;
+                const cls = v == null ? ' none' : ((isOut(i) || /^0×/.test(i.qtyText || '')) ? ' zero' : '');
+                return '<a class="st-row" href="/stock/items/' + i.id + '"><span class="nm' + (code ? ' code' : '') + '">' + esc(i.name) +
+                    (i.color && i.family === 'metro-code' ? ' <span class="st-tag h">' + (i.color === 'white' ? 'أبيض' : 'سكني') + '</span>' : '') +
+                    '</span><span><span class="st-q' + cls + '"' + (i.qtyText ? ' dir="ltr"' : '') + '>' + esc(v == null ? '—' : fmt(v)) + '</span>' +
+                    (i.linked ? '<span class="st-link-dot" title="مرتبط برف"></span>' : '') + '</span></a>';
+            }).join('') + '</div></article>';
+    }
+
+    function othersCards(list) {
+        const byCat = new Map();
+        list.forEach(o => { if (!byCat.has(o.cat)) byCat.set(o.cat, []); byCat.get(o.cat).push(o); });
+        let html = '';
+        byCat.forEach((rows, c) => {
+            html += '<article class="card st-card"><div class="st-card-h"><h3>' + esc(c) + '</h3><small>' + rows.length + ' منتج · ربطة</small></div>' +
+                rows.map(o => (IS_ADMIN ? '<a class="st-row" href="/products/' + o.id + '">' : '<div class="st-row">') +
+                    '<span class="nm">' + esc(o.name) + '</span><span class="st-q' + (o.qty <= 0 ? ' zero' : '') + '">' + fmt(o.qty) + '</span>' +
+                    (IS_ADMIN ? '</a>' : '</div>')).join('') +
+                '</article>';
+        });
+        return html;
+    }
+
+    const sec = (t, n) => '<div class="st-sec"><h2>' + t + '</h2><span>' + n + '</span></div>';
+
+    function render() {
+        const raw = qEl.value; clearBtn.hidden = !raw;
+        const { tokens, color, cats } = parse(raw);
+        const want = c => (cat === 'all' || cat === c) && (!cats.size || cats.has(c));
+        const pick = (fams, c) => want(c) ? ITEMS.filter(i => fams.includes(i.family) && match(i.key, tokens)
+            && (!outOnly || (color ? (i.color === color && isOut(i)) : isOut(i)))) : [];
+
+        const dM = pick(['metro'], 'metro'), tM = pick(['metro-tandem'], 'metro'), cM = pick(['metro-code'], 'metro');
+        const dS = pick(['sh'], 'sh'), sc = pick(['screws'], 'screws'), kt = pick(['kent'], 'kent');
+        const ot = (want('other') && !cats.size) ? OTHERS.filter(o => match(o.key, tokens) && (!outOnly || o.qty <= 0)) : [];
+        const n = dM.length + tM.length + cM.length + dS.length + sc.length + kt.length + ot.length;
+
+        let html = '<p class="text-sm text-bark"><b class="text-ink">' + n + '</b> نتيجة' + (raw.trim() ? ' لـ «' + esc(raw.trim()) + '»' : '') + '</p>';
+        if (!n) html += '<div class="card empty-state"><h2 class="empty-state-title">لا يوجد صنف بهذا الاسم</h2><p class="empty-state-desc">جرّب كلمة أقصر، مثل «ميترو 500» أو «4x30» أو رقم الكنت.</p></div>';
+        if (dM.length + tM.length + cM.length) html += sec('جرار ميترو', (dM.length + tM.length + cM.length) + ' صنف') + drawerCards(dM, color) +
+            listCard('METRO', 'سحاب تندم', tM, false, false) + listCard('METRO', 'أكواد G', cM, false, true);
+        if (dS.length) html += sec('جرار SH', dS.length + ' صنف') + drawerCards(dS, color);
+        if (sc.length) html += sec('براغي اتيكو', sc.length + ' مقاس') + listCard('ATIKO', 'براغي اتيكو', sc, true, true);
+        if (kt.length) html += sec('الكنت', kt.length + ' لون') + listCard('KENT', 'الكنت', kt, true, true);
+        if (ot.length) html += sec('منتجات أخرى', ot.length + ' منتج') + othersCards(ot);
+        resEl.innerHTML = html;
+    }
+
+    qEl.addEventListener('input', render);
+    qEl.addEventListener('keydown', e => { if (e.key === 'Enter') qEl.blur(); });
+    clearBtn.addEventListener('click', () => { qEl.value = ''; render(); qEl.focus(); });
+    document.querySelectorAll('.st-chip[data-cat]').forEach(b => b.addEventListener('click', () => {
+        cat = b.dataset.cat;
+        document.querySelectorAll('.st-chip[data-cat]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+        render();
+    }));
+    outBtn.addEventListener('click', () => { outOnly = !outOnly; outBtn.setAttribute('aria-pressed', String(outOnly)); render(); });
+
+    const initial = new URLSearchParams(location.search).get('q');
+    if (initial) qEl.value = initial;
+    render();
+})();
+</script>
+}

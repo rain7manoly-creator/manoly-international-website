@@ -10,11 +10,14 @@ public class ProductsController : Controller
 {
     private readonly IProductService _productService;
     private readonly ICategoryService _categoryService;
+    private readonly ManolyWarehouse.Application.Services.IStockService _stockService;
 
-    public ProductsController(IProductService productService, ICategoryService categoryService)
+    public ProductsController(IProductService productService, ICategoryService categoryService,
+        ManolyWarehouse.Application.Services.IStockService stockService)
     {
         _productService = productService;
         _categoryService = categoryService;
+        _stockService = stockService;
     }
 
     private const int PageSize = 20;
@@ -55,6 +58,7 @@ public class ProductsController : Controller
     {
         var model = await _productService.GetByIdAsync(id, ct);
         if (model == null) return NotFound();
+        ViewBag.Stock = await _stockService.GetLinkForProductAsync(id, ct);
         return View(model);
     }
 
@@ -64,14 +68,17 @@ public class ProductsController : Controller
         var model = await _productService.GetByIdAsync(id, ct);
         if (model == null) return NotFound();
         ViewBag.Categories = await _categoryService.ListAsync(ct);
+        ViewBag.StockItems = await _stockService.ListForLinkingAsync(ct);
+        ViewBag.CurrentStockId = (await _stockService.GetLinkForProductAsync(id, ct))?.Id;
         return View(model);
     }
 
     [HttpPost("{id:int}/edit")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, string name, int categoryId, CancellationToken ct)
+    public async Task<IActionResult> Edit(int id, string name, int categoryId, int? stockItemId, CancellationToken ct)
     {
         await _productService.UpdateAsync(id, name, categoryId, ct);
+        await _stockService.LinkProductAsync(id, stockItemId, ct);
         return RedirectToAction(nameof(Detail), new { id });
     }
 

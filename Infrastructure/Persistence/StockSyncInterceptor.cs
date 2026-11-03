@@ -1,0 +1,110 @@
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using ManolyWarehouse.Domain.Entities;
+
+namespace ManolyWarehouse.Infrastructure.Persistence;
+
+/// <summary>
+/// Keeps the company stock list in step with the shelves.
+///
+/// Every time shelf stock is saved — put on a shelf, quantity edited (including
+/// restores from the history), removed, moved from Area Z or received from an order —
+/// the change in single units (bundles × units per bundle) is applied to the stock
+/// item the product is linked to, in the same database transaction, and recorded
+/// as a StockMovement. Doing it here instead of in each service means no code path
+/// that touches a shelf can forget to update the stock.
+/// </summary>
+public class StockSyncInterceptor : SaveChangesInterceptor
+{
+    private readonly IHttpContextAccessor _http;
+
+    public StockSyncInterceptor(IHttpContextAccessor http) => _http = http;
+
+    public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(
+        DbContextEventData eventData, InterceptionResult<int> result, CancellationToken ct = default)
+    {
+        if (eventData.Context is AppDbContext db) await SyncAsync(db, ct);
+        return result;
+    }
+
+    public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
+    {
+        if (eventData.Context is AppDbContext db) SyncAsync(db, CancellationToken.None).GetAwaiter().GetResult();
+        return result;
+    }
+
+    private async Task SyncAsync(AppDbContext db, CancellationToken ct)
+    {
+        db.ChangeTracker.DetectChanges();
+
+        // Products being deleted take their shelf rows with them; that is catalog cleanup, not stock leaving.
+        var deletedProducts = db.ChangeTracker.Entries<Product>()
+            .Where(e => e.State == EntityState.Deleted).Select(e => e.Entity.Id).ToHashSet();
+
+        var changes = new List<(int ProductId, int Delta, string ShelfCode, string Kind)>();
+        foreach (var e in db.ChangeTracker.Entries<ShelfInventory>())
+        {
+            var productId = e.Entity.ProductId;
+            if (deletedProducts.Contains(productId)) continue;
+
+            int Units(PropertyValues v) => v.GetValue<int>(nameof(ShelfInventory.BundleCount)) * v.GetValue<int>(nameof(ShelfInventory.UnitsPerBundle));
+            int delta; string kind;
+            switch (e.State)
+            {
+                case EntityState.Added:
+                    delta = Units(e.CurrentValues); kind = "add"; break;
+                case EntityState.Deleted:
+                    delta = -Units(e.OriginalValues); kind = "remove"; break;
+                case EntityState.Modified:
+                    delta = Units(e.CurrentValues) - Units(e.OriginalValues); kind = "edit"; break;
+                default: continue;
+            }
+            if (delta == 0) continue;
+            changes.Add((productId, delta, await ShelfCodeAsync(db, e.Entity, ct), kind));
+        }
+        if (changes.Count == 0) return;
+
+        var productIds = changes.Select(c => c.ProductId).Distinct().ToList();
+        var links = await db.Products.AsNoTracking()
+            .Where(p => productIds.Contains(p.Id) && p.StockItemId != null)
+            .Select(p => new { p.Id, p.Name, StockItemId = p.StockItemId!.Value })
+            .ToListAsync(ct);
+        if (links.Count == 0) return;
+
+        var itemIds = links.Select(l => l.StockItemId).Distinct().ToList();
+        var items = await db.StockItems.Where(s => itemIds.Contains(s.Id)).ToDictionaryAsync(s => s.Id, ct);
+
+        var user = _http.HttpContext?.User;
+        var userId = user?.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userName = user?.Identity?.Name;
+
+        foreach (var c in changes)
+        {
+            var link = links.FirstOrDefault(l => l.Id == c.ProductId);
+            if (link is null || !items.TryGetValue(link.StockItemId, out var item)) continue;
+
+            var before = item.Total;
+            item.ApplyShelfDelta(c.Delta, userId);
+            var verb = c.Kind switch
+            {
+                "add" => "وُضع على الرف",
+                "remove" => "حُذف من الرف",
+                _ => c.Delta < 0 ? "أُخذ من الرف" : "زيد على الرف"
+            };
+            db.StockMovements.Add(StockMovement.Create(item, c.Delta, before, item.Total,
+                $"{verb} {c.ShelfCode} — «{link.Name}»", userId, userName));
+        }
+
+        db.ChangeTracker.DetectChanges();
+    }
+
+    private static async Task<string> ShelfCodeAsync(AppDbContext db, ShelfInventory si, CancellationToken ct)
+    {
+        if (si.Shelf is not null) return si.Shelf.Code;
+        var shelf = db.Shelves.Local.FirstOrDefault(s => s.Id == si.ShelfId);
+        if (shelf is not null) return shelf.Code;
+        return await db.Shelves.AsNoTracking().Where(s => s.Id == si.ShelfId).Select(s => s.Code).FirstOrDefaultAsync(ct) ?? "?";
+    }
+}

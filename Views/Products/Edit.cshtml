@@ -32,7 +32,52 @@
             </select>
         </div>
 
+        @{
+            var stockItems = (IEnumerable<ManolyWarehouse.Application.Services.StockItemDto>?)ViewBag.StockItems ?? Array.Empty<ManolyWarehouse.Application.Services.StockItemDto>();
+            var currentStock = ViewBag.CurrentStockId as int?;
+        }
+        <div class="form-group">
+            <label class="form-label" for="stock-filter">مرتبط بالمخزون · STOCK</label>
+            <input type="text" id="stock-filter" class="form-input" placeholder="ابحث في المخزون لتصفية القائمة…" autocomplete="off" />
+            <select name="stockItemId" id="stockItemId" class="form-select" size="1">
+                <option value="">— غير مرتبط —</option>
+                @foreach (var fam in stockItems.GroupBy(s => s.Family))
+                {
+                    <optgroup label="@(ManolyWarehouse.Application.Services.StockService.FamilyNames.GetValueOrDefault(fam.Key, fam.Key))">
+                        @foreach (var s in fam)
+                        {
+                            var label = s.Name + (s.Color == "white" ? " — أبيض" : s.Color == "grey" ? " — سكني" : "") + (s.Total.HasValue ? $"  ({s.Total:N0})" : "");
+                            <option value="@s.Id" selected="@(s.Id == currentStock)">@label</option>
+                        }
+                    </optgroup>
+                }
+            </select>
+            <p class="text-xs text-bark-l">عند الربط: أي كمية تؤخذ من الرف أو تضاف له تنزل أو تزيد في هذا الصنف تلقائياً، بالحبة (ربطة × وحدات).</p>
+        </div>
+
         <button type="submit" class="btn-primary w-full">حفظ التعديلات</button>
         <a href="/products/@Model.Id" class="btn-secondary w-full text-center">إلغاء</a>
     </form>
 </div>
+
+@section Scripts {
+<script>
+// Narrow the long stock list as you type
+(function () {
+    const f = document.getElementById('stock-filter'), sel = document.getElementById('stockItemId');
+    if (!f || !sel) return;
+    const norm = s => s.toLowerCase().replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/\s+/g, ' ');
+    const opts = [...sel.querySelectorAll('option')].filter(o => o.value);
+    f.addEventListener('input', () => {
+        const t = norm(f.value).split(' ').filter(Boolean);
+        let first = null;
+        opts.forEach(o => {
+            const ok = t.every(x => norm(o.textContent + ' ' + o.parentElement.label).includes(x));
+            o.hidden = !ok; if (ok && !first) first = o;
+        });
+        sel.querySelectorAll('optgroup').forEach(g => g.hidden = ![...g.children].some(o => !o.hidden));
+        if (t.length && first && (sel.selectedOptions[0]?.hidden ?? true)) first.selected = true;
+    });
+})();
+</script>
+}

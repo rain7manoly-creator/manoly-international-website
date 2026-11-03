@@ -40,6 +40,12 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.CreatedBy).IsRequired().HasMaxLength(450);
         builder.Property(p => p.UpdatedBy).HasMaxLength(450);
 
+        // Deleting a stock line just unlinks its products
+        builder.HasOne(p => p.StockItem)
+            .WithMany()
+            .HasForeignKey(p => p.StockItemId)
+            .OnDelete(DeleteBehavior.SetNull);
+
         builder.HasMany(p => p.ShelfInventories)
             .WithOne(si => si.Product)
             .HasForeignKey(si => si.ProductId)
@@ -278,5 +284,40 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
         builder.Property(u => u.CreatedAt).IsRequired();
 
         builder.HasIndex(u => u.IsActive).HasDatabaseName("IX_Users_IsActive");
+    }
+}
+
+public class StockItemConfiguration : IEntityTypeConfiguration<StockItem>
+{
+    public void Configure(EntityTypeBuilder<StockItem> builder)
+    {
+        builder.ToTable("StockItems");
+        builder.HasKey(s => s.Id);
+        builder.Property(s => s.Family).HasMaxLength(30).IsRequired();
+        builder.Property(s => s.Name).HasMaxLength(200).IsRequired();
+        builder.Property(s => s.Color).HasMaxLength(10);
+        builder.Property(s => s.DrawerType).HasMaxLength(60);
+        builder.Property(s => s.WarehouseLabel).HasMaxLength(60);
+        builder.Property(s => s.QtyText).HasMaxLength(40);
+        builder.Property(s => s.UpdatedBy).HasMaxLength(450);
+        builder.HasIndex(s => new { s.Family, s.SortOrder });
+        builder.HasMany(s => s.Movements).WithOne(m => m.StockItem)
+            .HasForeignKey(m => m.StockItemId).OnDelete(DeleteBehavior.Cascade);
+        builder.Navigation(s => s.Movements).UsePropertyAccessMode(PropertyAccessMode.Field);
+        builder.Ignore(s => s.ColorLabel);
+        builder.Ignore(s => s.DisplayName);
+    }
+}
+
+public class StockMovementConfiguration : IEntityTypeConfiguration<StockMovement>
+{
+    public void Configure(EntityTypeBuilder<StockMovement> builder)
+    {
+        builder.ToTable("StockMovements");
+        builder.HasKey(m => m.Id);
+        builder.Property(m => m.Reason).HasMaxLength(300).IsRequired();
+        builder.Property(m => m.UserId).HasMaxLength(450);
+        builder.Property(m => m.UserName).HasMaxLength(200);
+        builder.HasIndex(m => new { m.StockItemId, m.CreatedAt });
     }
 }

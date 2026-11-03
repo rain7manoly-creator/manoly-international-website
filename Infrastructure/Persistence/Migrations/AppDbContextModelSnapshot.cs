@@ -312,6 +312,9 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
+                    b.Property<int?>("StockItemId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -320,6 +323,8 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                         .HasColumnType("character varying(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StockItemId");
 
                     b.HasIndex("CategoryId", "Name")
                         .IsUnique();
@@ -4276,6 +4281,124 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                     b.ToTable("ShelfInventory", (string)null);
                 });
 
+            modelBuilder.Entity("ManolyWarehouse.Domain.Entities.StockItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Color")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("DrawerType")
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)");
+
+                    b.Property<string>("ExtraJson")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Family")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<int?>("Height")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("Length")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<int?>("OnWay")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("Ordered")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("QtyText")
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
+
+                    b.Property<int?>("Shops")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("Total")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(450)
+                        .HasColumnType("character varying(450)");
+
+                    b.Property<int?>("Warehouse")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("WarehouseLabel")
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Family", "SortOrder");
+
+                    b.ToTable("StockItems", (string)null);
+                });
+
+            modelBuilder.Entity("ManolyWarehouse.Domain.Entities.StockMovement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("Delta")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<int>("StockItemId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("TotalAfter")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("TotalBefore")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("character varying(450)");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StockItemId", "CreatedAt");
+
+                    b.ToTable("StockMovements", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.DataProtection.EntityFrameworkCore.DataProtectionKey", b =>
                 {
                     b.Property<int>("Id")
@@ -4457,7 +4580,14 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("ManolyWarehouse.Domain.Entities.StockItem", "StockItem")
+                        .WithMany()
+                        .HasForeignKey("StockItemId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.Navigation("Category");
+
+                    b.Navigation("StockItem");
                 });
 
             modelBuilder.Entity("ManolyWarehouse.Domain.Entities.PurchaseOrderItem", b =>
@@ -4510,6 +4640,17 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Shelf");
+                });
+
+            modelBuilder.Entity("ManolyWarehouse.Domain.Entities.StockMovement", b =>
+                {
+                    b.HasOne("ManolyWarehouse.Domain.Entities.StockItem", "StockItem")
+                        .WithMany("Movements")
+                        .HasForeignKey("StockItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StockItem");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -4590,6 +4731,11 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("ManolyWarehouse.Domain.Entities.ShelfInventory", b =>
                 {
                     b.Navigation("AdjustmentLogs");
+                });
+
+            modelBuilder.Entity("ManolyWarehouse.Domain.Entities.StockItem", b =>
+                {
+                    b.Navigation("Movements");
                 });
 #pragma warning restore 612, 618
         }

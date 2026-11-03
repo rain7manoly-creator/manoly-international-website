@@ -9,6 +9,10 @@ public class Product : AuditableEntity
     public int CategoryId { get; private set; }
     public Category Category { get; private set; } = default!;
 
+    /// <summary>The company stock line this product is counted in. Shelf changes move that stock.</summary>
+    public int? StockItemId { get; private set; }
+    public StockItem? StockItem { get; private set; }
+
     private readonly List<ShelfInventory> _shelfInventories = new();
     public IReadOnlyCollection<ShelfInventory> ShelfInventories => _shelfInventories.AsReadOnly();
 
@@ -29,6 +33,12 @@ public class Product : AuditableEntity
         };
         product.SetCreated(createdBy);
         return product;
+    }
+
+    public void LinkStock(int? stockItemId, string updatedBy)
+    {
+        StockItemId = stockItemId;
+        SetUpdated(updatedBy);
     }
 
     public void Update(string name, int categoryId, string updatedBy)

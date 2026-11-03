@@ -70,3 +70,11 @@ public class InventoryShelfLocation
     public int    UnitsPerBundle { get; init; }
     public int    TotalQuantity  => BundleCount * UnitsPerBundle;
 }
+
+public class StockLookupRow
+{
+    public int    ProductId    { get; init; }
+    public string ProductName  { get; init; } = default!;
+    public string CategoryName { get; init; } = default!;
+    public int    TotalBundles { get; init; }
+}

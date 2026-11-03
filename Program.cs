@@ -80,6 +80,7 @@ using (var scope = app.Services.CreateScope())
         var config = services.GetRequiredService<IConfiguration>();
 
         await DbInitializer.InitializeAsync(userManager, roleManager, config, logger);
+        await StockSeeder.SeedAsync(db, logger);
     }
     catch (Exception ex)
     {

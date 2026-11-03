@@ -1,0 +1,144 @@
+@model ManolyWarehouse.Application.Services.StockItemDetailViewModel
+@{
+    var s = Model.Item;
+    ViewData["Title"] = s.DisplayName;
+    var isAdmin = User.IsInRole("Admin");
+    var famName = ManolyWarehouse.Application.Services.StockService.FamilyNames.GetValueOrDefault(s.Family, s.Family);
+    var hasWarehouse = s.Family is "metro" or "sh";
+    string F(int? v) => v.HasValue ? v.Value.ToString("N0") : "—";
+}
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/stock" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        المخزون · @famName
+    </a>
+    <h1 class="page-title">@s.Name</h1>
+    @if (!string.IsNullOrEmpty(s.ColorLabel))
+    {
+        <p class="text-sm text-bark mt-1">@s.ColorLabel</p>
+    }
+</div>
+
+@* ── The number ─────────────────────────────────────────── *@
+<div class="mx-4 card p-5 mb-4 flex items-end justify-between gap-4">
+    <div>
+        <div class="text-xs text-bark-l mb-1">المجموع</div>
+        <div class="history-qty" style="font-size:40px; line-height:1; @(s.Total <= 0 ? "color:#CA292E" : "")" dir="ltr">
+            @(s.QtyText ?? F(s.Total))
+        </div>
+    </div>
+    <div class="text-xs text-bark-l text-left">
+        آخر تغيير<br /><span dir="ltr">@s.UpdatedAt.ToLocalString()</span>
+    </div>
+</div>
+
+@* ── Linked shelf products ─────────────────────────────── *@
+<div class="mx-4 card mb-4">
+    <div class="px-4 py-3 text-sm font-semibold" style="border-bottom:1px solid #E3E4E5">مرتبط بمنتجات على الرفوف</div>
+    @if (Model.LinkedProducts.Any())
+    {
+        foreach (var p in Model.LinkedProducts)
+        {
+            <a href="/products/@p.Id" class="list-item text-sm">@p.Name</a>
+        }
+        <p class="px-4 pb-3 text-xs text-bark-l">أي تغيير على كمية هذه المنتجات في الرفوف ينزل أو يزيد هنا تلقائياً (بالحبة).</p>
+    }
+    else
+    {
+        <p class="px-4 py-3 text-sm text-bark">
+            غير مرتبط بعد. لربطه افتح المنتج على الرف ← تعديل المنتج ← «مرتبط بالمخزون».
+        </p>
+    }
+</div>
+
+@* ── Admin correction ──────────────────────────────────── *@
+@if (isAdmin && s.QtyText == null)
+{
+    <div class="mx-4 card p-5 mb-5">
+        <p class="eyebrow mb-3">EDIT · تعديل يدوي</p>
+        <form method="post" action="/stock/items/@s.Id" class="flex flex-col gap-4" id="stock-form">
+            @Html.AntiForgeryToken()
+            @if (hasWarehouse)
+            {
+                <div class="form-group">
+                    <label class="form-label" for="warehouse">@(s.WarehouseLabel ?? "المخزن")</label>
+                    <input type="number" id="warehouse" name="warehouse" value="@s.Warehouse" class="form-input" inputmode="numeric" data-feeds-total />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="shops">محلات</label>
+                    <input type="number" id="shops" name="shops" value="@s.Shops" class="form-input" inputmode="numeric" data-feeds-total />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="ordered">للطلب</label>
+                    <input type="number" id="ordered" name="ordered" min="0" value="@s.Ordered" class="form-input" inputmode="numeric" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="onWay">بالطريق</label>
+                    <input type="number" id="onWay" name="onWay" min="0" value="@s.OnWay" class="form-input" inputmode="numeric" />
+                </div>
+            }
+            <div class="form-group">
+                <label class="form-label" for="total">المجموع</label>
+                <input type="number" id="total" name="total" value="@s.Total" class="form-input" inputmode="numeric" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="note">ملاحظة (اختيارية)</label>
+                <input type="text" id="note" name="note" maxlength="200" class="form-input" placeholder="مثلاً: وصلت الطلبية، جرد…" />
+            </div>
+            <button type="submit" class="btn-primary w-full">حفظ</button>
+        </form>
+    </div>
+}
+
+@* ── History ───────────────────────────────────────────── *@
+<div class="px-4 mb-2 flex items-end justify-between">
+    <div>
+        <p class="eyebrow mb-1">HISTORY · السجل</p>
+        <h2 class="section-title">حركة المخزون</h2>
+    </div>
+    <span class="text-xs text-bark-l">@Model.Movements.Count حركة</span>
+</div>
+@if (!Model.Movements.Any())
+{
+    <p class="mx-4 mb-6 text-sm text-bark-l">لا توجد حركة منذ تحميل الأرقام من ملف Excel.</p>
+}
+else
+{
+    <ol class="mx-4 card mb-6 history-list">
+        @foreach (var m in Model.Movements)
+        {
+            <li class="history-row">
+                <div class="flex items-center gap-2 flex-wrap">
+                    <span class="history-from">@F(m.TotalBefore)</span>
+                    <svg class="w-3.5 h-3.5 text-bark-l shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                    <span class="history-to">@F(m.TotalAfter)</span>
+                    @if (m.Delta is int d && d != 0)
+                    {
+                        <span class="delta-chip @(d > 0 ? "delta-up" : "delta-down")" dir="ltr">@(d > 0 ? "+" : "")@d.ToString("N0")</span>
+                    }
+                </div>
+                <div class="history-note">@m.Reason</div>
+                <div class="text-xs text-bark-l mt-1">@(m.UserName ?? "—") · <span dir="ltr">@m.CreatedAt.ToLocalString()</span></div>
+            </li>
+        }
+    </ol>
+}
+
+@section Scripts {
+<script>
+// Changing the warehouse or shops number moves the total by the same amount (it can still be typed directly)
+(function () {
+    const total = document.getElementById('total');
+    if (!total) return;
+    document.querySelectorAll('[data-feeds-total]').forEach(inp => {
+        let last = parseInt(inp.value, 10) || 0;
+        inp.addEventListener('input', () => {
+            const now = parseInt(inp.value, 10) || 0;
+            if (total.value !== '') total.value = (parseInt(total.value, 10) || 0) + (now - last);
+            last = now;
+        });
+    });
+})();
+</script>
+}
