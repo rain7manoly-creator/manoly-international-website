@@ -72,6 +72,7 @@
         <a href="/stock/export/sh" class="btn-secondary btn-sm">SH</a>
         <a href="/stock/export/screws" class="btn-secondary btn-sm">براغي اتيكو</a>
         <a href="/stock/export/kent" class="btn-secondary btn-sm">الكنت</a>
+        <a href="/stock/export/smirdex" class="btn-secondary btn-sm">سميردكس</a>
     }
 </div>
 
@@ -89,6 +90,7 @@
         <button class="st-chip" type="button" data-cat="sh" aria-pressed="false">جرار SH</button>
         <button class="st-chip" type="button" data-cat="screws" aria-pressed="false">براغي اتيكو</button>
         <button class="st-chip" type="button" data-cat="kent" aria-pressed="false">الكنت</button>
+        <button class="st-chip" type="button" data-cat="smirdex" aria-pressed="false">سميردكس</button>
         <button class="st-chip" type="button" data-cat="other" aria-pressed="false">منتجات أخرى</button>
         <button class="st-chip out" type="button" id="outOnly" aria-pressed="false">نفد فقط</button>
     </div>
@@ -121,14 +123,15 @@
     const STOP = ['جرار', 'جرارات', 'سحاب', 'كم', 'عنا', 'عندنا', 'في', 'يوجد', 'مخزون'];
     const CAT_WORDS = {
         metro: ['ميترو', 'مترو', 'metro'], sh: ['sh', 'اسش', 'اساتش'],
-        screws: ['براغي', 'برغي', 'اتيكو', 'atiko'], kent: ['كنت', 'كانت', 'حواف']
+        screws: ['براغي', 'برغي', 'اتيكو', 'atiko'], kent: ['كنت', 'كانت', 'حواف'],
+        smirdex: ['سميردكس', 'سمردكس', 'smirdex', 'حف']
     };
     const fmt = n => typeof n === 'number' ? n.toLocaleString('en-US') : n;
     const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
     const famOf = i => i.family.startsWith('metro') ? 'metro' : i.family;
     ITEMS.forEach(i => {
-        const alias = { metro: 'metro ميترو مترو', sh: 'sh اس اتش اسش', screws: 'براغي برغي اتيكو atiko', kent: 'كنت كانت حواف edge' }[famOf(i)] || '';
+        const alias = { metro: 'metro ميترو مترو', sh: 'sh اس اتش اسش', screws: 'براغي برغي اتيكو atiko', kent: 'كنت كانت حواف edge', smirdex: 'سميردكس smirdex ورق حف اسفنج' }[famOf(i)] || '';
         const extra = i.family === 'metro-tandem' ? 'سحاب تندم tandem' : i.family === 'metro-code' ? 'كود code' : '';
         i.key = norm([alias, extra, i.type || '', i.h || '', i.len || '', i.name].join(' '));
     });
@@ -222,9 +225,9 @@
             && (!outOnly || (color ? (i.color === color && isOut(i)) : isOut(i)))) : [];
 
         const dM = pick(['metro'], 'metro'), tM = pick(['metro-tandem'], 'metro'), cM = pick(['metro-code'], 'metro');
-        const dS = pick(['sh'], 'sh'), sc = pick(['screws'], 'screws'), kt = pick(['kent'], 'kent');
+        const dS = pick(['sh'], 'sh'), sc = pick(['screws'], 'screws'), kt = pick(['kent'], 'kent'), sm = pick(['smirdex'], 'smirdex');
         const ot = (want('other') && !cats.size) ? OTHERS.filter(o => match(o.key, tokens) && (!outOnly || o.qty <= 0)) : [];
-        const n = dM.length + tM.length + cM.length + dS.length + sc.length + kt.length + ot.length;
+        const n = dM.length + tM.length + cM.length + dS.length + sc.length + kt.length + sm.length + ot.length;
 
         let html = '<p class="text-sm text-bark"><b class="text-ink">' + n + '</b> نتيجة' + (raw.trim() ? ' لـ «' + esc(raw.trim()) + '»' : '') + '</p>';
         if (!n) html += '<div class="card empty-state"><h2 class="empty-state-title">لا يوجد صنف بهذا الاسم</h2><p class="empty-state-desc">جرّب كلمة أقصر، مثل «ميترو 500» أو «4x30» أو رقم الكنت.</p></div>';
@@ -233,6 +236,9 @@
         if (dS.length) html += sec('جرار SH', dS.length + ' صنف') + drawerCards(dS, color);
         if (sc.length) html += sec('براغي اتيكو', sc.length + ' مقاس') + listCard('ATIKO', 'براغي اتيكو', sc, true, true);
         if (kt.length) html += sec('الكنت', kt.length + ' لون') + listCard('KENT', 'الكنت', kt, true, true);
+        if (sm.length) html += sec('سميردكس', sm.length + ' صنف') +
+            listCard('SMIRDEX', 'ورق حف', sm.filter(i => i.type === 'ورق حف'), true, true) +
+            listCard('SMIRDEX', 'رول اسفنج حف', sm.filter(i => i.type !== 'ورق حف'), true, true);
         if (ot.length) html += sec('منتجات أخرى', ot.length + ' منتج') + othersCards(ot);
         resEl.innerHTML = html;
     }

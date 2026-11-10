@@ -67,7 +67,7 @@ public class StockService : IStockService
     public static readonly IReadOnlyDictionary<string, string> FamilyNames = new Dictionary<string, string>
     {
         ["metro"] = "جرار ميترو", ["metro-tandem"] = "سحاب ميترو تندم", ["metro-code"] = "ميترو — أكواد G",
-        ["sh"] = "جرار SH", ["screws"] = "براغي اتيكو", ["kent"] = "الكنت"
+        ["sh"] = "جرار SH", ["screws"] = "براغي اتيكو", ["kent"] = "الكنت", ["smirdex"] = "سميردكس"
     };
 
     private IQueryable<StockItemDto> Dtos() => _db.StockItems.AsNoTracking()

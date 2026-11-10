@@ -78,8 +78,15 @@
                     <input type="number" id="onWay" name="onWay" min="0" value="@s.OnWay" class="form-input" inputmode="numeric" />
                 </div>
             }
+            @if (s.Family == "smirdex")
+            {
+                <div class="form-group">
+                    <label class="form-label" for="ordered">الطلب</label>
+                    <input type="number" id="ordered" name="ordered" min="0" value="@s.Ordered" class="form-input" inputmode="numeric" />
+                </div>
+            }
             <div class="form-group">
-                <label class="form-label" for="total">المجموع</label>
+                <label class="form-label" for="total">@(s.Family == "smirdex" ? "العدد بالكرتونة" : "المجموع")</label>
                 <input type="number" id="total" name="total" value="@s.Total" class="form-input" inputmode="numeric" />
             </div>
             <div class="form-group">

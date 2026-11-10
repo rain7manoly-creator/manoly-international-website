@@ -30,6 +30,7 @@ public class StockFileExport : IStockFileExport
         ["metro"] = ("Metro", "ميترو"),
         ["screws"] = ("Screws", "براغي اتيكو"),
         ["kent"] = ("Kent", "كنت"),
+        ["smirdex"] = ("Smirdex", "سميردكس"),
     };
 
     private sealed record CellMap(string cell, string family, string name, string? color, int occ, string field);
