@@ -57,21 +57,22 @@ else
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="productId" value="@p.Id" />
                     <select name="target" class="form-select flex-1 min-w-0" style="min-height:40px;font-size:14px" aria-label="اربط بـ">
-                        <optgroup label="صنف جديد (يأخذ رقمه من المستودع)">
-                            @foreach (var f in NewFamilies)
-                            {
-                                <option value="new:@f" selected="@(f == guess)">➕ صنف جديد في @Fam(f)</option>
-                            }
-                        </optgroup>
+                        @* Existing lines first; the line that matches the name is pre-selected *@
                         @foreach (var g in Model.AllLines.Where(l => guess == null || l.Family == guess).GroupBy(l => l.Family))
                         {
                             <optgroup label="ربط بصنف موجود: @Fam(g.Key)">
                                 @foreach (var l in g)
                                 {
-                                    <option value="line:@l.Id">@l.Name @(Col(l.Color) is { Length: > 0 } c ? $"— {c}" : "")</option>
+                                    <option value="line:@l.Id" selected="@(l.Id == p.SuggestedId)">@l.Name @(Col(l.Color) is { Length: > 0 } c ? $"— {c}" : "")</option>
                                 }
                             </optgroup>
                         }
+                        <optgroup label="صنف جديد (غير موجود بملفات المخزون)">
+                            @foreach (var f in NewFamilies)
+                            {
+                                <option value="new:@f" selected="@(p.SuggestedId == null && f == guess)">➕ صنف جديد في @Fam(f)</option>
+                            }
+                        </optgroup>
                     </select>
                     <button type="submit" class="btn-primary btn-sm shrink-0" style="min-height:40px">ربط</button>
                 </form>

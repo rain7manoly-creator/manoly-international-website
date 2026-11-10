@@ -94,6 +94,40 @@ public static class StockSeeder
             logger.LogWarning("Match (carton suffix): {Linked} products linked, {Changed} stock lines set", linked, changed);
         }
 
+        // Products that were put into a new «أصناف أخرى» line although a real line exists for them
+        // (e.g. F39's Metro سلم 12): move them back to the real line and drop the duplicate lines.
+        const string mergeStep = "merge-other-lines-2026-11-10";
+        if (!await db.StockImports.AnyAsync(i => i.Name == mergeStep, ct))
+        {
+            var all = await db.StockItems.ToListAsync(ct);
+            var proper = all.Where(l => l.DrawerType != "أخرى").ToList();
+            var others = all.Where(l => l.DrawerType == "أخرى").ToList();
+            int moved = 0, removed = 0;
+            foreach (var other in others)
+            {
+                var products = await db.Products.Where(p => p.StockItemId == other.Id).ToListAsync(ct);
+                foreach (var p in products)
+                {
+                    var real = ManolyWarehouse.Application.Services.StockMatcher.Match(p.Name, proper);
+                    if (real is null) continue;
+                    p.LinkStock(real.Id, "import");
+                    db.StockMovements.Add(StockMovement.Create(real, null, real.Total, real.Total,
+                        $"رُبط «{p.Name}» هنا (كان في صنف جديد مكرر)", null, "تصحيح"));
+                    moved++;
+                }
+                if (products.Count > 0 && products.All(p => p.StockItemId != other.Id))
+                {
+                    db.StockItems.Remove(other);   // its history goes with it; the real line has the numbers
+                    removed++;
+                }
+            }
+            await db.SaveChangesAsync(ct);
+            var (linked, changed) = await ManolyWarehouse.Application.Services.StockService.MatchWithWarehouseAsync(db, null, "مطابقة", ct);
+            db.StockImports.Add(StockImport.Create(mergeStep));
+            await db.SaveChangesAsync(ct);
+            logger.LogWarning("Merge other lines: {Moved} products moved, {Removed} duplicate lines removed, {Changed} lines set", moved, removed, changed);
+        }
+
         // Second pass with the wider rule (names like "رول اسفنج 180"): fills only lines still empty
         const string smirdexStep2 = "smirdex-from-area-z-2026-11-10b";
         if (!await db.StockImports.AnyAsync(i => i.Name == smirdexStep2, ct))

@@ -550,8 +550,10 @@ public class StockService : IStockService
                 Shelves = p.ShelfInventories.Select(si => si.Shelf.Code).ToList(),
                 InZ = p.AreaZInventories.Any(a => !a.IsDispatched)
             }).ToListAsync(ct);
+        var proper = lines.Where(l => l.DrawerType != "أخرى").ToList();
         var unmatched = candidates.Where(c => look.IsMatch(c.Name) && (c.Shelves.Count > 0 || c.InZ))
-            .Select(c => (c.Id, c.Name, Where: string.Join(" ", c.Shelves.Distinct().OrderBy(x => x)) + (c.InZ ? " Area Z" : "")))
+            .Select(c => (c.Id, c.Name, Where: string.Join(" ", c.Shelves.Distinct().OrderBy(x => x)) + (c.InZ ? " Area Z" : ""),
+                          SuggestedId: StockMatcher.Match(c.Name, proper)?.Id))
             .OrderBy(c => c.Name).ToList();
         var all = lines.Concat(await _db.StockItems.AsNoTracking().Where(s => s.Family == "smirdex").OrderBy(s => s.SortOrder).ToListAsync(ct))
             .Where(l => l.QtyText == null)
@@ -563,6 +565,6 @@ public class StockService : IStockService
 public class StockCheckViewModel
 {
     public IReadOnlyList<StockItemDto> LinesWithoutProduct { get; init; } = Array.Empty<StockItemDto>();
-    public IReadOnlyList<(int Id, string Name, string Where)> UnmatchedProducts { get; init; } = Array.Empty<(int, string, string)>();
+    public IReadOnlyList<(int Id, string Name, string Where, int? SuggestedId)> UnmatchedProducts { get; init; } = Array.Empty<(int, string, string, int?)>();
     public IReadOnlyList<StockItemDto> AllLines { get; init; } = Array.Empty<StockItemDto>();
 }
