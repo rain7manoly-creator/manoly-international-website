@@ -34,6 +34,16 @@ public class StockController : Controller
         return RedirectToAction(nameof(Check));
     }
 
+    [HttpPost("check/connect")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Connect(int productId, string target, CancellationToken ct)
+    {
+        var name = await _stock.ConnectProductAsync(productId, target ?? "", ct);
+        TempData["SuccessMessage"] = $"تم الربط بـ «{name}».";
+        return RedirectToAction(nameof(Check));
+    }
+
     /// <summary>The team's own stock file (sh · metro · screws · kent), same layout, numbers from the app.</summary>
     [HttpGet("export/{key}")]
     [Authorize(Policy = "AdminOnly")]

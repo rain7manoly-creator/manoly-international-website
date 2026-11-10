@@ -248,9 +248,11 @@
 
         let html = '<p class="text-sm text-bark"><b class="text-ink">' + n + '</b> نتيجة' + (raw.trim() ? ' لـ «' + esc(raw.trim()) + '»' : '') + '</p>';
         if (!n) html += '<div class="card empty-state"><h2 class="empty-state-title">لا يوجد صنف بهذا الاسم</h2><p class="empty-state-desc">جرّب كلمة أقصر، مثل «ميترو 500» أو «4x30» أو رقم الكنت.</p></div>';
-        if (dM.length + tM.length + cM.length) html += sec('جرار ميترو', (dM.length + tM.length + cM.length) + ' صنف') + drawerCards(dM, color) +
+        if (dM.length + tM.length + cM.length) html += sec('جرار ميترو', (dM.length + tM.length + cM.length) + ' صنف') + drawerCards(dM.filter(i => i.color), color) +
+            listCard('METRO', 'أصناف أخرى', dM.filter(i => !i.color), false, false) +
             listCard('METRO', 'سحاب تندم', tM, false, false) + listCard('METRO', 'أكواد G', cM, false, true);
-        if (dS.length) html += sec('جرار SH', dS.length + ' صنف') + drawerCards(dS, color);
+        if (dS.length) html += sec('جرار SH', dS.length + ' صنف') + drawerCards(dS.filter(i => i.color), color) +
+            listCard('SH', 'أصناف أخرى', dS.filter(i => !i.color), false, false);
         if (sc.length) html += sec('براغي اتيكو', sc.length + ' مقاس') + listCard('ATIKO', 'براغي اتيكو', sc, false, true);
         if (kt.length) html += sec('الكنت', kt.length + ' لون') + listCard('KENT', 'الكنت', kt, false, true);
         if (sm.length) html += sec('سميردكس', sm.length + ' صنف') +

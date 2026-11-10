@@ -3,6 +3,18 @@
     ViewData["Title"] = "مطابقة المخزون";
     string Fam(string f) => ManolyWarehouse.Application.Services.StockService.FamilyNames.GetValueOrDefault(f, f);
     string Col(string? c) => c == "white" ? "أبيض" : c == "grey" ? "سكني" : "";
+    string[] NewFamilies = { "metro", "sh", "screws", "kent", "smirdex" };
+    // Best guess of the family from the product name, to pre-select the right choice
+    string? Guess(string n)
+    {
+        var x = n.ToLowerInvariant();
+        if (x.Contains("كنت")) return "kent";
+        if (x.Contains("براغي") || x.Contains("برغي")) return "screws";
+        if (x.Contains("حف") || x.Contains("سفنج")) return "smirdex";
+        if (x.Contains("ميترو") || x.Contains("metro")) return "metro";
+        if (System.Text.RegularExpressions.Regex.IsMatch(x, @"\bsh\b")) return "sh";
+        return null;
+    }
 }
 
 <div class="px-4 pt-5 pb-3">
@@ -25,7 +37,7 @@
     <h2 class="section-title">منتجات بالمستودع غير مرتبطة</h2>
     <span class="text-xs text-bark-l">@Model.UnmatchedProducts.Count</span>
 </div>
-<p class="px-4 mb-2 text-xs text-bark-l">أسماؤها تشبه ميترو/SH/كنت/براغي لكن لم أجد صنفها. افتح المنتج ← تعديل ← «مرتبط بالمخزون».</p>
+<p class="px-4 mb-2 text-xs text-bark-l">اختر لكل منتج: صنف موجود، أو «صنف جديد» إذا لم يكن في ملفات المخزون — ثم «ربط». الرقم يُؤخذ من الرفوف + Area Z.</p>
 @if (!Model.UnmatchedProducts.Any())
 {
     <p class="mx-4 mb-6 text-sm text-bark">لا يوجد — كل المنتجات مرتبطة. ✓</p>
@@ -35,10 +47,35 @@ else
     <div class="mx-4 card mb-6">
         @foreach (var p in Model.UnmatchedProducts)
         {
-            <a href="/products/@p.Id/edit" class="list-item justify-between gap-3">
-                <span class="text-sm text-ink min-w-0">@p.Name</span>
-                <span class="text-xs text-bark-l shrink-0" dir="ltr">@p.Where</span>
-            </a>
+            var guess = Guess(p.Name);
+            <div class="px-4 py-3" style="border-top:1px solid #E3E4E5">
+                <div class="flex justify-between gap-3 mb-2">
+                    <a href="/products/@p.Id/edit" class="text-sm font-semibold text-ink min-w-0">@p.Name</a>
+                    <span class="text-xs text-bark-l shrink-0" dir="ltr">@p.Where</span>
+                </div>
+                <form method="post" action="/stock/check/connect" class="flex gap-2">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="productId" value="@p.Id" />
+                    <select name="target" class="form-select flex-1 min-w-0" style="min-height:40px;font-size:14px" aria-label="اربط بـ">
+                        <optgroup label="صنف جديد (يأخذ رقمه من المستودع)">
+                            @foreach (var f in NewFamilies)
+                            {
+                                <option value="new:@f" selected="@(f == guess)">➕ صنف جديد في @Fam(f)</option>
+                            }
+                        </optgroup>
+                        @foreach (var g in Model.AllLines.Where(l => guess == null || l.Family == guess).GroupBy(l => l.Family))
+                        {
+                            <optgroup label="ربط بصنف موجود: @Fam(g.Key)">
+                                @foreach (var l in g)
+                                {
+                                    <option value="line:@l.Id">@l.Name @(Col(l.Color) is { Length: > 0 } c ? $"— {c}" : "")</option>
+                                }
+                            </optgroup>
+                        }
+                    </select>
+                    <button type="submit" class="btn-primary btn-sm shrink-0" style="min-height:40px">ربط</button>
+                </form>
+            </div>
         }
     </div>
 }

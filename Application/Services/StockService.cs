@@ -61,6 +61,8 @@ public interface IStockService
     Task<byte[]> ExportExcelAsync(CancellationToken ct = default);
     Task<(int Linked, int Changed)> MatchNowAsync(CancellationToken ct = default);
     Task<StockCheckViewModel> GetCheckAsync(CancellationToken ct = default);
+    /// <summary>From the check page: link to an existing line ("line:12") or create a new line ("new:metro").</summary>
+    Task<string> ConnectProductAsync(int productId, string target, CancellationToken ct = default);
 }
 
 public class StockService : IStockService
@@ -397,6 +399,52 @@ public class StockService : IStockService
         return (linked, changed);
     }
 
+    public async Task<string> ConnectProductAsync(int productId, string target, CancellationToken ct = default)
+    {
+        var userId = _currentUser.UserId ?? throw new InvalidOperationException("No authenticated user in context.");
+        var product = await _db.Products.FirstOrDefaultAsync(p => p.Id == productId, ct)
+            ?? throw new DomainException("المنتج غير موجود.");
+
+        StockItem line;
+        if (target.StartsWith("line:") && int.TryParse(target[5..], out var lineId))
+        {
+            line = await _db.StockItems.FirstOrDefaultAsync(s => s.Id == lineId, ct)
+                ?? throw new DomainException("صنف المخزون غير موجود.");
+        }
+        else if (target.StartsWith("new:") && FamilyNames.ContainsKey(target[4..]) && !target.EndsWith("metro-code") && !target.EndsWith("metro-tandem"))
+        {
+            var family = target[4..];
+            var sort = (await _db.StockItems.MaxAsync(s => (int?)s.SortOrder, ct) ?? 0) + 1;
+            line = StockItem.Create(family, product.Name.Trim(), null, "أخرى", null, null, sort,
+                family is "metro" or "sh" ? "مخازن رين" : null, family is "metro" or "sh" ? 0 : null, null, null, null, 0, null, null);
+            _db.StockItems.Add(line);
+            await _db.SaveChangesAsync(ct);
+        }
+        else throw new DomainException("اختر صنفاً من القائمة.");
+
+        product.LinkStock(line.Id, userId);
+        await _db.SaveChangesAsync(ct);
+
+        // The line now follows the warehouse: set it to everything its products have on shelves + Area Z
+        var cartons = StockItem.CountsInCartons(line.Family);
+        var shelf = await _db.ShelfInventory.Where(si => si.Product.StockItemId == line.Id)
+            .Select(si => new { si.BundleCount, si.UnitsPerBundle }).ToListAsync(ct);
+        var z = await _db.AreaZInventory.Where(a => !a.IsDispatched && a.Product.StockItemId == line.Id)
+            .Select(a => new { a.BundleCount, a.UnitsPerBundle }).ToListAsync(ct);
+        var qty = shelf.Sum(s => cartons ? s.BundleCount : s.BundleCount * s.UnitsPerBundle)
+                + z.Sum(a => cartons ? a.BundleCount : a.BundleCount * a.UnitsPerBundle);
+        var before = line.Total;
+        if (before != qty || (line.Family is "metro" or "sh" && line.Warehouse != qty))
+        {
+            line.SetValues(line.Family is "metro" or "sh" ? qty : line.Warehouse, line.Shops, line.Ordered, line.OnWay, qty, userId);
+            _db.StockMovements.Add(StockMovement.Create(line, qty - (before ?? 0), before, qty,
+                $"ربط «{product.Name}» — مطابقة مع المستودع", userId, _currentUser.UserName));
+            await _db.SaveChangesAsync(ct);
+        }
+        await _activityLog.RecordAsync(ActivityArea.Stock, $"ربط «{product.Name}» بمخزون «{line.DisplayName}»", ct);
+        return line.DisplayName;
+    }
+
     public async Task<(int Linked, int Changed)> MatchNowAsync(CancellationToken ct = default)
     {
         var userId = _currentUser.UserId ?? throw new InvalidOperationException("No authenticated user in context.");
@@ -426,7 +474,10 @@ public class StockService : IStockService
         var unmatched = candidates.Where(c => look.IsMatch(c.Name) && (c.Shelves.Count > 0 || c.InZ))
             .Select(c => (c.Id, c.Name, Where: string.Join(" ", c.Shelves.Distinct().OrderBy(x => x)) + (c.InZ ? " Area Z" : "")))
             .OrderBy(c => c.Name).ToList();
-        return new StockCheckViewModel { LinesWithoutProduct = noProduct, UnmatchedProducts = unmatched };
+        var all = lines.Concat(await _db.StockItems.AsNoTracking().Where(s => s.Family == "smirdex").OrderBy(s => s.SortOrder).ToListAsync(ct))
+            .Where(l => l.QtyText == null)
+            .Select(l => new StockItemDto { Id = l.Id, Family = l.Family, Name = l.Name, Color = l.Color, Total = l.Total }).ToList();
+        return new StockCheckViewModel { LinesWithoutProduct = noProduct, UnmatchedProducts = unmatched, AllLines = all };
     }
 }
 
@@ -434,4 +485,5 @@ public class StockCheckViewModel
 {
     public IReadOnlyList<StockItemDto> LinesWithoutProduct { get; init; } = Array.Empty<StockItemDto>();
     public IReadOnlyList<(int Id, string Name, string Where)> UnmatchedProducts { get; init; } = Array.Empty<(int, string, string)>();
+    public IReadOnlyList<StockItemDto> AllLines { get; init; } = Array.Empty<StockItemDto>();
 }
