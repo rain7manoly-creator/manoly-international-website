@@ -26,7 +26,7 @@ public static class StockSeeder
 
     /// <summary>App product name (as on the warehouse map) → the stock line it is counted in.</summary>
     private sealed record Link(string product, string family, string name, string? color);
-    private sealed record UpdateFile(List<Row> rows, List<Link>? links);
+    private sealed record UpdateFile(List<Row> rows, List<Link>? links, string? reason);
 
     public static async Task SeedAsync(AppDbContext db, ILogger logger, CancellationToken ct = default)
     {
@@ -55,8 +55,8 @@ public static class StockSeeder
 
     private static async Task ApplyUpdateAsync(AppDbContext db, string file, ILogger logger, CancellationToken ct)
     {
-        var (rows, links) = await ReadUpdateAsync(file, ct);
-        var label = DateLabel(file);
+        var (rows, links, reasonText) = await ReadUpdateAsync(file, ct);
+        var reason = reasonText ?? $"تحديث من ملفات Excel {DateLabel(file)}";
         var items = await db.StockItems.ToListAsync(ct);
         // The same code can appear on more than one line (e.g. G-1321200W twice), so lines
         // with the same key are matched in file order.
@@ -79,7 +79,7 @@ public static class StockSeeder
                     changed++;
                     db.StockMovements.Add(StockMovement.Create(item,
                         before.HasValue && r.total.HasValue ? r.total - before : null,
-                        before, r.total, $"تحديث من ملفات Excel {label}", null, "ملف Excel"));
+                        before, r.total, reason, null, "ملف Excel"));
                 }
             }
             else
@@ -124,21 +124,21 @@ public static class StockSeeder
     private static string NormName(string s) =>
         System.Text.RegularExpressions.Regex.Replace(s.Replace("حرار", "جرار"), @"\s+", " ").Trim().ToLowerInvariant();
 
-    private static async Task<(List<Row> Rows, List<Link> Links)> ReadUpdateAsync(string file, CancellationToken ct)
+    private static async Task<(List<Row> Rows, List<Link> Links, string? Reason)> ReadUpdateAsync(string file, CancellationToken ct)
     {
         await using var stream = typeof(StockSeeder).Assembly.GetManifestResourceStream(ResourcePrefix + file)
             ?? throw new InvalidOperationException($"{file} is missing from the build.");
         var doc = await JsonSerializer.DeserializeAsync<UpdateFile>(stream, cancellationToken: ct)
             ?? throw new InvalidOperationException($"{file} is empty.");
-        return (doc.rows, doc.links ?? new());
+        return (doc.rows, doc.links ?? new(), doc.reason);
     }
 
     private static string Key(string family, string name, string? color) => $"{family}|{name}|{color}";
 
-    // "stock-update-2026-11-10.json" → "10/11/2026"
+    // "stock-update-2026-11-10.json" (or "…-10b.json", a second update that day) → "10/11/2026"
     private static string DateLabel(string file)
     {
-        var parts = file.Replace("stock-update-", "").Replace(".json", "").Split('-');
+        var parts = file.Replace("stock-update-", "").Replace(".json", "").TrimEnd('a', 'b', 'c', 'd').Split('-');
         return parts.Length == 3 ? $"{parts[2].TrimStart('0')}/{parts[1].TrimStart('0')}/{parts[0]}" : file;
     }
 
