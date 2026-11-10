@@ -1,0 +1,3850 @@
+[
+{
+"cell": "B2",
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C2",
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D2",
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E2",
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F2",
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H2",
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I2",
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J2",
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K2",
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L2",
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B3",
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C3",
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D3",
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E3",
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F3",
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H3",
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I3",
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J3",
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K3",
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L3",
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B4",
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C4",
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D4",
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E4",
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F4",
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H4",
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I4",
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J4",
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K4",
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L4",
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B5",
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C5",
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D5",
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E5",
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F5",
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H5",
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I5",
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J5",
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K5",
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L5",
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B6",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C6",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D6",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E6",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F6",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H6",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I6",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J6",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K6",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L6",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B9",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C9",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D9",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E9",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F9",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H9",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I9",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J9",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K9",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L9",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B10",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C10",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D10",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E10",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F10",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H10",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I10",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J10",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K10",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L10",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B11",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C11",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D11",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E11",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F11",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H11",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I11",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J11",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K11",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L11",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B12",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C12",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D12",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E12",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F12",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H12",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I12",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J12",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K12",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L12",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B13",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C13",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D13",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E13",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F13",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H13",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I13",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J13",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K13",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L13",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B16",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-250mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C16",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-250mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D16",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-250mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E16",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-250mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F16",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-250mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B17",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-300mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C17",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-300mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D17",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-300mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E17",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-300mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F17",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-300mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B18",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C18",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D18",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E18",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F18",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H18",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I18",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J18",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K18",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L18",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B19",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C19",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D19",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E19",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F19",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H19",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I19",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J19",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K19",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L19",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B20",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C20",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D20",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E20",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F20",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H20",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I20",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J20",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K20",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L20",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B21",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C21",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D21",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E21",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F21",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H21",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I21",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J21",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K21",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L21",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B22",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C22",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D22",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E22",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F22",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H22",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I22",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J22",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K22",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L22",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B25",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-250mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C25",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-250mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D25",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-250mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E25",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-250mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F25",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-250mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B26",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-300mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C26",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-300mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D26",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-300mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E26",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-300mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F26",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-300mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B27",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C27",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D27",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E27",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F27",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H27",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I27",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J27",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K27",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L27",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B28",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C28",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D28",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E28",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F28",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H28",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I28",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J28",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K28",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L28",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B29",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C29",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D29",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E29",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F29",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H29",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I29",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J29",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K29",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L29",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B30",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C30",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D30",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E30",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F30",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H30",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I30",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J30",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K30",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L30",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B31",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C31",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D31",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E31",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F31",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H31",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I31",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J31",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K31",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L31",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B34",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C34",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D34",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E34",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F34",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H34",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I34",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J34",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K34",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L34",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B35",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C35",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D35",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E35",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F35",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H35",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I35",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J35",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K35",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L35",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B36",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C36",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D36",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E36",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F36",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H36",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I36",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J36",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K36",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L36",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B37",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C37",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D37",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E37",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F37",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H37",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I37",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J37",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K37",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L37",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B38",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C38",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D38",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E38",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F38",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H38",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I38",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J38",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K38",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L38",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B41",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C41",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D41",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E41",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F41",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H41",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I41",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J41",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K41",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L41",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B42",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C42",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D42",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E42",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F42",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H42",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I42",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J42",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K42",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L42",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B43",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C43",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D43",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E43",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F43",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H43",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I43",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J43",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K43",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L43",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B44",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C44",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D44",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E44",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F44",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H44",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I44",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J44",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K44",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L44",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B45",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C45",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D45",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E45",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F45",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H45",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I45",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J45",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K45",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L45",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B48",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C48",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D48",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E48",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F48",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H48",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I48",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J48",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K48",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L48",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B49",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C49",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D49",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E49",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F49",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H49",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I49",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J49",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K49",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L49",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B50",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C50",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D50",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E50",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F50",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H50",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I50",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J50",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K50",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L50",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B51",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C51",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D51",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E51",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F51",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H51",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I51",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J51",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K51",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L51",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B52",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C52",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D52",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E52",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F52",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H52",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I52",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J52",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K52",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L52",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B55",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C55",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D55",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E55",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F55",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H55",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I55",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J55",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K55",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L55",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B56",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C56",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D56",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E56",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F56",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H56",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I56",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J56",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K56",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L56",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B57",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C57",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D57",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E57",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F57",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H57",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I57",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J57",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K57",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L57",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B58",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C58",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D58",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E58",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F58",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H58",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I58",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J58",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K58",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L58",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B59",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C59",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "D59",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "E59",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "F59",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H59",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I59",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J59",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K59",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L59",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H62",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-250mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I62",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-250mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J62",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-250mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K62",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-250mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L62",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-250mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H63",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-300mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I63",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-300mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J63",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-300mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K63",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-300mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L63",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-300mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H64",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I64",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J64",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K64",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L64",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-350mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H65",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I65",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J65",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K65",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L65",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-400mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H66",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I66",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J66",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K66",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L66",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-450mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H67",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I67",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J67",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K67",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L67",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-500mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "H68",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "I68",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "J68",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "K68",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "L68",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-550mm",
+"color": "grey",
+"occ": 0,
+"field": "onWay"
+},
+{
+"cell": "B72",
+"family": "metro-code",
+"name": "G-1321200W",
+"color": "white",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "I72",
+"family": "metro-code",
+"name": "G-1321200G",
+"color": "grey",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "B73",
+"family": "metro-code",
+"name": "G-1321200W",
+"color": "white",
+"occ": 1,
+"field": "qtyText"
+},
+{
+"cell": "I73",
+"family": "metro-code",
+"name": "G-1321200G",
+"color": "grey",
+"occ": 1,
+"field": "qtyText"
+},
+{
+"cell": "B74",
+"family": "metro-code",
+"name": "GF321200W",
+"color": "white",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "I74",
+"family": "metro-code",
+"name": "GF321200G",
+"color": "grey",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "B75",
+"family": "metro-code",
+"name": "GF321200W",
+"color": "white",
+"occ": 1,
+"field": "qtyText"
+},
+{
+"cell": "I75",
+"family": "metro-code",
+"name": "GF321200G",
+"color": "grey",
+"occ": 1,
+"field": "qtyText"
+},
+{
+"cell": "B76",
+"family": "metro-code",
+"name": "G1331200W",
+"color": "white",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "I76",
+"family": "metro-code",
+"name": "G1331200G",
+"color": "grey",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "B77",
+"family": "metro-code",
+"name": "G130200W",
+"color": "white",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "I77",
+"family": "metro-code",
+"name": "G130200G",
+"color": "grey",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "B78",
+"family": "metro-code",
+"name": "G130500W",
+"color": "white",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "I78",
+"family": "metro-code",
+"name": "G130500G",
+"color": "grey",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "B79",
+"family": "metro-code",
+"name": "G130800W",
+"color": "white",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "I79",
+"family": "metro-code",
+"name": "G130800G",
+"color": "grey",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "B80",
+"family": "metro-code",
+"name": "G131200W",
+"color": "white",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "I80",
+"family": "metro-code",
+"name": "G131200G",
+"color": "grey",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "B81",
+"family": "metro-code",
+"name": "G130300W",
+"color": "white",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "I81",
+"family": "metro-code",
+"name": "G130300G",
+"color": "grey",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "B82",
+"family": "metro-code",
+"name": "G130600W",
+"color": "white",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "I82",
+"family": "metro-code",
+"name": "G130600G",
+"color": "grey",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "B83",
+"family": "metro-code",
+"name": "130400W",
+"color": "white",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "I83",
+"family": "metro-code",
+"name": "130400G",
+"color": "grey",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "B84",
+"family": "metro-code",
+"name": "130700W",
+"color": "white",
+"occ": 0,
+"field": "qtyText"
+},
+{
+"cell": "I84",
+"family": "metro-code",
+"name": "130700G",
+"color": "grey",
+"occ": 0,
+"field": "qtyText"
+}
+]

@@ -1,0 +1,3106 @@
+[
+{
+"cell": "B2",
+"family": "kent",
+"name": "395 W",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C2",
+"family": "kent",
+"name": "395 W",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D2",
+"family": "kent",
+"name": "395 W",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E2",
+"family": "kent",
+"name": "395 W",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B3",
+"family": "kent",
+"name": "396 W",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C3",
+"family": "kent",
+"name": "396 W",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D3",
+"family": "kent",
+"name": "396 W",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E3",
+"family": "kent",
+"name": "396 W",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B4",
+"family": "kent",
+"name": "389",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C4",
+"family": "kent",
+"name": "389",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D4",
+"family": "kent",
+"name": "389",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E4",
+"family": "kent",
+"name": "389",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B5",
+"family": "kent",
+"name": "4261",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C5",
+"family": "kent",
+"name": "4261",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D5",
+"family": "kent",
+"name": "4261",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E5",
+"family": "kent",
+"name": "4261",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B6",
+"family": "kent",
+"name": "4263",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C6",
+"family": "kent",
+"name": "4263",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D6",
+"family": "kent",
+"name": "4263",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E6",
+"family": "kent",
+"name": "4263",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B7",
+"family": "kent",
+"name": "4265",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C7",
+"family": "kent",
+"name": "4265",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D7",
+"family": "kent",
+"name": "4265",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E7",
+"family": "kent",
+"name": "4265",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B8",
+"family": "kent",
+"name": "4268",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C8",
+"family": "kent",
+"name": "4268",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D8",
+"family": "kent",
+"name": "4268",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E8",
+"family": "kent",
+"name": "4268",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B9",
+"family": "kent",
+"name": "4269",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C9",
+"family": "kent",
+"name": "4269",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D9",
+"family": "kent",
+"name": "4269",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E9",
+"family": "kent",
+"name": "4269",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B10",
+"family": "kent",
+"name": "4270",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C10",
+"family": "kent",
+"name": "4270",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D10",
+"family": "kent",
+"name": "4270",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E10",
+"family": "kent",
+"name": "4270",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B11",
+"family": "kent",
+"name": "4275",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C11",
+"family": "kent",
+"name": "4275",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D11",
+"family": "kent",
+"name": "4275",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E11",
+"family": "kent",
+"name": "4275",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B12",
+"family": "kent",
+"name": "4276",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C12",
+"family": "kent",
+"name": "4276",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D12",
+"family": "kent",
+"name": "4276",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E12",
+"family": "kent",
+"name": "4276",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B13",
+"family": "kent",
+"name": "633 R",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C13",
+"family": "kent",
+"name": "633 R",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D13",
+"family": "kent",
+"name": "633 R",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E13",
+"family": "kent",
+"name": "633 R",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B14",
+"family": "kent",
+"name": "669 R",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C14",
+"family": "kent",
+"name": "669 R",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D14",
+"family": "kent",
+"name": "669 R",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E14",
+"family": "kent",
+"name": "669 R",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B15",
+"family": "kent",
+"name": "670R",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C15",
+"family": "kent",
+"name": "670R",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D15",
+"family": "kent",
+"name": "670R",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E15",
+"family": "kent",
+"name": "670R",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B16",
+"family": "kent",
+"name": "672R",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C16",
+"family": "kent",
+"name": "672R",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D16",
+"family": "kent",
+"name": "672R",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E16",
+"family": "kent",
+"name": "672R",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B17",
+"family": "kent",
+"name": "673R",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C17",
+"family": "kent",
+"name": "673R",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D17",
+"family": "kent",
+"name": "673R",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E17",
+"family": "kent",
+"name": "673R",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B18",
+"family": "kent",
+"name": "M700 T",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C18",
+"family": "kent",
+"name": "M700 T",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D18",
+"family": "kent",
+"name": "M700 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E18",
+"family": "kent",
+"name": "M700 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B19",
+"family": "kent",
+"name": "M800 T",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C19",
+"family": "kent",
+"name": "M800 T",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D19",
+"family": "kent",
+"name": "M800 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E19",
+"family": "kent",
+"name": "M800 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B20",
+"family": "kent",
+"name": "M800",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C20",
+"family": "kent",
+"name": "M800",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D20",
+"family": "kent",
+"name": "M800",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E20",
+"family": "kent",
+"name": "M800",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B21",
+"family": "kent",
+"name": "810 T",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C21",
+"family": "kent",
+"name": "810 T",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D21",
+"family": "kent",
+"name": "810 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E21",
+"family": "kent",
+"name": "810 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B22",
+"family": "kent",
+"name": "879 T",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C22",
+"family": "kent",
+"name": "879 T",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D22",
+"family": "kent",
+"name": "879 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E22",
+"family": "kent",
+"name": "879 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B23",
+"family": "kent",
+"name": "M900T",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C23",
+"family": "kent",
+"name": "M900T",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D23",
+"family": "kent",
+"name": "M900T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E23",
+"family": "kent",
+"name": "M900T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B24",
+"family": "kent",
+"name": "M1000T",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C24",
+"family": "kent",
+"name": "M1000T",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D24",
+"family": "kent",
+"name": "M1000T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E24",
+"family": "kent",
+"name": "M1000T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B25",
+"family": "kent",
+"name": "1002",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C25",
+"family": "kent",
+"name": "1002",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D25",
+"family": "kent",
+"name": "1002",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E25",
+"family": "kent",
+"name": "1002",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B26",
+"family": "kent",
+"name": "1098-400 new",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C26",
+"family": "kent",
+"name": "1098-400 new",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D26",
+"family": "kent",
+"name": "1098-400 new",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E26",
+"family": "kent",
+"name": "1098-400 new",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B27",
+"family": "kent",
+"name": "1100",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C27",
+"family": "kent",
+"name": "1100",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D27",
+"family": "kent",
+"name": "1100",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E27",
+"family": "kent",
+"name": "1100",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B28",
+"family": "kent",
+"name": "1067",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C28",
+"family": "kent",
+"name": "1067",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D28",
+"family": "kent",
+"name": "1067",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E28",
+"family": "kent",
+"name": "1067",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B29",
+"family": "kent",
+"name": "1200",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C29",
+"family": "kent",
+"name": "1200",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D29",
+"family": "kent",
+"name": "1200",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E29",
+"family": "kent",
+"name": "1200",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B30",
+"family": "kent",
+"name": "1201",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C30",
+"family": "kent",
+"name": "1201",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D30",
+"family": "kent",
+"name": "1201",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E30",
+"family": "kent",
+"name": "1201",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B31",
+"family": "kent",
+"name": "1480",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C31",
+"family": "kent",
+"name": "1480",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D31",
+"family": "kent",
+"name": "1480",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E31",
+"family": "kent",
+"name": "1480",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B32",
+"family": "kent",
+"name": "1532",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C32",
+"family": "kent",
+"name": "1532",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D32",
+"family": "kent",
+"name": "1532",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E32",
+"family": "kent",
+"name": "1532",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B33",
+"family": "kent",
+"name": "1533",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C33",
+"family": "kent",
+"name": "1533",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D33",
+"family": "kent",
+"name": "1533",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E33",
+"family": "kent",
+"name": "1533",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B34",
+"family": "kent",
+"name": "1610",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C34",
+"family": "kent",
+"name": "1610",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D34",
+"family": "kent",
+"name": "1610",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E34",
+"family": "kent",
+"name": "1610",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B35",
+"family": "kent",
+"name": "1686",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C35",
+"family": "kent",
+"name": "1686",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D35",
+"family": "kent",
+"name": "1686",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E35",
+"family": "kent",
+"name": "1686",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B36",
+"family": "kent",
+"name": "1689",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C36",
+"family": "kent",
+"name": "1689",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D36",
+"family": "kent",
+"name": "1689",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E36",
+"family": "kent",
+"name": "1689",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B37",
+"family": "kent",
+"name": "1957",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C37",
+"family": "kent",
+"name": "1957",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D37",
+"family": "kent",
+"name": "1957",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E37",
+"family": "kent",
+"name": "1957",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B38",
+"family": "kent",
+"name": "K011LE",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C38",
+"family": "kent",
+"name": "K011LE",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D38",
+"family": "kent",
+"name": "K011LE",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E38",
+"family": "kent",
+"name": "K011LE",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B39",
+"family": "kent",
+"name": "2020",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C39",
+"family": "kent",
+"name": "2020",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D39",
+"family": "kent",
+"name": "2020",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E39",
+"family": "kent",
+"name": "2020",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B40",
+"family": "kent",
+"name": "2021",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C40",
+"family": "kent",
+"name": "2021",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D40",
+"family": "kent",
+"name": "2021",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E40",
+"family": "kent",
+"name": "2021",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B41",
+"family": "kent",
+"name": "2755",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C41",
+"family": "kent",
+"name": "2755",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D41",
+"family": "kent",
+"name": "2755",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E41",
+"family": "kent",
+"name": "2755",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B42",
+"family": "kent",
+"name": "2264",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C42",
+"family": "kent",
+"name": "2264",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D42",
+"family": "kent",
+"name": "2264",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E42",
+"family": "kent",
+"name": "2264",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B43",
+"family": "kent",
+"name": "3000",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C43",
+"family": "kent",
+"name": "3000",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D43",
+"family": "kent",
+"name": "3000",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E43",
+"family": "kent",
+"name": "3000",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B44",
+"family": "kent",
+"name": "3027",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C44",
+"family": "kent",
+"name": "3027",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D44",
+"family": "kent",
+"name": "3027",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E44",
+"family": "kent",
+"name": "3027",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B45",
+"family": "kent",
+"name": "3061",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C45",
+"family": "kent",
+"name": "3061",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D45",
+"family": "kent",
+"name": "3061",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E45",
+"family": "kent",
+"name": "3061",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B46",
+"family": "kent",
+"name": "3141",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C46",
+"family": "kent",
+"name": "3141",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D46",
+"family": "kent",
+"name": "3141",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E46",
+"family": "kent",
+"name": "3141",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B47",
+"family": "kent",
+"name": "3142",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C47",
+"family": "kent",
+"name": "3142",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D47",
+"family": "kent",
+"name": "3142",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E47",
+"family": "kent",
+"name": "3142",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B48",
+"family": "kent",
+"name": "3102",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C48",
+"family": "kent",
+"name": "3102",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D48",
+"family": "kent",
+"name": "3102",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E48",
+"family": "kent",
+"name": "3102",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B49",
+"family": "kent",
+"name": "3160",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C49",
+"family": "kent",
+"name": "3160",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D49",
+"family": "kent",
+"name": "3160",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E49",
+"family": "kent",
+"name": "3160",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B50",
+"family": "kent",
+"name": "3170",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C50",
+"family": "kent",
+"name": "3170",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D50",
+"family": "kent",
+"name": "3170",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E50",
+"family": "kent",
+"name": "3170",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B51",
+"family": "kent",
+"name": "3187",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C51",
+"family": "kent",
+"name": "3187",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D51",
+"family": "kent",
+"name": "3187",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E51",
+"family": "kent",
+"name": "3187",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B52",
+"family": "kent",
+"name": "3191",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C52",
+"family": "kent",
+"name": "3191",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D52",
+"family": "kent",
+"name": "3191",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E52",
+"family": "kent",
+"name": "3191",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B53",
+"family": "kent",
+"name": "3234",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C53",
+"family": "kent",
+"name": "3234",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D53",
+"family": "kent",
+"name": "3234",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E53",
+"family": "kent",
+"name": "3234",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B54",
+"family": "kent",
+"name": "3949",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C54",
+"family": "kent",
+"name": "3949",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D54",
+"family": "kent",
+"name": "3949",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E54",
+"family": "kent",
+"name": "3949",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B55",
+"family": "kent",
+"name": "5171",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C55",
+"family": "kent",
+"name": "5171",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D55",
+"family": "kent",
+"name": "5171",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E55",
+"family": "kent",
+"name": "5171",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B56",
+"family": "kent",
+"name": "5324",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C56",
+"family": "kent",
+"name": "5324",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D56",
+"family": "kent",
+"name": "5324",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E56",
+"family": "kent",
+"name": "5324",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B57",
+"family": "kent",
+"name": "5327",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C57",
+"family": "kent",
+"name": "5327",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D57",
+"family": "kent",
+"name": "5327",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E57",
+"family": "kent",
+"name": "5327",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B58",
+"family": "kent",
+"name": "5329",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C58",
+"family": "kent",
+"name": "5329",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D58",
+"family": "kent",
+"name": "5329",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E58",
+"family": "kent",
+"name": "5329",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B59",
+"family": "kent",
+"name": "5372",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C59",
+"family": "kent",
+"name": "5372",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D59",
+"family": "kent",
+"name": "5372",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E59",
+"family": "kent",
+"name": "5372",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B60",
+"family": "kent",
+"name": "5374",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C60",
+"family": "kent",
+"name": "5374",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D60",
+"family": "kent",
+"name": "5374",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E60",
+"family": "kent",
+"name": "5374",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B61",
+"family": "kent",
+"name": "5550",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C61",
+"family": "kent",
+"name": "5550",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D61",
+"family": "kent",
+"name": "5550",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E61",
+"family": "kent",
+"name": "5550",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B62",
+"family": "kent",
+"name": "5524",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C62",
+"family": "kent",
+"name": "5524",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D62",
+"family": "kent",
+"name": "5524",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E62",
+"family": "kent",
+"name": "5524",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B63",
+"family": "kent",
+"name": "210 C",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C63",
+"family": "kent",
+"name": "210 C",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D63",
+"family": "kent",
+"name": "210 C",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E63",
+"family": "kent",
+"name": "210 C",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B64",
+"family": "kent",
+"name": "460 C",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C64",
+"family": "kent",
+"name": "460 C",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D64",
+"family": "kent",
+"name": "460 C",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E64",
+"family": "kent",
+"name": "460 C",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B65",
+"family": "kent",
+"name": "461 C",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C65",
+"family": "kent",
+"name": "461 C",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D65",
+"family": "kent",
+"name": "461 C",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E65",
+"family": "kent",
+"name": "461 C",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B66",
+"family": "kent",
+"name": "545 C",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C66",
+"family": "kent",
+"name": "545 C",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D66",
+"family": "kent",
+"name": "545 C",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E66",
+"family": "kent",
+"name": "545 C",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B67",
+"family": "kent",
+"name": "406 T",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C67",
+"family": "kent",
+"name": "406 T",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D67",
+"family": "kent",
+"name": "406 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E67",
+"family": "kent",
+"name": "406 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B68",
+"family": "kent",
+"name": "409 T",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C68",
+"family": "kent",
+"name": "409 T",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D68",
+"family": "kent",
+"name": "409 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E68",
+"family": "kent",
+"name": "409 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B69",
+"family": "kent",
+"name": "410 T",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C69",
+"family": "kent",
+"name": "410 T",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D69",
+"family": "kent",
+"name": "410 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E69",
+"family": "kent",
+"name": "410 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B70",
+"family": "kent",
+"name": "413 T",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C70",
+"family": "kent",
+"name": "413 T",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D70",
+"family": "kent",
+"name": "413 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E70",
+"family": "kent",
+"name": "413 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B71",
+"family": "kent",
+"name": "414 T",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C71",
+"family": "kent",
+"name": "414 T",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D71",
+"family": "kent",
+"name": "414 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E71",
+"family": "kent",
+"name": "414 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B72",
+"family": "kent",
+"name": "420 T",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C72",
+"family": "kent",
+"name": "420 T",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D72",
+"family": "kent",
+"name": "420 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E72",
+"family": "kent",
+"name": "420 T",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B73",
+"family": "kent",
+"name": "8200 LE",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C73",
+"family": "kent",
+"name": "8200 LE",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D73",
+"family": "kent",
+"name": "8200 LE",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E73",
+"family": "kent",
+"name": "8200 LE",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B74",
+"family": "kent",
+"name": "8204",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C74",
+"family": "kent",
+"name": "8204",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D74",
+"family": "kent",
+"name": "8204",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E74",
+"family": "kent",
+"name": "8204",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B75",
+"family": "kent",
+"name": "8588",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C75",
+"family": "kent",
+"name": "8588",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D75",
+"family": "kent",
+"name": "8588",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E75",
+"family": "kent",
+"name": "8588",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B76",
+"family": "kent",
+"name": "M700 H.G",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C76",
+"family": "kent",
+"name": "M700 H.G",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D76",
+"family": "kent",
+"name": "M700 H.G",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E76",
+"family": "kent",
+"name": "M700 H.G",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B77",
+"family": "kent",
+"name": "M900 H.G",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C77",
+"family": "kent",
+"name": "M900 H.G",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D77",
+"family": "kent",
+"name": "M900 H.G",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E77",
+"family": "kent",
+"name": "M900 H.G",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B78",
+"family": "kent",
+"name": "M1000 H.G",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C78",
+"family": "kent",
+"name": "M1000 H.G",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D78",
+"family": "kent",
+"name": "M1000 H.G",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E78",
+"family": "kent",
+"name": "M1000 H.G",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B79",
+"family": "kent",
+"name": "2112 H.G",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C79",
+"family": "kent",
+"name": "2112 H.G",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D79",
+"family": "kent",
+"name": "2112 H.G",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E79",
+"family": "kent",
+"name": "2112 H.G",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B80",
+"family": "kent",
+"name": "77427 LE",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C80",
+"family": "kent",
+"name": "77427 LE",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D80",
+"family": "kent",
+"name": "77427 LE",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E80",
+"family": "kent",
+"name": "77427 LE",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B81",
+"family": "kent",
+"name": "77488 LE",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C81",
+"family": "kent",
+"name": "77488 LE",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D81",
+"family": "kent",
+"name": "77488 LE",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E81",
+"family": "kent",
+"name": "77488 LE",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B82",
+"family": "kent",
+"name": "7000",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C82",
+"family": "kent",
+"name": "7000",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D82",
+"family": "kent",
+"name": "7000",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E82",
+"family": "kent",
+"name": "7000",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B83",
+"family": "kent",
+"name": "7180",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C83",
+"family": "kent",
+"name": "7180",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D83",
+"family": "kent",
+"name": "7180",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E83",
+"family": "kent",
+"name": "7180",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B84",
+"family": "kent",
+"name": "8000",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C84",
+"family": "kent",
+"name": "8000",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D84",
+"family": "kent",
+"name": "8000",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E84",
+"family": "kent",
+"name": "8000",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B85",
+"family": "kent",
+"name": "9070",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C85",
+"family": "kent",
+"name": "9070",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D85",
+"family": "kent",
+"name": "9070",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E85",
+"family": "kent",
+"name": "9070",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B86",
+"family": "kent",
+"name": "9090",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C86",
+"family": "kent",
+"name": "9090",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D86",
+"family": "kent",
+"name": "9090",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E86",
+"family": "kent",
+"name": "9090",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B87",
+"family": "kent",
+"name": "9040",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C87",
+"family": "kent",
+"name": "9040",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D87",
+"family": "kent",
+"name": "9040",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E87",
+"family": "kent",
+"name": "9040",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B88",
+"family": "kent",
+"name": "9100",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C88",
+"family": "kent",
+"name": "9100",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D88",
+"family": "kent",
+"name": "9100",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E88",
+"family": "kent",
+"name": "9100",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B89",
+"family": "kent",
+"name": "9020",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C89",
+"family": "kent",
+"name": "9020",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D89",
+"family": "kent",
+"name": "9020",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E89",
+"family": "kent",
+"name": "9020",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B90",
+"family": "kent",
+"name": "9060",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C90",
+"family": "kent",
+"name": "9060",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D90",
+"family": "kent",
+"name": "9060",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E90",
+"family": "kent",
+"name": "9060",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B91",
+"family": "kent",
+"name": "9030",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C91",
+"family": "kent",
+"name": "9030",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D91",
+"family": "kent",
+"name": "9030",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E91",
+"family": "kent",
+"name": "9030",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B92",
+"family": "kent",
+"name": "9050",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C92",
+"family": "kent",
+"name": "9050",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D92",
+"family": "kent",
+"name": "9050",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E92",
+"family": "kent",
+"name": "9050",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B93",
+"family": "kent",
+"name": "9010",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C93",
+"family": "kent",
+"name": "9010",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D93",
+"family": "kent",
+"name": "9010",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E93",
+"family": "kent",
+"name": "9010",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B94",
+"family": "kent",
+"name": "9080",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C94",
+"family": "kent",
+"name": "9080",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D94",
+"family": "kent",
+"name": "9080",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E94",
+"family": "kent",
+"name": "9080",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B95",
+"family": "kent",
+"name": "1018",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C95",
+"family": "kent",
+"name": "1018",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D95",
+"family": "kent",
+"name": "1018",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E95",
+"family": "kent",
+"name": "1018",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B96",
+"family": "kent",
+"name": "8600",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C96",
+"family": "kent",
+"name": "8600",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D96",
+"family": "kent",
+"name": "8600",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E96",
+"family": "kent",
+"name": "8600",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B97",
+"family": "kent",
+"name": "6011-9",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C97",
+"family": "kent",
+"name": "6011-9",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D97",
+"family": "kent",
+"name": "6011-9",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E97",
+"family": "kent",
+"name": "6011-9",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+},
+{
+"cell": "B98",
+"family": "kent",
+"name": "6248",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C98",
+"family": "kent",
+"name": "6248",
+"color": null,
+"occ": 0,
+"field": "extra:طلبية 27-6"
+},
+{
+"cell": "D98",
+"family": "kent",
+"name": "6248",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب7-3-2026"
+},
+{
+"cell": "E98",
+"family": "kent",
+"name": "6248",
+"color": null,
+"occ": 0,
+"field": "extra:للطلب جديد 19-8-2026"
+}
+]

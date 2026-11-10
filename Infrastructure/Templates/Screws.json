@@ -1,0 +1,738 @@
+[
+{
+"cell": "B3",
+"family": "screws",
+"name": "3.5x16",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C3",
+"family": "screws",
+"name": "3.5x16",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D3",
+"family": "screws",
+"name": "3.5x16",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E3",
+"family": "screws",
+"name": "3.5x16",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B4",
+"family": "screws",
+"name": "3.5x30",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C4",
+"family": "screws",
+"name": "3.5x30",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D4",
+"family": "screws",
+"name": "3.5x30",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E4",
+"family": "screws",
+"name": "3.5x30",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B5",
+"family": "screws",
+"name": "3.5x35",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C5",
+"family": "screws",
+"name": "3.5x35",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D5",
+"family": "screws",
+"name": "3.5x35",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E5",
+"family": "screws",
+"name": "3.5x35",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B6",
+"family": "screws",
+"name": "3.5x40",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C6",
+"family": "screws",
+"name": "3.5x40",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D6",
+"family": "screws",
+"name": "3.5x40",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E6",
+"family": "screws",
+"name": "3.5x40",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B7",
+"family": "screws",
+"name": "3.5x45",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C7",
+"family": "screws",
+"name": "3.5x45",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D7",
+"family": "screws",
+"name": "3.5x45",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E7",
+"family": "screws",
+"name": "3.5x45",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B9",
+"family": "screws",
+"name": "4x16",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C9",
+"family": "screws",
+"name": "4x16",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D9",
+"family": "screws",
+"name": "4x16",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E9",
+"family": "screws",
+"name": "4x16",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B10",
+"family": "screws",
+"name": "4x18",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C10",
+"family": "screws",
+"name": "4x18",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D10",
+"family": "screws",
+"name": "4x18",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E10",
+"family": "screws",
+"name": "4x18",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B11",
+"family": "screws",
+"name": "4x20",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C11",
+"family": "screws",
+"name": "4x20",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D11",
+"family": "screws",
+"name": "4x20",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E11",
+"family": "screws",
+"name": "4x20",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B12",
+"family": "screws",
+"name": "4x25",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C12",
+"family": "screws",
+"name": "4x25",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D12",
+"family": "screws",
+"name": "4x25",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E12",
+"family": "screws",
+"name": "4x25",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B13",
+"family": "screws",
+"name": "4x30",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C13",
+"family": "screws",
+"name": "4x30",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D13",
+"family": "screws",
+"name": "4x30",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E13",
+"family": "screws",
+"name": "4x30",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B14",
+"family": "screws",
+"name": "4x35",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C14",
+"family": "screws",
+"name": "4x35",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D14",
+"family": "screws",
+"name": "4x35",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E14",
+"family": "screws",
+"name": "4x35",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B15",
+"family": "screws",
+"name": "4x40",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C15",
+"family": "screws",
+"name": "4x40",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D15",
+"family": "screws",
+"name": "4x40",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E15",
+"family": "screws",
+"name": "4x40",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B16",
+"family": "screws",
+"name": "4x45",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C16",
+"family": "screws",
+"name": "4x45",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D16",
+"family": "screws",
+"name": "4x45",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E16",
+"family": "screws",
+"name": "4x45",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B17",
+"family": "screws",
+"name": "4x50",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C17",
+"family": "screws",
+"name": "4x50",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D17",
+"family": "screws",
+"name": "4x50",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E17",
+"family": "screws",
+"name": "4x50",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B18",
+"family": "screws",
+"name": "4x60",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C18",
+"family": "screws",
+"name": "4x60",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D18",
+"family": "screws",
+"name": "4x60",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E18",
+"family": "screws",
+"name": "4x60",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B20",
+"family": "screws",
+"name": "5x25",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C20",
+"family": "screws",
+"name": "5x25",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D20",
+"family": "screws",
+"name": "5x25",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E20",
+"family": "screws",
+"name": "5x25",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B21",
+"family": "screws",
+"name": "5x30",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C21",
+"family": "screws",
+"name": "5x30",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D21",
+"family": "screws",
+"name": "5x30",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E21",
+"family": "screws",
+"name": "5x30",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B22",
+"family": "screws",
+"name": "5x35",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C22",
+"family": "screws",
+"name": "5x35",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D22",
+"family": "screws",
+"name": "5x35",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E22",
+"family": "screws",
+"name": "5x35",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B23",
+"family": "screws",
+"name": "5x40",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C23",
+"family": "screws",
+"name": "5x40",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D23",
+"family": "screws",
+"name": "5x40",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E23",
+"family": "screws",
+"name": "5x40",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B24",
+"family": "screws",
+"name": "5x50",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C24",
+"family": "screws",
+"name": "5x50",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D24",
+"family": "screws",
+"name": "5x50",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E24",
+"family": "screws",
+"name": "5x50",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B25",
+"family": "screws",
+"name": "50x70 سن كامل",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C25",
+"family": "screws",
+"name": "50x70 سن كامل",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D25",
+"family": "screws",
+"name": "50x70 سن كامل",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E25",
+"family": "screws",
+"name": "50x70 سن كامل",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B26",
+"family": "screws",
+"name": "5x70",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C26",
+"family": "screws",
+"name": "5x70",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D26",
+"family": "screws",
+"name": "5x70",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E26",
+"family": "screws",
+"name": "5x70",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+},
+{
+"cell": "B27",
+"family": "screws",
+"name": "5x100",
+"color": null,
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "C27",
+"family": "screws",
+"name": "5x100",
+"color": null,
+"occ": 0,
+"field": "extra:Carton"
+},
+{
+"cell": "D27",
+"family": "screws",
+"name": "5x100",
+"color": null,
+"occ": 0,
+"field": "extra:Box"
+},
+{
+"cell": "E27",
+"family": "screws",
+"name": "5x100",
+"color": null,
+"occ": 0,
+"field": "extra:ordering"
+}
+]

@@ -10,11 +10,23 @@ public class StockController : Controller
 {
     private readonly IStockService _stock;
     private readonly IWarehouseMapExport _map;
+    private readonly IStockFileExport _files;
 
-    public StockController(IStockService stock, IWarehouseMapExport map)
+    public StockController(IStockService stock, IWarehouseMapExport map, IStockFileExport files)
     {
         _stock = stock;
         _map = map;
+        _files = files;
+    }
+
+    /// <summary>The team's own stock file (sh · metro · screws · kent), same layout, numbers from the app.</summary>
+    [HttpGet("export/{key}")]
+    [Authorize(Policy = "AdminOnly")]
+    public async Task<IActionResult> ExportFile(string key, CancellationToken ct)
+    {
+        var result = await _files.BuildAsync(key, ct);
+        if (result is null) return NotFound();
+        return File(result.Value.Bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", result.Value.FileName);
     }
 
     /// <summary>Stock search: Metro, SH, screws, Kent first, then every other product in the app.</summary>

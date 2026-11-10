@@ -1,0 +1,1890 @@
+[
+{
+"cell": "B2",
+"family": "sh",
+"name": "جرار SH واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C2",
+"family": "sh",
+"name": "جرار SH واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E2",
+"family": "sh",
+"name": "جرار SH واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F2",
+"family": "sh",
+"name": "جرار SH واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I2",
+"family": "sh",
+"name": "جرار SH واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J2",
+"family": "sh",
+"name": "جرار SH واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K2",
+"family": "sh",
+"name": "جرار SH واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L2",
+"family": "sh",
+"name": "جرار SH واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B3",
+"family": "sh",
+"name": "جرار SH واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C3",
+"family": "sh",
+"name": "جرار SH واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E3",
+"family": "sh",
+"name": "جرار SH واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F3",
+"family": "sh",
+"name": "جرار SH واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I3",
+"family": "sh",
+"name": "جرار SH واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J3",
+"family": "sh",
+"name": "جرار SH واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K3",
+"family": "sh",
+"name": "جرار SH واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L3",
+"family": "sh",
+"name": "جرار SH واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B4",
+"family": "sh",
+"name": "جرار SH واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C4",
+"family": "sh",
+"name": "جرار SH واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E4",
+"family": "sh",
+"name": "جرار SH واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F4",
+"family": "sh",
+"name": "جرار SH واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I4",
+"family": "sh",
+"name": "جرار SH واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J4",
+"family": "sh",
+"name": "جرار SH واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K4",
+"family": "sh",
+"name": "جرار SH واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L4",
+"family": "sh",
+"name": "جرار SH واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B5",
+"family": "sh",
+"name": "جرار SH واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C5",
+"family": "sh",
+"name": "جرار SH واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E5",
+"family": "sh",
+"name": "جرار SH واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F5",
+"family": "sh",
+"name": "جرار SH واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I5",
+"family": "sh",
+"name": "جرار SH واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J5",
+"family": "sh",
+"name": "جرار SH واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K5",
+"family": "sh",
+"name": "جرار SH واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L5",
+"family": "sh",
+"name": "جرار SH واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B6",
+"family": "sh",
+"name": "جرار SH واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C6",
+"family": "sh",
+"name": "جرار SH واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E6",
+"family": "sh",
+"name": "جرار SH واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F6",
+"family": "sh",
+"name": "جرار SH واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I6",
+"family": "sh",
+"name": "جرار SH واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J6",
+"family": "sh",
+"name": "جرار SH واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K6",
+"family": "sh",
+"name": "جرار SH واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L6",
+"family": "sh",
+"name": "جرار SH واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B8",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C8",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E8",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F8",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I8",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J8",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K8",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L8",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B9",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C9",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E9",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F9",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I9",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J9",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K9",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L9",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B10",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C10",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E10",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F10",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I10",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J10",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K10",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L10",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B11",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C11",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E11",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F11",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I11",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J11",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K11",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L11",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B12",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C12",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E12",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F12",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I12",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J12",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K12",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L12",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B14",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-300mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C14",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-300mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E14",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-300mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F14",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-300mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I14",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-300mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J14",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-300mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K14",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-300mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L14",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-300mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B15",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C15",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E15",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F15",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I15",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J15",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K15",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L15",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B16",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C16",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E16",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F16",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I16",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J16",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K16",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L16",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B17",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C17",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E17",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F17",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I17",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J17",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K17",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L17",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B18",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C18",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E18",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F18",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I18",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J18",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K18",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L18",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B19",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C19",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E19",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F19",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I19",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J19",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K19",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L19",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B21",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-300mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C21",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-300mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E21",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-300mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F21",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-300mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I21",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-300mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J21",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-300mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K21",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-300mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L21",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-300mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B22",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C22",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E22",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F22",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I22",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J22",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K22",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L22",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-350mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B23",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C23",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E23",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F23",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I23",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J23",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K23",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L23",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-400mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B24",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C24",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E24",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F24",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I24",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J24",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K24",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L24",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-450mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B25",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C25",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E25",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F25",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I25",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J25",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K25",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L25",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-500mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B26",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C26",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E26",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F26",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "I26",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "J26",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "K26",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "L26",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-550mm",
+"color": "grey",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B29",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C29",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E29",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F29",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B30",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C30",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E30",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F30",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B31",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C31",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E31",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F31",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B32",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C32",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E32",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F32",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B33",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C33",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E33",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F33",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B36",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C36",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E36",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F36",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B37",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C37",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E37",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F37",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B38",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C38",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E38",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F38",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B39",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C39",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E39",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F39",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B40",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C40",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E40",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F40",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B42",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C42",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E42",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F42",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-350mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B43",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C43",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E43",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F43",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-400mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B44",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C44",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E44",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F44",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-450mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B45",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C45",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E45",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F45",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-500mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+},
+{
+"cell": "B46",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "warehouse"
+},
+{
+"cell": "C46",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "shops"
+},
+{
+"cell": "E46",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "ordered"
+},
+{
+"cell": "F46",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-550mm",
+"color": "white",
+"occ": 0,
+"field": "total"
+}
+]

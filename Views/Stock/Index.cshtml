@@ -59,12 +59,20 @@
     </div>
     <div class="flex items-center gap-2 shrink-0">
         <a href="/inventory" class="btn-ghost btn-sm">حسب الرف</a>
-        <a href="/stock/export-warehouse" class="btn-secondary btn-sm">Excel المستودع</a>
-        @if (User.IsInRole("Admin"))
-        {
-            <a href="/stock/export" class="btn-secondary btn-sm">Excel المخزون</a>
-        }
     </div>
+</div>
+
+@* ── Excel downloads: the same files the team used to keep by hand ── *@
+<div class="px-4 pb-3 flex flex-wrap items-center gap-2">
+    <span class="text-xs text-bark-l">تحميل Excel:</span>
+    <a href="/stock/export-warehouse" class="btn-secondary btn-sm">المستودع</a>
+    @if (User.IsInRole("Admin"))
+    {
+        <a href="/stock/export/metro" class="btn-secondary btn-sm">ميترو</a>
+        <a href="/stock/export/sh" class="btn-secondary btn-sm">SH</a>
+        <a href="/stock/export/screws" class="btn-secondary btn-sm">براغي اتيكو</a>
+        <a href="/stock/export/kent" class="btn-secondary btn-sm">الكنت</a>
+    }
 </div>
 
 <div class="st-search">

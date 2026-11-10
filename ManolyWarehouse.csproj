@@ -19,6 +19,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Infrastructure\Seeding\stock-seed.json" />
     <EmbeddedResource Include="Infrastructure\Seeding\stock-update-*.json" />
+    <EmbeddedResource Include="Infrastructure\Templates\*.xlsx" />
+    <EmbeddedResource Include="Infrastructure\Templates\*.json" />
   </ItemGroup>
 
   <ItemGroup>
