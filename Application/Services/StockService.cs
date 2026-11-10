@@ -23,7 +23,14 @@ public class StockItemDto
     public int? Total { get; init; }
     public string? QtyText { get; init; }
     public int Linked { get; init; }
+
+    /// <summary>Where the linked products are right now (same unit as the line: pieces, or cartons for screws/Kent/Smirdex).</summary>
+    public int? Shelves { get; set; }
+    /// <summary>Area Z, per warehouse inside it.</summary>
+    public List<WhereQty> AreaZ { get; set; } = new();
 }
+
+public record WhereQty(string Name, int Qty);
 
 public class StockPageViewModel
 {
@@ -38,6 +45,9 @@ public class StockItemDetailViewModel
     public StockItem Item { get; init; } = default!;
     public IReadOnlyList<(int Id, string Name)> LinkedProducts { get; init; } = Array.Empty<(int, string)>();
     public IReadOnlyList<StockMovement> Movements { get; init; } = Array.Empty<StockMovement>();
+    /// <summary>Each shelf holding a linked product (code, qty in the line's unit).</summary>
+    public IReadOnlyList<WhereQty> Shelves { get; init; } = Array.Empty<WhereQty>();
+    public IReadOnlyList<WhereQty> AreaZ { get; init; } = Array.Empty<WhereQty>();
 }
 
 public interface IStockService
@@ -82,6 +92,7 @@ public class StockService : IStockService
     public async Task<StockPageViewModel> GetPageAsync(CancellationToken ct = default)
     {
         var items = await Dtos().ToListAsync(ct);
+        await FillWhereAsync(items, ct);
         var others = await _db.Products.AsNoTracking()
             .Where(p => p.StockItemId == null)
             .OrderBy(p => p.Category.Name).ThenBy(p => p.Name)
@@ -93,9 +104,47 @@ public class StockService : IStockService
                 TotalBundles =
                     (p.ShelfInventories.Sum(si => (int?)si.BundleCount) ?? 0) +
                     (p.AreaZInventories.Where(az => !az.IsDispatched).Sum(az => (int?)az.BundleCount) ?? 0),
+                ShelfBundles = p.ShelfInventories.Sum(si => (int?)si.BundleCount) ?? 0,
             })
             .ToListAsync(ct);
+
+        // Area Z per warehouse for the other products
+        var otherIds = others.Select(o => o.ProductId).ToList();
+        var otherZ = await _db.AreaZInventory.AsNoTracking()
+            .Where(a => !a.IsDispatched && otherIds.Contains(a.ProductId))
+            .GroupBy(a => new { a.ProductId, a.Warehouse.Name })
+            .Select(g => new { g.Key.ProductId, g.Key.Name, Qty = g.Sum(a => a.BundleCount) })
+            .ToListAsync(ct);
+        foreach (var o in others)
+            o.AreaZ = otherZ.Where(z => z.ProductId == o.ProductId).Select(z => new WhereQty(z.Name, z.Qty)).ToList();
+
         return new StockPageViewModel { Items = items, OtherProducts = others };
+    }
+
+    /// <summary>
+    /// For each stock line with linked products: how much of it is on the shelves (the warehouse)
+    /// and how much in each Area Z warehouse, in the line's own unit.
+    /// </summary>
+    private async Task FillWhereAsync(List<StockItemDto> items, CancellationToken ct)
+    {
+        var shelf = await _db.ShelfInventory.AsNoTracking()
+            .Where(si => si.Product.StockItemId != null)
+            .Select(si => new { Sid = si.Product.StockItemId!.Value, si.BundleCount, si.UnitsPerBundle })
+            .ToListAsync(ct);
+        var z = await _db.AreaZInventory.AsNoTracking()
+            .Where(a => !a.IsDispatched && a.Product.StockItemId != null)
+            .Select(a => new { Sid = a.Product.StockItemId!.Value, a.BundleCount, a.UnitsPerBundle, W = a.Warehouse.Name, WOrder = a.Warehouse.SortOrder })
+            .ToListAsync(ct);
+
+        foreach (var i in items.Where(i => i.Linked > 0))
+        {
+            var cartons = StockItem.CountsInCartons(i.Family);
+            i.Shelves = shelf.Where(s => s.Sid == i.Id).Sum(s => cartons ? s.BundleCount : s.BundleCount * s.UnitsPerBundle);
+            i.AreaZ = z.Where(a => a.Sid == i.Id)
+                .GroupBy(a => new { a.W, a.WOrder }).OrderBy(g => g.Key.WOrder)
+                .Select(g => new WhereQty(g.Key.W, g.Sum(a => cartons ? a.BundleCount : a.BundleCount * a.UnitsPerBundle)))
+                .ToList();
+        }
     }
 
     public async Task<StockItemDetailViewModel?> GetItemAsync(int id, CancellationToken ct = default)
@@ -106,8 +155,26 @@ public class StockService : IStockService
             .OrderBy(p => p.Name).Select(p => new { p.Id, p.Name }).ToListAsync(ct);
         var moves = await _db.StockMovements.AsNoTracking().Where(m => m.StockItemId == id)
             .OrderByDescending(m => m.CreatedAt).ThenByDescending(m => m.Id).Take(100).ToListAsync(ct);
+        var cartons = StockItem.CountsInCartons(item.Family);
+        var shelves = (await _db.ShelfInventory.AsNoTracking()
+                .Where(si => si.Product.StockItemId == id)
+                .Select(si => new { si.Shelf.Code, si.Position, si.BundleCount, si.UnitsPerBundle })
+                .ToListAsync(ct))
+            .OrderBy(s => s.Code).ThenBy(s => s.Position)
+            .Select(s => new WhereQty($"{s.Code} · {s.Position}", cartons ? s.BundleCount : s.BundleCount * s.UnitsPerBundle))
+            .ToList();
+        var areaZ = (await _db.AreaZInventory.AsNoTracking()
+                .Where(a => !a.IsDispatched && a.Product.StockItemId == id)
+                .Select(a => new { a.Warehouse.Name, a.Warehouse.SortOrder, a.BundleCount, a.UnitsPerBundle })
+                .ToListAsync(ct))
+            .GroupBy(a => new { a.Name, a.SortOrder }).OrderBy(g => g.Key.SortOrder)
+            .Select(g => new WhereQty(g.Key.Name, g.Sum(a => cartons ? a.BundleCount : a.BundleCount * a.UnitsPerBundle)))
+            .ToList();
+
         return new StockItemDetailViewModel
         {
+            Shelves = shelves,
+            AreaZ = areaZ,
             Item = item,
             LinkedProducts = linked.Select(p => (p.Id, p.Name)).ToList(),
             Movements = moves

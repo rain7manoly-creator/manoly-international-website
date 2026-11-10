@@ -77,4 +77,6 @@ public class StockLookupRow
     public string ProductName  { get; init; } = default!;
     public string CategoryName { get; init; } = default!;
     public int    TotalBundles { get; init; }
+    public int    ShelfBundles { get; init; }
+    public List<ManolyWarehouse.Application.Services.WhereQty> AreaZ { get; set; } = new();
 }

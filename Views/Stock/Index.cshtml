@@ -4,7 +4,7 @@
     ViewData["Title"] = "المخزون";
     var json = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
     var itemsJson = JsonSerializer.Serialize(Model.Items, json);
-    var othersJson = JsonSerializer.Serialize(Model.OtherProducts.Select(p => new { id = p.ProductId, name = p.ProductName, cat = p.CategoryName, qty = p.TotalBundles }), json);
+    var othersJson = JsonSerializer.Serialize(Model.OtherProducts.Select(p => new { id = p.ProductId, name = p.ProductName, cat = p.CategoryName, qty = p.TotalBundles, shelves = p.ShelfBundles, areaZ = p.AreaZ }), json);
 }
 
 <style>
@@ -49,6 +49,10 @@
     .st-grid .st-row { border-top:1px solid #E3E4E5; }
     .st-grid .st-row:nth-child(even) { border-inline-start:1px solid #E3E4E5; }
     .st-grid .st-row:nth-child(-n+2) { border-top:0; }
+    .st-where { display:block; font-size:11px; line-height:1.35; color:#58595B; margin-top:2px; font-weight:400; white-space:normal; }
+    .st-where b { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:700; color:#111; }
+    .st-where .z b { color:#9A6200; }
+    .st-row .st-where { text-align:left; }
     .st-link-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:#2F7A4A; margin-inline-start:4px; vertical-align:middle; }
 </style>
 
@@ -153,12 +157,21 @@
     const match = (key, tokens) => tokens.every(t => key.includes(t));
     const isOut = i => typeof i.total === 'number' && i.total <= 0;
 
+    // "رفوف 1,800 · Smirdex Warehouse 40": where the stock is, for ordering
+    function where(shelves, areaZ) {
+        const parts = [];
+        if (shelves != null) parts.push('<span>رفوف <b>' + fmt(shelves) + '</b></span>');
+        (areaZ || []).forEach(z => parts.push('<span class="z">' + esc(z.name) + ' <b>' + fmt(z.qty) + '</b></span>'));
+        return parts.length ? '<span class="st-where">' + parts.join(' · ') + '</span>' : '';
+    }
+
     function q(i) {
         if (!i) return '<span><span class="st-q none">—</span></span>';
         const v = i.qtyText != null ? i.qtyText : i.total;
         const cls = v == null ? ' none' : (isOut(i) || /^0×/.test(i.qtyText || '') ? ' zero' : '');
         return '<a class="st-cell" href="/stock/items/' + i.id + '"><span class="st-q' + cls + '"' + (i.qtyText ? ' dir="ltr"' : '') + '>' +
-            esc(v == null ? '—' : fmt(v)) + '</span>' + (i.linked ? '<span class="st-link-dot" title="مرتبط برف"></span>' : '') + '</a>';
+            esc(v == null ? '—' : fmt(v)) + '</span>' + (i.linked ? '<span class="st-link-dot" title="مرتبط برف"></span>' : '') +
+            where(i.shelves, i.areaZ) + '</a>';
     }
 
     function drawerCards(list, color) {
@@ -197,7 +210,7 @@
                 return '<a class="st-row" href="/stock/items/' + i.id + '"><span class="nm' + (code ? ' code' : '') + '">' + esc(i.name) +
                     (i.color && i.family === 'metro-code' ? ' <span class="st-tag h">' + (i.color === 'white' ? 'أبيض' : 'سكني') + '</span>' : '') +
                     '</span><span><span class="st-q' + cls + '"' + (i.qtyText ? ' dir="ltr"' : '') + '>' + esc(v == null ? '—' : fmt(v)) + '</span>' +
-                    (i.linked ? '<span class="st-link-dot" title="مرتبط برف"></span>' : '') + '</span></a>';
+                    (i.linked ? '<span class="st-link-dot" title="مرتبط برف"></span>' : '') + where(i.shelves, i.areaZ) + '</span></a>';
             }).join('') + '</div></article>';
     }
 
@@ -208,7 +221,8 @@
         byCat.forEach((rows, c) => {
             html += '<article class="card st-card"><div class="st-card-h"><h3>' + esc(c) + '</h3><small>' + rows.length + ' منتج · ربطة</small></div>' +
                 rows.map(o => (IS_ADMIN ? '<a class="st-row" href="/products/' + o.id + '">' : '<div class="st-row">') +
-                    '<span class="nm">' + esc(o.name) + '</span><span class="st-q' + (o.qty <= 0 ? ' zero' : '') + '">' + fmt(o.qty) + '</span>' +
+                    '<span class="nm">' + esc(o.name) + '</span><span style="text-align:left"><span class="st-q' + (o.qty <= 0 ? ' zero' : '') + '">' + fmt(o.qty) + '</span>' +
+                    ((o.areaZ && o.areaZ.length) ? where(o.shelves, o.areaZ) : '') + '</span>' +
                     (IS_ADMIN ? '</a>' : '</div>')).join('') +
                 '</article>';
         });

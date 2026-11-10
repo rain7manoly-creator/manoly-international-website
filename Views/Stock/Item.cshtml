@@ -33,6 +33,27 @@
     </div>
 </div>
 
+@* ── Where it is: warehouse shelves and Area Z, for ordering ─── *@
+@if (Model.Shelves.Any() || Model.AreaZ.Any())
+{
+    <div class="mx-4 card mb-4">
+        <div class="px-4 py-3 text-sm font-semibold flex justify-between" style="border-bottom:1px solid #E3E4E5">
+            <span>أين المخزون</span><span class="text-xs text-bark-l">@s.UnitLabel</span>
+        </div>
+        <div class="px-4 py-3 flex gap-6 flex-wrap" style="border-bottom:1px solid #E3E4E5">
+            <div><div class="text-xs text-bark-l">المستودع (الرفوف)</div><div class="history-qty">@Model.Shelves.Sum(x => x.Qty).ToString("N0")</div></div>
+            @foreach (var z in Model.AreaZ)
+            {
+                <div><div class="text-xs text-bark-l">Area Z · @z.Name</div><div class="history-qty" style="color:#9A6200">@z.Qty.ToString("N0")</div></div>
+            }
+        </div>
+        @foreach (var sh in Model.Shelves)
+        {
+            <div class="px-4 py-2 flex justify-between text-sm" style="border-top:1px solid #F1F1F2"><span dir="ltr">@sh.Name</span><b>@sh.Qty.ToString("N0")</b></div>
+        }
+    </div>
+}
+
 @* ── Linked shelf products ─────────────────────────────── *@
 <div class="mx-4 card mb-4">
     <div class="px-4 py-3 text-sm font-semibold" style="border-bottom:1px solid #E3E4E5">مرتبط بمنتجات على الرفوف</div>
