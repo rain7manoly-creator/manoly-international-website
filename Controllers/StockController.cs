@@ -19,6 +19,21 @@ public class StockController : Controller
         _files = files;
     }
 
+    /// <summary>What doesn't match the warehouse yet, and a button to match again.</summary>
+    [HttpGet("check")]
+    [Authorize(Policy = "AdminOnly")]
+    public async Task<IActionResult> Check(CancellationToken ct) => View(await _stock.GetCheckAsync(ct));
+
+    [HttpPost("check")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> MatchNow(CancellationToken ct)
+    {
+        var (linked, changed) = await _stock.MatchNowAsync(ct);
+        TempData["SuccessMessage"] = $"تمت المطابقة: ربط {linked} منتج، تعديل {changed} صنف.";
+        return RedirectToAction(nameof(Check));
+    }
+
     /// <summary>The team's own stock file (sh · metro · screws · kent), same layout, numbers from the app.</summary>
     [HttpGet("export/{key}")]
     [Authorize(Policy = "AdminOnly")]

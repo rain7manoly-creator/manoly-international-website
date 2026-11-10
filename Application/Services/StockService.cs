@@ -59,6 +59,8 @@ public interface IStockService
     Task<StockItemDto?> GetLinkForProductAsync(int productId, CancellationToken ct = default);
     Task LinkProductAsync(int productId, int? stockItemId, CancellationToken ct = default);
     Task<byte[]> ExportExcelAsync(CancellationToken ct = default);
+    Task<(int Linked, int Changed)> MatchNowAsync(CancellationToken ct = default);
+    Task<StockCheckViewModel> GetCheckAsync(CancellationToken ct = default);
 }
 
 public class StockService : IStockService
@@ -342,4 +344,94 @@ public class StockService : IStockService
         }
         catch (JsonException) { return new(); }
     }
+
+    // ─── Match with the warehouse ───────────────────────────────────────
+    private static readonly string[] WarehouseFamilies = { "metro", "sh", "screws", "kent" };
+
+    /// <summary>
+    /// 1. Links every unlinked product (shelves, Area Z, catalog) to its Metro/SH/screws/Kent line by name.
+    /// 2. Sets every line that has linked products to exactly shelves + Area Z (pieces for drawers,
+    ///    cartons for screws/Kent). Lines with no linked product are left as they are.
+    /// The previous number stays in each line's history.
+    /// </summary>
+    public static async Task<(int Linked, int Changed)> MatchWithWarehouseAsync(
+        AppDbContext db, string? userId, string? userName, CancellationToken ct = default)
+    {
+        var lines = await db.StockItems.Where(s => WarehouseFamilies.Contains(s.Family)).OrderBy(s => s.SortOrder).ToListAsync(ct);
+
+        var linked = 0;
+        foreach (var p in await db.Products.Where(p => p.StockItemId == null).ToListAsync(ct))
+        {
+            var line = StockMatcher.Match(p.Name, lines);
+            if (line is null) continue;
+            p.LinkStock(line.Id, userId ?? "import");
+            linked++;
+        }
+        await db.SaveChangesAsync(ct);
+
+        var ids = lines.Select(l => l.Id).ToList();
+        var shelf = await db.ShelfInventory.AsNoTracking()
+            .Where(si => si.Product.StockItemId != null && ids.Contains(si.Product.StockItemId!.Value))
+            .Select(si => new { Sid = si.Product.StockItemId!.Value, si.BundleCount, si.UnitsPerBundle }).ToListAsync(ct);
+        var z = await db.AreaZInventory.AsNoTracking()
+            .Where(a => !a.IsDispatched && a.Product.StockItemId != null && ids.Contains(a.Product.StockItemId!.Value))
+            .Select(a => new { Sid = a.Product.StockItemId!.Value, a.BundleCount, a.UnitsPerBundle }).ToListAsync(ct);
+        var hasLink = (await db.Products.Where(p => p.StockItemId != null && ids.Contains(p.StockItemId!.Value))
+            .Select(p => p.StockItemId!.Value).Distinct().ToListAsync(ct)).ToHashSet();
+
+        var changed = 0;
+        foreach (var line in lines.Where(l => hasLink.Contains(l.Id)))
+        {
+            var cartons = StockItem.CountsInCartons(line.Family);
+            var qty = shelf.Where(s => s.Sid == line.Id).Sum(s => cartons ? s.BundleCount : s.BundleCount * s.UnitsPerBundle)
+                    + z.Where(a => a.Sid == line.Id).Sum(a => cartons ? a.BundleCount : a.BundleCount * a.UnitsPerBundle);
+            var drawer = line.Family is "metro" or "sh";
+            if (line.Total == qty && (!drawer || line.Warehouse == qty)) continue;
+            var before = line.Total;
+            line.SetValues(drawer ? qty : line.Warehouse, line.Shops, line.Ordered, line.OnWay, qty, userId ?? "import");
+            db.StockMovements.Add(StockMovement.Create(line, qty - (before ?? 0), before, qty,
+                "مطابقة مع المستودع (الرفوف + Area Z)", userId, userName ?? "مطابقة"));
+            changed++;
+        }
+        await db.SaveChangesAsync(ct);
+        return (linked, changed);
+    }
+
+    public async Task<(int Linked, int Changed)> MatchNowAsync(CancellationToken ct = default)
+    {
+        var userId = _currentUser.UserId ?? throw new InvalidOperationException("No authenticated user in context.");
+        var r = await MatchWithWarehouseAsync(_db, userId, _currentUser.UserName, ct);
+        await _activityLog.RecordAsync(ActivityArea.Stock,
+            $"طابق المخزون مع المستودع — ربط {r.Linked} منتج، تعديل {r.Changed} صنف", ct);
+        return r;
+    }
+
+    /// <summary>What still doesn't match: lines with no product in the warehouse, and products that look like
+    /// Metro/SH/screws/Kent but couldn't be matched to a line.</summary>
+    public async Task<StockCheckViewModel> GetCheckAsync(CancellationToken ct = default)
+    {
+        var lines = await _db.StockItems.AsNoTracking().Where(s => WarehouseFamilies.Contains(s.Family)).OrderBy(s => s.SortOrder).ToListAsync(ct);
+        var linkedIds = (await _db.Products.Where(p => p.StockItemId != null).Select(p => p.StockItemId!.Value).Distinct().ToListAsync(ct)).ToHashSet();
+        var noProduct = lines.Where(l => !linkedIds.Contains(l.Id) && l.QtyText == null)
+            .Select(l => new StockItemDto { Id = l.Id, Family = l.Family, Name = l.Name, Color = l.Color, Total = l.Total }).ToList();
+
+        var look = new System.Text.RegularExpressions.Regex(@"ميترو|metro|\bsh\b|كنت|براغي|اتيكو", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        var candidates = await _db.Products.AsNoTracking().Where(p => p.StockItemId == null)
+            .Select(p => new
+            {
+                p.Id, p.Name,
+                Shelves = p.ShelfInventories.Select(si => si.Shelf.Code).ToList(),
+                InZ = p.AreaZInventories.Any(a => !a.IsDispatched)
+            }).ToListAsync(ct);
+        var unmatched = candidates.Where(c => look.IsMatch(c.Name) && (c.Shelves.Count > 0 || c.InZ))
+            .Select(c => (c.Id, c.Name, Where: string.Join(" ", c.Shelves.Distinct().OrderBy(x => x)) + (c.InZ ? " Area Z" : "")))
+            .OrderBy(c => c.Name).ToList();
+        return new StockCheckViewModel { LinesWithoutProduct = noProduct, UnmatchedProducts = unmatched };
+    }
+}
+
+public class StockCheckViewModel
+{
+    public IReadOnlyList<StockItemDto> LinesWithoutProduct { get; init; } = Array.Empty<StockItemDto>();
+    public IReadOnlyList<(int Id, string Name, string Where)> UnmatchedProducts { get; init; } = Array.Empty<(int, string, string)>();
 }

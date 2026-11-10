@@ -1,0 +1,68 @@
+@model ManolyWarehouse.Application.Services.StockCheckViewModel
+@{
+    ViewData["Title"] = "مطابقة المخزون";
+    string Fam(string f) => ManolyWarehouse.Application.Services.StockService.FamilyNames.GetValueOrDefault(f, f);
+    string Col(string? c) => c == "white" ? "أبيض" : c == "grey" ? "سكني" : "";
+}
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/stock" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        المخزون
+    </a>
+    <p class="eyebrow mb-1">CHECK · مطابقة</p>
+    <h1 class="page-title">مطابقة المخزون مع المستودع</h1>
+    <p class="text-sm text-bark mt-1">ميترو، SH، البراغي والكنت = ما على الرفوف + Area Z. هنا ما لم يُطابق بعد.</p>
+</div>
+
+<form method="post" action="/stock/check" class="px-4 mb-5">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn-primary w-full">مطابقة الآن</button>
+    <p class="text-xs text-bark-l mt-2">تربط المنتجات الجديدة بأسمائها، وتضبط كل صنف على ما في المستودع. الرقم السابق يبقى في سجل الصنف.</p>
+</form>
+
+<div class="px-4 mb-2 flex items-end justify-between">
+    <h2 class="section-title">منتجات بالمستودع غير مرتبطة</h2>
+    <span class="text-xs text-bark-l">@Model.UnmatchedProducts.Count</span>
+</div>
+<p class="px-4 mb-2 text-xs text-bark-l">أسماؤها تشبه ميترو/SH/كنت/براغي لكن لم أجد صنفها. افتح المنتج ← تعديل ← «مرتبط بالمخزون».</p>
+@if (!Model.UnmatchedProducts.Any())
+{
+    <p class="mx-4 mb-6 text-sm text-bark">لا يوجد — كل المنتجات مرتبطة. ✓</p>
+}
+else
+{
+    <div class="mx-4 card mb-6">
+        @foreach (var p in Model.UnmatchedProducts)
+        {
+            <a href="/products/@p.Id/edit" class="list-item justify-between gap-3">
+                <span class="text-sm text-ink min-w-0">@p.Name</span>
+                <span class="text-xs text-bark-l shrink-0" dir="ltr">@p.Where</span>
+            </a>
+        }
+    </div>
+}
+
+<div class="px-4 mb-2 flex items-end justify-between">
+    <h2 class="section-title">أصناف بدون منتج بالمستودع</h2>
+    <span class="text-xs text-bark-l">@Model.LinesWithoutProduct.Count</span>
+</div>
+<p class="px-4 mb-2 text-xs text-bark-l">لا يوجد منتج على الرفوف أو في Area Z مرتبط بها، فبقي رقمها القديم من ملف Excel.</p>
+@if (!Model.LinesWithoutProduct.Any())
+{
+    <p class="mx-4 mb-6 text-sm text-bark">لا يوجد. ✓</p>
+}
+else
+{
+    <div class="mx-4 card mb-6">
+        @foreach (var l in Model.LinesWithoutProduct)
+        {
+            <a href="/stock/items/@l.Id" class="list-item justify-between gap-3">
+                <span class="text-sm text-ink min-w-0">
+                    <span class="text-xs text-bark-l">@Fam(l.Family) ·</span> @l.Name @(Col(l.Color) is { Length: > 0 } c ? $"— {c}" : "")
+                </span>
+                <span class="history-qty shrink-0" style="font-size:16px">@(l.Total?.ToString("N0") ?? "—")</span>
+            </a>
+        }
+    </div>
+}

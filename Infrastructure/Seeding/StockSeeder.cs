@@ -56,6 +56,16 @@ public static class StockSeeder
         if (!await db.StockImports.AnyAsync(i => i.Name == smirdexStep, ct))
             await FillSmirdexFromAreaZAsync(db, smirdexStep, logger, ct);
 
+        // Metro/SH/screws/Kent = what is in the warehouse (shelves + Area Z), with products linked by name
+        const string matchStep = "match-warehouse-2026-11-10";
+        if (!await db.StockImports.AnyAsync(i => i.Name == matchStep, ct))
+        {
+            var (linked, changed) = await ManolyWarehouse.Application.Services.StockService.MatchWithWarehouseAsync(db, null, "مطابقة", ct);
+            db.StockImports.Add(StockImport.Create(matchStep));
+            await db.SaveChangesAsync(ct);
+            logger.LogWarning("Match with warehouse: {Linked} products linked, {Changed} stock lines set", linked, changed);
+        }
+
         // Second pass with the wider rule (names like "رول اسفنج 180"): fills only lines still empty
         const string smirdexStep2 = "smirdex-from-area-z-2026-11-10b";
         if (!await db.StockImports.AnyAsync(i => i.Name == smirdexStep2, ct))
