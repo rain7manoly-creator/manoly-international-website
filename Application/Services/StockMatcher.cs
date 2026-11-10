@@ -27,7 +27,10 @@ public static class StockMatcher
         @"^(?:جرار|حرار)\s*(ميترو|metro|sh)\s*(بوكس|سلم|زجاج)\s*(ابيض|أبيض|سكني)\s*([\d.]+)\s*/\s*([\d.]+)$",
         RegexOptions.IgnoreCase | RegexOptions.Compiled);
     private static readonly Regex Screw = new(
-        @"^براغي\s*اتيكو\s*و?\s*ميترو\s*(?:(سن كامل|نص سن)\s*)?([\d.]+)\s*[*x×]\s*(\d+)$", RegexOptions.Compiled);
+        @"^براغي\s*اتيكو\s*و?\s*ميترو\s*(?:(سن كامل|نص سن)\s*)?([\d.]+)\s*[*x×]\s*(\d+)(?:\s*[*x×]\s*\d+)?$", RegexOptions.Compiled);
+
+    // Pieces per carton written after the name: "… 55/12 *6", "… 55/12 6*", "… 55/12 x4", "… (6)"
+    private static readonly Regex PerCarton = new(@"\s*(?:[*x×]\s*\d+|\d+\s*[*x×]|\(\s*\d+\s*\))\s*$", RegexOptions.Compiled);
 
     public static string Norm(string s)
     {
@@ -52,8 +55,9 @@ public static class StockMatcher
                 if (hit != null) return hit;
             }
 
-        // 2. Drawers as written on the shelves
+        // 2. Drawers as written on the shelves (with or without "*6" at the end)
         var m = Drawer.Match(n);
+        if (!m.Success) m = Drawer.Match(PerCarton.Replace(n, "").Trim());
         if (m.Success)
         {
             var brand = m.Groups[1].Value.ToLowerInvariant() is "ميترو" or "metro" ? "Metro" : "SH";

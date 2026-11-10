@@ -84,6 +84,16 @@ public static class StockSeeder
             logger.LogWarning("Metro 12 → white: {Lines} lines; then {Linked} linked, {Changed} set", twelve.Count, linked, changed);
         }
 
+        // Names in the app end with the carton size ("جرار ميترو سلم ابيض 55/12 *6"): match again with the fixed rule
+        const string matchStep3 = "match-warehouse-2026-11-10c";
+        if (!await db.StockImports.AnyAsync(i => i.Name == matchStep3, ct))
+        {
+            var (linked, changed) = await ManolyWarehouse.Application.Services.StockService.MatchWithWarehouseAsync(db, null, "مطابقة", ct);
+            db.StockImports.Add(StockImport.Create(matchStep3));
+            await db.SaveChangesAsync(ct);
+            logger.LogWarning("Match (carton suffix): {Linked} products linked, {Changed} stock lines set", linked, changed);
+        }
+
         // Second pass with the wider rule (names like "رول اسفنج 180"): fills only lines still empty
         const string smirdexStep2 = "smirdex-from-area-z-2026-11-10b";
         if (!await db.StockImports.AnyAsync(i => i.Name == smirdexStep2, ct))
