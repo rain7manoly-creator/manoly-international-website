@@ -66,6 +66,28 @@ public class StockSyncInterceptor : SaveChangesInterceptor
             if (delta == 0 && bundleDelta == 0) continue;
             changes.Add((productId, delta, bundleDelta, await ShelfCodeAsync(db, e.Entity, ct), kind));
         }
+        // Area Z is part of the warehouse too. Dispatching or moving to a shelf takes it out of
+        // Area Z (−); the shelf side adds it back (+), so a move nets to zero.
+        foreach (var e in db.ChangeTracker.Entries<AreaZInventory>())
+        {
+            var productId = e.Entity.ProductId;
+            if (deletedProducts.Contains(productId)) continue;
+            int B(PropertyValues v) => v.GetValue<bool>(nameof(AreaZInventory.IsDispatched)) ? 0 : v.GetValue<int>(nameof(AreaZInventory.BundleCount));
+            int U(PropertyValues v) => B(v) * v.GetValue<int>(nameof(AreaZInventory.UnitsPerBundle));
+            int delta, bundleDelta; string kind;
+            switch (e.State)
+            {
+                case EntityState.Added: delta = U(e.CurrentValues); bundleDelta = B(e.CurrentValues); kind = "z-add"; break;
+                case EntityState.Deleted: delta = -U(e.OriginalValues); bundleDelta = -B(e.OriginalValues); kind = "z-remove"; break;
+                case EntityState.Modified:
+                    delta = U(e.CurrentValues) - U(e.OriginalValues);
+                    bundleDelta = B(e.CurrentValues) - B(e.OriginalValues); kind = "z-edit"; break;
+                default: continue;
+            }
+            if (delta == 0 && bundleDelta == 0) continue;
+            changes.Add((productId, delta, bundleDelta, "منطقة Z", kind));
+        }
+
         if (changes.Count == 0) return;
 
         var productIds = changes.Select(c => c.ProductId).Distinct().ToList();
@@ -96,6 +118,9 @@ public class StockSyncInterceptor : SaveChangesInterceptor
             {
                 "add" => "وُضع على الرف",
                 "remove" => "حُذف من الرف",
+                "z-add" => "أُضيف إلى",
+                "z-remove" => "حُذف من",
+                "z-edit" => amount < 0 ? "خرج من" : "زيد في",
                 _ => amount < 0 ? "أُخذ من الرف" : "زيد على الرف"
             };
             db.StockMovements.Add(StockMovement.Create(item, amount, before, item.Total,

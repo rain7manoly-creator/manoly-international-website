@@ -51,6 +51,10 @@ public static class StockSeeder
             if (await db.StockImports.AnyAsync(i => i.Name == file, ct)) continue;
             await ApplyUpdateAsync(db, file, logger, ct);
         }
+
+        const string smirdexStep = "smirdex-from-area-z-2026-11-10";
+        if (!await db.StockImports.AnyAsync(i => i.Name == smirdexStep, ct))
+            await FillSmirdexFromAreaZAsync(db, smirdexStep, logger, ct);
     }
 
     private static async Task ApplyUpdateAsync(AppDbContext db, string file, ILogger logger, CancellationToken ct)
@@ -131,6 +135,73 @@ public static class StockSeeder
         var doc = await JsonSerializer.DeserializeAsync<UpdateFile>(stream, cancellationToken: ct)
             ?? throw new InvalidOperationException($"{file} is empty.");
         return (doc.rows, doc.links ?? new(), doc.reason);
+    }
+
+    private static readonly int[] PaperGrits = { 40, 60, 80, 100, 120, 150, 180, 220, 240, 280, 320, 400 };
+    private static readonly int[] SpongeGrits = { 120, 150, 180, 220, 240, 320, 400 };
+
+    /// <summary>
+    /// One time: Smirdex lines take their numbers (cartons) from what is in Area Z now,
+    /// and those Area Z products are linked so later Area Z changes move the Smirdex stock.
+    /// A product counts as Smirdex when its name mentions حف / smirdex / سميردكس / سنفرة;
+    /// اسفنج or رول in the name means a sponge roll; the grit (P40, 120 …) picks the line.
+    /// </summary>
+    private static async Task FillSmirdexFromAreaZAsync(AppDbContext db, string step, ILogger logger, CancellationToken ct)
+    {
+        var lines = await db.StockItems.Where(s => s.Family == "smirdex").ToListAsync(ct);
+        var entries = await db.AreaZInventory.Where(a => !a.IsDispatched)
+            .Select(a => new { a.ProductId, a.Product.Name, a.BundleCount }).ToListAsync(ct);
+
+        var sums = new Dictionary<StockItem, (int Cartons, List<string> Names, HashSet<int> Products)>();
+        foreach (var e in entries)
+        {
+            var line = MatchSmirdex(e.Name, lines);
+            if (line is null) continue;
+            if (!sums.TryGetValue(line, out var acc)) acc = (0, new List<string>(), new HashSet<int>());
+            acc.Cartons += e.BundleCount;
+            if (!acc.Names.Contains(e.Name)) acc.Names.Add(e.Name);
+            acc.Products.Add(e.ProductId);
+            sums[line] = acc;
+        }
+
+        foreach (var (line, acc) in sums)
+        {
+            var before = line.Total;
+            line.SetValues(line.Warehouse, line.Shops, line.Ordered, line.OnWay, acc.Cartons, "import");
+            var reason = $"من منطقة Z: {string.Join("، ", acc.Names.Select(n => $"«{n}»"))}";
+            db.StockMovements.Add(StockMovement.Create(line, acc.Cartons - (before ?? 0), before, acc.Cartons,
+                reason.Length > 300 ? reason[..300] : reason, null, "منطقة Z"));
+            var products = await db.Products.Where(p => acc.Products.Contains(p.Id) && p.StockItemId == null).ToListAsync(ct);
+            foreach (var p in products) p.LinkStock(line.Id, "import");
+        }
+
+        db.StockImports.Add(StockImport.Create(step));
+        await db.SaveChangesAsync(ct);
+        logger.LogWarning("Smirdex from Area Z: {Lines} lines filled from {Entries} Area Z entries", sums.Count, sums.Values.Sum(v => v.Names.Count));
+    }
+
+    internal static StockItem? MatchSmirdex(string productName, IReadOnlyList<StockItem> lines)
+    {
+        var n = productName.ToLowerInvariant();
+        foreach (var (ar, d) in new[] { ('٠', '0'), ('١', '1'), ('٢', '2'), ('٣', '3'), ('٤', '4'), ('٥', '5'), ('٦', '6'), ('٧', '7'), ('٨', '8'), ('٩', '9') })
+            n = n.Replace(ar, d);
+        var isSmirdex = n.Contains("حف") || n.Contains("smirdex") || n.Contains("سميردكس") || n.Contains("سمردكس") || n.Contains("سنفر");
+        if (!isSmirdex) return null;
+        var sponge = n.Contains("اسفنج") || n.Contains("رول") || n.Contains("sponge");
+
+        // Prefer an explicit "P120"; otherwise the first number that is a known grit
+        int? grit = null;
+        var p = System.Text.RegularExpressions.Regex.Match(n, @"p\s*(\d{2,3})");
+        if (p.Success) grit = int.Parse(p.Groups[1].Value);
+        else
+        {
+            var allowed = sponge ? SpongeGrits : PaperGrits;
+            foreach (System.Text.RegularExpressions.Match m in System.Text.RegularExpressions.Regex.Matches(n, @"\d{2,3}"))
+                if (allowed.Contains(int.Parse(m.Value))) { grit = int.Parse(m.Value); break; }
+        }
+        if (grit is null) return null;
+        var name = sponge ? $"رول اسفنج حف {grit}" : $"ورق حف P{grit}";
+        return lines.FirstOrDefault(l => l.Name == name);
     }
 
     private static string Key(string family, string name, string? color) => $"{family}|{name}|{color}";
