@@ -92,6 +92,7 @@ public class StockService : IStockService
     public async Task<StockPageViewModel> GetPageAsync(CancellationToken ct = default)
     {
         var items = await Dtos().ToListAsync(ct);
+        await FillSplitAsync(items, ct);
         var others = await _db.Products.AsNoTracking()
             .Where(p => p.StockItemId == null)
             .OrderBy(p => p.Category.Name).ThenBy(p => p.Name)
@@ -107,7 +108,44 @@ public class StockService : IStockService
             })
             .ToListAsync(ct);
 
+        // Area Z per warehouse for the other products (the rest is on the shelves)
+        var otherIds = others.Select(o => o.ProductId).ToList();
+        var otherZ = await _db.AreaZInventory.AsNoTracking()
+            .Where(a => !a.IsDispatched && otherIds.Contains(a.ProductId))
+            .GroupBy(a => new { a.ProductId, a.Warehouse.Name })
+            .Select(g => new { g.Key.ProductId, g.Key.Name, Qty = g.Sum(a => a.BundleCount) })
+            .ToListAsync(ct);
+        foreach (var o in others)
+            o.AreaZ = otherZ.Where(z => z.ProductId == o.ProductId).Select(z => new WhereQty(z.Name, z.Qty)).ToList();
+
         return new StockPageViewModel { Items = items, OtherProducts = others };
+    }
+
+    /// <summary>
+    /// Split every stock line into the warehouse and Area Z (per Area Z warehouse), in the line's unit.
+    /// Area Z comes from the linked products in Area Z; the warehouse is the rest
+    /// (the warehouse column for Metro/SH, otherwise the total), since Area Z moves are already in it.
+    /// </summary>
+    private async Task FillSplitAsync(List<StockItemDto> items, CancellationToken ct)
+    {
+        var z = await _db.AreaZInventory.AsNoTracking()
+            .Where(a => !a.IsDispatched && a.Product.StockItemId != null)
+            .Select(a => new { Sid = a.Product.StockItemId!.Value, a.BundleCount, a.UnitsPerBundle, W = a.Warehouse.Name, WOrder = a.Warehouse.SortOrder })
+            .ToListAsync(ct);
+        var whCol = await _db.StockItems.AsNoTracking().Select(s => new { s.Id, s.Warehouse }).ToDictionaryAsync(s => s.Id, s => s.Warehouse, ct);
+
+        foreach (var i in items)
+        {
+            if (i.QtyText is not null) continue;            // codes written as "2×20": no split
+            var cartons = StockItem.CountsInCartons(i.Family);
+            i.AreaZ = z.Where(a => a.Sid == i.Id)
+                .GroupBy(a => new { a.W, a.WOrder }).OrderBy(g => g.Key.WOrder)
+                .Select(g => new WhereQty(g.Key.W, g.Sum(a => cartons ? a.BundleCount : a.BundleCount * a.UnitsPerBundle)))
+                .ToList();
+            var baseQty = whCol.GetValueOrDefault(i.Id) ?? i.Total;
+            if (baseQty is null && i.AreaZ.Count == 0) continue;   // no numbers at all yet
+            i.Shelves = (baseQty ?? 0) - i.AreaZ.Sum(a => a.Qty);
+        }
     }
 
     public async Task<StockItemDetailViewModel?> GetItemAsync(int id, CancellationToken ct = default)

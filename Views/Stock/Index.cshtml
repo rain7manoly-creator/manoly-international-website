@@ -4,7 +4,7 @@
     ViewData["Title"] = "المخزون";
     var json = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
     var itemsJson = JsonSerializer.Serialize(Model.Items, json);
-    var othersJson = JsonSerializer.Serialize(Model.OtherProducts.Select(p => new { id = p.ProductId, name = p.ProductName, cat = p.CategoryName, qty = p.TotalBundles }), json);
+    var othersJson = JsonSerializer.Serialize(Model.OtherProducts.Select(p => new { id = p.ProductId, name = p.ProductName, cat = p.CategoryName, qty = p.TotalBundles, shelves = p.ShelfBundles, areaZ = p.AreaZ }), json);
 }
 
 <style>
@@ -43,12 +43,16 @@
     a.st-cell:hover, a.st-row:hover { background:#F4F4F5; }
     .st-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 14px; border-top:1px solid #E3E4E5; }
     .st-row:first-child { border-top:0; }
-    .st-row .nm { font-weight:600; min-width:0; overflow-wrap:anywhere; }
+    .st-row .nm { font-weight:600; min-width:0; flex:1; }
     .st-row .nm.code { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:700; }
     .st-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
     .st-grid .st-row { border-top:1px solid #E3E4E5; }
     .st-grid .st-row:nth-child(even) { border-inline-start:1px solid #E3E4E5; }
     .st-grid .st-row:nth-child(-n+2) { border-top:0; }
+    .st-split { display:block; font-size:11px; line-height:1.4; color:#58595B; margin-top:2px; white-space:nowrap; }
+    .st-split b { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:700; color:#111; }
+    .st-split .z b { color:#9A6200; }
+    .st-row .st-split { text-align:left; }
     .st-link-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:#2F7A4A; margin-inline-start:4px; vertical-align:middle; }
 </style>
 
@@ -153,12 +157,23 @@
     const match = (key, tokens) => tokens.every(t => key.includes(t));
     const isOut = i => typeof i.total === 'number' && i.total <= 0;
 
+    // Every item: المستودع N, then Area Z (each Area Z warehouse, or 0)
+    function split(shelves, areaZ) {
+        if (shelves == null) return '';
+        const z = (areaZ || []).filter(a => a.qty);
+        const zHtml = z.length
+            ? z.map(a => '<span class="z">' + esc(a.name) + ' <b>' + fmt(a.qty) + '</b></span>').join('<br>')
+            : '<span class="z">Area Z <b>0</b></span>';
+        return '<span class="st-split"><span>مستودع <b>' + fmt(shelves) + '</b></span><br>' + zHtml + '</span>';
+    }
+
     function q(i) {
         if (!i) return '<span><span class="st-q none">—</span></span>';
         const v = i.qtyText != null ? i.qtyText : i.total;
         const cls = v == null ? ' none' : (isOut(i) || /^0×/.test(i.qtyText || '') ? ' zero' : '');
         return '<a class="st-cell" href="/stock/items/' + i.id + '"><span class="st-q' + cls + '"' + (i.qtyText ? ' dir="ltr"' : '') + '>' +
-            esc(v == null ? '—' : fmt(v)) + '</span>' + (i.linked ? '<span class="st-link-dot" title="مرتبط برف"></span>' : '') + '</a>';
+            esc(v == null ? '—' : fmt(v)) + '</span>' + (i.linked ? '<span class="st-link-dot" title="مرتبط برف"></span>' : '') +
+            split(i.shelves, i.areaZ) + '</a>';
     }
 
     function drawerCards(list, color) {
@@ -197,7 +212,7 @@
                 return '<a class="st-row" href="/stock/items/' + i.id + '"><span class="nm' + (code ? ' code' : '') + '">' + esc(i.name) +
                     (i.color && i.family === 'metro-code' ? ' <span class="st-tag h">' + (i.color === 'white' ? 'أبيض' : 'سكني') + '</span>' : '') +
                     '</span><span><span class="st-q' + cls + '"' + (i.qtyText ? ' dir="ltr"' : '') + '>' + esc(v == null ? '—' : fmt(v)) + '</span>' +
-                    (i.linked ? '<span class="st-link-dot" title="مرتبط برف"></span>' : '') + '</span></a>';
+                    (i.linked ? '<span class="st-link-dot" title="مرتبط برف"></span>' : '') + split(i.shelves, i.areaZ) + '</span></a>';
             }).join('') + '</div></article>';
     }
 
@@ -208,7 +223,8 @@
         byCat.forEach((rows, c) => {
             html += '<article class="card st-card"><div class="st-card-h"><h3>' + esc(c) + '</h3><small>' + rows.length + ' منتج · ربطة</small></div>' +
                 rows.map(o => (IS_ADMIN ? '<a class="st-row" href="/products/' + o.id + '">' : '<div class="st-row">') +
-                    '<span class="nm">' + esc(o.name) + '</span><span class="st-q' + (o.qty <= 0 ? ' zero' : '') + '">' + fmt(o.qty) + '</span>' +
+                    '<span class="nm">' + esc(o.name) + '</span><span style="text-align:left"><span class="st-q' + (o.qty <= 0 ? ' zero' : '') + '">' + fmt(o.qty) + '</span>' +
+                    split(o.shelves, o.areaZ) + '</span>' +
                     (IS_ADMIN ? '</a>' : '</div>')).join('') +
                 '</article>';
         });
@@ -234,11 +250,11 @@
         if (dM.length + tM.length + cM.length) html += sec('جرار ميترو', (dM.length + tM.length + cM.length) + ' صنف') + drawerCards(dM, color) +
             listCard('METRO', 'سحاب تندم', tM, false, false) + listCard('METRO', 'أكواد G', cM, false, true);
         if (dS.length) html += sec('جرار SH', dS.length + ' صنف') + drawerCards(dS, color);
-        if (sc.length) html += sec('براغي اتيكو', sc.length + ' مقاس') + listCard('ATIKO', 'براغي اتيكو', sc, true, true);
-        if (kt.length) html += sec('الكنت', kt.length + ' لون') + listCard('KENT', 'الكنت', kt, true, true);
+        if (sc.length) html += sec('براغي اتيكو', sc.length + ' مقاس') + listCard('ATIKO', 'براغي اتيكو', sc, false, true);
+        if (kt.length) html += sec('الكنت', kt.length + ' لون') + listCard('KENT', 'الكنت', kt, false, true);
         if (sm.length) html += sec('سميردكس', sm.length + ' صنف') +
-            listCard('SMIRDEX', 'ورق حف', sm.filter(i => i.type === 'ورق حف'), true, true) +
-            listCard('SMIRDEX', 'رول اسفنج حف', sm.filter(i => i.type !== 'ورق حف'), true, true);
+            listCard('SMIRDEX', 'ورق حف', sm.filter(i => i.type === 'ورق حف'), false, true) +
+            listCard('SMIRDEX', 'رول اسفنج حف', sm.filter(i => i.type !== 'ورق حف'), false, true);
         if (ot.length) html += sec('منتجات أخرى', ot.length + ' منتج') + othersCards(ot);
         resEl.innerHTML = html;
     }
