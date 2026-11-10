@@ -59,9 +59,10 @@
     </div>
     <div class="flex items-center gap-2 shrink-0">
         <a href="/inventory" class="btn-ghost btn-sm">حسب الرف</a>
+        <a href="/stock/export-warehouse" class="btn-secondary btn-sm">Excel المستودع</a>
         @if (User.IsInRole("Admin"))
         {
-            <a href="/stock/export" class="btn-secondary btn-sm">تحميل Excel</a>
+            <a href="/stock/export" class="btn-secondary btn-sm">Excel المخزون</a>
         }
     </div>
 </div>

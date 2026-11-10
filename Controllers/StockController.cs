@@ -9,8 +9,13 @@ namespace ManolyWarehouse.Controllers;
 public class StockController : Controller
 {
     private readonly IStockService _stock;
+    private readonly IWarehouseMapExport _map;
 
-    public StockController(IStockService stock) => _stock = stock;
+    public StockController(IStockService stock, IWarehouseMapExport map)
+    {
+        _stock = stock;
+        _map = map;
+    }
 
     /// <summary>Stock search: Metro, SH, screws, Kent first, then every other product in the app.</summary>
     [HttpGet("")]
@@ -35,6 +40,16 @@ public class StockController : Controller
         await _stock.UpdateAsync(id, warehouse, shops, ordered, onWay, total, note, ct);
         TempData["SuccessMessage"] = "تم حفظ المخزون.";
         return RedirectToAction(nameof(Item), new { id });
+    }
+
+    /// <summary>Download the shelves as the "Rain New WareHouse" Excel, same layout as the hand-kept file.</summary>
+    [HttpGet("export-warehouse")]
+    public async Task<IActionResult> ExportWarehouse(CancellationToken ct)
+    {
+        var bytes = await _map.BuildAsync(ct);
+        var local = Extensions.LocalTimeExtensions.ToLocal(DateTime.UtcNow);
+        return File(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            $"Rain New Warehouse {local:yyyy-MM-dd}.xlsx");
     }
 
     /// <summary>Download the current stock as Excel, one sheet per family, for preparing orders.</summary>

@@ -122,6 +122,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IAreaZService, AreaZService>();
         services.AddScoped<IInventoryService, InventoryService>();
         services.AddScoped<IStockService, StockService>();
+        services.AddScoped<IWarehouseMapExport, WarehouseMapExport>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IActivityLogService, ActivityLogService>();
         services.AddScoped<ISearchService, SearchService>();
