@@ -88,6 +88,15 @@
     }
 </div>
 
+@* ── Warning number ────────────────────────────────────── *@
+@if (isAdmin && s.QtyText == null)
+{
+    <div class="mx-4 card p-4 mb-4">
+        <div class="text-sm font-semibold mb-2">التنبيه</div>
+        <partial name="_AlertForm" model='("line", s.Id, s.AlertAt, s.UnitLabel, $"/stock/items/{s.Id}")' />
+    </div>
+}
+
 @* ── Admin correction ──────────────────────────────────── *@
 @if (isAdmin && s.QtyText == null)
 {

@@ -19,6 +19,14 @@
 <div class="px-4 space-y-4 mb-6">
 
     @{ var linkedStock = ViewBag.Stock as ManolyWarehouse.Application.Services.StockItemDto; }
+    @if (linkedStock == null)
+    {
+        @* Not counted in a stock line: the warning is set on the product itself (bundles on shelves + Area Z) *@
+        <div class="card p-4">
+            <div class="text-sm font-semibold mb-2">التنبيه</div>
+            <partial name="_AlertForm" model='("product", Model.Id, (int?)ViewBag.AlertAt, "ربطة", $"/products/{Model.Id}")' />
+        </div>
+    }
     @if (linkedStock != null)
     {
         <a href="/stock/items/@linkedStock.Id" class="card list-item justify-between">

@@ -4,7 +4,7 @@
     ViewData["Title"] = "المخزون";
     var json = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
     var itemsJson = JsonSerializer.Serialize(Model.Items, json);
-    var othersJson = JsonSerializer.Serialize(Model.OtherProducts.Select(p => new { id = p.ProductId, name = p.ProductName, cat = p.CategoryName, qty = p.TotalBundles, shelves = p.ShelfBundles, areaZ = p.AreaZ }), json);
+    var othersJson = JsonSerializer.Serialize(Model.OtherProducts.Select(p => new { id = p.ProductId, name = p.ProductName, cat = p.CategoryName, qty = p.TotalBundles, shelves = p.ShelfBundles, areaZ = p.AreaZ, alertAt = p.AlertAt }), json);
 }
 
 <style>
@@ -53,6 +53,8 @@
     .st-split b { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:700; color:#111; }
     .st-split .z b { color:#9A6200; }
     .st-row .st-split { text-align:left; }
+    .st-warn { color:#CA292E; font-size:14px; margin-inline-end:3px; vertical-align:2px; }
+    .st-q.warn { color:#CA292E; }
     .st-link-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:#2F7A4A; margin-inline-start:4px; vertical-align:middle; }
 </style>
 
@@ -97,7 +99,7 @@
         <button class="st-chip" type="button" data-cat="kent" aria-pressed="false">الكنت</button>
         <button class="st-chip" type="button" data-cat="smirdex" aria-pressed="false">سميردكس</button>
         <button class="st-chip" type="button" data-cat="other" aria-pressed="false">منتجات أخرى</button>
-        <button class="st-chip out" type="button" id="outOnly" aria-pressed="false">نفد فقط</button>
+        <button class="st-chip out" type="button" id="outOnly" aria-pressed="false">⚠ ناقص فقط</button>
     </div>
 </div>
 
@@ -157,6 +159,9 @@
     }
     const match = (key, tokens) => tokens.every(t => key.includes(t));
     const isOut = i => typeof i.total === 'number' && i.total <= 0;
+    // Finished or at/below its own warning number (alertAt -1 = never warn)
+    const isWarn = (qty, alertAt) => alertAt !== -1 && typeof qty === 'number' && qty <= (alertAt ?? 0);
+    const WARN = '<span class="st-warn" title="قارب على النفاد">⚠</span>';
 
     // Every item: المستودع N, then Area Z (each Area Z warehouse, or 0)
     function split(shelves, areaZ) {
@@ -171,8 +176,9 @@
     function q(i) {
         if (!i) return '<span><span class="st-q none">—</span></span>';
         const v = i.qtyText != null ? i.qtyText : i.total;
-        const cls = v == null ? ' none' : (isOut(i) || /^0×/.test(i.qtyText || '') ? ' zero' : '');
-        return '<a class="st-cell" href="/stock/items/' + i.id + '"><span class="st-q' + cls + '"' + (i.qtyText ? ' dir="ltr"' : '') + '>' +
+        const w = i.qtyText == null && isWarn(i.total, i.alertAt);
+        const cls = v == null ? ' none' : (isOut(i) || /^0×/.test(i.qtyText || '') ? ' zero' : (w ? ' warn' : ''));
+        return '<a class="st-cell" href="/stock/items/' + i.id + '">' + (w ? WARN : '') + '<span class="st-q' + cls + '"' + (i.qtyText ? ' dir="ltr"' : '') + '>' +
             esc(v == null ? '—' : fmt(v)) + '</span>' + (i.linked ? '<span class="st-link-dot" title="مرتبط برف"></span>' : '') +
             split(i.shelves, i.areaZ) + '</a>';
     }
@@ -209,10 +215,11 @@
         return '<article class="card st-card"><div class="st-card-h"><h3><span class="st-tag">' + tag + '</span>' + title + '</h3><small>' + list.length + '</small></div>' +
             '<div class="' + (grid ? 'st-grid' : '') + '">' + list.map(i => {
                 const v = i.qtyText != null ? i.qtyText : i.total;
-                const cls = v == null ? ' none' : ((isOut(i) || /^0×/.test(i.qtyText || '')) ? ' zero' : '');
+                const w = i.qtyText == null && isWarn(i.total, i.alertAt);
+                const cls = v == null ? ' none' : ((isOut(i) || /^0×/.test(i.qtyText || '')) ? ' zero' : (w ? ' warn' : ''));
                 return '<a class="st-row" href="/stock/items/' + i.id + '"><span class="nm' + (code ? ' code' : '') + '">' + esc(i.name) +
                     (i.color && i.family === 'metro-code' ? ' <span class="st-tag h">' + (i.color === 'white' ? 'أبيض' : 'سكني') + '</span>' : '') +
-                    '</span><span><span class="st-q' + cls + '"' + (i.qtyText ? ' dir="ltr"' : '') + '>' + esc(v == null ? '—' : fmt(v)) + '</span>' +
+                    '</span><span>' + (w ? WARN : '') + '<span class="st-q' + cls + '"' + (i.qtyText ? ' dir="ltr"' : '') + '>' + esc(v == null ? '—' : fmt(v)) + '</span>' +
                     (i.linked ? '<span class="st-link-dot" title="مرتبط برف"></span>' : '') + split(i.shelves, i.areaZ) + '</span></a>';
             }).join('') + '</div></article>';
     }
@@ -224,7 +231,8 @@
         byCat.forEach((rows, c) => {
             html += '<article class="card st-card"><div class="st-card-h"><h3>' + esc(c) + '</h3><small>' + rows.length + ' منتج · ربطة</small></div>' +
                 rows.map(o => (IS_ADMIN ? '<a class="st-row" href="/products/' + o.id + '">' : '<div class="st-row">') +
-                    '<span class="nm">' + esc(o.name) + '</span><span style="text-align:left"><span class="st-q' + (o.qty <= 0 ? ' zero' : '') + '">' + fmt(o.qty) + '</span>' +
+                    '<span class="nm">' + esc(o.name) + '</span><span style="text-align:left">' + (o.alertAt !== -1 && (o.qty <= 0 || (o.alertAt != null && o.qty <= o.alertAt)) ? WARN : '') +
+                    '<span class="st-q' + (o.qty <= 0 ? ' zero' : (o.alertAt != null && o.alertAt >= 0 && o.qty <= o.alertAt ? ' warn' : '')) + '">' + fmt(o.qty) + '</span>' +
                     split(o.shelves, o.areaZ) + '</span>' +
                     (IS_ADMIN ? '</a>' : '</div>')).join('') +
                 '</article>';
@@ -239,11 +247,11 @@
         const { tokens, color, cats } = parse(raw);
         const want = c => (cat === 'all' || cat === c) && (!cats.size || cats.has(c));
         const pick = (fams, c) => want(c) ? ITEMS.filter(i => fams.includes(i.family) && match(i.key, tokens)
-            && (!outOnly || (color ? (i.color === color && isOut(i)) : isOut(i)))) : [];
+            && (!outOnly || ((!color || i.color === color) && i.qtyText == null && isWarn(i.total, i.alertAt)))) : [];
 
         const dM = pick(['metro'], 'metro'), tM = pick(['metro-tandem'], 'metro'), cM = pick(['metro-code'], 'metro');
         const dS = pick(['sh'], 'sh'), sc = pick(['screws'], 'screws'), kt = pick(['kent'], 'kent'), sm = pick(['smirdex'], 'smirdex');
-        const ot = (want('other') && !cats.size) ? OTHERS.filter(o => match(o.key, tokens) && (!outOnly || o.qty <= 0)) : [];
+        const ot = (want('other') && !cats.size) ? OTHERS.filter(o => match(o.key, tokens) && (!outOnly || (o.alertAt !== -1 && (o.qty <= 0 || (o.alertAt != null && o.qty <= o.alertAt))))) : [];
         const n = dM.length + tM.length + cM.length + dS.length + sc.length + kt.length + sm.length + ot.length;
 
         let html = '<p class="text-sm text-bark"><b class="text-ink">' + n + '</b> نتيجة' + (raw.trim() ? ' لـ «' + esc(raw.trim()) + '»' : '') + '</p>';

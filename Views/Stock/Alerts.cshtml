@@ -1,0 +1,76 @@
+@model IReadOnlyList<ManolyWarehouse.Application.Services.AlertRow>
+@{
+    ViewData["Title"] = "التنبيهات";
+    var isAdmin = User.IsInRole("Admin");
+    var outRows = Model.Where(r => r.IsOut).ToList();
+    var lowRows = Model.Where(r => !r.IsOut).ToList();
+}
+
+<style>
+    .al-row { display:flex; align-items:center; gap:12px; padding:12px 14px; border-top:1px solid #E3E4E5; }
+    .al-row:first-child { border-top:0; }
+    .al-ic { width:32px; height:32px; border-radius:50%; display:grid; place-items:center; flex:none; }
+    .al-ic.out { background:#CA292E; color:#fff; }
+    .al-ic.low { background:#FBECEC; color:#CA292E; border:1.5px solid #CA292E; }
+    .al-q { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:22px; font-weight:700; color:#CA292E; line-height:1; }
+    .al-sub { font-size:11px; color:#58595B; }
+    .al-edit summary { list-style:none; cursor:pointer; font-size:12px; color:#58595B; }
+    .al-edit summary::-webkit-details-marker { display:none; }
+</style>
+
+<div class="px-4 pt-5 pb-3">
+    <p class="eyebrow mb-1">ALERTS · التنبيهات</p>
+    <h1 class="page-title">التنبيهات</h1>
+    <p class="text-sm text-bark mt-1">
+        <b style="color:#CA292E">@outRows.Count</b> نفد · <b style="color:#CA292E">@lowRows.Count</b> قارب على النفاد
+    </p>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="mx-4 card p-6 text-center mb-6">
+        <div style="font-size:32px">✓</div>
+        <div class="font-semibold text-ink mt-1">لا يوجد شيء ناقص الآن</div>
+        <p class="text-sm text-bark mt-1">سيظهر هنا كل صنف ينفد أو يصل إلى رقم التنبيه الخاص به.</p>
+    </div>
+}
+
+@foreach (var (title, rows, kind) in new[] { ("نفد", outRows, "out"), ("قارب على النفاد", lowRows, "low") })
+{
+    if (!rows.Any()) { continue; }
+    <div class="px-4 mb-2 flex items-end justify-between">
+        <h2 class="section-title" style="color:#CA292E">@title</h2>
+        <span class="text-xs text-bark-l">@rows.Count</span>
+    </div>
+    <div class="mx-4 card mb-6">
+        @foreach (var r in rows)
+        {
+            var href = r.IsLine ? $"/stock/items/{r.Id}" : (isAdmin ? $"/products/{r.Id}" : null);
+            <div class="al-row">
+                <span class="al-ic @kind" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>
+                    </svg>
+                </span>
+                <div class="flex-1 min-w-0">
+                    @if (href != null) { <a href="@href" class="text-sm font-semibold text-ink">@r.Name</a> }
+                    else { <span class="text-sm font-semibold text-ink">@r.Name</span> }
+                    <div class="al-sub">@r.Group@(r.AlertAt is > 0 ? $" · التنبيه عند {r.AlertAt}" : "")</div>
+                    @if (isAdmin)
+                    {
+                        <details class="al-edit mt-1">
+                            <summary>تغيير التنبيه</summary>
+                            <div class="mt-2">
+                                <partial name="_AlertForm" model='(r.IsLine ? "line" : "product", r.Id, r.AlertAt, r.Unit, "/alerts")' />
+                            </div>
+                        </details>
+                    }
+                </div>
+                <div class="text-left shrink-0">
+                    <div class="al-q">@r.Qty.ToString("N0")</div>
+                    <div class="al-sub">@r.Unit</div>
+                </div>
+            </div>
+        }
+    </div>
+}

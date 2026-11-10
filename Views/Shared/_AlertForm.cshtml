@@ -1,0 +1,27 @@
+@* "Warn me at" control for a stock line (kind=line) or a product (kind=product).
+   Model: (string Kind, int Id, int? AlertAt, string Unit, string Back) *@
+@model (string Kind, int Id, int? AlertAt, string Unit, string Back)
+@{
+    var mode = Model.AlertAt switch { null => "default", < 0 => "never", _ => "at" };
+    var formId = $"alert-{Model.Kind}-{Model.Id}";
+}
+<form method="post" action="/stock/alert" class="flex flex-col gap-2" id="@formId">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="kind" value="@Model.Kind" />
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="hidden" name="back" value="@Model.Back" />
+    <div class="flex gap-2 items-stretch">
+        <select name="mode" class="form-select flex-1" style="min-height:44px"
+                onchange="this.form.querySelector('[data-at]').hidden = this.value !== 'at'">
+            <option value="default" selected="@(mode == "default")">نبّهني عند النفاد (0)</option>
+            <option value="at" selected="@(mode == "at")">نبّهني عند رقم معيّن…</option>
+            <option value="never" selected="@(mode == "never")">بدون تنبيه</option>
+        </select>
+        <button type="submit" class="btn-primary btn-sm shrink-0" style="min-height:44px">حفظ</button>
+    </div>
+    <div data-at @(mode == "at" ? "" : "hidden")>
+        <label class="form-label" for="at-@formId">نبّهني عندما يصل إلى (@Model.Unit) أو أقل</label>
+        <input type="number" id="at-@formId" name="alertAt" min="0" value="@(Model.AlertAt is >= 0 ? Model.AlertAt : null)"
+               class="form-input" inputmode="numeric" data-no-stepper />
+    </div>
+</form>

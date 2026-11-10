@@ -77,6 +77,10 @@ public class StockItem
 
     public void SetColor(string? color) => Color = color;
 
+    /// <summary>Warn when the total is at or below this. null = only when finished (≤ 0); -1 = never warn.</summary>
+    public int? AlertAt { get; private set; }
+    public void SetAlertAt(int? alertAt) => AlertAt = alertAt;
+
     /// <summary>Non-numeric quantity and extra file columns, replaced when a newer Excel file is imported.</summary>
     public void SetFileData(string? qtyText, string? extraJson)
     {

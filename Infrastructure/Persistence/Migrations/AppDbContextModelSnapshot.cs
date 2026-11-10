@@ -329,6 +329,9 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AlertAt")
+                        .HasColumnType("integer");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
@@ -4345,6 +4348,9 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AlertAt")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Color")
                         .HasMaxLength(10)

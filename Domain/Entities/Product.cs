@@ -35,6 +35,10 @@ public class Product : AuditableEntity
         return product;
     }
 
+    /// <summary>Warn when shelves + Area Z (bundles) are at or below this. null = only when finished; -1 = never.</summary>
+    public int? AlertAt { get; private set; }
+    public void SetAlertAt(int? alertAt) => AlertAt = alertAt;
+
     public void LinkStock(int? stockItemId, string updatedBy)
     {
         StockItemId = stockItemId;

@@ -19,6 +19,23 @@ public class StockController : Controller
         _files = files;
     }
 
+    /// <summary>Notifications: finished and about-to-finish items.</summary>
+    [HttpGet("/alerts")]
+    public async Task<IActionResult> Alerts(CancellationToken ct) => View(await _stock.GetAlertsAsync(ct));
+
+    /// <summary>Set an item's warning number. mode: default (warn at 0) · never · at (with alertAt).</summary>
+    [HttpPost("alert")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SetAlert(string kind, int id, string mode, int? alertAt, string? back, CancellationToken ct)
+    {
+        int? value = mode switch { "never" => -1, "at" => Math.Max(0, alertAt ?? 0), _ => null };
+        await _stock.SetAlertAsync(kind == "line", id, value, ct);
+        TempData["SuccessMessage"] = "تم حفظ التنبيه.";
+        if (!string.IsNullOrEmpty(back) && Url.IsLocalUrl(back)) return LocalRedirect(back);
+        return Redirect("/alerts");
+    }
+
     /// <summary>What doesn't match the warehouse yet, and a button to match again.</summary>
     [HttpGet("check")]
     [Authorize(Policy = "AdminOnly")]

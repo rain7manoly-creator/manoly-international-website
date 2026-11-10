@@ -23,6 +23,7 @@ public class StockItemDto
     public int? Total { get; init; }
     public string? QtyText { get; init; }
     public int Linked { get; init; }
+    public int? AlertAt { get; init; }
 
     /// <summary>Where the linked products are right now (same unit as the line: pieces, or cartons for screws/Kent/Smirdex).</summary>
     public int? Shelves { get; set; }
@@ -65,6 +66,16 @@ public interface IStockService
     Task<string> ConnectProductAsync(int productId, string target, CancellationToken ct = default);
     Task<ConnectViewModel?> GetConnectAsync(int productId, CancellationToken ct = default);
     Task<LinkCandidatesViewModel?> GetLinkCandidatesAsync(int stockItemId, CancellationToken ct = default);
+    Task<IReadOnlyList<AlertRow>> GetAlertsAsync(CancellationToken ct = default);
+    Task<int> CountAlertsAsync(CancellationToken ct = default);
+    Task SetAlertAsync(bool isLine, int id, int? alertAt, CancellationToken ct = default);
+    Task<int?> GetProductAlertAtAsync(int productId, CancellationToken ct = default);
+}
+
+/// <summary>One item on the notifications page.</summary>
+public record AlertRow(bool IsLine, int Id, string Group, string Name, int Qty, int? AlertAt, string Unit)
+{
+    public bool IsOut => Qty <= 0;
 }
 
 public class ConnectViewModel
@@ -109,7 +120,7 @@ public class StockService : IStockService
         .Select(s => new StockItemDto
         {
             Id = s.Id, Family = s.Family, Name = s.Name, Color = s.Color, Type = s.DrawerType,
-            H = s.Height, Len = s.Length, Total = s.Total, QtyText = s.QtyText,
+            H = s.Height, Len = s.Length, Total = s.Total, QtyText = s.QtyText, AlertAt = s.AlertAt,
             Linked = _db.Products.Count(p => p.StockItemId == s.Id)
         });
 
@@ -129,6 +140,7 @@ public class StockService : IStockService
                     (p.ShelfInventories.Sum(si => (int?)si.BundleCount) ?? 0) +
                     (p.AreaZInventories.Where(az => !az.IsDispatched).Sum(az => (int?)az.BundleCount) ?? 0),
                 ShelfBundles = p.ShelfInventories.Sum(si => (int?)si.BundleCount) ?? 0,
+                AlertAt = p.AlertAt,
             })
             .ToListAsync(ct);
 
@@ -511,6 +523,69 @@ public class StockService : IStockService
                 .Select(r => (r.Id, r.Name, string.Join(" ", r.Shelves.Distinct().OrderBy(x => x)) + (r.InZ ? " Area Z" : ""), r.LinkedTo))
                 .ToList()
         };
+    }
+
+    // ─── Alerts: finished / about to finish ────────────────────────────
+    /// <summary>
+    /// Stock lines (Metro, SH, screws, Kent, Smirdex, new lines) by their total, and other products by
+    /// shelves + Area Z bundles. A row is listed when it is finished (≤ 0) or at/below its own warning number.
+    /// AlertAt -1 = never warn. Other products only warn when they have a warning number or a
+    /// shelf/Area Z row that reached 0 — never-stocked catalog items stay quiet.
+    /// </summary>
+    public async Task<IReadOnlyList<AlertRow>> GetAlertsAsync(CancellationToken ct = default)
+    {
+        var lines = await _db.StockItems.AsNoTracking()
+            .Where(s => s.Total != null && s.QtyText == null && (s.AlertAt == null || s.AlertAt >= 0))
+            .Where(s => s.Total <= (s.AlertAt ?? 0))
+            .OrderBy(s => s.SortOrder)
+            .Select(s => new { s.Id, s.Family, s.Name, s.Color, s.Total, s.AlertAt })
+            .ToListAsync(ct);
+        var rows = lines.Select(s => new AlertRow(true, s.Id, FamilyNames.GetValueOrDefault(s.Family, s.Family),
+            s.Name + (s.Color == "white" ? " — أبيض" : s.Color == "grey" ? " — سكني" : ""),
+            s.Total!.Value, s.AlertAt, StockItem.CountsInCartons(s.Family) ? "كرتونة" : "حبة")).ToList();
+
+        var products = await _db.Products.AsNoTracking()
+            .Where(p => p.StockItemId == null && (p.AlertAt == null || p.AlertAt >= 0))
+            .Select(p => new
+            {
+                p.Id, p.Name, Cat = p.Category.Name, p.AlertAt,
+                Qty = (p.ShelfInventories.Sum(si => (int?)si.BundleCount) ?? 0)
+                    + (p.AreaZInventories.Where(a => !a.IsDispatched).Sum(a => (int?)a.BundleCount) ?? 0),
+                HasRows = p.ShelfInventories.Any() || p.AreaZInventories.Any(a => !a.IsDispatched)
+            })
+            .Where(p => (p.AlertAt != null && p.Qty <= p.AlertAt) || (p.AlertAt == null && p.HasRows && p.Qty <= 0))
+            .OrderBy(p => p.Cat).ThenBy(p => p.Name)
+            .ToListAsync(ct);
+        rows.AddRange(products.Select(p => new AlertRow(false, p.Id, p.Cat, p.Name, p.Qty, p.AlertAt, "ربطة")));
+        return rows;
+    }
+
+    public async Task<int?> GetProductAlertAtAsync(int productId, CancellationToken ct = default)
+        => await _db.Products.AsNoTracking().Where(p => p.Id == productId).Select(p => p.AlertAt).FirstOrDefaultAsync(ct);
+
+    public async Task<int> CountAlertsAsync(CancellationToken ct = default) => (await GetAlertsAsync(ct)).Count;
+
+    public async Task SetAlertAsync(bool isLine, int id, int? alertAt, CancellationToken ct = default)
+    {
+        var userId = _currentUser.UserId ?? throw new InvalidOperationException("No authenticated user in context.");
+        string name;
+        if (isLine)
+        {
+            var s = await _db.StockItems.FirstOrDefaultAsync(x => x.Id == id, ct) ?? throw new DomainException("صنف المخزون غير موجود.");
+            s.SetAlertAt(alertAt); name = s.DisplayName;
+        }
+        else
+        {
+            var p = await _db.Products.FirstOrDefaultAsync(x => x.Id == id, ct) ?? throw new DomainException("المنتج غير موجود.");
+            p.SetAlertAt(alertAt); name = p.Name;
+        }
+        await _db.SaveChangesAsync(ct);
+        await _activityLog.RecordAsync(ActivityArea.Stock, alertAt switch
+        {
+            null => $"تنبيه «{name}»: عند النفاد فقط",
+            < 0 => $"تنبيه «{name}»: بدون تنبيه",
+            _ => $"تنبيه «{name}»: عند {alertAt} أو أقل"
+        }, ct);
     }
 
     public static string? GuessFamily(string n)

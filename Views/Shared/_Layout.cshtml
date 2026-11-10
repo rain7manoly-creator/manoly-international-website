@@ -1,3 +1,4 @@
+@inject ManolyWarehouse.Application.Services.IStockService StockAlerts
 @using System.Security.Claims
 @{
     var title = ViewData["Title"] as string ?? "مخزن منولي";
@@ -40,11 +41,26 @@
                 <span class="brand-sub">Warehouse</span>
             </span>
         </a>
+        @{
+            var alertCount = 0;
+            try { alertCount = await StockAlerts.CountAlertsAsync(); } catch { /* never break the page for the bell */ }
+        }
+        <span class="flex items-center">
+        <a href="/alerts" class="btn-icon text-bark hover:text-ink relative" aria-label="التنبيهات@(alertCount > 0 ? $" ({alertCount})" : "")">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2c0 .5-.2 1-.6 1.4L4 17h5m6 0v1a3 3 0 1 1-6 0v-1m6 0H9"/>
+            </svg>
+            @if (alertCount > 0)
+            {
+                <span style="position:absolute;top:4px;left:2px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#CA292E;color:#fff;font:700 11px/18px 'Helvetica Neue',Arial,sans-serif;text-align:center">@(alertCount > 99 ? "99+" : alertCount)</span>
+            }
+        </a>
         <a href="/search" class="btn-icon text-bark hover:text-ink" aria-label="بحث">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
             </svg>
         </a>
+        </span>
     </header>
 }
 

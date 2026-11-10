@@ -59,6 +59,7 @@ public class ProductsController : Controller
         var model = await _productService.GetByIdAsync(id, ct);
         if (model == null) return NotFound();
         ViewBag.Stock = await _stockService.GetLinkForProductAsync(id, ct);
+        ViewBag.AlertAt = await _stockService.GetProductAlertAtAsync(id, ct);
         return View(model);
     }
 
