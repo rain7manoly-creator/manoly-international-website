@@ -1,13 +1,14 @@
-[
+{
+"rows": [
 {
 "family": "metro",
 "name": "جرار Metro واطي 84-350mm",
 "color": "white",
-"warehouse": 2034,
+"warehouse": 1752,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 2034,
+"total": 1752,
 "extraJson": "{}"
 },
 {
@@ -36,11 +37,11 @@
 "family": "metro",
 "name": "جرار Metro واطي 84-400mm",
 "color": "grey",
-"warehouse": 42,
+"warehouse": 36,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 42,
+"total": 36,
 "extraJson": "{}"
 },
 {
@@ -102,11 +103,11 @@
 "family": "metro",
 "name": "جرار Metro واطي 84-550mm",
 "color": "grey",
-"warehouse": 114,
+"warehouse": 108,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 114,
+"total": 108,
 "extraJson": "{}"
 },
 {
@@ -267,11 +268,11 @@
 "family": "metro",
 "name": "جرار Metro سلم واطي 84-400mm",
 "color": "white",
-"warehouse": 198,
+"warehouse": 115,
 "shops": null,
 "ordered": 150,
 "onWay": null,
-"total": 198,
+"total": 115,
 "extraJson": "{\"New Order 2 9-11-2026\": 150}"
 },
 {
@@ -289,11 +290,11 @@
 "family": "metro",
 "name": "جرار Metro سلم واطي 84-450mm",
 "color": "white",
-"warehouse": 386,
+"warehouse": 325,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 386,
+"total": 325,
 "extraJson": "{}"
 },
 {
@@ -443,11 +444,11 @@
 "family": "metro",
 "name": "جرار Metro سلم عالي 167-500mm",
 "color": "white",
-"warehouse": 1355,
+"warehouse": 1195,
 "shops": null,
 "ordered": 900,
 "onWay": 1025,
-"total": 1355,
+"total": 1195,
 "extraJson": "{\"New Order 1\": 500, \"New Order 2 9-11-2026\": 400}"
 },
 {
@@ -498,11 +499,11 @@
 "family": "metro",
 "name": "جرار Metro سلم عالي 199-350mm",
 "color": "grey",
-"warehouse": 62,
+"warehouse": 64,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 62,
+"total": 64,
 "extraJson": "{}"
 },
 {
@@ -553,22 +554,22 @@
 "family": "metro",
 "name": "جرار Metro سلم عالي 199-500mm",
 "color": "white",
-"warehouse": 318,
+"warehouse": 308,
 "shops": null,
 "ordered": 200,
 "onWay": null,
-"total": 318,
+"total": 308,
 "extraJson": "{\"New Order 2 9-11-2026\": 200}"
 },
 {
 "family": "metro",
 "name": "جرار Metro سلم عالي 199-500mm",
 "color": "grey",
-"warehouse": 356,
+"warehouse": 316,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 356,
+"total": 316,
 "extraJson": "{}"
 },
 {
@@ -641,11 +642,11 @@
 "family": "metro",
 "name": "جرار Metro زجاج واطي 84-450mm",
 "color": "white",
-"warehouse": 222,
+"warehouse": 148,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 222,
+"total": 148,
 "extraJson": "{}"
 },
 {
@@ -685,22 +686,22 @@
 "family": "metro",
 "name": "جرار Metro زجاج واطي 84-550mm",
 "color": "white",
-"warehouse": 420,
+"warehouse": 402,
 "shops": null,
 "ordered": 200,
 "onWay": null,
-"total": 420,
+"total": 402,
 "extraJson": "{\"New Order 2 9-11-2026\": 200}"
 },
 {
 "family": "metro",
 "name": "جرار Metro زجاج واطي 84-550mm",
 "color": "grey",
-"warehouse": 548,
+"warehouse": 444,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 548,
+"total": 444,
 "extraJson": "{}"
 },
 {
@@ -795,11 +796,11 @@
 "family": "metro",
 "name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
 "color": "white",
-"warehouse": 1004,
+"warehouse": 1068,
 "shops": null,
 "ordered": null,
 "onWay": 300,
-"total": 1004,
+"total": 1068,
 "extraJson": "{}"
 },
 {
@@ -883,44 +884,44 @@
 "family": "metro",
 "name": "جرار Metro زجاج عالي 199-500mm",
 "color": "white",
-"warehouse": 516,
+"warehouse": 448,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 516,
+"total": 448,
 "extraJson": "{}"
 },
 {
 "family": "metro",
 "name": "جرار Metro زجاج عالي 199-500mm",
 "color": "grey",
-"warehouse": 1672,
+"warehouse": 1676,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 1672,
+"total": 1676,
 "extraJson": "{}"
 },
 {
 "family": "metro",
 "name": "جرار Metro زجاج عالي 199-550mm",
 "color": "white",
-"warehouse": 712,
+"warehouse": 968,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 712,
+"total": 968,
 "extraJson": "{}"
 },
 {
 "family": "metro",
 "name": "جرار Metro زجاج عالي 199-550mm",
 "color": "grey",
-"warehouse": 692,
+"warehouse": 500,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 692,
+"total": 500,
 "extraJson": "{}"
 },
 {
@@ -971,11 +972,11 @@
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-450mm",
 "color": "grey",
-"warehouse": 90,
+"warehouse": 108,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 90,
+"total": 108,
 "extraJson": "{}"
 },
 {
@@ -1103,11 +1104,11 @@
 "family": "sh",
 "name": "جرار SH واطي 84-550mm",
 "color": "grey",
-"warehouse": 258,
+"warehouse": 264,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 258,
+"total": 264,
 "extraJson": null
 },
 {
@@ -1169,11 +1170,11 @@
 "family": "sh",
 "name": "جرار SH عالي مع ماسورة 167-450mm",
 "color": "grey",
-"warehouse": 102,
+"warehouse": 90,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 102,
+"total": 90,
 "extraJson": null
 },
 {
@@ -1345,11 +1346,11 @@
 "family": "sh",
 "name": "جرار SH سلم واطي 84-550mm",
 "color": "grey",
-"warehouse": 318,
+"warehouse": 312,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 318,
+"total": 312,
 "extraJson": null
 },
 {
@@ -1400,11 +1401,11 @@
 "family": "sh",
 "name": "جرار SH سلم عالي 167-400mm",
 "color": "white",
-"warehouse": 330,
+"warehouse": 420,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 330,
+"total": 420,
 "extraJson": null
 },
 {
@@ -1422,11 +1423,11 @@
 "family": "sh",
 "name": "جرار SH سلم عالي 167-450mm",
 "color": "white",
-"warehouse": 270,
+"warehouse": 325,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 270,
+"total": 325,
 "extraJson": null
 },
 {
@@ -1521,11 +1522,11 @@
 "family": "sh",
 "name": "جرار SH زجاج واطي 84-500mm",
 "color": "white",
-"warehouse": 90,
+"warehouse": 96,
 "shops": null,
 "ordered": 200,
 "onWay": null,
-"total": 290,
+"total": 296,
 "extraJson": null
 },
 {
@@ -1565,11 +1566,11 @@
 "family": "sh",
 "name": "جرار SH زجاج عالي مع ماسورة 167-450mm",
 "color": "white",
-"warehouse": 25,
+"warehouse": 35,
 "shops": null,
 "ordered": null,
 "onWay": null,
-"total": 25,
+"total": 35,
 "extraJson": null
 },
 {
@@ -1858,21 +1859,21 @@
 "family": "screws",
 "name": "4x20",
 "color": null,
-"total": 267,
+"total": 367,
 "extraJson": "{\"Carton\": 18, \"Box\": 1000, \"ordering\": null}"
 },
 {
 "family": "screws",
 "name": "4x25",
 "color": null,
-"total": 255,
+"total": 305,
 "extraJson": "{\"Carton\": 12, \"Box\": 1000, \"ordering\": null}"
 },
 {
 "family": "screws",
 "name": "4x30",
 "color": null,
-"total": 241,
+"total": 132,
 "extraJson": "{\"Carton\": 12, \"Box\": 500, \"ordering\": \"7 ton\"}"
 },
 {
@@ -1886,7 +1887,7 @@
 "family": "screws",
 "name": "4x40",
 "color": null,
-"total": 60,
+"total": 50,
 "extraJson": "{\"Carton\": 9, \"Box\": 500, \"ordering\": \"7 ton\"}"
 },
 {
@@ -1935,7 +1936,7 @@
 "family": "screws",
 "name": "5x40",
 "color": null,
-"total": 23,
+"total": 30,
 "extraJson": "{\"Carton\": 12, \"Box\": 500, \"ordering\": null}"
 },
 {
@@ -1956,7 +1957,7 @@
 "family": "screws",
 "name": "5x70",
 "color": null,
-"total": 88,
+"total": 93,
 "extraJson": "{\"Carton\": 4, \"Box\": 500, \"ordering\": null}"
 },
 {
@@ -1977,7 +1978,7 @@
 "family": "kent",
 "name": "396 W",
 "color": null,
-"total": 26,
+"total": 25,
 "extraJson": "{\"للطلب7-3-2026\": 3000}"
 },
 {
@@ -1991,7 +1992,7 @@
 "family": "kent",
 "name": "4261",
 "color": null,
-"total": 20,
+"total": 19,
 "extraJson": "{\"للطلب7-3-2026\": 5000, \"للطلب جديد 19-8-2026\": 2500}"
 },
 {
@@ -2012,7 +2013,7 @@
 "family": "kent",
 "name": "4268",
 "color": null,
-"total": 25,
+"total": 37,
 "extraJson": "{\"للطلب7-3-2026\": 5000}"
 },
 {
@@ -2054,14 +2055,14 @@
 "family": "kent",
 "name": "669 R",
 "color": null,
-"total": 14,
+"total": 15,
 "extraJson": "{}"
 },
 {
 "family": "kent",
 "name": "670R",
 "color": null,
-"total": 21,
+"total": 20,
 "extraJson": "{}"
 },
 {
@@ -2131,7 +2132,7 @@
 "family": "kent",
 "name": "1002",
 "color": null,
-"total": 32,
+"total": 33,
 "extraJson": "{}"
 },
 {
@@ -2152,7 +2153,7 @@
 "family": "kent",
 "name": "1067",
 "color": null,
-"total": 34,
+"total": 33,
 "extraJson": "{}"
 },
 {
@@ -2187,7 +2188,7 @@
 "family": "kent",
 "name": "1533",
 "color": null,
-"total": 27,
+"total": 17,
 "extraJson": "{}"
 },
 {
@@ -2208,7 +2209,7 @@
 "family": "kent",
 "name": "1689",
 "color": null,
-"total": 21,
+"total": 20,
 "extraJson": "{\"للطلب7-3-2026\": 2500}"
 },
 {
@@ -2229,7 +2230,7 @@
 "family": "kent",
 "name": "2020",
 "color": null,
-"total": 81,
+"total": 77,
 "extraJson": "{\"للطلب7-3-2026\": 40000, \"للطلب جديد 19-8-2026\": 20000}"
 },
 {
@@ -2292,7 +2293,7 @@
 "family": "kent",
 "name": "3102",
 "color": null,
-"total": 62,
+"total": 61,
 "extraJson": "{}"
 },
 {
@@ -2341,7 +2342,7 @@
 "family": "kent",
 "name": "5171",
 "color": null,
-"total": 29,
+"total": 17,
 "extraJson": "{\"للطلب7-3-2026\": 2500}"
 },
 {
@@ -2390,7 +2391,7 @@
 "family": "kent",
 "name": "5524",
 "color": null,
-"total": 33,
+"total": 32,
 "extraJson": "{}"
 },
 {
@@ -2432,7 +2433,7 @@
 "family": "kent",
 "name": "409 T",
 "color": null,
-"total": 56,
+"total": 57,
 "extraJson": "{\"طلبية 27-6\": 100, \"للطلب7-3-2026\": 40000, \"للطلب جديد 19-8-2026\": 20000}"
 },
 {
@@ -2523,7 +2524,7 @@
 "family": "kent",
 "name": "77488 LE",
 "color": null,
-"total": 9,
+"total": 10,
 "extraJson": "{}"
 },
 {
@@ -2645,4 +2646,1519 @@
 "total": 3,
 "extraJson": "{}"
 }
+],
+"links": [
+{
+"product": "جرار ميترو زجاج ابيض 50/8.5",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو زجاج ابيض 55/20",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو زجاج ابيض 50/20",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "white"
+},
+{
+"product": "براغي اتيكو وميترو 3.5*16",
+"family": "screws",
+"name": "3.5x16",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 3.5*35",
+"family": "screws",
+"name": "3.5x35",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 3.5*30",
+"family": "screws",
+"name": "3.5x30",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 3.5*40",
+"family": "screws",
+"name": "3.5x40",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 3.5*45",
+"family": "screws",
+"name": "3.5x45",
+"color": null
+},
+{
+"product": "جرار ميترو زجاج ابيض 55/17",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "white"
+},
+{
+"product": "براغي اتيكو وميترو 4*16",
+"family": "screws",
+"name": "4x16",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 4*18",
+"family": "screws",
+"name": "4x18",
+"color": null
+},
+{
+"product": "جرار ميترو زجاج ابيض 50/17",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو زجاج ابيض 55/8.5",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "white"
+},
+{
+"product": "براغي اتيكو وميترو 4*20",
+"family": "screws",
+"name": "4x20",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 4*25",
+"family": "screws",
+"name": "4x25",
+"color": null
+},
+{
+"product": "جرار ميترو زجاج سكني 50/20",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو زجاج سكني 55/20",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "grey"
+},
+{
+"product": "براغي اتيكو وميترو 4*30",
+"family": "screws",
+"name": "4x30",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 4*35",
+"family": "screws",
+"name": "4x35",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 4*45",
+"family": "screws",
+"name": "4x45",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 4*50",
+"family": "screws",
+"name": "4x50",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 4*60",
+"family": "screws",
+"name": "4x60",
+"color": null
+},
+{
+"product": "جرار ميترو زجاج سكني 55/17",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو زجاج سكني 50/17",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "grey"
+},
+{
+"product": "براغي اتيكو وميترو 5*35",
+"family": "screws",
+"name": "5x35",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 5*25",
+"family": "screws",
+"name": "5x25",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 5*40",
+"family": "screws",
+"name": "5x40",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 5*30",
+"family": "screws",
+"name": "5x30",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 5*50",
+"family": "screws",
+"name": "5x50",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو نص سن 5*70",
+"family": "screws",
+"name": "5x70",
+"color": null
+},
+{
+"product": "جرار ميترو زجاج سكني 55/8.5",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم ابيض 55/20",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم ابيض 50/20",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "white"
+},
+{
+"product": "براغي اتيكو وميترو سن كامل 5*70",
+"family": "screws",
+"name": "50x70 سن كامل",
+"color": null
+},
+{
+"product": "براغي اتيكو وميترو 5*100",
+"family": "screws",
+"name": "5x100",
+"color": null
+},
+{
+"product": "جرار ميترو سلم ابيض 50/17",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو زجاج ابيض 45/17",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو زجاج ابيض 40/17",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو زجاج ابيض 35/17",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو زجاج ابيض 45/20",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو زجاج ابيض 40/20",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم ابيض 55/17",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم سكني 8.5/50",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو زجاج ابيض 35/8.5",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو زجاج ابيض 35/20",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو زجاج ابيض 40/8.5",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو زجاج ابيض 45/8.5",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم ابيض 45/17",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم ابيض 55/8.5",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم سكني 55/20",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم ابيض 50/8.5",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم سكني 50/20",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم ابيض 40/17",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم ابيض 40/20",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم ابيض 35/17",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم ابيض 35/20",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم ابيض 45/20",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم ابيض 45/8.5",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو بوكس سكني 50/17",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم سكني 8.5/55",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم سكني 50/17",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو بوكس ابيض 55/17",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم ابيض 40/8.5",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو بوكس ابيض 40/17",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم ابيض 35/8.5",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو بوكس ابيض 35/17",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو بوكس ابيض 45/17",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو بوكس ابيض 45/8.5",
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو بوكس ابيض 40/8.5",
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو بوكس ابيض 50/8.5",
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو بوكس ابيض 50/17",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "white"
+},
+{
+"product": "براغي اتيكو وميترو 4*40",
+"family": "screws",
+"name": "4x40",
+"color": null
+},
+{
+"product": "جرار sh سلم ابيض 45/17",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-450mm",
+"color": "white"
+},
+{
+"product": "جرار sh سلم ابيض 35/17",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-350mm",
+"color": "white"
+},
+{
+"product": "جرار sh سلم ابيض 40/17",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-400mm",
+"color": "white"
+},
+{
+"product": "جرار sh سلم ابيض 30/17",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-300mm",
+"color": "white"
+},
+{
+"product": "جرار sh سلم ابيض 45/8.5",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-450mm",
+"color": "white"
+},
+{
+"product": "جرار sh سلم ابيض 40/8.5",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-400mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو بوكس ابيض55/8.5",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو بوكس سكني 55/17",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو بوكس ابيض 55/8.5",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "white"
+},
+{
+"product": "جرار sh بوكس ابيض 45/17",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-450mm",
+"color": "white"
+},
+{
+"product": "جرار sh سلم ابيض 35/8.5",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-350mm",
+"color": "white"
+},
+{
+"product": "جرار sh بوكس ابيض 40/17",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-400mm",
+"color": "white"
+},
+{
+"product": "جرار sh سلم ابيض 30/8.5",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-300mm",
+"color": "white"
+},
+{
+"product": "جرار sh بوكس ابيض 35/17",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-350mm",
+"color": "white"
+},
+{
+"product": "جرار sh بوكس ابيض 45/8.5",
+"family": "sh",
+"name": "جرار SH واطي 84-450mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو بوكس سكني 50/8.5",
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو بوكس ابيض 35/8.5",
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو بوكس سكني 55/8.5",
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "grey"
+},
+{
+"product": "جرار sh بوكس ابيض 40/8.5",
+"family": "sh",
+"name": "جرار SH واطي 84-400mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 45/17",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-450mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 45/20",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-450mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 40/17",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-400mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 40/20",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-400mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 35/17",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-350mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 35/20",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-350mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 45/8.5",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-450mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 40/8.5",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-400mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 35/8.5",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-350mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 55/20",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-550mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 55/17",
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-550mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 50/20",
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-500mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 50/8.5",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-500mm",
+"color": "white"
+},
+{
+"product": "جرار sh بوكس ابيض55/ 17",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "white"
+},
+{
+"product": "جرار sh زجاج ابيض 55/8.5",
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-550mm",
+"color": "white"
+},
+{
+"product": "جرار sh سلم ابيض 55/8.5",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-550mm",
+"color": "white"
+},
+{
+"product": "جرار sh بوكس سكني 35/17",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-350mm",
+"color": "grey"
+},
+{
+"product": "جرار sh بوكس سكني 40/17",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-400mm",
+"color": "grey"
+},
+{
+"product": "جرار sh بوكس سكني 45/17",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-450mm",
+"color": "grey"
+},
+{
+"product": "جرار sh سلم سكني 40/8.5",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-400mm",
+"color": "grey"
+},
+{
+"product": "جرار sh سلم سكني 35/8.5",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-350mm",
+"color": "grey"
+},
+{
+"product": "جرار sh سلم ابيض 55/17",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-550mm",
+"color": "white"
+},
+{
+"product": "جرار sh بوكس سكني55/ 17",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "grey"
+},
+{
+"product": "جرار sh سلم ابيض 50/17",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-500mm",
+"color": "white"
+},
+{
+"product": "جرار sh بوكس سكني50 / 17",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-500mm",
+"color": "grey"
+},
+{
+"product": "جرار sh سلم سكني 45/8.5",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-450mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو بوكس سكني 35/8.5",
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "grey"
+},
+{
+"product": "جرار sh سلم سكني 40/17",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-400mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو بوكس سكني 40/8.5",
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "grey"
+},
+{
+"product": "جرار sh سلم سكني 35/17",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-350mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو بوكس سكني 45/8.5",
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "grey"
+},
+{
+"product": "جرار sh سلم سكني 45/17",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-450mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو بوكس سكني 35/17",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "grey"
+},
+{
+"product": "جرار sh بوكس سكني 55/8.5",
+"family": "sh",
+"name": "جرار SH واطي 84-550mm",
+"color": "grey"
+},
+{
+"product": "جرار sh سلم سكني 55/8.5",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-550mm",
+"color": "grey"
+},
+{
+"product": "جرار sh بوكس سكني 50/8.5",
+"family": "sh",
+"name": "جرار SH واطي 84-500mm",
+"color": "grey"
+},
+{
+"product": "جرار sh سلم سكني 50/8.5",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-500mm",
+"color": "grey"
+},
+{
+"product": "جرار sh بوكس سكني 45/8.5",
+"family": "sh",
+"name": "جرار SH واطي 84-450mm",
+"color": "grey"
+},
+{
+"product": "جرار sh بوكس سكني 40/8.5",
+"family": "sh",
+"name": "جرار SH واطي 84-400mm",
+"color": "grey"
+},
+{
+"product": "جرار sh سلم سكني 55/17",
+"family": "sh",
+"name": "جرار SH سلم عالي 167-550mm",
+"color": "grey"
+},
+{
+"product": "جرار sh بوكس ابيض 55/8.5",
+"family": "sh",
+"name": "جرار SH واطي 84-550mm",
+"color": "white"
+},
+{
+"product": "جرار ميترو سلم سكني 35/20",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم سكني 40/20",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم سكني 45/20",
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو بوكس سكني 40/17",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم سكني 35/8.5",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو بوكس سكني 45/17",
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "grey"
+},
+{
+"product": "جرار sh بوكس ابيض 55/17",
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "white"
+},
+{
+"product": "كنت 409",
+"family": "kent",
+"name": "409 T",
+"color": null
+},
+{
+"product": "كنت 2264",
+"family": "kent",
+"name": "2264",
+"color": null
+},
+{
+"product": "كنت 2021",
+"family": "kent",
+"name": "2021",
+"color": null
+},
+{
+"product": "كنت 7000",
+"family": "kent",
+"name": "7000",
+"color": null
+},
+{
+"product": "كنت 1957",
+"family": "kent",
+"name": "1957",
+"color": null
+},
+{
+"product": "جرار ميترو سلم سكني 40/8.5",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم سكني 40/17",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم سكني 45/8.5",
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم سكني 45/17",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم سكني 35/17",
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو زجاج سكني 35/8.5",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "grey"
+},
+{
+"product": "كنت 4275",
+"family": "kent",
+"name": "4275",
+"color": null
+},
+{
+"product": "كنت 3160",
+"family": "kent",
+"name": "3160",
+"color": null
+},
+{
+"product": "كنت5550",
+"family": "kent",
+"name": "5550",
+"color": null
+},
+{
+"product": "جرار ميترو زجاج سكني 40/8.5",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو زجاج سكني 35/20",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو زجاج سكني 45/8.5",
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو زجاج سكني 40/20",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم ابيض 45/12",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-450mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو زجاج سكني 45/20",
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو زجاج سكني 35/17",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو زجاج سكني 40/17",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم ابيض 55/12",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-550mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو سلم ابيض 50/12",
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-500mm",
+"color": "grey"
+},
+{
+"product": "جرار ميترو زجاج سكني 45/17",
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "grey"
+},
+{
+"product": "جرار sh سلم ابيض 50/8.5",
+"family": "sh",
+"name": "جرار SH سلم واطي 84-500mm",
+"color": "white"
+},
+{
+"product": "كنت900",
+"family": "kent",
+"name": "M900T",
+"color": null
+},
+{
+"product": "كنت 4276",
+"family": "kent",
+"name": "4276",
+"color": null
+},
+{
+"product": "كنت 4268",
+"family": "kent",
+"name": "4268",
+"color": null
+},
+{
+"product": "كنت 4269",
+"family": "kent",
+"name": "4269",
+"color": null
+},
+{
+"product": "كنت 4270",
+"family": "kent",
+"name": "4270",
+"color": null
+},
+{
+"product": "كنت 4261",
+"family": "kent",
+"name": "4261",
+"color": null
+},
+{
+"product": "كنت 4263",
+"family": "kent",
+"name": "4263",
+"color": null
+},
+{
+"product": "كنت 4265",
+"family": "kent",
+"name": "4265",
+"color": null
+},
+{
+"product": "كنت 9090",
+"family": "kent",
+"name": "9090",
+"color": null
+},
+{
+"product": "كنت 8000",
+"family": "kent",
+"name": "8000",
+"color": null
+},
+{
+"product": "كنت 9030",
+"family": "kent",
+"name": "9030",
+"color": null
+},
+{
+"product": "كنت 9070",
+"family": "kent",
+"name": "9070",
+"color": null
+},
+{
+"product": "كنت 9050",
+"family": "kent",
+"name": "9050",
+"color": null
+},
+{
+"product": "كنت 9040",
+"family": "kent",
+"name": "9040",
+"color": null
+},
+{
+"product": "كنت 9010",
+"family": "kent",
+"name": "9010",
+"color": null
+},
+{
+"product": "كنت 9100",
+"family": "kent",
+"name": "9100",
+"color": null
+},
+{
+"product": "كنت 9080",
+"family": "kent",
+"name": "9080",
+"color": null
+},
+{
+"product": "كنت 9020",
+"family": "kent",
+"name": "9020",
+"color": null
+},
+{
+"product": "كنت 1067",
+"family": "kent",
+"name": "1067",
+"color": null
+},
+{
+"product": "كنت 9060",
+"family": "kent",
+"name": "9060",
+"color": null
+},
+{
+"product": "كنت 3949",
+"family": "kent",
+"name": "3949",
+"color": null
+},
+{
+"product": "كنت 3187",
+"family": "kent",
+"name": "3187",
+"color": null
+},
+{
+"product": "كنت 3102",
+"family": "kent",
+"name": "3102",
+"color": null
+},
+{
+"product": "كنت 410",
+"family": "kent",
+"name": "410 T",
+"color": null
+},
+{
+"product": "كنت 414",
+"family": "kent",
+"name": "414 T",
+"color": null
+},
+{
+"product": "كنت 406",
+"family": "kent",
+"name": "406 T",
+"color": null
+},
+{
+"product": "كنت 3191",
+"family": "kent",
+"name": "3191",
+"color": null
+},
+{
+"product": "كنت 3234",
+"family": "kent",
+"name": "3234",
+"color": null
+},
+{
+"product": "كنت 3142",
+"family": "kent",
+"name": "3142",
+"color": null
+},
+{
+"product": "كنت 3061",
+"family": "kent",
+"name": "3061",
+"color": null
+},
+{
+"product": "كنت 3170",
+"family": "kent",
+"name": "3170",
+"color": null
+},
+{
+"product": "كنت 420",
+"family": "kent",
+"name": "420 T",
+"color": null
+},
+{
+"product": "كنت 413",
+"family": "kent",
+"name": "413 T",
+"color": null
+},
+{
+"product": "كنت 3027",
+"family": "kent",
+"name": "3027",
+"color": null
+},
+{
+"product": "كنت 1480",
+"family": "kent",
+"name": "1480",
+"color": null
+},
+{
+"product": "كنت 3141",
+"family": "kent",
+"name": "3141",
+"color": null
+},
+{
+"product": "كنت 879",
+"family": "kent",
+"name": "879 T",
+"color": null
+},
+{
+"product": "(t)كنت 1000",
+"family": "kent",
+"name": "M1000T",
+"color": null
+},
+{
+"product": "(h.g)كنت 1000",
+"family": "kent",
+"name": "M1000 H.G",
+"color": null
+},
+{
+"product": "(t)كنت 800",
+"family": "kent",
+"name": "M800 T",
+"color": null
+},
+{
+"product": "(h.g)كنت 700",
+"family": "kent",
+"name": "M700 H.G",
+"color": null
+},
+{
+"product": "(h.g)كنت 2112",
+"family": "kent",
+"name": "2112 H.G",
+"color": null
+},
+{
+"product": "كنت 1689",
+"family": "kent",
+"name": "1689",
+"color": null
+},
+{
+"product": "كنت 5171",
+"family": "kent",
+"name": "5171",
+"color": null
+},
+{
+"product": "كنت 672",
+"family": "kent",
+"name": "672R",
+"color": null
+},
+{
+"product": "كنت5524",
+"family": "kent",
+"name": "5524",
+"color": null
+},
+{
+"product": "كنت 8588",
+"family": "kent",
+"name": "8588",
+"color": null
+},
+{
+"product": "كنت 670",
+"family": "kent",
+"name": "670R",
+"color": null
+},
+{
+"product": "كنت 1201",
+"family": "kent",
+"name": "1201",
+"color": null
+},
+{
+"product": "كنت5329",
+"family": "kent",
+"name": "5329",
+"color": null
+},
+{
+"product": "كنت 673",
+"family": "kent",
+"name": "673R",
+"color": null
+},
+{
+"product": "كنت ميترو 1098-400 ابيض خشن",
+"family": "kent",
+"name": "1098-400 new",
+"color": null
+},
+{
+"product": "كنت1533",
+"family": "kent",
+"name": "1533",
+"color": null
+},
+{
+"product": "كنت 5550",
+"family": "kent",
+"name": "5550",
+"color": null
+},
+{
+"product": "كنت 396",
+"family": "kent",
+"name": "396 W",
+"color": null
+},
+{
+"product": "كنت 2020",
+"family": "kent",
+"name": "2020",
+"color": null
+},
+{
+"product": "كنت 395",
+"family": "kent",
+"name": "395 W",
+"color": null
+},
+{
+"product": "كنت 1686",
+"family": "kent",
+"name": "1686",
+"color": null
+},
+{
+"product": "كنت 633",
+"family": "kent",
+"name": "633 R",
+"color": null
+},
+{
+"product": "كنت 8204",
+"family": "kent",
+"name": "8204",
+"color": null
+},
+{
+"product": "كنت 1532",
+"family": "kent",
+"name": "1532",
+"color": null
+},
+{
+"product": "كنت 669",
+"family": "kent",
+"name": "669 R",
+"color": null
+},
+{
+"product": "كنت 5327",
+"family": "kent",
+"name": "5327",
+"color": null
+},
+{
+"product": "كنت 3000",
+"family": "kent",
+"name": "3000",
+"color": null
+},
+{
+"product": "كنت 2755",
+"family": "kent",
+"name": "2755",
+"color": null
+},
+{
+"product": "كنت 77427",
+"family": "kent",
+"name": "77427 LE",
+"color": null
+},
+{
+"product": "كنت 5372",
+"family": "kent",
+"name": "5372",
+"color": null
+},
+{
+"product": "كنت 1100",
+"family": "kent",
+"name": "1100",
+"color": null
+},
+{
+"product": "كنت 389",
+"family": "kent",
+"name": "389",
+"color": null
+},
+{
+"product": "كنت 8200",
+"family": "kent",
+"name": "8200 LE",
+"color": null
+},
+{
+"product": "كنت 1200",
+"family": "kent",
+"name": "1200",
+"color": null
+},
+{
+"product": "كنت 77488",
+"family": "kent",
+"name": "77488 LE",
+"color": null
+},
+{
+"product": "كنت 1002",
+"family": "kent",
+"name": "1002",
+"color": null
+},
+{
+"product": "كنت 7180",
+"family": "kent",
+"name": "7180",
+"color": null
+},
+{
+"product": "كنت 5374",
+"family": "kent",
+"name": "5374",
+"color": null
+},
+{
+"product": "كنت 1018",
+"family": "kent",
+"name": "1018",
+"color": null
+},
+{
+"product": "كنت 700",
+"family": "kent",
+"name": "M700 T",
+"color": null
+},
+{
+"product": "كنت 8600",
+"family": "kent",
+"name": "8600",
+"color": null
+},
+{
+"product": "كنت 461",
+"family": "kent",
+"name": "461 C",
+"color": null
+},
+{
+"product": "كنت 6011_9",
+"family": "kent",
+"name": "6011-9",
+"color": null
+},
+{
+"product": "كنت 210",
+"family": "kent",
+"name": "210 C",
+"color": null
+},
+{
+"product": "كنت 6248",
+"family": "kent",
+"name": "6248",
+"color": null
+},
+{
+"product": "كنت 5524",
+"family": "kent",
+"name": "5524",
+"color": null
+},
+{
+"product": "كنت 545",
+"family": "kent",
+"name": "545 C",
+"color": null
+},
+{
+"product": "كنت 460",
+"family": "kent",
+"name": "460 C",
+"color": null
+},
+{
+"product": "كنت 1610",
+"family": "kent",
+"name": "1610",
+"color": null
+},
+{
+"product": "كنت 800",
+"family": "kent",
+"name": "M800",
+"color": null
+}
 ]
+}

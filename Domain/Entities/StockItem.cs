@@ -82,6 +82,10 @@ public class StockItem
         ExtraJson = extraJson;
     }
 
+    /// <summary>Screws and Kent are counted in cartons in the stock files; drawers in single pieces.</summary>
+    public static bool CountsInCartons(string family) => family is "screws" or "kent";
+    public string UnitLabel => CountsInCartons(Family) ? "كرتونة" : "حبة";
+
     public string ColorLabel => Color switch { "white" => "أبيض", "grey" => "سكني", _ => "" };
     public string DisplayName => string.IsNullOrEmpty(ColorLabel) ? Name : $"{Name} — {ColorLabel}";
 }

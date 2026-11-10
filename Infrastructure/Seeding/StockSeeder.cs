@@ -24,6 +24,10 @@ public static class StockSeeder
         string? warehouseLabel, int? warehouse, int? shops, int? ordered, int? onWay, int? total,
         string? qtyText, string? extraJson);
 
+    /// <summary>App product name (as on the warehouse map) → the stock line it is counted in.</summary>
+    private sealed record Link(string product, string family, string name, string? color);
+    private sealed record UpdateFile(List<Row> rows, List<Link>? links);
+
     public static async Task SeedAsync(AppDbContext db, ILogger logger, CancellationToken ct = default)
     {
         if (!await db.StockItems.AnyAsync(ct))
@@ -51,16 +55,19 @@ public static class StockSeeder
 
     private static async Task ApplyUpdateAsync(AppDbContext db, string file, ILogger logger, CancellationToken ct)
     {
-        var rows = await ReadAsync(file, ct);
+        var (rows, links) = await ReadUpdateAsync(file, ct);
         var label = DateLabel(file);
         var items = await db.StockItems.ToListAsync(ct);
-        var byKey = items.ToDictionary(i => Key(i.Family, i.Name, i.Color));
+        // The same code can appear on more than one line (e.g. G-1321200W twice), so lines
+        // with the same key are matched in file order.
+        var byKey = items.OrderBy(i => i.SortOrder).GroupBy(i => Key(i.Family, i.Name, i.Color))
+            .ToDictionary(g => g.Key, g => new Queue<StockItem>(g));
         var nextSort = items.Count == 0 ? 1 : items.Max(i => i.SortOrder) + 1;
         int changed = 0, added = 0;
 
         foreach (var r in rows)
         {
-            if (byKey.TryGetValue(Key(r.family, r.name, r.color), out var item))
+            if (byKey.TryGetValue(Key(r.family, r.name, r.color), out var queue) && queue.TryDequeue(out var item))
             {
                 var same = item.Warehouse == r.warehouse && item.Shops == r.shops && item.Ordered == r.ordered
                            && item.OnWay == r.onWay && item.Total == r.total && item.QtyText == r.qtyText;
@@ -84,9 +91,46 @@ public static class StockSeeder
             }
         }
 
+        // Numbers first, so linking below never moves stock (links only affect future shelf changes)
+        await db.SaveChangesAsync(ct);
+
+        // Link app products to their stock line by name (only products not linked yet)
+        var linked = 0;
+        if (links.Count > 0)
+        {
+            var target = links
+                .GroupBy(l => NormName(l.product))
+                .ToDictionary(g => g.Key, g => g.First());
+            var lines = (await db.StockItems.OrderBy(i => i.SortOrder).ToListAsync(ct))
+                .GroupBy(i => Key(i.Family, i.Name, i.Color))
+                .ToDictionary(g => g.Key, g => g.First());
+            var products = await db.Products.Where(p => p.StockItemId == null).ToListAsync(ct);
+            foreach (var p in products)
+            {
+                if (!target.TryGetValue(NormName(p.Name), out var l)) continue;
+                if (!lines.TryGetValue(Key(l.family, l.name, l.color), out var line)) continue;
+                p.LinkStock(line.Id, "import");
+                linked++;
+            }
+        }
+
         db.StockImports.Add(StockImport.Create(file));
         await db.SaveChangesAsync(ct);
-        logger.LogInformation("Applied {File}: {Changed} stock lines updated, {Added} added", file, changed, added);
+        logger.LogInformation("Applied {File}: {Changed} stock lines updated, {Added} added, {Linked} products linked",
+            file, changed, added, linked);
+    }
+
+    // Same rule the link list was built with: "حرار" typo, spacing and case don't matter
+    private static string NormName(string s) =>
+        System.Text.RegularExpressions.Regex.Replace(s.Replace("حرار", "جرار"), @"\s+", " ").Trim().ToLowerInvariant();
+
+    private static async Task<(List<Row> Rows, List<Link> Links)> ReadUpdateAsync(string file, CancellationToken ct)
+    {
+        await using var stream = typeof(StockSeeder).Assembly.GetManifestResourceStream(ResourcePrefix + file)
+            ?? throw new InvalidOperationException($"{file} is missing from the build.");
+        var doc = await JsonSerializer.DeserializeAsync<UpdateFile>(stream, cancellationToken: ct)
+            ?? throw new InvalidOperationException($"{file} is empty.");
+        return (doc.rows, doc.links ?? new());
     }
 
     private static string Key(string family, string name, string? color) => $"{family}|{name}|{color}";

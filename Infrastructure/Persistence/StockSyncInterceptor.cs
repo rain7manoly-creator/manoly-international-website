@@ -43,26 +43,28 @@ public class StockSyncInterceptor : SaveChangesInterceptor
         var deletedProducts = db.ChangeTracker.Entries<Product>()
             .Where(e => e.State == EntityState.Deleted).Select(e => e.Entity.Id).ToHashSet();
 
-        var changes = new List<(int ProductId, int Delta, string ShelfCode, string Kind)>();
+        var changes = new List<(int ProductId, int Delta, int BundleDelta, string ShelfCode, string Kind)>();
         foreach (var e in db.ChangeTracker.Entries<ShelfInventory>())
         {
             var productId = e.Entity.ProductId;
             if (deletedProducts.Contains(productId)) continue;
 
-            int Units(PropertyValues v) => v.GetValue<int>(nameof(ShelfInventory.BundleCount)) * v.GetValue<int>(nameof(ShelfInventory.UnitsPerBundle));
-            int delta; string kind;
+            int Bundles(PropertyValues v) => v.GetValue<int>(nameof(ShelfInventory.BundleCount));
+            int Units(PropertyValues v) => Bundles(v) * v.GetValue<int>(nameof(ShelfInventory.UnitsPerBundle));
+            int delta, bundleDelta; string kind;
             switch (e.State)
             {
                 case EntityState.Added:
-                    delta = Units(e.CurrentValues); kind = "add"; break;
+                    delta = Units(e.CurrentValues); bundleDelta = Bundles(e.CurrentValues); kind = "add"; break;
                 case EntityState.Deleted:
-                    delta = -Units(e.OriginalValues); kind = "remove"; break;
+                    delta = -Units(e.OriginalValues); bundleDelta = -Bundles(e.OriginalValues); kind = "remove"; break;
                 case EntityState.Modified:
-                    delta = Units(e.CurrentValues) - Units(e.OriginalValues); kind = "edit"; break;
+                    delta = Units(e.CurrentValues) - Units(e.OriginalValues);
+                    bundleDelta = Bundles(e.CurrentValues) - Bundles(e.OriginalValues); kind = "edit"; break;
                 default: continue;
             }
-            if (delta == 0) continue;
-            changes.Add((productId, delta, await ShelfCodeAsync(db, e.Entity, ct), kind));
+            if (delta == 0 && bundleDelta == 0) continue;
+            changes.Add((productId, delta, bundleDelta, await ShelfCodeAsync(db, e.Entity, ct), kind));
         }
         if (changes.Count == 0) return;
 
@@ -85,15 +87,18 @@ public class StockSyncInterceptor : SaveChangesInterceptor
             var link = links.FirstOrDefault(l => l.Id == c.ProductId);
             if (link is null || !items.TryGetValue(link.StockItemId, out var item)) continue;
 
+            // Drawers are counted in pieces (bundles × units); screws and Kent in cartons (bundles)
+            var amount = StockItem.CountsInCartons(item.Family) ? c.BundleDelta : c.Delta;
+            if (amount == 0) continue;
             var before = item.Total;
-            item.ApplyShelfDelta(c.Delta, userId);
+            item.ApplyShelfDelta(amount, userId);
             var verb = c.Kind switch
             {
                 "add" => "وُضع على الرف",
                 "remove" => "حُذف من الرف",
-                _ => c.Delta < 0 ? "أُخذ من الرف" : "زيد على الرف"
+                _ => amount < 0 ? "أُخذ من الرف" : "زيد على الرف"
             };
-            db.StockMovements.Add(StockMovement.Create(item, c.Delta, before, item.Total,
+            db.StockMovements.Add(StockMovement.Create(item, amount, before, item.Total,
                 $"{verb} {c.ShelfCode} — «{link.Name}»", userId, userName));
         }
 

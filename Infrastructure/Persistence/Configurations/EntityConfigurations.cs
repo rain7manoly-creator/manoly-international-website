@@ -306,6 +306,7 @@ public class StockItemConfiguration : IEntityTypeConfiguration<StockItem>
         builder.Navigation(s => s.Movements).UsePropertyAccessMode(PropertyAccessMode.Field);
         builder.Ignore(s => s.ColorLabel);
         builder.Ignore(s => s.DisplayName);
+        builder.Ignore(s => s.UnitLabel);
     }
 }
 
