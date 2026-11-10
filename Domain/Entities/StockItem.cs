@@ -75,6 +75,8 @@ public class StockItem
         UpdatedBy = by;
     }
 
+    public void SetColor(string? color) => Color = color;
+
     /// <summary>Non-numeric quantity and extra file columns, replaced when a newer Excel file is imported.</summary>
     public void SetFileData(string? qtyText, string? extraJson)
     {

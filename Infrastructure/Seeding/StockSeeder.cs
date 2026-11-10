@@ -66,6 +66,24 @@ public static class StockSeeder
             logger.LogWarning("Match with warehouse: {Linked} products linked, {Changed} stock lines set", linked, changed);
         }
 
+        // Metro سلم height 12 is white in the warehouse (the Metro file listed it under سكني):
+        // fix the colour, then link/match again so shelf F39 etc. show in the white column.
+        const string metro12Step = "metro-12-white-2026-11-10";
+        if (!await db.StockImports.AnyAsync(i => i.Name == metro12Step, ct))
+        {
+            var twelve = await db.StockItems.Where(s => s.Family == "metro" && s.Height == 12 && s.Color == "grey").ToListAsync(ct);
+            foreach (var l in twelve)
+            {
+                l.SetColor("white");
+                db.StockMovements.Add(StockMovement.Create(l, null, l.Total, l.Total, "اللون: أبيض (كان «سكني» في ملف ميترو)", null, "تصحيح"));
+            }
+            await db.SaveChangesAsync(ct);
+            var (linked, changed) = await ManolyWarehouse.Application.Services.StockService.MatchWithWarehouseAsync(db, null, "مطابقة", ct);
+            db.StockImports.Add(StockImport.Create(metro12Step));
+            await db.SaveChangesAsync(ct);
+            logger.LogWarning("Metro 12 → white: {Lines} lines; then {Linked} linked, {Changed} set", twelve.Count, linked, changed);
+        }
+
         // Second pass with the wider rule (names like "رول اسفنج 180"): fills only lines still empty
         const string smirdexStep2 = "smirdex-from-area-z-2026-11-10b";
         if (!await db.StockImports.AnyAsync(i => i.Name == smirdexStep2, ct))

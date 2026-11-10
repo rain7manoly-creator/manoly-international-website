@@ -3363,7 +3363,7 @@
 "cell": "H62",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-250mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "warehouse"
 },
@@ -3371,7 +3371,7 @@
 "cell": "I62",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-250mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "shops"
 },
@@ -3379,7 +3379,7 @@
 "cell": "J62",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-250mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "ordered"
 },
@@ -3387,7 +3387,7 @@
 "cell": "K62",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-250mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "total"
 },
@@ -3395,7 +3395,7 @@
 "cell": "L62",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-250mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "onWay"
 },
@@ -3403,7 +3403,7 @@
 "cell": "H63",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-300mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "warehouse"
 },
@@ -3411,7 +3411,7 @@
 "cell": "I63",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-300mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "shops"
 },
@@ -3419,7 +3419,7 @@
 "cell": "J63",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-300mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "ordered"
 },
@@ -3427,7 +3427,7 @@
 "cell": "K63",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-300mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "total"
 },
@@ -3435,7 +3435,7 @@
 "cell": "L63",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-300mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "onWay"
 },
@@ -3443,7 +3443,7 @@
 "cell": "H64",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-350mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "warehouse"
 },
@@ -3451,7 +3451,7 @@
 "cell": "I64",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-350mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "shops"
 },
@@ -3459,7 +3459,7 @@
 "cell": "J64",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-350mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "ordered"
 },
@@ -3467,7 +3467,7 @@
 "cell": "K64",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-350mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "total"
 },
@@ -3475,7 +3475,7 @@
 "cell": "L64",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-350mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "onWay"
 },
@@ -3483,7 +3483,7 @@
 "cell": "H65",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-400mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "warehouse"
 },
@@ -3491,7 +3491,7 @@
 "cell": "I65",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-400mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "shops"
 },
@@ -3499,7 +3499,7 @@
 "cell": "J65",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-400mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "ordered"
 },
@@ -3507,7 +3507,7 @@
 "cell": "K65",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-400mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "total"
 },
@@ -3515,7 +3515,7 @@
 "cell": "L65",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-400mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "onWay"
 },
@@ -3523,7 +3523,7 @@
 "cell": "H66",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-450mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "warehouse"
 },
@@ -3531,7 +3531,7 @@
 "cell": "I66",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-450mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "shops"
 },
@@ -3539,7 +3539,7 @@
 "cell": "J66",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-450mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "ordered"
 },
@@ -3547,7 +3547,7 @@
 "cell": "K66",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-450mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "total"
 },
@@ -3555,7 +3555,7 @@
 "cell": "L66",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-450mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "onWay"
 },
@@ -3563,7 +3563,7 @@
 "cell": "H67",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-500mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "warehouse"
 },
@@ -3571,7 +3571,7 @@
 "cell": "I67",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-500mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "shops"
 },
@@ -3579,7 +3579,7 @@
 "cell": "J67",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-500mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "ordered"
 },
@@ -3587,7 +3587,7 @@
 "cell": "K67",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-500mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "total"
 },
@@ -3595,7 +3595,7 @@
 "cell": "L67",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-500mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "onWay"
 },
@@ -3603,7 +3603,7 @@
 "cell": "H68",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-550mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "warehouse"
 },
@@ -3611,7 +3611,7 @@
 "cell": "I68",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-550mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "shops"
 },
@@ -3619,7 +3619,7 @@
 "cell": "J68",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-550mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "ordered"
 },
@@ -3627,7 +3627,7 @@
 "cell": "K68",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-550mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "total"
 },
@@ -3635,7 +3635,7 @@
 "cell": "L68",
 "family": "metro",
 "name": "جرار Metro سلم عالي 12-550mm",
-"color": "grey",
+"color": "white",
 "occ": 0,
 "field": "onWay"
 },
