@@ -59,7 +59,10 @@ public class ShelfService : IShelfService
                 ProductName = si.Product.Name,
                 CategoryName = si.Product.Category.Name,
                 si.BundleCount,
-                si.UnitsPerBundle
+                si.UnitsPerBundle,
+                si.Product.StockItemId,
+                StockName = si.Product.StockItem == null ? null
+                    : si.Product.StockItem.Name + (si.Product.StockItem.Color == "white" ? " — أبيض" : si.Product.StockItem.Color == "grey" ? " — سكني" : "")
             })
             .ToListAsync(ct);
 
@@ -75,7 +78,9 @@ public class ShelfService : IShelfService
                 ProductName = inv?.ProductName,
                 CategoryName = inv?.CategoryName,
                 BundleCount = inv?.BundleCount ?? 0,
-                UnitsPerBundle = inv?.UnitsPerBundle ?? 0
+                UnitsPerBundle = inv?.UnitsPerBundle ?? 0,
+                StockItemId = inv?.StockItemId,
+                StockName = inv?.StockName
             };
         }).ToList();
 

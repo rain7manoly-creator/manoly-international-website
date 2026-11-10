@@ -63,6 +63,26 @@ public interface IStockService
     Task<StockCheckViewModel> GetCheckAsync(CancellationToken ct = default);
     /// <summary>From the check page: link to an existing line ("line:12") or create a new line ("new:metro").</summary>
     Task<string> ConnectProductAsync(int productId, string target, CancellationToken ct = default);
+    Task<ConnectViewModel?> GetConnectAsync(int productId, CancellationToken ct = default);
+    Task<LinkCandidatesViewModel?> GetLinkCandidatesAsync(int stockItemId, CancellationToken ct = default);
+}
+
+public class ConnectViewModel
+{
+    public int ProductId { get; init; }
+    public string ProductName { get; init; } = default!;
+    public string Where { get; init; } = "";
+    public int? CurrentId { get; init; }
+    public int? SuggestedId { get; init; }
+    public string? GuessFamily { get; init; }
+    public IReadOnlyList<StockItemDto> Lines { get; init; } = Array.Empty<StockItemDto>();
+}
+
+public class LinkCandidatesViewModel
+{
+    public StockItem Item { get; init; } = default!;
+    /// <summary>(Id, Name, Where, LinkedTo) — unlinked products in the warehouse first.</summary>
+    public IReadOnlyList<(int Id, string Name, string Where, string? LinkedTo)> Products { get; init; } = Array.Empty<(int, string, string, string?)>();
 }
 
 public class StockService : IStockService
@@ -443,6 +463,65 @@ public class StockService : IStockService
         }
         await _activityLog.RecordAsync(ActivityArea.Stock, $"ربط «{product.Name}» بمخزون «{line.DisplayName}»", ct);
         return line.DisplayName;
+    }
+
+    public async Task<ConnectViewModel?> GetConnectAsync(int productId, CancellationToken ct = default)
+    {
+        var p = await _db.Products.AsNoTracking().Where(x => x.Id == productId)
+            .Select(x => new
+            {
+                x.Id, x.Name, x.StockItemId,
+                Shelves = x.ShelfInventories.Select(si => si.Shelf.Code).ToList(),
+                InZ = x.AreaZInventories.Any(a => !a.IsDispatched)
+            }).FirstOrDefaultAsync(ct);
+        if (p is null) return null;
+        var lines = await _db.StockItems.AsNoTracking().Where(s => s.QtyText == null && s.Family != "metro-tandem")
+            .OrderBy(s => s.SortOrder).ToListAsync(ct);
+        var suggested = StockMatcher.Match(p.Name, lines);
+        return new ConnectViewModel
+        {
+            ProductId = p.Id, ProductName = p.Name, CurrentId = p.StockItemId, SuggestedId = suggested?.Id,
+            GuessFamily = suggested?.Family ?? GuessFamily(p.Name),
+            Where = string.Join(" ", p.Shelves.Distinct().OrderBy(x => x)) + (p.InZ ? " Area Z" : ""),
+            Lines = lines.Select(l => new StockItemDto { Id = l.Id, Family = l.Family, Name = l.Name, Color = l.Color, Total = l.Total }).ToList()
+        };
+    }
+
+    public async Task<LinkCandidatesViewModel?> GetLinkCandidatesAsync(int stockItemId, CancellationToken ct = default)
+    {
+        var item = await _db.StockItems.AsNoTracking().FirstOrDefaultAsync(s => s.Id == stockItemId, ct);
+        if (item is null) return null;
+        var rows = await _db.Products.AsNoTracking()
+            .Where(p => p.StockItemId != stockItemId && (p.ShelfInventories.Any() || p.AreaZInventories.Any(a => !a.IsDispatched)))
+            .Select(p => new
+            {
+                p.Id, p.Name,
+                Shelves = p.ShelfInventories.Select(si => si.Shelf.Code).ToList(),
+                InZ = p.AreaZInventories.Any(a => !a.IsDispatched),
+                LinkedTo = p.StockItem == null ? null : p.StockItem.Name
+            }).ToListAsync(ct);
+        var fam = item.Family;
+        return new LinkCandidatesViewModel
+        {
+            Item = item,
+            Products = rows
+                .OrderBy(r => r.LinkedTo != null)                       // not connected first
+                .ThenBy(r => GuessFamily(r.Name) == fam ? 0 : 1)         // same family next
+                .ThenBy(r => r.Name)
+                .Select(r => (r.Id, r.Name, string.Join(" ", r.Shelves.Distinct().OrderBy(x => x)) + (r.InZ ? " Area Z" : ""), r.LinkedTo))
+                .ToList()
+        };
+    }
+
+    public static string? GuessFamily(string n)
+    {
+        var x = n.ToLowerInvariant();
+        if (x.Contains("كنت")) return "kent";
+        if (x.Contains("براغي") || x.Contains("برغي")) return "screws";
+        if (x.Contains("حف") || x.Contains("سفنج")) return "smirdex";
+        if (x.Contains("ميترو") || x.Contains("metro")) return "metro";
+        if (System.Text.RegularExpressions.Regex.IsMatch(x, @"\bsh\b")) return "sh";
+        return null;
     }
 
     public async Task<(int Linked, int Changed)> MatchNowAsync(CancellationToken ct = default)

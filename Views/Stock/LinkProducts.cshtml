@@ -1,0 +1,59 @@
+@model ManolyWarehouse.Application.Services.LinkCandidatesViewModel
+@{
+    var s = Model.Item;
+    ViewData["Title"] = "ربط منتج";
+}
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/stock/items/@s.Id" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        @s.DisplayName
+    </a>
+    <p class="eyebrow mb-1">LINK · ربط منتج</p>
+    <h1 class="page-title">أي منتج في المستودع هو هذا الصنف؟</h1>
+    <p class="text-sm text-bark mt-1">اضغط «ربط» على المنتج. رقم الصنف يصبح ما على الرفوف + Area Z.</p>
+</div>
+
+<div class="px-4 pb-3">
+    <input type="text" id="prod-filter" class="form-input" placeholder="ابحث باسم المنتج أو الرف…" autocomplete="off" />
+</div>
+
+<div class="mx-4 card mb-8">
+    @foreach (var p in Model.Products)
+    {
+        <div class="list-item justify-between gap-3" data-p="@(p.Name + " " + p.Where)">
+            <div class="min-w-0">
+                <div class="text-sm font-semibold text-ink">@p.Name</div>
+                <div class="text-xs text-bark-l">
+                    <span dir="ltr">@p.Where</span>
+                    @if (p.LinkedTo != null) { <span> · مرتبط الآن بـ @p.LinkedTo</span> }
+                </div>
+            </div>
+            <form method="post" action="/stock/check/connect" class="shrink-0">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="productId" value="@p.Id" />
+                <input type="hidden" name="target" value="line:@s.Id" />
+                <input type="hidden" name="back" value="/stock/items/@s.Id" />
+                <button type="submit" class="@(p.LinkedTo == null ? "btn-primary" : "btn-secondary") btn-sm">ربط</button>
+            </form>
+        </div>
+    }
+    @if (!Model.Products.Any())
+    {
+        <p class="px-4 py-4 text-sm text-bark">لا توجد منتجات أخرى على الرفوف أو في Area Z.</p>
+    }
+</div>
+
+@section Scripts {
+<script>
+(function () {
+    const f = document.getElementById('prod-filter');
+    const norm = s => s.toLowerCase().replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/[×*]/g, 'x').replace(/\s+/g, ' ');
+    const rows = [...document.querySelectorAll('[data-p]')];
+    f.addEventListener('input', () => {
+        const t = norm(f.value).split(' ').filter(Boolean);
+        rows.forEach(r => r.hidden = !t.every(x => norm(r.dataset.p).includes(x)));
+    });
+})();
+</script>
+}

@@ -56,20 +56,35 @@
 
 @* ── Linked shelf products ─────────────────────────────── *@
 <div class="mx-4 card mb-4">
-    <div class="px-4 py-3 text-sm font-semibold" style="border-bottom:1px solid #E3E4E5">مرتبط بمنتجات على الرفوف</div>
+    <div class="px-4 py-3 text-sm font-semibold flex items-center justify-between gap-2" style="border-bottom:1px solid #E3E4E5">
+        <span>مرتبط بمنتجات على الرفوف</span>
+        @if (isAdmin && s.QtyText == null)
+        {
+            <a href="/stock/items/@s.Id/link" class="btn-secondary btn-sm">+ ربط منتج</a>
+        }
+    </div>
     @if (Model.LinkedProducts.Any())
     {
         foreach (var p in Model.LinkedProducts)
         {
-            <a href="/products/@p.Id" class="list-item text-sm">@p.Name</a>
+            <div class="list-item justify-between gap-2">
+                <a href="/products/@p.Id" class="text-sm min-w-0" style="color:#2F7A4A">● @p.Name</a>
+                @if (isAdmin)
+                {
+                    <form method="post" action="/stock/items/@s.Id/unlink" class="shrink-0" id="unlink-@p.Id">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="productId" value="@p.Id" />
+                        <button type="button" class="btn-ghost btn-sm"
+                                onclick="confirmSubmit('إلغاء الربط', 'لن تتغير الأرقام، لكن تغييرات هذا المنتج على الرفوف لن تصل لهذا الصنف بعد الآن.', 'unlink-@p.Id', 'إلغاء الربط')">إلغاء</button>
+                    </form>
+                }
+            </div>
         }
-        <p class="px-4 pb-3 text-xs text-bark-l">أي تغيير على كمية هذه المنتجات في الرفوف ينزل أو يزيد هنا تلقائياً (@s.UnitLabel).</p>
+        <p class="px-4 pb-3 text-xs text-bark-l">أي تغيير على كمية هذه المنتجات في الرفوف أو Area Z ينزل أو يزيد هنا تلقائياً (@s.UnitLabel).</p>
     }
     else
     {
-        <p class="px-4 py-3 text-sm text-bark">
-            غير مرتبط بعد. لربطه افتح المنتج على الرف ← تعديل المنتج ← «مرتبط بالمخزون».
-        </p>
+        <p class="px-4 py-3 text-sm text-bark">غير مرتبط بعد. اضغط «+ ربط منتج» واختر المنتج من الرفوف.</p>
     }
 </div>
 

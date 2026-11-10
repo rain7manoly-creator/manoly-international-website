@@ -89,6 +89,21 @@
                     <input type="hidden" name="unitsPerBundle" value="@slot.UnitsPerBundle" />
                     <button type="submit" class="btn-primary btn-sm shrink-0" style="height:44px;">حفظ</button>
                 </form>
+                @* Connection to the stock *@
+                <div class="flex items-center justify-between gap-2 mb-3 text-xs">
+                    @if (slot.StockItemId is int sid)
+                    {
+                        <a href="/stock/items/@sid" class="min-w-0 truncate" style="color:#2F7A4A">● مرتبط بالمخزون: <b>@slot.StockName</b></a>
+                    }
+                    else
+                    {
+                        <span class="text-bark">○ غير مرتبط بالمخزون</span>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a href="/stock/connect?productId=@slot.ProductId&back=/shelves/@Model.Code" class="btn-ghost btn-sm shrink-0">@(slot.StockItemId is null ? "ربط بالمخزون" : "تغيير")</a>
+                    }
+                </div>
                 <div class="flex gap-2">
                 <a href="/shelves/@Model.Code/inventory/@slot.InventoryId/edit" class="btn-secondary btn-sm flex-1">تعديل كامل والسجل</a>
                 @if (User.IsInRole("Admin"))

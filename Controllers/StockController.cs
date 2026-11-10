@@ -37,11 +37,43 @@ public class StockController : Controller
     [HttpPost("check/connect")]
     [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Connect(int productId, string target, CancellationToken ct)
+    public async Task<IActionResult> Connect(int productId, string target, string? back, CancellationToken ct)
     {
         var name = await _stock.ConnectProductAsync(productId, target ?? "", ct);
         TempData["SuccessMessage"] = $"تم الربط بـ «{name}».";
+        if (!string.IsNullOrEmpty(back) && Url.IsLocalUrl(back)) return LocalRedirect(back);
         return RedirectToAction(nameof(Check));
+    }
+
+    /// <summary>From a shelf: choose the stock line for one product.</summary>
+    [HttpGet("connect")]
+    [Authorize(Policy = "AdminOnly")]
+    public async Task<IActionResult> ConnectProduct(int productId, string? back, CancellationToken ct)
+    {
+        var model = await _stock.GetConnectAsync(productId, ct);
+        if (model is null) return NotFound();
+        ViewBag.Back = !string.IsNullOrEmpty(back) && Url.IsLocalUrl(back) ? back : "/stock/check";
+        return View("Connect", model);
+    }
+
+    /// <summary>From a stock line: choose products from the shelves / Area Z to count in it.</summary>
+    [HttpGet("items/{id:int}/link")]
+    [Authorize(Policy = "AdminOnly")]
+    public async Task<IActionResult> LinkProducts(int id, CancellationToken ct)
+    {
+        var model = await _stock.GetLinkCandidatesAsync(id, ct);
+        if (model is null) return NotFound();
+        return View("LinkProducts", model);
+    }
+
+    [HttpPost("items/{id:int}/unlink")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Unlink(int id, int productId, CancellationToken ct)
+    {
+        await _stock.LinkProductAsync(productId, null, ct);
+        TempData["SuccessMessage"] = "تم إلغاء الربط.";
+        return RedirectToAction(nameof(Item), new { id });
     }
 
     /// <summary>The team's own stock file (sh · metro · screws · kent), same layout, numbers from the app.</summary>

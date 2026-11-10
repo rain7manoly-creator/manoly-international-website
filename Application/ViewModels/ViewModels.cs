@@ -89,6 +89,9 @@ public class ShelfSlotViewModel
     public int UnitsPerBundle { get; init; }
     public int TotalQuantity => BundleCount * UnitsPerBundle;
     public bool IsEmpty => InventoryId == null;
+    /// <summary>The stock line this product is counted in (null = not connected).</summary>
+    public int? StockItemId { get; init; }
+    public string? StockName { get; init; }
 }
 
 /// <summary>Full quantity history for one shelf slot — shown on the edit page.</summary>
