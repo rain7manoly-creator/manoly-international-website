@@ -1,17 +1,31 @@
-@{ ViewData["Title"] = "إضافة إلى منطقة Z"; }
+@{
+    ViewData["Title"] = "إضافة إلى Area Z";
+    var warehouses = (IReadOnlyList<ManolyWarehouse.Application.ViewModels.AreaZWarehouseViewModel>)ViewBag.Warehouses;
+    var selected = (ViewBag.WarehouseId as int?) ?? warehouses.FirstOrDefault()?.Id;
+}
 
 <div class="px-4 pt-5 pb-3">
     <a href="/area-z" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-        AREA Z · منطقة Z
+        AREA Z
     </a>
     <p class="eyebrow mb-1">ADD · إضافة</p>
-    <h1 class="font-display text-2xl text-ink">إضافة إلى منطقة Z</h1>
+    <h1 class="page-title">إضافة إلى Area Z</h1>
 </div>
 
 <div class="mx-4 card p-5 mb-6">
     <form asp-action="Add" method="post" class="flex flex-col gap-5">
         @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label class="form-label" for="warehouseId">المستودع · WAREHOUSE</label>
+            <select name="warehouseId" id="warehouseId" class="form-select" required>
+                @foreach (var w in warehouses)
+                {
+                    <option value="@w.Id" selected="@(w.Id == selected)">@w.Name</option>
+                }
+            </select>
+        </div>
 
         <div class="form-group" style="position:relative;">
             <label class="form-label">المنتج · PRODUCT</label>
@@ -58,7 +72,7 @@
             <textarea name="notes" class="form-input" rows="2" placeholder="ملاحظات..."></textarea>
         </div>
 
-        <button type="submit" class="btn-primary w-full">إضافة إلى منطقة Z</button>
+        <button type="submit" class="btn-primary w-full">إضافة</button>
         <a href="/area-z" class="btn-secondary w-full text-center">إلغاء</a>
     </form>
 </div>

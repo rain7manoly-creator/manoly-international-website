@@ -196,14 +196,47 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("character varying(450)");
 
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId")
+                        .HasDatabaseName("IX_AreaZInventory_ProductId");
+
+                    b.HasIndex("WarehouseId", "ProductId")
                         .IsUnique()
-                        .HasDatabaseName("IX_AreaZInventory_ProductId_Active")
+                        .HasDatabaseName("IX_AreaZInventory_Warehouse_Product_Active")
                         .HasFilter("\"IsDispatched\" = false");
 
                     b.ToTable("AreaZInventory", (string)null);
+                });
+
+            modelBuilder.Entity("ManolyWarehouse.Domain.Entities.AreaZWarehouse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("AreaZWarehouses", (string)null);
                 });
 
             modelBuilder.Entity("ManolyWarehouse.Domain.Entities.Category", b =>
@@ -4582,7 +4615,15 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("ManolyWarehouse.Domain.Entities.AreaZWarehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Product");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("ManolyWarehouse.Domain.Entities.InventoryAdjustmentLog", b =>

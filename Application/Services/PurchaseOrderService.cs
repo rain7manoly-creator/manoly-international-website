@@ -412,8 +412,11 @@ public class PurchaseOrderService : IPurchaseOrderService
 
                 // AREAZ-01: if an active row exists for this product, increase it;
                 // otherwise create a new row. The partial unique index keeps us honest.
+                // Orders received into Area Z go to the first Area Z warehouse
+                var warehouseId = await _db.AreaZWarehouses.OrderBy(w => w.SortOrder).ThenBy(w => w.Id)
+                    .Select(w => w.Id).FirstAsync(ct);
                 var existing = await _db.AreaZInventory
-                    .FirstOrDefaultAsync(az => az.ProductId == item.ProductId && !az.IsDispatched, ct);
+                    .FirstOrDefaultAsync(az => az.ProductId == item.ProductId && az.WarehouseId == warehouseId && !az.IsDispatched, ct);
 
                 if (existing != null)
                 {
@@ -426,7 +429,7 @@ public class PurchaseOrderService : IPurchaseOrderService
                 else
                 {
                     var entry = AreaZInventory.Create(
-                        item.ProductId, item.BundleCount, item.UnitsPerBundle, userId);
+                        item.ProductId, item.BundleCount, item.UnitsPerBundle, userId, warehouseId);
                     _db.AreaZInventory.Add(entry);
                 }
 

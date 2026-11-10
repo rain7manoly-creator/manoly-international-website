@@ -93,19 +93,25 @@ public class PurchaseOrderServiceStub : IPurchaseOrderService
 
 public class AreaZServiceStub : IAreaZService
 {
-    public Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(int page, int pageSize, CancellationToken ct = default)
-        => Task.FromResult(new PagedResult<AreaZItemViewModel> { Page = page, PageSize = pageSize });
-    public Task<AreaZItemViewModel?> GetByIdAsync(int id, CancellationToken ct = default)
-        => Task.FromResult<AreaZItemViewModel?>(null);
-    public Task<int> AddAsync(int productId, int bundleCount, int unitsPerBundle, string? notes, CancellationToken ct = default)
+    public Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(int page, int pageSize, int? warehouseId = null, CancellationToken ct = default)
         => throw new StubException(nameof(IAreaZService));
-    public Task UpdateAsync(int id, int bundleCount, int unitsPerBundle, string? notes, CancellationToken ct = default)
+    public Task<AreaZItemViewModel?> GetByIdAsync(int id, CancellationToken ct = default)
+        => throw new StubException(nameof(IAreaZService));
+    public Task<int> AddAsync(int productId, int bundleCount, int unitsPerBundle, string? notes, int warehouseId, CancellationToken ct = default)
+        => throw new StubException(nameof(IAreaZService));
+    public Task UpdateAsync(int id, int bundleCount, int unitsPerBundle, string? notes, int? warehouseId = null, CancellationToken ct = default)
         => throw new StubException(nameof(IAreaZService));
     public Task DispatchAsync(int id, CancellationToken ct = default)
         => throw new StubException(nameof(IAreaZService));
     public Task DeleteAsync(int id, CancellationToken ct = default)
         => throw new StubException(nameof(IAreaZService));
     public Task MoveToShelfAsync(int areaZId, int shelfId, int position, CancellationToken ct = default)
+        => throw new StubException(nameof(IAreaZService));
+    public Task<IReadOnlyList<AreaZWarehouseViewModel>> ListWarehousesAsync(CancellationToken ct = default)
+        => throw new StubException(nameof(IAreaZService));
+    public Task<int> CreateWarehouseAsync(string name, CancellationToken ct = default)
+        => throw new StubException(nameof(IAreaZService));
+    public Task RenameWarehouseAsync(int id, string name, CancellationToken ct = default)
         => throw new StubException(nameof(IAreaZService));
 }
 

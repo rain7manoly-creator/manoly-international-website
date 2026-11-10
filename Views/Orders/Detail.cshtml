@@ -173,7 +173,7 @@
                             </div>
                             @if (item.IsShelved)
                             {
-                                <span class="badge-received shrink-0">✓ @(item.GoesToAreaZ ? "منطقة Z" : item.ReceivedShelfCode)</span>
+                                <span class="badge-received shrink-0">✓ @(item.GoesToAreaZ ? "Area Z" : item.ReceivedShelfCode)</span>
                             }
                             else if (Model.Status == OrderStatus.Received)
                             {
@@ -186,7 +186,7 @@
                                 <button onclick="showReceiveShelf(@item.Id)" class="btn-primary btn-sm flex-1">→ رف</button>
                                 <form asp-action="ReceiveToAreaZ" asp-route-id="@Model.Id" asp-route-itemId="@item.Id" method="post" class="flex-1">
                                     @Html.AntiForgeryToken()
-                                    <button type="submit" class="btn-secondary btn-sm w-full">→ منطقة Z</button>
+                                    <button type="submit" class="btn-secondary btn-sm w-full">→ Area Z</button>
                                 </form>
                             </div>
                         }

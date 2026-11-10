@@ -85,7 +85,7 @@ public class StockSyncInterceptor : SaveChangesInterceptor
                 default: continue;
             }
             if (delta == 0 && bundleDelta == 0) continue;
-            changes.Add((productId, delta, bundleDelta, "منطقة Z", kind));
+            changes.Add((productId, delta, bundleDelta, "Area Z", kind));
         }
 
         if (changes.Count == 0) return;

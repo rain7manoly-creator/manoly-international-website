@@ -268,6 +268,16 @@ public class AreaZItemViewModel
     public string? Notes { get; init; }
     public DateTime EnteredAt { get; init; }
     public string EnteredBy { get; init; } = default!;
+    public int WarehouseId { get; init; }
+    public string WarehouseName { get; init; } = default!;
+}
+
+/// <summary>A warehouse inside Area Z with how many products are in it right now.</summary>
+public class AreaZWarehouseViewModel
+{
+    public int Id { get; init; }
+    public string Name { get; init; } = default!;
+    public int ActiveCount { get; init; }
 }
 
 // ─── Activity Log ──────────────────────────────────────────────────────

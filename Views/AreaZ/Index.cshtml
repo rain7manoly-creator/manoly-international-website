@@ -1,23 +1,45 @@
 @model ManolyWarehouse.Application.ViewModels.PagedResult<ManolyWarehouse.Application.ViewModels.AreaZItemViewModel>
 @{
-    ViewData["Title"] = "منطقة Z";
-    var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, "/area-z");
+    ViewData["Title"] = "Area Z";
+    var warehouses = (IReadOnlyList<ManolyWarehouse.Application.ViewModels.AreaZWarehouseViewModel>)ViewBag.Warehouses;
+    var current = ViewBag.WarehouseId as int?;
+    var currentName = warehouses.FirstOrDefault(w => w.Id == current)?.Name;
+    var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, current is null ? "/area-z" : $"/area-z?w={current}");
+    var isAdmin = User.IsInRole("Admin");
 }
 
-<div class="px-4 pt-5 pb-3 flex items-end justify-between">
-    <div>
-        <p class="eyebrow mb-1">STAGING AREA · منطقة Z</p>
-        <h1 class="font-display text-3xl text-ink">منطقة Z</h1>
+<div class="px-4 pt-5 pb-3 flex items-end justify-between gap-3">
+    <div class="min-w-0">
+        <p class="eyebrow mb-1">INSIDE COMPANY WAREHOUSES · مستودعات داخل الشركة</p>
+        <h1 class="page-title">Area Z</h1>
+        <p class="text-sm text-bark mt-0.5">(Inside company Warehouses)</p>
     </div>
-    <a href="/area-z/add" class="btn-primary btn-sm">+ إضافة</a>
+    <a href="/area-z/add@(current is null ? "" : $"?w={current}")" class="btn-primary btn-sm shrink-0">+ إضافة</a>
+</div>
+
+@* ── Warehouses inside Area Z ─────────────────────────────── *@
+<div class="az-chips" role="group" aria-label="المستودعات">
+    <a href="/area-z" class="az-chip" aria-current="@(current is null ? "true" : "false")">
+        الكل <span>@warehouses.Sum(w => w.ActiveCount)</span>
+    </a>
+    @foreach (var w in warehouses)
+    {
+        <a href="/area-z?w=@w.Id" class="az-chip" aria-current="@(current == w.Id ? "true" : "false")">
+            @w.Name <span>@w.ActiveCount</span>
+        </a>
+    }
+    @if (isAdmin)
+    {
+        <a href="/area-z/warehouses" class="az-chip add">+ مستودع</a>
+    }
 </div>
 
 @if (!Model.Items.Any())
 {
     <div class="empty-state">
         <div class="empty-state-icon">📦</div>
-        <h2 class="empty-state-title">منطقة Z فارغة</h2>
-        <p class="empty-state-desc">لا توجد منتجات في منطقة الانتظار</p>
+        <h2 class="empty-state-title">@(currentName is null ? "Area Z فارغة" : $"{currentName} فارغ")</h2>
+        <p class="empty-state-desc">لا توجد منتجات هنا بعد. اضغط «+ إضافة» لإدخال أول منتج.</p>
     </div>
 }
 else
@@ -26,21 +48,25 @@ else
         @foreach (var item in Model.Items)
         {
             <a href="/area-z/@item.Id" class="list-item items-start flex-col gap-1">
-                <div class="flex items-center justify-between w-full">
-                    <span class="font-display text-base text-ink">@item.ProductName</span>
-                    <div class="text-left">
-                        <span class="font-display text-lg text-ink">@item.BundleCount</span>
+                <div class="flex items-center justify-between w-full gap-3">
+                    <span class="text-base font-semibold text-ink">@item.ProductName</span>
+                    <div class="text-left shrink-0">
+                        <span class="history-qty" style="font-size:18px">@item.BundleCount</span>
                         <span class="text-xs text-bark-l"> ربطة</span>
                     </div>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 flex-wrap">
+                    @if (current is null)
+                    {
+                        <span class="az-tag">@item.WarehouseName</span>
+                    }
                     <span class="text-xs text-bark-l">@item.CategoryName</span>
                     <span class="text-xs text-bark-l">@item.TotalQuantity وحدة</span>
                     <span class="text-xs text-bark-l font-ui">@item.EnteredAt.ToLocal().ToString("yyyy/MM/dd")</span>
                 </div>
                 @if (!string.IsNullOrEmpty(item.Notes))
                 {
-                    <p class="text-xs text-bark-l italic">@item.Notes</p>
+                    <p class="text-xs text-bark-l">@item.Notes</p>
                 }
             </a>
         }
@@ -48,3 +74,16 @@ else
 
     <partial name="_Pagination" model="pager" />
 }
+
+<style>
+    .az-chips { display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; padding:0 16px 14px; }
+    .az-chips::-webkit-scrollbar { display:none; }
+    .az-chip { flex:none; display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:#111;
+               background:#fff; border:1px solid #E3E4E5; border-radius:999px; padding:6px 13px; min-height:34px; white-space:nowrap; }
+    .az-chip span { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:11px; color:#A7A9AC; }
+    .az-chip[aria-current="true"] { background:#CA292E; border-color:#CA292E; color:#fff; }
+    .az-chip[aria-current="true"] span { color:#FBECEC; }
+    .az-chip.add { border-style:dashed; color:#58595B; }
+    .az-chip.add:hover { color:#CA292E; border-color:#CA292E; }
+    .az-tag { font-size:11px; font-weight:600; padding:1px 8px; border-radius:5px; background:#F1F1F2; color:#58595B; }
+</style>

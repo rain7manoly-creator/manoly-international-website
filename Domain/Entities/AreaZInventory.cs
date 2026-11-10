@@ -7,6 +7,8 @@ public class AreaZInventory : AuditableEntity
     public int Id { get; private set; }
     public int ProductId { get; private set; }
     public Product Product { get; private set; } = default!;
+    public int WarehouseId { get; private set; }
+    public AreaZWarehouse Warehouse { get; private set; } = default!;
     public int BundleCount { get; private set; }
     public int UnitsPerBundle { get; private set; }
     public string? Notes { get; private set; }
@@ -20,11 +22,12 @@ public class AreaZInventory : AuditableEntity
 
     public static AreaZInventory Create(
         int productId, int bundleCount, int unitsPerBundle,
-        string enteredBy, string? notes = null)
+        string enteredBy, int warehouseId, string? notes = null)
     {
         var entry = new AreaZInventory
         {
             ProductId = productId,
+            WarehouseId = warehouseId,
             BundleCount = bundleCount,
             UnitsPerBundle = unitsPerBundle,
             Notes = notes,
@@ -39,6 +42,12 @@ public class AreaZInventory : AuditableEntity
         BundleCount = bundleCount;
         UnitsPerBundle = unitsPerBundle;
         Notes = notes;
+        SetUpdated(updatedBy);
+    }
+
+    public void MoveToWarehouse(int warehouseId, string updatedBy)
+    {
+        WarehouseId = warehouseId;
         SetUpdated(updatedBy);
     }
 

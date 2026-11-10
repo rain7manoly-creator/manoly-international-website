@@ -175,6 +175,7 @@ public class AreaZInventoryConfiguration : IEntityTypeConfiguration<AreaZInvento
         builder.Property(az => az.UpdatedBy).HasMaxLength(450);
 
         builder.HasIndex(az => az.ProductId).HasDatabaseName("IX_AreaZInventory_ProductId");
+        builder.HasOne(az => az.Warehouse).WithMany().HasForeignKey(az => az.WarehouseId).OnDelete(DeleteBehavior.Restrict);
 
         // AREAZ-01 partial unique index applied in DbContext (PostgreSQL HasFilter)
 
@@ -331,5 +332,16 @@ public class StockImportConfiguration : IEntityTypeConfiguration<StockImport>
         builder.HasKey(i => i.Id);
         builder.Property(i => i.Name).HasMaxLength(100).IsRequired();
         builder.HasIndex(i => i.Name).IsUnique();
+    }
+}
+
+public class AreaZWarehouseConfiguration : IEntityTypeConfiguration<AreaZWarehouse>
+{
+    public void Configure(EntityTypeBuilder<AreaZWarehouse> builder)
+    {
+        builder.ToTable("AreaZWarehouses");
+        builder.HasKey(w => w.Id);
+        builder.Property(w => w.Name).HasMaxLength(100).IsRequired();
+        builder.HasIndex(w => w.Name).IsUnique();
     }
 }

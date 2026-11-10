@@ -24,6 +24,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>, IDataProtectionK
     public DbSet<StockItem> StockItems => Set<StockItem>();
     public DbSet<StockMovement> StockMovements => Set<StockMovement>();
     public DbSet<StockImport> StockImports => Set<StockImport>();
+    public DbSet<AreaZWarehouse> AreaZWarehouses => Set<AreaZWarehouse>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -41,12 +42,12 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>, IDataProtectionK
         builder.Entity<Microsoft.AspNetCore.Identity.IdentityUserToken<string>>().ToTable("UserTokens");
         builder.Entity<Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>>().ToTable("RoleClaims");
 
-        // AREAZ-01: PostgreSQL partial unique index — one active row per product
+        // AREAZ-01: PostgreSQL partial unique index — one active row per product in each Area Z warehouse
         builder.Entity<AreaZInventory>()
-            .HasIndex(az => az.ProductId)
+            .HasIndex(az => new { az.WarehouseId, az.ProductId })
             .HasFilter("\"IsDispatched\" = false")
             .IsUnique()
-            .HasDatabaseName("IX_AreaZInventory_ProductId_Active");
+            .HasDatabaseName("IX_AreaZInventory_Warehouse_Product_Active");
 
         SeedShelves(builder);
     }

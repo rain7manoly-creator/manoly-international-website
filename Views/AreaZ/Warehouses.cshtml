@@ -1,0 +1,37 @@
+@model IReadOnlyList<ManolyWarehouse.Application.ViewModels.AreaZWarehouseViewModel>
+@{ ViewData["Title"] = "مستودعات Area Z"; }
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/area-z" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        AREA Z
+    </a>
+    <p class="eyebrow mb-1">WAREHOUSES · المستودعات</p>
+    <h1 class="page-title">مستودعات داخل الشركة</h1>
+</div>
+
+@* ── New warehouse ─────────────────────────────────────── *@
+<div class="mx-4 card p-5 mb-5">
+    <form action="/area-z/warehouses" method="post" class="flex flex-col gap-3">
+        @Html.AntiForgeryToken()
+        <label class="form-label" for="new-name">مستودع جديد</label>
+        <input type="text" id="new-name" name="name" class="form-input" maxlength="100" placeholder="مثلاً: Blum Warehouse" required />
+        <button type="submit" class="btn-primary w-full">إنشاء المستودع</button>
+    </form>
+</div>
+
+@* ── Existing warehouses (rename) ──────────────────────── *@
+<div class="px-4 mb-2"><h2 class="section-title">المستودعات الحالية</h2></div>
+<div class="mx-4 card mb-6">
+    @foreach (var w in Model)
+    {
+        <form action="/area-z/warehouses/@w.Id/rename" method="post" class="flex items-end gap-2 px-4 py-3" style="border-top:1px solid #E3E4E5">
+            @Html.AntiForgeryToken()
+            <div class="flex-1 min-w-0">
+                <label class="text-xs text-bark-l" for="w-@w.Id"><a href="/area-z?w=@w.Id" class="hover:text-brand">@w.ActiveCount منتج · عرض</a></label>
+                <input type="text" id="w-@w.Id" name="name" value="@w.Name" class="form-input" maxlength="100" required />
+            </div>
+            <button type="submit" class="btn-secondary btn-sm shrink-0" style="height:44px">حفظ الاسم</button>
+        </form>
+    }
+</div>
