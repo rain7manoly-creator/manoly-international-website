@@ -55,6 +55,11 @@ public static class StockSeeder
         const string smirdexStep = "smirdex-from-area-z-2026-11-10";
         if (!await db.StockImports.AnyAsync(i => i.Name == smirdexStep, ct))
             await FillSmirdexFromAreaZAsync(db, smirdexStep, logger, ct);
+
+        // Second pass with the wider rule (names like "رول اسفنج 180"): fills only lines still empty
+        const string smirdexStep2 = "smirdex-from-area-z-2026-11-10b";
+        if (!await db.StockImports.AnyAsync(i => i.Name == smirdexStep2, ct))
+            await FillSmirdexFromAreaZAsync(db, smirdexStep2, logger, ct, onlyEmpty: true);
     }
 
     private static async Task ApplyUpdateAsync(AppDbContext db, string file, ILogger logger, CancellationToken ct)
@@ -146,17 +151,20 @@ public static class StockSeeder
     /// A product counts as Smirdex when its name mentions حف / smirdex / سميردكس / سنفرة;
     /// اسفنج or رول in the name means a sponge roll; the grit (P40, 120 …) picks the line.
     /// </summary>
-    private static async Task FillSmirdexFromAreaZAsync(AppDbContext db, string step, ILogger logger, CancellationToken ct)
+    private static async Task FillSmirdexFromAreaZAsync(AppDbContext db, string step, ILogger logger, CancellationToken ct,
+        bool onlyEmpty = false)
     {
         var lines = await db.StockItems.Where(s => s.Family == "smirdex").ToListAsync(ct);
+        var allLines = lines;
+        if (onlyEmpty) lines = lines.Where(l => l.Total == null).ToList();
         var entries = await db.AreaZInventory.Where(a => !a.IsDispatched)
             .Select(a => new { a.ProductId, a.Product.Name, a.BundleCount }).ToListAsync(ct);
 
         var sums = new Dictionary<StockItem, (int Cartons, List<string> Names, HashSet<int> Products)>();
         foreach (var e in entries)
         {
-            var line = MatchSmirdex(e.Name, lines);
-            if (line is null) continue;
+            var line = MatchSmirdex(e.Name, allLines);
+            if (line is null || !lines.Contains(line)) continue;
             if (!sums.TryGetValue(line, out var acc)) acc = (0, new List<string>(), new HashSet<int>());
             acc.Cartons += e.BundleCount;
             if (!acc.Names.Contains(e.Name)) acc.Names.Add(e.Name);
@@ -185,9 +193,11 @@ public static class StockSeeder
         var n = productName.ToLowerInvariant();
         foreach (var (ar, d) in new[] { ('٠', '0'), ('١', '1'), ('٢', '2'), ('٣', '3'), ('٤', '4'), ('٥', '5'), ('٦', '6'), ('٧', '7'), ('٨', '8'), ('٩', '9') })
             n = n.Replace(ar, d);
-        var isSmirdex = n.Contains("حف") || n.Contains("smirdex") || n.Contains("سميردكس") || n.Contains("سمردكس") || n.Contains("سنفر");
+        var sponge = n.Contains("سفنج") || n.Contains("sponge");   // اسفنج / إسفنج / اسفنجة
+        var isSmirdex = sponge || n.Contains("حف") || n.Contains("smirdex") || n.Contains("سميردكس")
+                        || n.Contains("سمردكس") || n.Contains("سنفر");
         if (!isSmirdex) return null;
-        var sponge = n.Contains("اسفنج") || n.Contains("رول") || n.Contains("sponge");
+        sponge = sponge || n.Contains("رول");
 
         // Prefer an explicit "P120"; otherwise the first number that is a known grit
         int? grit = null;
