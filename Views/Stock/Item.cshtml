@@ -82,10 +82,8 @@
             @Html.AntiForgeryToken()
             @if (hasWarehouse)
             {
-                <div class="form-group">
-                    <label class="form-label" for="warehouse">@(s.WarehouseLabel ?? "المخزن")</label>
-                    <input type="number" id="warehouse" name="warehouse" value="@s.Warehouse" class="form-input" inputmode="numeric" data-feeds-total />
-                </div>
+                @* The warehouse number comes from the shelves + Area Z, so it isn't typed here *@
+                <input type="hidden" name="warehouse" value="@s.Warehouse" />
                 <div class="form-group">
                     <label class="form-label" for="shops">محلات</label>
                     <input type="number" id="shops" name="shops" value="@s.Shops" class="form-input" inputmode="numeric" data-feeds-total />

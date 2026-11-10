@@ -416,7 +416,7 @@ public class StockService : IStockService
             var family = target[4..];
             var sort = (await _db.StockItems.MaxAsync(s => (int?)s.SortOrder, ct) ?? 0) + 1;
             line = StockItem.Create(family, product.Name.Trim(), null, "أخرى", null, null, sort,
-                family is "metro" or "sh" ? "مخازن رين" : null, family is "metro" or "sh" ? 0 : null, null, null, null, 0, null, null);
+                null, family is "metro" or "sh" ? 0 : null, null, null, null, 0, null, null);
             _db.StockItems.Add(line);
             await _db.SaveChangesAsync(ct);
         }
