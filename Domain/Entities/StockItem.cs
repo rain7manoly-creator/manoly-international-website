@@ -75,6 +75,13 @@ public class StockItem
         UpdatedBy = by;
     }
 
+    /// <summary>Non-numeric quantity and extra file columns, replaced when a newer Excel file is imported.</summary>
+    public void SetFileData(string? qtyText, string? extraJson)
+    {
+        QtyText = qtyText;
+        ExtraJson = extraJson;
+    }
+
     public string ColorLabel => Color switch { "white" => "أبيض", "grey" => "سكني", _ => "" };
     public string DisplayName => string.IsNullOrEmpty(ColorLabel) ? Name : $"{Name} — {ColorLabel}";
 }
@@ -105,4 +112,15 @@ public class StockMovement
             Reason = reason, UserId = userId, UserName = userName, CreatedAt = DateTime.UtcNow
         };
     }
+}
+
+/// <summary>Marks a stock update file as applied, so each Excel update is loaded exactly once.</summary>
+public class StockImport
+{
+    public int Id { get; private set; }
+    public string Name { get; private set; } = default!;
+    public DateTime AppliedAt { get; private set; }
+
+    private StockImport() { }
+    public static StockImport Create(string name) => new() { Name = name, AppliedAt = DateTime.UtcNow };
 }

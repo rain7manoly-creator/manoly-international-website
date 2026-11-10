@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Infrastructure\Seeding\stock-seed.json" />
+    <EmbeddedResource Include="Infrastructure\Seeding\stock-update-*.json" />
   </ItemGroup>
 
   <ItemGroup>

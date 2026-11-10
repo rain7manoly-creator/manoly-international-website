@@ -1,0 +1,2648 @@
+[
+{
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "white",
+"warehouse": 2034,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 2034,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro واطي 84-350mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 50,
+"onWay": null,
+"total": 0,
+"extraJson": "{\"New Order 2 9-11-2026\": 50}"
+},
+{
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "white",
+"warehouse": 258,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 258,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro واطي 84-400mm",
+"color": "grey",
+"warehouse": 42,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 42,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "white",
+"warehouse": 432,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 432,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro واطي 84-450mm",
+"color": "grey",
+"warehouse": 6,
+"shops": null,
+"ordered": 50,
+"onWay": null,
+"total": 6,
+"extraJson": "{\"New Order 2 9-11-2026\": 50}"
+},
+{
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "white",
+"warehouse": 108,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 108,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro واطي 84-500mm",
+"color": "grey",
+"warehouse": 894,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 894,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "white",
+"warehouse": 522,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 522,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro واطي 84-550mm",
+"color": "grey",
+"warehouse": 114,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 114,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "white",
+"warehouse": 150,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 150,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-350mm",
+"color": "grey",
+"warehouse": 54,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 54,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "white",
+"warehouse": 54,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 54,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-400mm",
+"color": "grey",
+"warehouse": 114,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 114,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "white",
+"warehouse": 264,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 264,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-450mm",
+"color": "grey",
+"warehouse": 222,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 222,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "white",
+"warehouse": 420,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 420,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-500mm",
+"color": "grey",
+"warehouse": 402,
+"shops": null,
+"ordered": null,
+"onWay": 300,
+"total": 402,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "white",
+"warehouse": 108,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 108,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro عالي مع ماسورة 167-550mm",
+"color": "grey",
+"warehouse": 288,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 288,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-250mm",
+"color": "white",
+"warehouse": null,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": null,
+"extraJson": "{\"New Order 1\": 100}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-300mm",
+"color": "white",
+"warehouse": null,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": null,
+"extraJson": "{\"New Order 1\": 100}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "white",
+"warehouse": 0,
+"shops": null,
+"ordered": 300,
+"onWay": null,
+"total": 0,
+"extraJson": "{\"New Order 2 9-11-2026\": 300}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-350mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 200,
+"onWay": null,
+"total": 0,
+"extraJson": "{\"New Order 2 9-11-2026\": 200}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "white",
+"warehouse": 198,
+"shops": null,
+"ordered": 150,
+"onWay": null,
+"total": 198,
+"extraJson": "{\"New Order 2 9-11-2026\": 150}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-400mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 250,
+"onWay": 54,
+"total": 0,
+"extraJson": "{\"New Order 2 9-11-2026\": 250}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "white",
+"warehouse": 386,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 386,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-450mm",
+"color": "grey",
+"warehouse": 114,
+"shops": null,
+"ordered": 250,
+"onWay": null,
+"total": 114,
+"extraJson": "{\"New Order 2 9-11-2026\": 250}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "white",
+"warehouse": 66,
+"shops": null,
+"ordered": 900,
+"onWay": 500,
+"total": 66,
+"extraJson": "{\"New Order 1\": 300, \"New Order 2 9-11-2026\": 600}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-500mm",
+"color": "grey",
+"warehouse": 486,
+"shops": null,
+"ordered": null,
+"onWay": 300,
+"total": 486,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "white",
+"warehouse": 450,
+"shops": null,
+"ordered": 200,
+"onWay": null,
+"total": 450,
+"extraJson": "{\"New Order 2 9-11-2026\": 200}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم واطي 84-550mm",
+"color": "grey",
+"warehouse": 42,
+"shops": null,
+"ordered": 300,
+"onWay": null,
+"total": 42,
+"extraJson": "{\"New Order 2 9-11-2026\": 300}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-250mm",
+"color": "white",
+"warehouse": null,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": null,
+"extraJson": "{\"New Order 1\": 100}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-300mm",
+"color": "white",
+"warehouse": null,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": null,
+"extraJson": "{\"New Order 1\": 100}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "white",
+"warehouse": 140,
+"shops": null,
+"ordered": 250,
+"onWay": null,
+"total": 140,
+"extraJson": "{\"New Order 1\": 150, \"New Order 2 9-11-2026\": 100}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-350mm",
+"color": "grey",
+"warehouse": 50,
+"shops": null,
+"ordered": 50,
+"onWay": null,
+"total": 50,
+"extraJson": "{\"New Order 2 9-11-2026\": 50}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "white",
+"warehouse": 0,
+"shops": null,
+"ordered": 300,
+"onWay": null,
+"total": 0,
+"extraJson": "{\"New Order 2 9-11-2026\": 300}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-400mm",
+"color": "grey",
+"warehouse": 50,
+"shops": null,
+"ordered": 50,
+"onWay": null,
+"total": 50,
+"extraJson": "{\"New Order 2 9-11-2026\": 50}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "white",
+"warehouse": 250,
+"shops": null,
+"ordered": 200,
+"onWay": null,
+"total": 250,
+"extraJson": "{\"New Order 2 9-11-2026\": 200}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-450mm",
+"color": "grey",
+"warehouse": 80,
+"shops": null,
+"ordered": 50,
+"onWay": null,
+"total": 80,
+"extraJson": "{\"New Order 2 9-11-2026\": 50}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "white",
+"warehouse": 1355,
+"shops": null,
+"ordered": 900,
+"onWay": 1025,
+"total": 1355,
+"extraJson": "{\"New Order 1\": 500, \"New Order 2 9-11-2026\": 400}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-500mm",
+"color": "grey",
+"warehouse": 220,
+"shops": null,
+"ordered": 200,
+"onWay": null,
+"total": 220,
+"extraJson": "{\"New Order 2 9-11-2026\": 200}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "white",
+"warehouse": 470,
+"shops": null,
+"ordered": 500,
+"onWay": 400,
+"total": 470,
+"extraJson": "{\"New Order 1\": 200, \"New Order 2 9-11-2026\": 300}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 167-550mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 300,
+"onWay": null,
+"total": 0,
+"extraJson": "{\"New Order 2 9-11-2026\": 300}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "white",
+"warehouse": 48,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 48,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-350mm",
+"color": "grey",
+"warehouse": 62,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 62,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "white",
+"warehouse": 92,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 92,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-400mm",
+"color": "grey",
+"warehouse": 52,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 52,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "white",
+"warehouse": 336,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 336,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-450mm",
+"color": "grey",
+"warehouse": 152,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 152,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "white",
+"warehouse": 318,
+"shops": null,
+"ordered": 200,
+"onWay": null,
+"total": 318,
+"extraJson": "{\"New Order 2 9-11-2026\": 200}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-500mm",
+"color": "grey",
+"warehouse": 356,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 356,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "white",
+"warehouse": 312,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 312,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 199-550mm",
+"color": "grey",
+"warehouse": 128,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 128,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "white",
+"warehouse": 0,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": 0,
+"extraJson": "{\"New Order 2 9-11-2026\": 100}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-350mm",
+"color": "grey",
+"warehouse": 54,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 54,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "white",
+"warehouse": 36,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": 36,
+"extraJson": "{\"New Order 2 9-11-2026\": 100}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-400mm",
+"color": "grey",
+"warehouse": 66,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 66,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "white",
+"warehouse": 222,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 222,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-450mm",
+"color": "grey",
+"warehouse": 90,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 90,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "white",
+"warehouse": 624,
+"shops": null,
+"ordered": 700,
+"onWay": 400,
+"total": 624,
+"extraJson": "{\"New Order 1\": 200, \"New Order 2 9-11-2026\": 500}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-500mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 500,
+"onWay": null,
+"total": 0,
+"extraJson": "{\"New Order 2 9-11-2026\": 500}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "white",
+"warehouse": 420,
+"shops": null,
+"ordered": 200,
+"onWay": null,
+"total": 420,
+"extraJson": "{\"New Order 2 9-11-2026\": 200}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج واطي 84-550mm",
+"color": "grey",
+"warehouse": 548,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 548,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "white",
+"warehouse": 20,
+"shops": null,
+"ordered": 50,
+"onWay": null,
+"total": 20,
+"extraJson": "{\"New Order 2 9-11-2026\": 50}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-350mm",
+"color": "grey",
+"warehouse": 40,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 40,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "white",
+"warehouse": 32,
+"shops": null,
+"ordered": 50,
+"onWay": null,
+"total": 32,
+"extraJson": "{\"New Order 2 9-11-2026\": 50}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-400mm",
+"color": "grey",
+"warehouse": 128,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 128,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "white",
+"warehouse": 204,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 204,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-450mm",
+"color": "grey",
+"warehouse": 284,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 284,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "white",
+"warehouse": 1056,
+"shops": null,
+"ordered": 800,
+"onWay": 300,
+"total": 1056,
+"extraJson": "{\"New Order 1\": 200, \"New Order 2 9-11-2026\": 600}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-500mm",
+"color": "grey",
+"warehouse": 8,
+"shops": null,
+"ordered": 800,
+"onWay": 400,
+"total": 8,
+"extraJson": "{\"New Order 2 9-11-2026\": 800}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "white",
+"warehouse": 1004,
+"shops": null,
+"ordered": null,
+"onWay": 300,
+"total": 1004,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي مع ماسورة 167-550mm",
+"color": "grey",
+"warehouse": 192,
+"shops": null,
+"ordered": 200,
+"onWay": null,
+"total": 192,
+"extraJson": "{\"New Order 2 9-11-2026\": 200}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "white",
+"warehouse": 68,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 68,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-350mm",
+"color": "grey",
+"warehouse": 72,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 72,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "white",
+"warehouse": 16,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 16,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-400mm",
+"color": "grey",
+"warehouse": 36,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 36,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "white",
+"warehouse": 96,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 96,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-450mm",
+"color": "grey",
+"warehouse": 284,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 284,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "white",
+"warehouse": 516,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 516,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-500mm",
+"color": "grey",
+"warehouse": 1672,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 1672,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "white",
+"warehouse": 712,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 712,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro زجاج عالي 199-550mm",
+"color": "grey",
+"warehouse": 692,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 692,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-250mm",
+"color": "grey",
+"warehouse": null,
+"shops": null,
+"ordered": 50,
+"onWay": null,
+"total": null,
+"extraJson": "{\"New Order 1\": 50}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-300mm",
+"color": "grey",
+"warehouse": null,
+"shops": null,
+"ordered": 50,
+"onWay": null,
+"total": null,
+"extraJson": "{\"New Order 1\": 50}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-350mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 0,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-400mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 0,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-450mm",
+"color": "grey",
+"warehouse": 90,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 90,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-500mm",
+"color": "grey",
+"warehouse": 90,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 90,
+"extraJson": "{}"
+},
+{
+"family": "metro",
+"name": "جرار Metro سلم عالي 12-550mm",
+"color": "grey",
+"warehouse": 48,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 48,
+"extraJson": "{}"
+},
+{
+"family": "sh",
+"name": "جرار SH واطي 84-350mm",
+"color": "white",
+"warehouse": 12,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 0,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH واطي 84-350mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 0,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH واطي 84-400mm",
+"color": "white",
+"warehouse": 192,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 192,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH واطي 84-400mm",
+"color": "grey",
+"warehouse": 102,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 102,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH واطي 84-450mm",
+"color": "white",
+"warehouse": 168,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 168,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH واطي 84-450mm",
+"color": "grey",
+"warehouse": 90,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 90,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH واطي 84-500mm",
+"color": "white",
+"warehouse": 0,
+"shops": null,
+"ordered": 300,
+"onWay": null,
+"total": 300,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH واطي 84-500mm",
+"color": "grey",
+"warehouse": 366,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 366,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH واطي 84-550mm",
+"color": "white",
+"warehouse": 858,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 858,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH واطي 84-550mm",
+"color": "grey",
+"warehouse": 258,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 258,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-350mm",
+"color": "white",
+"warehouse": 138,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 138,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-350mm",
+"color": "grey",
+"warehouse": 66,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 66,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-400mm",
+"color": "white",
+"warehouse": 390,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 390,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-400mm",
+"color": "grey",
+"warehouse": 84,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 84,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-450mm",
+"color": "white",
+"warehouse": 360,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 360,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-450mm",
+"color": "grey",
+"warehouse": 102,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 102,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-500mm",
+"color": "white",
+"warehouse": 0,
+"shops": null,
+"ordered": 300,
+"onWay": null,
+"total": 300,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-500mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 300,
+"onWay": null,
+"total": 300,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "white",
+"warehouse": 1254,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 1254,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH عالي مع ماسورة 167-550mm",
+"color": "grey",
+"warehouse": 804,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 804,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم واطي 84-300mm",
+"color": "white",
+"warehouse": 0,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 0,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم واطي 84-300mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": 100,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم واطي 84-350mm",
+"color": "white",
+"warehouse": 450,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 450,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم واطي 84-350mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": 100,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم واطي 84-400mm",
+"color": "white",
+"warehouse": 312,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 312,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم واطي 84-400mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": 100,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم واطي 84-450mm",
+"color": "white",
+"warehouse": 432,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 432,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم واطي 84-450mm",
+"color": "grey",
+"warehouse": 18,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": 118,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم واطي 84-500mm",
+"color": "white",
+"warehouse": 0,
+"shops": null,
+"ordered": 200,
+"onWay": null,
+"total": 200,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم واطي 84-500mm",
+"color": "grey",
+"warehouse": 18,
+"shops": null,
+"ordered": 300,
+"onWay": null,
+"total": 318,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم واطي 84-550mm",
+"color": "white",
+"warehouse": 450,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 450,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم واطي 84-550mm",
+"color": "grey",
+"warehouse": 318,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 318,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم عالي 167-300mm",
+"color": "white",
+"warehouse": 0,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 0,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم عالي 167-300mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": 100,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم عالي 167-350mm",
+"color": "white",
+"warehouse": 365,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 365,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم عالي 167-350mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": 100,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم عالي 167-400mm",
+"color": "white",
+"warehouse": 330,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 330,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم عالي 167-400mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": 100,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم عالي 167-450mm",
+"color": "white",
+"warehouse": 270,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 270,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم عالي 167-450mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 100,
+"onWay": null,
+"total": 100,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم عالي 167-500mm",
+"color": "white",
+"warehouse": 165,
+"shops": null,
+"ordered": 500,
+"onWay": null,
+"total": 665,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم عالي 167-500mm",
+"color": "grey",
+"warehouse": 0,
+"shops": null,
+"ordered": 300,
+"onWay": null,
+"total": 300,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم عالي 167-550mm",
+"color": "white",
+"warehouse": 1285,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 1285,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH سلم عالي 167-550mm",
+"color": "grey",
+"warehouse": 415,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 415,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-350mm",
+"color": "white",
+"warehouse": 72,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 72,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-400mm",
+"color": "white",
+"warehouse": 72,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 72,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-450mm",
+"color": "white",
+"warehouse": 66,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 66,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-500mm",
+"color": "white",
+"warehouse": 90,
+"shops": null,
+"ordered": 200,
+"onWay": null,
+"total": 290,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج واطي 84-550mm",
+"color": "white",
+"warehouse": 162,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 162,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-350mm",
+"color": "white",
+"warehouse": 75,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 75,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-400mm",
+"color": "white",
+"warehouse": 75,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 75,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-450mm",
+"color": "white",
+"warehouse": 25,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 25,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-500mm",
+"color": "white",
+"warehouse": 0,
+"shops": null,
+"ordered": 500,
+"onWay": null,
+"total": 500,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج عالي مع ماسورة 167-550mm",
+"color": "white",
+"warehouse": 220,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 220,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-350mm",
+"color": "white",
+"warehouse": 100,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 100,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-400mm",
+"color": "white",
+"warehouse": 100,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 100,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-450mm",
+"color": "white",
+"warehouse": 100,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 100,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-500mm",
+"color": "white",
+"warehouse": 250,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 250,
+"extraJson": null
+},
+{
+"family": "sh",
+"name": "جرار SH زجاج عالي 199-550mm",
+"color": "white",
+"warehouse": 185,
+"shops": null,
+"ordered": null,
+"onWay": null,
+"total": 185,
+"extraJson": null
+},
+{
+"family": "metro-code",
+"name": "G-1321200W",
+"color": "white",
+"qtyText": "2×20"
+},
+{
+"family": "metro-code",
+"name": "G-1321200G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "G-1321200W",
+"color": "white",
+"qtyText": "165×10"
+},
+{
+"family": "metro-code",
+"name": "G-1321200G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "GF321200W",
+"color": "white",
+"qtyText": "9×50"
+},
+{
+"family": "metro-code",
+"name": "GF321200G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "GF321200W",
+"color": "white",
+"qtyText": "91×20"
+},
+{
+"family": "metro-code",
+"name": "GF321200G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "G1331200W",
+"color": "white",
+"qtyText": "20×20"
+},
+{
+"family": "metro-code",
+"name": "G1331200G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "G130200W",
+"color": "white",
+"qtyText": "4×50"
+},
+{
+"family": "metro-code",
+"name": "G130200G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "G130500W",
+"color": "white",
+"qtyText": "12×20"
+},
+{
+"family": "metro-code",
+"name": "G130500G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "G130800W",
+"color": "white",
+"qtyText": "13×20"
+},
+{
+"family": "metro-code",
+"name": "G130800G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "G131200W",
+"color": "white",
+"qtyText": "19×50"
+},
+{
+"family": "metro-code",
+"name": "G131200G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "G130300W",
+"color": "white",
+"qtyText": "24×20"
+},
+{
+"family": "metro-code",
+"name": "G130300G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "G130600W",
+"color": "white",
+"qtyText": "26×20"
+},
+{
+"family": "metro-code",
+"name": "G130600G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "130400W",
+"color": "white",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "130400G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "130700W",
+"color": "white",
+"qtyText": null
+},
+{
+"family": "metro-code",
+"name": "130700G",
+"color": "grey",
+"qtyText": null
+},
+{
+"family": "screws",
+"name": "3.5x16",
+"color": null,
+"total": 111,
+"extraJson": "{\"Carton\": 24, \"Box\": 1000, \"ordering\": \"1 ton\"}"
+},
+{
+"family": "screws",
+"name": "3.5x30",
+"color": null,
+"total": 54,
+"extraJson": "{\"Carton\": 12, \"Box\": 1000, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "3.5x35",
+"color": null,
+"total": 42,
+"extraJson": "{\"Carton\": 12, \"Box\": 1000, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "3.5x40",
+"color": null,
+"total": 24,
+"extraJson": "{\"Carton\": 9, \"Box\": 1000, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "3.5x45",
+"color": null,
+"total": 45,
+"extraJson": "{\"Carton\": 9, \"Box\": 1000, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "4x16",
+"color": null,
+"total": 278,
+"extraJson": "{\"Carton\": 18, \"Box\": 1000, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "4x18",
+"color": null,
+"total": 120,
+"extraJson": "{\"Carton\": 18, \"Box\": 1000, \"ordering\": \"7 ton\"}"
+},
+{
+"family": "screws",
+"name": "4x20",
+"color": null,
+"total": 267,
+"extraJson": "{\"Carton\": 18, \"Box\": 1000, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "4x25",
+"color": null,
+"total": 255,
+"extraJson": "{\"Carton\": 12, \"Box\": 1000, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "4x30",
+"color": null,
+"total": 241,
+"extraJson": "{\"Carton\": 12, \"Box\": 500, \"ordering\": \"7 ton\"}"
+},
+{
+"family": "screws",
+"name": "4x35",
+"color": null,
+"total": 173,
+"extraJson": "{\"Carton\": 9, \"Box\": 1000, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "4x40",
+"color": null,
+"total": 60,
+"extraJson": "{\"Carton\": 9, \"Box\": 500, \"ordering\": \"7 ton\"}"
+},
+{
+"family": "screws",
+"name": "4x45",
+"color": null,
+"total": 136,
+"extraJson": "{\"Carton\": 12, \"Box\": 500, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "4x50",
+"color": null,
+"total": 118,
+"extraJson": "{\"Carton\": 12, \"Box\": 500, \"ordering\": \"1 ton\"}"
+},
+{
+"family": "screws",
+"name": "4x60",
+"color": null,
+"total": 81,
+"extraJson": "{\"Carton\": 9, \"Box\": 500, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "5x25",
+"color": null,
+"total": 20,
+"extraJson": "{\"Carton\": 18, \"Box\": 500, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "5x30",
+"color": null,
+"total": 25,
+"extraJson": "{\"Carton\": 18, \"Box\": 500, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "5x35",
+"color": null,
+"total": 21,
+"extraJson": "{\"Carton\": 12, \"Box\": 500, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "5x40",
+"color": null,
+"total": 23,
+"extraJson": "{\"Carton\": 12, \"Box\": 500, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "5x50",
+"color": null,
+"total": 49,
+"extraJson": "{\"Carton\": 9, \"Box\": 500, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "50x70 سن كامل",
+"color": null,
+"total": 60,
+"extraJson": "{\"Carton\": 4, \"Box\": 500, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "5x70",
+"color": null,
+"total": 88,
+"extraJson": "{\"Carton\": 4, \"Box\": 500, \"ordering\": null}"
+},
+{
+"family": "screws",
+"name": "5x100",
+"color": null,
+"total": 72,
+"extraJson": "{\"Carton\": 4, \"Box\": 500, \"ordering\": null}"
+},
+{
+"family": "kent",
+"name": "395 W",
+"color": null,
+"total": 15,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "396 W",
+"color": null,
+"total": 26,
+"extraJson": "{\"للطلب7-3-2026\": 3000}"
+},
+{
+"family": "kent",
+"name": "389",
+"color": null,
+"total": 3,
+"extraJson": "{\"للطلب7-3-2026\": 5000, \"للطلب جديد 19-8-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "4261",
+"color": null,
+"total": 20,
+"extraJson": "{\"للطلب7-3-2026\": 5000, \"للطلب جديد 19-8-2026\": 2500}"
+},
+{
+"family": "kent",
+"name": "4263",
+"color": null,
+"total": 23,
+"extraJson": "{\"للطلب7-3-2026\": 10000, \"للطلب جديد 19-8-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "4265",
+"color": null,
+"total": 48,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "4268",
+"color": null,
+"total": 25,
+"extraJson": "{\"للطلب7-3-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "4269",
+"color": null,
+"total": 18,
+"extraJson": "{\"للطلب7-3-2026\": 10000}"
+},
+{
+"family": "kent",
+"name": "4270",
+"color": null,
+"total": 37,
+"extraJson": "{\"للطلب7-3-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "4275",
+"color": null,
+"total": 66,
+"extraJson": "{\"طلبية 27-6\": 100, \"للطلب7-3-2026\": 40000, \"للطلب جديد 19-8-2026\": 20000}"
+},
+{
+"family": "kent",
+"name": "4276",
+"color": null,
+"total": 26,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "633 R",
+"color": null,
+"total": 19,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "669 R",
+"color": null,
+"total": 14,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "670R",
+"color": null,
+"total": 21,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "672R",
+"color": null,
+"total": 15,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "673R",
+"color": null,
+"total": 20,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "M700 T",
+"color": null,
+"total": 32,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "M800 T",
+"color": null,
+"total": 14,
+"extraJson": "{\"طلبية 27-6\": 20, \"للطلب جديد 19-8-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "M800",
+"color": null,
+"total": 6,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "810 T",
+"color": null,
+"total": 9,
+"extraJson": "{\"للطلب7-3-2026\": 10000, \"للطلب جديد 19-8-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "879 T",
+"color": null,
+"total": 28,
+"extraJson": "{\"للطلب7-3-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "M900T",
+"color": null,
+"total": 2,
+"extraJson": "{\"طلبية 27-6\": 20, \"للطلب7-3-2026\": 10000, \"للطلب جديد 19-8-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "M1000T",
+"color": null,
+"total": 6,
+"extraJson": "{\"للطلب7-3-2026\": 0, \"للطلب جديد 19-8-2026\": 2500}"
+},
+{
+"family": "kent",
+"name": "1002",
+"color": null,
+"total": 32,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "1098-400 new",
+"color": null,
+"total": 141,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "1100",
+"color": null,
+"total": 21,
+"extraJson": "{\"للطلب7-3-2026\": 2500}"
+},
+{
+"family": "kent",
+"name": "1067",
+"color": null,
+"total": 34,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "1200",
+"color": null,
+"total": 17,
+"extraJson": "{\"للطلب7-3-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "1201",
+"color": null,
+"total": 27,
+"extraJson": "{\"للطلب7-3-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "1480",
+"color": null,
+"total": 28,
+"extraJson": "{\"للطلب جديد 19-8-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "1532",
+"color": null,
+"total": 27,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "1533",
+"color": null,
+"total": 27,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "1610",
+"color": null,
+"total": 39,
+"extraJson": "{\"طلبية 27-6\": 100, \"للطلب7-3-2026\": 30000, \"للطلب جديد 19-8-2026\": 20000}"
+},
+{
+"family": "kent",
+"name": "1686",
+"color": null,
+"total": 23,
+"extraJson": "{\"للطلب7-3-2026\": 2500}"
+},
+{
+"family": "kent",
+"name": "1689",
+"color": null,
+"total": 21,
+"extraJson": "{\"للطلب7-3-2026\": 2500}"
+},
+{
+"family": "kent",
+"name": "1957",
+"color": null,
+"total": 61,
+"extraJson": "{\"للطلب7-3-2026\": 30000, \"للطلب جديد 19-8-2026\": 20000}"
+},
+{
+"family": "kent",
+"name": "K011LE",
+"color": null,
+"total": 17,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "2020",
+"color": null,
+"total": 81,
+"extraJson": "{\"للطلب7-3-2026\": 40000, \"للطلب جديد 19-8-2026\": 20000}"
+},
+{
+"family": "kent",
+"name": "2021",
+"color": null,
+"total": 29,
+"extraJson": "{\"طلبية 27-6\": 20, \"للطلب7-3-2026\": 20000, \"للطلب جديد 19-8-2026\": 10000}"
+},
+{
+"family": "kent",
+"name": "2755",
+"color": null,
+"total": 3,
+"extraJson": "{\"طلبية 27-6\": 100, \"للطلب7-3-2026\": 10000, \"للطلب جديد 19-8-2026\": 10000}"
+},
+{
+"family": "kent",
+"name": "2264",
+"color": null,
+"total": 38,
+"extraJson": "{\"للطلب7-3-2026\": 10000}"
+},
+{
+"family": "kent",
+"name": "3000",
+"color": null,
+"total": 24,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "3027",
+"color": null,
+"total": 12,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "3061",
+"color": null,
+"total": 12,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "3141",
+"color": null,
+"total": 7,
+"extraJson": "{\"طلبية 27-6\": 15, \"للطلب7-3-2026\": 5000, \"للطلب جديد 19-8-2026\": 2500}"
+},
+{
+"family": "kent",
+"name": "3142",
+"color": null,
+"total": 12,
+"extraJson": "{\"طلبية 27-6\": 15, \"للطلب7-3-2026\": 5000, \"للطلب جديد 19-8-2026\": 2500}"
+},
+{
+"family": "kent",
+"name": "3102",
+"color": null,
+"total": 62,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "3160",
+"color": null,
+"total": 59,
+"extraJson": "{\"للطلب7-3-2026\": 20000}"
+},
+{
+"family": "kent",
+"name": "3170",
+"color": null,
+"total": 37,
+"extraJson": "{\"للطلب7-3-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "3187",
+"color": null,
+"total": 37,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "3191",
+"color": null,
+"total": 18,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "3234",
+"color": null,
+"total": 15,
+"extraJson": "{\"للطلب7-3-2026\": 5000, \"للطلب جديد 19-8-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "3949",
+"color": null,
+"total": 55,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "5171",
+"color": null,
+"total": 29,
+"extraJson": "{\"للطلب7-3-2026\": 2500}"
+},
+{
+"family": "kent",
+"name": "5324",
+"color": null,
+"total": 9,
+"extraJson": "{\"طلبية 27-6\": 10, \"للطلب7-3-2026\": 2500}"
+},
+{
+"family": "kent",
+"name": "5327",
+"color": null,
+"total": 55,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "5329",
+"color": null,
+"total": 25,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "5372",
+"color": null,
+"total": 16,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "5374",
+"color": null,
+"total": 12,
+"extraJson": "{\"طلبية 27-6\": 10, \"للطلب7-3-2026\": 2500}"
+},
+{
+"family": "kent",
+"name": "5550",
+"color": null,
+"total": 46,
+"extraJson": "{\"للطلب7-3-2026\": 10000}"
+},
+{
+"family": "kent",
+"name": "5524",
+"color": null,
+"total": 33,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "210 C",
+"color": null,
+"total": 14,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "460 C",
+"color": null,
+"total": 24,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "461 C",
+"color": null,
+"total": 18,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "545 C",
+"color": null,
+"total": 16,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "406 T",
+"color": null,
+"total": 56,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "409 T",
+"color": null,
+"total": 56,
+"extraJson": "{\"طلبية 27-6\": 100, \"للطلب7-3-2026\": 40000, \"للطلب جديد 19-8-2026\": 20000}"
+},
+{
+"family": "kent",
+"name": "410 T",
+"color": null,
+"total": 16,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "413 T",
+"color": null,
+"total": 57,
+"extraJson": "{\"طلبية 27-6\": 100, \"للطلب7-3-2026\": 40000, \"للطلب جديد 19-8-2026\": 20000}"
+},
+{
+"family": "kent",
+"name": "414 T",
+"color": null,
+"total": 18,
+"extraJson": "{\"طلبية 27-6\": 5, \"للطلب7-3-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "420 T",
+"color": null,
+"total": 10,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "8200 LE",
+"color": null,
+"total": 0,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "8204",
+"color": null,
+"total": 22,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "8588",
+"color": null,
+"total": 18,
+"extraJson": "{\"للطلب7-3-2026\": 7500, \"للطلب جديد 19-8-2026\": 5000}"
+},
+{
+"family": "kent",
+"name": "M700 H.G",
+"color": null,
+"total": 4,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "M900 H.G",
+"color": null,
+"total": 0,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "M1000 H.G",
+"color": null,
+"total": 20,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "2112 H.G",
+"color": null,
+"total": 22,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "77427 LE",
+"color": null,
+"total": 30,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "77488 LE",
+"color": null,
+"total": 9,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "7000",
+"color": null,
+"total": 6,
+"extraJson": "{\"طلبية 27-6\": 50, \"للطلب7-3-2026\": 15000, \"للطلب جديد 19-8-2026\": 20000}"
+},
+{
+"family": "kent",
+"name": "7180",
+"color": null,
+"total": 18,
+"extraJson": "{\"طلبية 27-6\": 100, \"للطلب7-3-2026\": 30000, \"للطلب جديد 19-8-2026\": 20000}"
+},
+{
+"family": "kent",
+"name": "8000",
+"color": null,
+"total": 0,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "9070",
+"color": null,
+"total": 15,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "9090",
+"color": null,
+"total": 0,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "9040",
+"color": null,
+"total": 0,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "9100",
+"color": null,
+"total": 5,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "9020",
+"color": null,
+"total": 2,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "9060",
+"color": null,
+"total": 0,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "9030",
+"color": null,
+"total": 2,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "9050",
+"color": null,
+"total": 3,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "9010",
+"color": null,
+"total": 1,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "9080",
+"color": null,
+"total": 0,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "1018",
+"color": null,
+"total": 1,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "8600",
+"color": null,
+"total": 4,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "6011-9",
+"color": null,
+"total": 3,
+"extraJson": "{}"
+},
+{
+"family": "kent",
+"name": "6248",
+"color": null,
+"total": 3,
+"extraJson": "{}"
+}
+]

@@ -321,3 +321,14 @@ public class StockMovementConfiguration : IEntityTypeConfiguration<StockMovement
         builder.HasIndex(m => new { m.StockItemId, m.CreatedAt });
     }
 }
+
+public class StockImportConfiguration : IEntityTypeConfiguration<StockImport>
+{
+    public void Configure(EntityTypeBuilder<StockImport> builder)
+    {
+        builder.ToTable("StockImports");
+        builder.HasKey(i => i.Id);
+        builder.Property(i => i.Name).HasMaxLength(100).IsRequired();
+        builder.HasIndex(i => i.Name).IsUnique();
+    }
+}
