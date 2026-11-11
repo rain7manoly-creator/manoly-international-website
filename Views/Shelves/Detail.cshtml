@@ -101,7 +101,10 @@
                     }
                     @if (User.IsInRole("Admin"))
                     {
-                        <a href="/stock/connect?productId=@slot.ProductId&back=/shelves/@Model.Code" class="btn-ghost btn-sm shrink-0">@(slot.StockItemId is null ? "ربط بالمخزون" : "تغيير")</a>
+                        <span class="flex gap-1 shrink-0">
+                            <a href="/products/@slot.ProductId/edit?back=/shelves/@Model.Code" class="btn-ghost btn-sm">تعديل الاسم</a>
+                            <a href="/stock/connect?productId=@slot.ProductId&back=/shelves/@Model.Code" class="btn-ghost btn-sm">@(slot.StockItemId is null ? "ربط بالمخزون" : "تغيير الربط")</a>
+                        </span>
                     }
                 </div>
                 <div class="flex gap-2">

@@ -55,6 +55,11 @@
             <p class="text-xs text-bark-l">عند الربط: أي كمية تؤخذ من الرف أو تضاف له تنزل أو تزيد في هذا الصنف تلقائياً: الجرارات بالحبة (ربطة × وحدات)، البراغي والكنت بالكرتونة.</p>
         </div>
 
+        @if (Context.Request.Query["back"].ToString() is { Length: > 0 } back && back.StartsWith("/"))
+        {
+            <input type="hidden" name="back" value="@back" />
+        }
+        <p class="text-xs text-bark-l">تغيير الاسم هنا يغيّره في كل الرفوف و Area Z والمخزون مرة واحدة.</p>
         <button type="submit" class="btn-primary w-full">حفظ التعديلات</button>
         <a href="/products/@Model.Id" class="btn-secondary w-full text-center">إلغاء</a>
     </form>

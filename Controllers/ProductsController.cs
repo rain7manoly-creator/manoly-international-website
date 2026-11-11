@@ -76,10 +76,13 @@ public class ProductsController : Controller
 
     [HttpPost("{id:int}/edit")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, string name, int categoryId, int? stockItemId, CancellationToken ct)
+    public async Task<IActionResult> Edit(int id, string name, int categoryId, int? stockItemId, string? back, CancellationToken ct)
     {
         await _productService.UpdateAsync(id, name, categoryId, ct);
         await _stockService.LinkProductAsync(id, stockItemId, ct);
+        TempData["SuccessMessage"] = "تم حفظ المنتج — الاسم الجديد يظهر في كل الرفوف و Area Z والمخزون.";
+        // Opened from a shelf: go back to that shelf
+        if (!string.IsNullOrEmpty(back) && Url.IsLocalUrl(back)) return LocalRedirect(back);
         return RedirectToAction(nameof(Detail), new { id });
     }
 
