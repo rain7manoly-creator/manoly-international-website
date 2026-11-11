@@ -1,0 +1,140 @@
+@model IReadOnlyList<ManolyWarehouse.Application.ViewModels.CatalogCategory>
+@{
+    ViewData["Title"] = "كل الأصناف";
+    var cats = (IReadOnlyList<ManolyWarehouse.Application.ViewModels.CategoryViewModel>)ViewBag.Categories;
+    var total = Model.Sum(c => c.Products.Count);
+}
+
+<style>
+    #cats [hidden] { display:none !important; }   /* edit boxes stay closed until «تعديل» */
+    .cat { border:1px solid #E3E4E5; border-radius:14px; background:#fff; overflow:hidden; }
+    .cat > summary { list-style:none; cursor:pointer; display:flex; align-items:center; gap:10px; padding:13px 14px; }
+    .cat > summary::-webkit-details-marker { display:none; }
+    .cat > summary .chev { transition:transform .15s; color:#A7A9AC; }
+    .cat[open] > summary .chev { transform:rotate(-90deg); }
+    .cat[open] > summary { border-bottom:1px solid #E3E4E5; background:#F9F9FA; }
+    .cat-count { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:12px; font-weight:700; color:#58595B;
+                 background:#F1F1F2; border-radius:999px; padding:2px 9px; }
+    .prod { padding:10px 14px; border-top:1px solid #F1F1F2; }
+    .prod:first-of-type { border-top:0; }
+    .prod:target { background:#FBECEC; }
+    .prod-top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .prod-where { font-size:11px; color:#58595B; }
+    .prod-q { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:700; font-size:15px; }
+    .prod-edit { display:grid; grid-template-columns: minmax(0,1fr); gap:6px; margin-top:8px; }
+    .prod-edit input, .prod-edit select { min-height:40px; font-size:14px; }
+    .prod-edit .row { display:flex; gap:6px; }
+    .prod-edit .row select { flex:1; min-width:0; }
+    .edit-btn { font-size:12px; color:#58595B; background:none; border:1px solid #E3E4E5; border-radius:8px; padding:4px 10px; }
+    .edit-btn:hover { color:#CA292E; border-color:#CA292E; }
+</style>
+
+<div class="px-4 pt-5 pb-3 flex items-end justify-between gap-3">
+    <div>
+        <p class="eyebrow mb-1">CATALOG · كل الأصناف</p>
+        <h1 class="page-title">كل الأصناف</h1>
+        <p class="text-sm text-bark mt-1">@Model.Count صنف · @total منتج</p>
+    </div>
+    <div class="flex gap-2 shrink-0">
+        <a href="/categories/add" class="btn-secondary btn-sm">+ صنف</a>
+        <a href="/products/add" class="btn-primary btn-sm">+ منتج</a>
+    </div>
+</div>
+
+<div class="px-4 mb-3 flex gap-2">
+    <input type="text" id="cat-q" class="form-input flex-1" placeholder="ابحث عن منتج أو صنف أو رف…" autocomplete="off" />
+    <button type="button" id="toggle-all" class="btn-ghost btn-sm shrink-0">فتح الكل</button>
+</div>
+
+<div class="px-4 pb-8 flex flex-col gap-3" id="cats">
+    @foreach (var c in Model)
+    {
+        <details class="cat" data-cat="@c.Name" id="c@(c.Id)">
+            <summary>
+                <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                <span class="flex-1 font-semibold text-ink">@c.Name</span>
+                <span class="cat-count" data-count>@c.Products.Count</span>
+            </summary>
+
+            @* Rename the category itself *@
+            <div class="px-4 py-2 flex items-center justify-between gap-2" style="background:#F9F9FA;border-bottom:1px solid #F1F1F2">
+                <span class="text-xs text-bark-l">اسم الصنف</span>
+                <button type="button" class="edit-btn" onclick="this.parentElement.nextElementSibling.hidden = !this.parentElement.nextElementSibling.hidden">تعديل اسم الصنف</button>
+            </div>
+            <form method="post" action="/categories/@c.Id/edit" class="px-4 py-2 flex gap-2" style="background:#F9F9FA;border-bottom:1px solid #F1F1F2" hidden>
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="back" value="/products/all#c@(c.Id)" />
+                <input type="text" name="name" value="@c.Name" class="form-input flex-1" required maxlength="100" />
+                <button type="submit" class="btn-primary btn-sm shrink-0">حفظ</button>
+            </form>
+
+            @if (!c.Products.Any())
+            {
+                <p class="px-4 py-3 text-sm text-bark-l">لا توجد منتجات في هذا الصنف.</p>
+            }
+            @foreach (var p in c.Products)
+            {
+                <div class="prod" id="p@(p.Id)" data-p="@(p.Name + " " + c.Name + " " + p.Where)">
+                    <div class="prod-top">
+                        <div class="min-w-0">
+                            <a href="/products/@p.Id" class="text-sm font-semibold text-ink">@p.Name</a>
+                            <div class="prod-where" dir="ltr" style="text-align:right">@(string.IsNullOrEmpty(p.Where) ? "غير موجود على الرفوف" : p.Where)</div>
+                        </div>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <span class="prod-q" style="@(p.Bundles <= 0 && p.Where != "" ? "color:#CA292E" : "")">@p.Bundles</span>
+                            <button type="button" class="edit-btn" onclick="this.closest('.prod').querySelector('form').hidden = !this.closest('.prod').querySelector('form').hidden">تعديل</button>
+                        </div>
+                    </div>
+                    <form method="post" action="/products/@p.Id/quick" class="prod-edit" hidden>
+                        @Html.AntiForgeryToken()
+                        <input type="text" name="name" value="@p.Name" class="form-input" required maxlength="200" aria-label="اسم المنتج" />
+                        <div class="row">
+                            <select name="categoryId" class="form-select" aria-label="الصنف">
+                                @foreach (var opt in cats)
+                                {
+                                    <option value="@opt.Id" selected="@(opt.Id == p.CategoryId)">@opt.Name</option>
+                                }
+                            </select>
+                            <button type="submit" class="btn-primary btn-sm shrink-0">حفظ</button>
+                        </div>
+                    </form>
+                </div>
+            }
+        </details>
+    }
+</div>
+
+@section Scripts {
+<script>
+(function () {
+    const q = document.getElementById('cat-q'), toggle = document.getElementById('toggle-all');
+    const cats = [...document.querySelectorAll('.cat')];
+    const norm = s => (s || '').toLowerCase().replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/[×*]/g, 'x').replace(/\s+/g, ' ');
+
+    q.addEventListener('input', () => {
+        const t = norm(q.value).split(' ').filter(Boolean);
+        cats.forEach(c => {
+            const catHit = t.length && t.every(x => norm(c.dataset.cat).includes(x));
+            let n = 0;
+            c.querySelectorAll('.prod').forEach(p => {
+                const ok = !t.length || catHit || t.every(x => norm(p.dataset.p).includes(x));
+                p.hidden = !ok; if (ok) n++;
+            });
+            c.hidden = t.length > 0 && n === 0 && !catHit;
+            c.querySelector('[data-count]').textContent = n;
+            if (t.length) c.open = n > 0;
+        });
+    });
+
+    toggle.addEventListener('click', () => {
+        const open = !cats.every(c => c.open);
+        cats.forEach(c => c.open = open);
+        toggle.textContent = open ? 'إغلاق الكل' : 'فتح الكل';
+    });
+
+    // After saving, reopen the category of the product (or category) just edited
+    const target = location.hash && document.querySelector(location.hash);
+    if (target) { (target.closest('details') || target).open = true; target.scrollIntoView({ block: 'center' }); }
+})();
+</script>
+}

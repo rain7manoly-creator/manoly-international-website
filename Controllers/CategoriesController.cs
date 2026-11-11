@@ -41,9 +41,10 @@ public class CategoriesController : Controller
 
     [HttpPost("{id:int}/edit")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, string name, CancellationToken ct)
+    public async Task<IActionResult> Edit(int id, string name, string? back, CancellationToken ct)
     {
         await _categoryService.UpdateAsync(id, name, ct);
+        if (!string.IsNullOrEmpty(back) && Url.IsLocalUrl(back)) return LocalRedirect(back);
         return RedirectToAction(nameof(Index));
     }
 

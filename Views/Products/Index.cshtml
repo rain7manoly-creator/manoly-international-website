@@ -15,7 +15,10 @@
     </div>
     @if (User.IsInRole("Admin"))
     {
-        <a href="/products/add" class="btn-primary btn-sm">+ إضافة</a>
+        <span class="flex gap-2">
+            <a href="/products/all" class="btn-secondary btn-sm">حسب الصنف</a>
+            <a href="/products/add" class="btn-primary btn-sm">+ إضافة</a>
+        </span>
     }
 </div>
 

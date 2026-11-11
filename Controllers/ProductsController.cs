@@ -31,6 +31,24 @@ public class ProductsController : Controller
         return View(model);
     }
 
+    /// <summary>All categories, each with its products; rename / move inline.</summary>
+    [HttpGet("all")]
+    public async Task<IActionResult> All(CancellationToken ct)
+    {
+        ViewBag.Categories = await _categoryService.ListAsync(ct);
+        return View(await _productService.GetCatalogAsync(ct));
+    }
+
+    /// <summary>Inline save from the «كل الأصناف» page: name and/or category, then back to the same spot.</summary>
+    [HttpPost("{id:int}/quick")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Quick(int id, string name, int categoryId, CancellationToken ct)
+    {
+        await _productService.UpdateAsync(id, name, categoryId, ct);
+        TempData["SuccessMessage"] = "تم الحفظ — يظهر الاسم الجديد في كل الرفوف.";
+        return Redirect($"/products/all#p{id}");
+    }
+
     [HttpGet("add")]
     public async Task<IActionResult> Add(CancellationToken ct)
     {

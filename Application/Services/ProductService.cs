@@ -270,4 +270,29 @@ public class ProductService : IProductService
     private string RequireUserId() =>
         _currentUser.UserId
             ?? throw new InvalidOperationException("No authenticated user in context.");
+
+    public async Task<IReadOnlyList<CatalogCategory>> GetCatalogAsync(CancellationToken ct = default)
+    {
+        var cats = await _db.Categories.AsNoTracking().OrderBy(c => c.Name)
+            .Select(c => new { c.Id, c.Name }).ToListAsync(ct);
+        var products = await _db.Products.AsNoTracking()
+            .OrderBy(p => p.Name)
+            .Select(p => new
+            {
+                p.Id, p.Name, p.CategoryId,
+                Shelves = p.ShelfInventories.Select(si => si.Shelf.Code).ToList(),
+                InZ = p.AreaZInventories.Any(a => !a.IsDispatched),
+                Bundles = (p.ShelfInventories.Sum(si => (int?)si.BundleCount) ?? 0)
+                        + (p.AreaZInventories.Where(a => !a.IsDispatched).Sum(a => (int?)a.BundleCount) ?? 0)
+            }).ToListAsync(ct);
+        return cats.Select(c => new CatalogCategory
+        {
+            Id = c.Id, Name = c.Name,
+            Products = products.Where(p => p.CategoryId == c.Id).Select(p => new CatalogProduct
+            {
+                Id = p.Id, Name = p.Name, CategoryId = p.CategoryId, Bundles = p.Bundles,
+                Where = string.Join(" · ", p.Shelves.Distinct().OrderBy(x => x).Concat(p.InZ ? new[] { "Area Z" } : Array.Empty<string>()))
+            }).ToList()
+        }).ToList();
+    }
 }

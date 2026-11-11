@@ -194,6 +194,24 @@ public class ProductDeletionImpact
     public bool HasImpact => ShelfInventoryCount > 0 || AreaZCount > 0 || OrderItemsCount > 0;
 }
 
+/// <summary>All categories with their products, for the "كل الأصناف" page.</summary>
+public class CatalogCategory
+{
+    public int Id { get; init; }
+    public string Name { get; init; } = default!;
+    public List<CatalogProduct> Products { get; init; } = new();
+}
+
+public class CatalogProduct
+{
+    public int Id { get; init; }
+    public string Name { get; init; } = default!;
+    public int CategoryId { get; init; }
+    /// <summary>"F39 · B1 · Area Z"</summary>
+    public string Where { get; init; } = "";
+    public int Bundles { get; init; }
+}
+
 public class CategoryViewModel
 {
     public int Id { get; init; }

@@ -35,6 +35,7 @@ public interface IProductService
     Task<IReadOnlyList<ProductListItemViewModel>> ListAsync(CancellationToken ct = default);
     Task<PagedResult<ProductListItemViewModel>> ListPagedAsync(int page, int pageSize, string? search = null, CancellationToken ct = default);
     Task<ProductDetailViewModel?> GetByIdAsync(int id, CancellationToken ct = default);
+    Task<IReadOnlyList<CatalogCategory>> GetCatalogAsync(CancellationToken ct = default);
     Task<int> CreateAsync(string name, int categoryId, CancellationToken ct = default);
     Task UpdateAsync(int id, string name, int categoryId, CancellationToken ct = default);
     Task<ProductDeletionImpact> GetDeletionImpactAsync(int id, CancellationToken ct = default);

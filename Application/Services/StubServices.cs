@@ -35,6 +35,8 @@ public class ShelfServiceStub : IShelfService
 
 public class ProductServiceStub : IProductService
 {
+    public Task<IReadOnlyList<CatalogCategory>> GetCatalogAsync(CancellationToken ct = default)
+        => Task.FromResult<IReadOnlyList<CatalogCategory>>(Array.Empty<CatalogCategory>());
     public Task<IReadOnlyList<ProductListItemViewModel>> ListAsync(CancellationToken ct = default)
         => Task.FromResult<IReadOnlyList<ProductListItemViewModel>>(Array.Empty<ProductListItemViewModel>());
     public Task<PagedResult<ProductListItemViewModel>> ListPagedAsync(int page, int pageSize, string? search = null, CancellationToken ct = default)
