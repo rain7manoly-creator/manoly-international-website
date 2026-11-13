@@ -70,6 +70,12 @@ public interface IStockService
     Task<int> CountAlertsAsync(CancellationToken ct = default);
     Task SetAlertAsync(bool isLine, int id, int? alertAt, CancellationToken ct = default);
     Task<int?> GetProductAlertAtAsync(int productId, CancellationToken ct = default);
+    Task<string> CreateGroupAsync(string name, bool inCartons, string? lines, CancellationToken ct = default);
+    Task UpdateGroupAsync(string family, string name, bool inCartons, CancellationToken ct = default);
+    Task DeleteGroupAsync(string family, CancellationToken ct = default);
+    Task<int> AddLinesAsync(string family, string lines, CancellationToken ct = default);
+    Task RenameLineAsync(int id, string name, CancellationToken ct = default);
+    Task<string> DeleteLineAsync(int id, CancellationToken ct = default);
 }
 
 /// <summary>One item on the notifications page.</summary>
@@ -109,11 +115,120 @@ public class StockService : IStockService
         _activityLog = activityLog;
     }
 
-    public static readonly IReadOnlyDictionary<string, string> FamilyNames = new Dictionary<string, string>
+    public static readonly IReadOnlyDictionary<string, string> BuiltInFamilyNames = new Dictionary<string, string>
     {
         ["metro"] = "جرار ميترو", ["metro-tandem"] = "سحاب ميترو تندم", ["metro-code"] = "ميترو — أكواد G",
         ["sh"] = "جرار SH", ["screws"] = "براغي اتيكو", ["kent"] = "الكنت", ["smirdex"] = "سميردكس"
     };
+
+    /// <summary>Built-in groups plus the ones created in the app (key "g{id}").</summary>
+    public static IReadOnlyDictionary<string, string> FamilyNames
+    {
+        get
+        {
+            var all = new Dictionary<string, string>(BuiltInFamilyNames);
+            foreach (var (k, g) in StockGroupRegistry.Groups) all[k] = g.Name;
+            return all;
+        }
+    }
+
+    /// <summary>Groups a new line can be created in: the built-in ones, then the created ones.</summary>
+    public static IReadOnlyList<string> NewLineFamilies =>
+        new[] { "metro", "sh", "screws", "kent", "smirdex" }.Concat(StockGroupRegistry.Groups.Keys).ToList();
+
+    public static async Task ReloadGroupsAsync(AppDbContext db, CancellationToken ct = default) =>
+        StockGroupRegistry.Load(await db.StockGroups.AsNoTracking().ToListAsync(ct));
+
+    // ── Created stock groups (e.g. مفصلات SH) ─────────────────────────────
+
+    public async Task<string> CreateGroupAsync(string name, bool inCartons, string? lines, CancellationToken ct = default)
+    {
+        name = (name ?? "").Trim();
+        if (name.Length == 0) throw new DomainException("اكتب اسم المخزون.");
+        if (BuiltInFamilyNames.Values.Any(v => v == name) || await _db.StockGroups.AnyAsync(g => g.Name == name, ct))
+            throw new DomainException("يوجد مخزون بهذا الاسم.");
+        var sort = (await _db.StockGroups.MaxAsync(g => (int?)g.SortOrder, ct) ?? 0) + 1;
+        var group = StockGroup.Create(name, inCartons, sort);
+        _db.StockGroups.Add(group);
+        await _db.SaveChangesAsync(ct);
+        await ReloadGroupsAsync(_db, ct);
+        if (!string.IsNullOrWhiteSpace(lines)) await AddLinesAsync(group.Key, lines, ct);
+        return group.Key;
+    }
+
+    public async Task UpdateGroupAsync(string family, string name, bool inCartons, CancellationToken ct = default)
+    {
+        var group = await FindGroupAsync(family, ct);
+        name = (name ?? "").Trim();
+        if (name.Length == 0) throw new DomainException("اكتب اسم المخزون.");
+        if (BuiltInFamilyNames.Values.Any(v => v == name) || await _db.StockGroups.AnyAsync(g => g.Name == name && g.Id != group.Id, ct))
+            throw new DomainException("يوجد مخزون بهذا الاسم.");
+        if (group.InCartons != inCartons && await _db.Products.AnyAsync(p => p.StockItem != null && p.StockItem.Family == family, ct))
+            throw new DomainException("لا يمكن تغيير الوحدة بعد ربط منتجات بهذا المخزون.");
+        group.Update(name, inCartons);
+        await _db.SaveChangesAsync(ct);
+        await ReloadGroupsAsync(_db, ct);
+    }
+
+    public async Task DeleteGroupAsync(string family, CancellationToken ct = default)
+    {
+        var group = await FindGroupAsync(family, ct);
+        if (await _db.StockItems.AnyAsync(s => s.Family == family, ct))
+            throw new DomainException("احذف الأسطر التي بداخله أولاً.");
+        _db.StockGroups.Remove(group);
+        await _db.SaveChangesAsync(ct);
+        await ReloadGroupsAsync(_db, ct);
+    }
+
+    /// <summary>Adds one line per text line (blank lines and names already in the group are skipped).</summary>
+    public async Task<int> AddLinesAsync(string family, string lines, CancellationToken ct = default)
+    {
+        if (!NewLineFamilies.Contains(family)) throw new DomainException("المخزون غير موجود.");
+        var userId = _currentUser.UserId ?? throw new InvalidOperationException("No authenticated user in context.");
+        var existing = (await _db.StockItems.Where(s => s.Family == family).Select(s => s.Name).ToListAsync(ct)).ToHashSet();
+        var sort = (await _db.StockItems.MaxAsync(s => (int?)s.SortOrder, ct) ?? 0);
+        var added = 0;
+        foreach (var raw in (lines ?? "").Split('\n'))
+        {
+            var n = raw.Trim();
+            if (n.Length == 0 || !existing.Add(n)) continue;
+            if (n.Length > 200) n = n[..200];
+            var line = StockItem.Create(family, n, null, StockGroupRegistry.IsCustom(family) ? null : "أخرى", null, null, ++sort,
+                null, family is "metro" or "sh" ? 0 : null, null, null, null, 0, null, null);
+            _db.StockItems.Add(line);
+            added++;
+        }
+        if (added == 0) throw new DomainException("اكتب اسم سطر جديد واحد على الأقل.");
+        await _db.SaveChangesAsync(ct);
+        return added;
+    }
+
+    /// <summary>Lines in a created group can be renamed or deleted (deleted only when nothing is linked).</summary>
+    public async Task RenameLineAsync(int id, string name, CancellationToken ct = default)
+    {
+        var line = await _db.StockItems.FirstOrDefaultAsync(s => s.Id == id, ct) ?? throw new DomainException("السطر غير موجود.");
+        if (!StockGroupRegistry.IsCustom(line.Family)) throw new DomainException("يمكن تعديل اسم الأسطر في المخازن التي أنشأتها فقط.");
+        name = (name ?? "").Trim();
+        if (name.Length == 0) throw new DomainException("اكتب الاسم.");
+        line.Rename(name.Length > 200 ? name[..200] : name);
+        await _db.SaveChangesAsync(ct);
+    }
+
+    public async Task<string> DeleteLineAsync(int id, CancellationToken ct = default)
+    {
+        var line = await _db.StockItems.FirstOrDefaultAsync(s => s.Id == id, ct) ?? throw new DomainException("السطر غير موجود.");
+        if (!StockGroupRegistry.IsCustom(line.Family)) throw new DomainException("يمكن حذف الأسطر في المخازن التي أنشأتها فقط.");
+        if (await _db.Products.AnyAsync(p => p.StockItemId == id, ct)) throw new DomainException("ألغِ ربط المنتجات أولاً.");
+        _db.StockItems.Remove(line);
+        await _db.SaveChangesAsync(ct);
+        return line.Family;
+    }
+
+    private async Task<StockGroup> FindGroupAsync(string family, CancellationToken ct)
+    {
+        var id = family.StartsWith('g') && int.TryParse(family[1..], out var i) ? i : 0;
+        return await _db.StockGroups.FirstOrDefaultAsync(g => g.Id == id, ct) ?? throw new DomainException("المخزون غير موجود.");
+    }
 
     private IQueryable<StockItemDto> Dtos() => _db.StockItems.AsNoTracking()
         .OrderBy(s => s.SortOrder)
@@ -443,11 +558,11 @@ public class StockService : IStockService
             line = await _db.StockItems.FirstOrDefaultAsync(s => s.Id == lineId, ct)
                 ?? throw new DomainException("صنف المخزون غير موجود.");
         }
-        else if (target.StartsWith("new:") && FamilyNames.ContainsKey(target[4..]) && !target.EndsWith("metro-code") && !target.EndsWith("metro-tandem"))
+        else if (target.StartsWith("new:") && NewLineFamilies.Contains(target[4..]))
         {
             var family = target[4..];
             var sort = (await _db.StockItems.MaxAsync(s => (int?)s.SortOrder, ct) ?? 0) + 1;
-            line = StockItem.Create(family, product.Name.Trim(), null, "أخرى", null, null, sort,
+            line = StockItem.Create(family, product.Name.Trim(), null, StockGroupRegistry.IsCustom(family) ? null : "أخرى", null, null, sort,
                 null, family is "metro" or "sh" ? 0 : null, null, null, null, 0, null, null);
             _db.StockItems.Add(line);
             await _db.SaveChangesAsync(ct);

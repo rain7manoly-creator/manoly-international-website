@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "مخزون جديد";
+}
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/stock" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        المخزون
+    </a>
+    <p class="eyebrow mb-1">NEW STOCK · مخزون جديد</p>
+    <h1 class="page-title">مخزون جديد</h1>
+    <p class="text-sm text-bark mt-1">مثلاً «مفصلات SH». يظهر في صفحة المخزون مثل ميترو و SH، وتربط أسطره بالرفوف بنفس الطريقة.</p>
+</div>
+
+<form method="post" action="/stock/groups/new" class="mx-4 card p-5 mb-8 flex flex-col gap-4">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label class="form-label" for="name">اسم المخزون</label>
+        <input type="text" id="name" name="name" class="form-input" required maxlength="100" placeholder="مفصلات SH" autofocus />
+    </div>
+    <div class="form-group">
+        <span class="form-label">يُعدّ بـ</span>
+        <div class="flex gap-2">
+            <label class="btn-secondary btn-sm flex-1 justify-center gap-2" style="cursor:pointer"><input type="radio" name="unit" value="piece" checked /> حبة</label>
+            <label class="btn-secondary btn-sm flex-1 justify-center gap-2" style="cursor:pointer"><input type="radio" name="unit" value="carton" /> كرتونة</label>
+        </div>
+        <p class="text-xs text-bark-l mt-1">حبة: كل ربطة على الرف = عدد الحبات فيها. كرتونة: كل ربطة على الرف = كرتونة واحدة.</p>
+    </div>
+    <div class="form-group">
+        <label class="form-label" for="lines">الأسطر (اختياري، كل سطر في خط)</label>
+        <textarea id="lines" name="lines" rows="6" class="form-input" placeholder="مفصلة SH عادي&#10;مفصلة SH بستون&#10;مفصلة SH زاوية"></textarea>
+        <p class="text-xs text-bark-l mt-1">يمكنك إضافة أسطر لاحقاً أيضاً.</p>
+    </div>
+    <button type="submit" class="btn-primary w-full">إنشاء</button>
+</form>

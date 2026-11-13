@@ -25,6 +25,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>, IDataProtectionK
     public DbSet<StockMovement> StockMovements => Set<StockMovement>();
     public DbSet<StockImport> StockImports => Set<StockImport>();
     public DbSet<AreaZWarehouse> AreaZWarehouses => Set<AreaZWarehouse>();
+    public DbSet<StockGroup> StockGroups => Set<StockGroup>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

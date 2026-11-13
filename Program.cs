@@ -81,6 +81,7 @@ using (var scope = app.Services.CreateScope())
 
         await DbInitializer.InitializeAsync(userManager, roleManager, config, logger);
         await StockSeeder.SeedAsync(db, logger);
+        await ManolyWarehouse.Application.Services.StockService.ReloadGroupsAsync(db);
     }
     catch (Exception ex)
     {

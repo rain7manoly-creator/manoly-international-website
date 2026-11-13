@@ -4317,6 +4317,36 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                     b.ToTable("ShelfInventory", (string)null);
                 });
 
+            modelBuilder.Entity("ManolyWarehouse.Domain.Entities.StockGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("InCartons")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("StockGroups", (string)null);
+                });
+
             modelBuilder.Entity("ManolyWarehouse.Domain.Entities.StockImport", b =>
                 {
                     b.Property<int>("Id")

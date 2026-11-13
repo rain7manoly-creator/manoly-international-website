@@ -31,6 +31,7 @@ public class DomainExceptionMiddleware
 
             var tempData = tempDataFactory.GetTempData(context);
             tempData["ErrorMessage"] = ex.Message;
+            tempData.Save();   // MVC never reaches its own save when an exception escapes
 
             var referer = context.Request.Headers["Referer"].ToString();
             context.Response.Redirect(string.IsNullOrEmpty(referer) ? "/" : referer);

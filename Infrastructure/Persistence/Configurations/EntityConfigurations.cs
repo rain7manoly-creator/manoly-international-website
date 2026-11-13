@@ -345,3 +345,15 @@ public class AreaZWarehouseConfiguration : IEntityTypeConfiguration<AreaZWarehou
         builder.HasIndex(w => w.Name).IsUnique();
     }
 }
+
+public class StockGroupConfiguration : IEntityTypeConfiguration<StockGroup>
+{
+    public void Configure(EntityTypeBuilder<StockGroup> builder)
+    {
+        builder.ToTable("StockGroups");
+        builder.HasKey(g => g.Id);
+        builder.Property(g => g.Name).HasMaxLength(100).IsRequired();
+        builder.HasIndex(g => g.Name).IsUnique();
+        builder.Ignore(g => g.Key);
+    }
+}

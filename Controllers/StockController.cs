@@ -98,9 +98,115 @@ public class StockController : Controller
     [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> ExportFile(string key, CancellationToken ct)
     {
-        var result = await _files.BuildAsync(key, ct);
+        var result = ManolyWarehouse.Domain.Entities.StockGroupRegistry.IsCustom(key)
+            ? await BuildGroupExcelAsync(key, ct)
+            : await _files.BuildAsync(key, ct);
         if (result is null) return NotFound();
         return File(result.Value.Bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", result.Value.FileName);
+    }
+
+    // ── Created stock groups (e.g. مفصلات SH) ─────────────────────────
+
+    [HttpGet("groups/new")]
+    [Authorize(Policy = "AdminOnly")]
+    public IActionResult NewGroup() => View();
+
+    [HttpPost("groups/new")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> NewGroup(string name, string unit, string? lines, CancellationToken ct)
+    {
+        var key = await _stock.CreateGroupAsync(name, unit == "carton", lines, ct);
+        TempData["SuccessMessage"] = "تم إنشاء المخزون.";
+        return Redirect($"/stock/groups/{key}");
+    }
+
+    /// <summary>Manage one group: add lines; for created groups also rename, change unit, rename/delete lines.</summary>
+    [HttpGet("groups/{family}")]
+    [Authorize(Policy = "AdminOnly")]
+    public async Task<IActionResult> Group(string family, CancellationToken ct)
+    {
+        if (!StockService.NewLineFamilies.Contains(family)) return NotFound();
+        var page = await _stock.GetPageAsync(ct);
+        ViewBag.Family = family;
+        return View(page.Items.Where(i => i.Family == family).ToList());
+    }
+
+    [HttpPost("groups/{family}/edit")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> EditGroup(string family, string name, string unit, CancellationToken ct)
+    {
+        await _stock.UpdateGroupAsync(family, name, unit == "carton", ct);
+        TempData["SuccessMessage"] = "تم الحفظ.";
+        return Redirect($"/stock/groups/{family}");
+    }
+
+    [HttpPost("groups/{family}/delete")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteGroup(string family, CancellationToken ct)
+    {
+        await _stock.DeleteGroupAsync(family, ct);
+        TempData["SuccessMessage"] = "تم حذف المخزون.";
+        return Redirect("/stock");
+    }
+
+    [HttpPost("groups/{family}/add")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddLines(string family, string lines, CancellationToken ct)
+    {
+        var n = await _stock.AddLinesAsync(family, lines, ct);
+        TempData["SuccessMessage"] = $"تمت إضافة {n} سطر.";
+        return Redirect($"/stock/groups/{family}");
+    }
+
+    [HttpPost("items/{id:int}/rename")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> RenameLine(int id, string name, string? back, CancellationToken ct)
+    {
+        await _stock.RenameLineAsync(id, name, ct);
+        TempData["SuccessMessage"] = "تم تعديل الاسم.";
+        return LocalRedirect(!string.IsNullOrEmpty(back) && Url.IsLocalUrl(back) ? back : $"/stock/items/{id}");
+    }
+
+    [HttpPost("items/{id:int}/delete")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteLine(int id, CancellationToken ct)
+    {
+        var family = await _stock.DeleteLineAsync(id, ct);
+        TempData["SuccessMessage"] = "تم حذف السطر.";
+        return Redirect($"/stock/groups/{family}");
+    }
+
+    /// <summary>A created group as a plain sheet: name, warehouse, each Area Z warehouse, total.</summary>
+    private async Task<(byte[] Bytes, string FileName)?> BuildGroupExcelAsync(string family, CancellationToken ct)
+    {
+        var name = StockService.FamilyNames.GetValueOrDefault(family, family);
+        var items = (await _stock.GetPageAsync(ct)).Items.Where(i => i.Family == family).ToList();
+        var zNames = items.SelectMany(i => i.AreaZ).Select(z => z.Name).Distinct().ToList();
+        using var wb = new ClosedXML.Excel.XLWorkbook();
+        var ws = wb.AddWorksheet(name.Length > 31 ? name[..31] : name);
+        ws.RightToLeft = true;
+        var head = new List<string> { "الصنف", "المستودع" }; head.AddRange(zNames); head.Add("المجموع");
+        for (var c = 0; c < head.Count; c++) ws.Cell(1, c + 1).Value = head[c];
+        ws.Row(1).Style.Font.Bold = true;
+        var r = 2;
+        foreach (var i in items)
+        {
+            ws.Cell(r, 1).Value = i.Name;
+            ws.Cell(r, 2).Value = i.Shelves ?? 0;
+            for (var z = 0; z < zNames.Count; z++) ws.Cell(r, 3 + z).Value = i.AreaZ.Where(a => a.Name == zNames[z]).Sum(a => a.Qty);
+            ws.Cell(r, head.Count).Value = i.Total ?? 0;
+            r++;
+        }
+        ws.Columns().AdjustToContents();
+        using var ms = new MemoryStream();
+        wb.SaveAs(ms);
+        return (ms.ToArray(), $"{name} {DateTime.Now:yyyy-MM-dd}.xlsx");
     }
 
     /// <summary>Stock search: Metro, SH, screws, Kent first, then every other product in the app.</summary>

@@ -80,6 +80,7 @@ public class StockItem
     /// <summary>Warn when the total is at or below this. null = only when finished (≤ 0); -1 = never warn.</summary>
     public int? AlertAt { get; private set; }
     public void SetAlertAt(int? alertAt) => AlertAt = alertAt;
+    public void Rename(string name) => Name = name;
 
     /// <summary>Non-numeric quantity and extra file columns, replaced when a newer Excel file is imported.</summary>
     public void SetFileData(string? qtyText, string? extraJson)
@@ -89,7 +90,8 @@ public class StockItem
     }
 
     /// <summary>Screws and Kent are counted in cartons in the stock files; drawers in single pieces.</summary>
-    public static bool CountsInCartons(string family) => family is "screws" or "kent" or "smirdex";
+    public static bool CountsInCartons(string family) => family is "screws" or "kent" or "smirdex"
+        || (StockGroupRegistry.Groups.TryGetValue(family, out var g) && g.InCartons);
     public string UnitLabel => CountsInCartons(Family) ? "كرتونة" : "حبة";
 
     public string ColorLabel => Color switch { "white" => "أبيض", "grey" => "سكني", _ => "" };

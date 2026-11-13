@@ -1,0 +1,105 @@
+@model List<ManolyWarehouse.Application.Services.StockItemDto>
+@using ManolyWarehouse.Domain.Entities
+@{
+    string family = ViewBag.Family;
+    var name = ManolyWarehouse.Application.Services.StockService.FamilyNames.GetValueOrDefault(family, family);
+    var custom = StockGroupRegistry.IsCustom(family);
+    var cartons = StockItem.CountsInCartons(family);
+    ViewData["Title"] = name;
+}
+
+<style>.ln-edit[hidden] { display:none !important; }</style>
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/stock" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        المخزون
+    </a>
+    <p class="eyebrow mb-1">STOCK · إدارة المخزون</p>
+    <h1 class="page-title">@name</h1>
+    <p class="text-sm text-bark mt-1">@Model.Count سطر · يُعدّ بـ @(cartons ? "الكرتونة" : "الحبة")</p>
+</div>
+
+@* ── Add lines ── *@
+<form method="post" action="/stock/groups/@family/add" class="mx-4 card p-4 mb-4 flex flex-col gap-3">
+    @Html.AntiForgeryToken()
+    <label class="text-sm font-semibold" for="lines">+ إضافة أسطر (كل سطر في خط)</label>
+    <textarea id="lines" name="lines" rows="3" class="form-input" required placeholder="اسم السطر الجديد"></textarea>
+    <button type="submit" class="btn-primary btn-sm">إضافة</button>
+</form>
+
+@* ── Lines ── *@
+<div class="mx-4 card mb-4">
+    <div class="px-4 py-3 text-sm font-semibold flex justify-between" style="border-bottom:1px solid #E3E4E5">
+        <span>الأسطر</span><span class="text-xs text-bark-l">المجموع · @(cartons ? "كرتونة" : "حبة")</span>
+    </div>
+    @if (!Model.Any())
+    {
+        <p class="px-4 py-3 text-sm text-bark">لا توجد أسطر بعد. أضف أول سطر من الأعلى.</p>
+    }
+    @foreach (var i in Model)
+    {
+        <div class="px-4 py-3" style="border-top:1px solid #F1F1F2">
+            <div class="flex items-center justify-between gap-3">
+                <a href="/stock/items/@i.Id" class="text-sm font-semibold text-ink min-w-0">
+                    @i.Name
+                    @if (i.Linked > 0) { <span class="text-xs" style="color:#2F7A4A">● مرتبط</span> }
+                    else { <span class="text-xs text-bark-l">غير مرتبط</span> }
+                </a>
+                <div class="flex items-center gap-2 shrink-0">
+                    <b class="history-qty" style="font-size:17px">@(i.Total?.ToString("N0") ?? "—")</b>
+                    @if (custom)
+                    {
+                        <button type="button" class="btn-ghost btn-sm" onclick="this.closest('div.px-4').querySelector('.ln-edit').hidden = !this.closest('div.px-4').querySelector('.ln-edit').hidden">تعديل</button>
+                    }
+                </div>
+            </div>
+            @if (custom)
+            {
+                <div class="ln-edit mt-2 flex flex-col gap-2" hidden>
+                    <form method="post" action="/stock/items/@i.Id/rename" class="flex gap-2">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="back" value="/stock/groups/@family" />
+                        <input type="text" name="name" value="@i.Name" class="form-input flex-1" required maxlength="200" />
+                        <button type="submit" class="btn-primary btn-sm shrink-0">حفظ</button>
+                    </form>
+                    @if (i.Linked == 0)
+                    {
+                        <form method="post" action="/stock/items/@i.Id/delete" id="del-@i.Id">
+                            @Html.AntiForgeryToken()
+                            <button type="button" class="btn-ghost btn-sm" style="color:#CA292E"
+                                    onclick="confirmSubmit('حذف السطر', 'سيُحذف «@i.Name» وسجله من المخزون.', 'del-@i.Id', 'حذف')">حذف السطر</button>
+                        </form>
+                    }
+                </div>
+            }
+        </div>
+    }
+    <p class="px-4 py-3 text-xs text-bark-l" style="border-top:1px solid #E3E4E5">
+        اربط كل سطر بالمنتج الموجود على الرف: افتح السطر واضغط «+ ربط منتج»، أو من الرف اضغط على المنتج ثم «ربط بالمخزون».
+    </p>
+</div>
+
+@if (custom)
+{
+    <form method="post" action="/stock/groups/@family/edit" class="mx-4 card p-4 mb-4 flex flex-col gap-3">
+        @Html.AntiForgeryToken()
+        <div class="text-sm font-semibold">الاسم والوحدة</div>
+        <input type="text" name="name" value="@name" class="form-input" required maxlength="100" aria-label="اسم المخزون" />
+        <div class="flex gap-2">
+            <label class="btn-secondary btn-sm flex-1 justify-center gap-2" style="cursor:pointer"><input type="radio" name="unit" value="piece" checked="@(!cartons)" /> حبة</label>
+            <label class="btn-secondary btn-sm flex-1 justify-center gap-2" style="cursor:pointer"><input type="radio" name="unit" value="carton" checked="@cartons" /> كرتونة</label>
+        </div>
+        <button type="submit" class="btn-primary btn-sm">حفظ</button>
+    </form>
+
+    @if (!Model.Any())
+    {
+        <form method="post" action="/stock/groups/@family/delete" id="del-group" class="mx-4 mb-8">
+            @Html.AntiForgeryToken()
+            <button type="button" class="btn-ghost btn-sm w-full" style="color:#CA292E"
+                    onclick="confirmSubmit('حذف المخزون', 'سيُحذف «@name» من صفحة المخزون.', 'del-group', 'حذف')">حذف هذا المخزون</button>
+        </form>
+    }
+}
+<div class="mb-8"></div>

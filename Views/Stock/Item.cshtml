@@ -88,6 +88,18 @@
     }
 </div>
 
+@if (isAdmin && ManolyWarehouse.Domain.Entities.StockGroupRegistry.IsCustom(s.Family))
+{
+    <div class="mx-4 card p-4 mb-4 flex flex-col gap-2">
+        <div class="text-sm font-semibold flex justify-between"><span>اسم السطر</span><a href="/stock/groups/@s.Family" class="text-xs" style="color:#CA292E">إدارة @famName</a></div>
+        <form method="post" action="/stock/items/@s.Id/rename" class="flex gap-2">
+            @Html.AntiForgeryToken()
+            <input type="text" name="name" value="@s.Name" class="form-input flex-1" required maxlength="200" aria-label="اسم السطر" />
+            <button type="submit" class="btn-primary btn-sm shrink-0">حفظ</button>
+        </form>
+    </div>
+}
+
 @* ── Warning number ────────────────────────────────────── *@
 @if (isAdmin && s.QtyText == null)
 {

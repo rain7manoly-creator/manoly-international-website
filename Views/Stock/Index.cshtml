@@ -4,6 +4,8 @@
     ViewData["Title"] = "المخزون";
     var json = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
     var itemsJson = JsonSerializer.Serialize(Model.Items, json);
+    var groups = ManolyWarehouse.Domain.Entities.StockGroupRegistry.Groups.Select(g => new { key = g.Key, name = g.Value.Name }).ToList();
+    var groupsJson = JsonSerializer.Serialize(groups, json);
     var othersJson = JsonSerializer.Serialize(Model.OtherProducts.Select(p => new { id = p.ProductId, name = p.ProductName, cat = p.CategoryName, qty = p.TotalBundles, shelves = p.ShelfBundles, areaZ = p.AreaZ, alertAt = p.AlertAt }), json);
 }
 
@@ -65,6 +67,10 @@
     </div>
     <div class="flex items-center gap-2 shrink-0">
         <a href="/inventory" class="btn-ghost btn-sm">حسب الرف</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a href="/stock/groups/new" class="btn-primary btn-sm">+ مخزون جديد</a>
+        }
     </div>
 </div>
 
@@ -79,6 +85,10 @@
         <a href="/stock/export/screws" class="btn-secondary btn-sm">براغي اتيكو</a>
         <a href="/stock/export/kent" class="btn-secondary btn-sm">الكنت</a>
         <a href="/stock/export/smirdex" class="btn-secondary btn-sm">سميردكس</a>
+        @foreach (var g in groups)
+        {
+            <a href="/stock/export/@g.key" class="btn-secondary btn-sm">@g.name</a>
+        }
         <a href="/stock/check" class="btn-ghost btn-sm">مطابقة</a>
     }
 </div>
@@ -98,6 +108,10 @@
         <button class="st-chip" type="button" data-cat="screws" aria-pressed="false">براغي اتيكو</button>
         <button class="st-chip" type="button" data-cat="kent" aria-pressed="false">الكنت</button>
         <button class="st-chip" type="button" data-cat="smirdex" aria-pressed="false">سميردكس</button>
+        @foreach (var g in groups)
+        {
+            <button class="st-chip" type="button" data-cat="@g.key" aria-pressed="false">@g.name</button>
+        }
         <button class="st-chip" type="button" data-cat="other" aria-pressed="false">منتجات أخرى</button>
         <button class="st-chip out" type="button" id="outOnly" aria-pressed="false">⚠ ناقص فقط</button>
     </div>
@@ -106,6 +120,7 @@
 <div class="px-4 pt-4 pb-6 flex flex-col gap-4" id="results"></div>
 
 <script id="stock-items" type="application/json">@Html.Raw(itemsJson.Replace("</", "<\\/"))</script>
+<script id="stock-groups" type="application/json">@Html.Raw(groupsJson.Replace("</", "<\\/"))</script>
 <script id="stock-others" type="application/json">@Html.Raw(othersJson.Replace("</", "<\\/"))</script>
 
 @section Scripts {
@@ -113,6 +128,8 @@
 (function () {
     const IS_ADMIN = @(User.IsInRole("Admin") ? "true" : "false");
     const ITEMS = JSON.parse(document.getElementById('stock-items').textContent);
+    const GROUPS = JSON.parse(document.getElementById('stock-groups').textContent);
+    const GNAME = Object.fromEntries(GROUPS.map(g => [g.key, g.name]));
     const OTHERS = JSON.parse(document.getElementById('stock-others').textContent);
     const qEl = document.getElementById('q'), resEl = document.getElementById('results');
     const clearBtn = document.getElementById('clear'), outBtn = document.getElementById('outOnly');
@@ -140,7 +157,7 @@
     ITEMS.forEach(i => {
         const alias = { metro: 'metro ميترو مترو', sh: 'sh اس اتش اسش', screws: 'براغي برغي اتيكو atiko', kent: 'كنت كانت حواف edge', smirdex: 'سميردكس smirdex ورق حف اسفنج' }[famOf(i)] || '';
         const extra = i.family === 'metro-tandem' ? 'سحاب تندم tandem' : i.family === 'metro-code' ? 'كود code' : '';
-        i.key = norm([alias, extra, i.type || '', i.h || '', i.len || '', i.name].join(' '));
+        i.key = norm([alias, extra, GNAME[i.family] || '', i.type || '', i.h || '', i.len || '', i.name].join(' '));
     });
     OTHERS.forEach(o => o.key = norm(o.name + ' ' + o.cat));
 
@@ -212,7 +229,7 @@
 
     function listCard(tag, title, list, grid, code) {
         if (!list.length) return '';
-        return '<article class="card st-card"><div class="st-card-h"><h3><span class="st-tag">' + tag + '</span>' + title + '</h3><small>' + list.length + '</small></div>' +
+        return '<article class="card st-card"><div class="st-card-h"><h3>' + (tag ? '<span class="st-tag">' + tag + '</span>' : '') + title + '</h3><small>' + list.length + '</small></div>' +
             '<div class="' + (grid ? 'st-grid' : '') + '">' + list.map(i => {
                 const v = i.qtyText != null ? i.qtyText : i.total;
                 const w = i.qtyText == null && isWarn(i.total, i.alertAt);
@@ -240,7 +257,8 @@
         return html;
     }
 
-    const sec = (t, n) => '<div class="st-sec"><h2>' + t + '</h2><span>' + n + '</span></div>';
+    const sec = (t, n, fam) => '<div class="st-sec"><h2>' + t + '</h2><span>' + n +
+        (IS_ADMIN && fam ? ' · <a href="/stock/groups/' + fam + '" style="color:#CA292E;font-weight:600">إدارة</a>' : '') + '</span></div>';
 
     function render() {
         const raw = qEl.value; clearBtn.hidden = !raw;
@@ -252,20 +270,26 @@
         const dM = pick(['metro'], 'metro'), tM = pick(['metro-tandem'], 'metro'), cM = pick(['metro-code'], 'metro');
         const dS = pick(['sh'], 'sh'), sc = pick(['screws'], 'screws'), kt = pick(['kent'], 'kent'), sm = pick(['smirdex'], 'smirdex');
         const ot = (want('other') && !cats.size) ? OTHERS.filter(o => match(o.key, tokens) && (!outOnly || (o.alertAt !== -1 && (o.qty <= 0 || (o.alertAt != null && o.qty <= o.alertAt))))) : [];
-        const n = dM.length + tM.length + cM.length + dS.length + sc.length + kt.length + sm.length + ot.length;
+        const gs = GROUPS.map(g => ({ g, list: pick([g.key], g.key) }));
+        const n = dM.length + tM.length + cM.length + dS.length + sc.length + kt.length + sm.length + ot.length + gs.reduce((a, x) => a + x.list.length, 0);
 
         let html = '<p class="text-sm text-bark"><b class="text-ink">' + n + '</b> نتيجة' + (raw.trim() ? ' لـ «' + esc(raw.trim()) + '»' : '') + '</p>';
         if (!n) html += '<div class="card empty-state"><h2 class="empty-state-title">لا يوجد صنف بهذا الاسم</h2><p class="empty-state-desc">جرّب كلمة أقصر، مثل «ميترو 500» أو «4x30» أو رقم الكنت.</p></div>';
-        if (dM.length + tM.length + cM.length) html += sec('جرار ميترو', (dM.length + tM.length + cM.length) + ' صنف') + drawerCards(dM.filter(i => i.color), color) +
+        if (dM.length + tM.length + cM.length) html += sec('جرار ميترو', (dM.length + tM.length + cM.length) + ' صنف', 'metro') + drawerCards(dM.filter(i => i.color), color) +
             listCard('METRO', 'أصناف أخرى', dM.filter(i => !i.color), false, false) +
             listCard('METRO', 'سحاب تندم', tM, false, false) + listCard('METRO', 'أكواد G', cM, false, true);
-        if (dS.length) html += sec('جرار SH', dS.length + ' صنف') + drawerCards(dS.filter(i => i.color), color) +
+        if (dS.length) html += sec('جرار SH', dS.length + ' صنف', 'sh') + drawerCards(dS.filter(i => i.color), color) +
             listCard('SH', 'أصناف أخرى', dS.filter(i => !i.color), false, false);
-        if (sc.length) html += sec('براغي اتيكو', sc.length + ' مقاس') + listCard('ATIKO', 'براغي اتيكو', sc, false, true);
-        if (kt.length) html += sec('الكنت', kt.length + ' لون') + listCard('KENT', 'الكنت', kt, false, true);
-        if (sm.length) html += sec('سميردكس', sm.length + ' صنف') +
+        if (sc.length) html += sec('براغي اتيكو', sc.length + ' مقاس', 'screws') + listCard('ATIKO', 'براغي اتيكو', sc, false, true);
+        if (kt.length) html += sec('الكنت', kt.length + ' لون', 'kent') + listCard('KENT', 'الكنت', kt, false, true);
+        if (sm.length) html += sec('سميردكس', sm.length + ' صنف', 'smirdex') +
             listCard('SMIRDEX', 'ورق حف', sm.filter(i => i.type === 'ورق حف'), false, true) +
             listCard('SMIRDEX', 'رول اسفنج حف', sm.filter(i => i.type !== 'ورق حف'), false, true);
+        gs.forEach(({ g, list }) => { if (list.length) html += sec(esc(g.name), list.length + ' صنف', g.key) + listCard('', esc(g.name), list, false, false); });
+        if (!cats.size && !outOnly && !raw.trim()) gs.forEach(({ g, list }) => {
+            if (!list.length && (cat === 'all' || cat === g.key)) html += sec(esc(g.name), '0 صنف', g.key) +
+                '<div class="card p-4 text-sm text-bark">لا توجد أسطر بعد.' + (IS_ADMIN ? ' <a href="/stock/groups/' + g.key + '" style="color:#CA292E;font-weight:600">أضف أسطر</a>' : '') + '</div>';
+        });
         if (ot.length) html += sec('منتجات أخرى', ot.length + ' منتج') + othersCards(ot);
         resEl.innerHTML = html;
     }

@@ -3,7 +3,7 @@
     ViewData["Title"] = "مطابقة المخزون";
     string Fam(string f) => ManolyWarehouse.Application.Services.StockService.FamilyNames.GetValueOrDefault(f, f);
     string Col(string? c) => c == "white" ? "أبيض" : c == "grey" ? "سكني" : "";
-    string[] NewFamilies = { "metro", "sh", "screws", "kent", "smirdex" };
+    var NewFamilies = ManolyWarehouse.Application.Services.StockService.NewLineFamilies;
     // Best guess of the family from the product name, to pre-select the right choice
     string? Guess(string n)
     {
