@@ -4,7 +4,7 @@
     ViewData["Title"] = "المخزون";
     var json = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
     var itemsJson = JsonSerializer.Serialize(Model.Items, json);
-    var groups = ManolyWarehouse.Domain.Entities.StockGroupRegistry.Groups.Select(g => new { key = g.Key, name = g.Value.Name }).ToList();
+    var groups = ManolyWarehouse.Domain.Entities.StockGroupRegistry.Groups.Select(g => new { key = g.Key, name = g.Value.Name, unit = g.Value.InCartons ? "كرتونة" : "حبة" }).ToList();
     var groupsJson = JsonSerializer.Serialize(groups, json);
     var othersJson = JsonSerializer.Serialize(Model.OtherProducts.Select(p => new { id = p.ProductId, name = p.ProductName, cat = p.CategoryName, qty = p.TotalBundles, shelves = p.ShelfBundles, areaZ = p.AreaZ, alertAt = p.AlertAt }), json);
 }
@@ -25,6 +25,14 @@
     .st-sec { display:flex; align-items:baseline; justify-content:space-between; margin:4px 2px -6px; }
     .st-sec h2 { font-size:19px; font-weight:700; }
     .st-sec span { font-size:12px; color:#A7A9AC; }
+    .st-tot { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 14px; background:#111; color:#fff; border-radius:12px; padding:10px 14px; margin-top:2px; }
+    .st-tot .big { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:24px; font-weight:700; line-height:1; }
+    .st-tot .lbl { font-size:12px; color:#A7A9AC; }
+    .st-tot .part { font-size:13px; color:#E3E4E5; }
+    .st-tot .part b { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; color:#fff; }
+    .st-tot.grand { background:#CA292E; }
+    .st-tot.grand .lbl, .st-tot.grand .part { color:#FBECEC; }
+    .st-card-h small b { color:#111; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; }
     .st-card-h { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 14px; border-bottom:1px solid #E3E4E5; }
     .st-card-h h3 { font-size:15px; font-weight:700; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
     .st-card-h small { font-size:12px; color:#A7A9AC; white-space:nowrap; }
@@ -216,7 +224,7 @@
             const hasW = rows.some(([, r]) => r.white), hasG = rows.some(([, r]) => r.grey);
             const showW = hasW && color !== 'grey', showG = hasG && color !== 'white';
             html += '<article class="card st-card"><div class="st-card-h"><h3><span class="st-tag">' + esc(fam.toUpperCase()) + '</span>' + esc(type) +
-                (h && h !== 'null' ? ' <span class="st-tag h">' + esc(h) + '</span>' : '') + '</h3><small>' + rows.length + ' مقاس</small></div>' +
+                (h && h !== 'null' ? ' <span class="st-tag h">' + esc(h) + '</span>' : '') + '</h3><small>' + rows.length + ' مقاس' + cardTot(rows.flatMap(([, r]) => [r.white, r.grey].filter(Boolean))) + '</small></div>' +
                 '<div style="overflow-x:auto"><table><thead><tr><th>الطول</th>' +
                 (showW ? '<th><span class="st-sw"></span>أبيض</th>' : '') + (showG ? '<th><span class="st-sw g"></span>سكني</th>' : '') +
                 '</tr></thead><tbody>' +
@@ -229,7 +237,7 @@
 
     function listCard(tag, title, list, grid, code) {
         if (!list.length) return '';
-        return '<article class="card st-card"><div class="st-card-h"><h3>' + (tag ? '<span class="st-tag">' + tag + '</span>' : '') + title + '</h3><small>' + list.length + '</small></div>' +
+        return '<article class="card st-card"><div class="st-card-h"><h3>' + (tag ? '<span class="st-tag">' + tag + '</span>' : '') + title + '</h3><small>' + list.length + cardTot(list) + '</small></div>' +
             '<div class="' + (grid ? 'st-grid' : '') + '">' + list.map(i => {
                 const v = i.qtyText != null ? i.qtyText : i.total;
                 const w = i.qtyText == null && isWarn(i.total, i.alertAt);
@@ -246,7 +254,7 @@
         list.forEach(o => { if (!byCat.has(o.cat)) byCat.set(o.cat, []); byCat.get(o.cat).push(o); });
         let html = '';
         byCat.forEach((rows, c) => {
-            html += '<article class="card st-card"><div class="st-card-h"><h3>' + esc(c) + '</h3><small>' + rows.length + ' منتج · ربطة</small></div>' +
+            html += '<article class="card st-card"><div class="st-card-h"><h3>' + esc(c) + '</h3><small>' + rows.length + ' منتج' + cardTot(rows) + ' ربطة</small></div>' +
                 rows.map(o => (IS_ADMIN ? '<a class="st-row" href="/products/' + o.id + '">' : '<div class="st-row">') +
                     '<span class="nm">' + esc(o.name) + '</span><span style="text-align:left">' + (o.alertAt !== -1 && (o.qty <= 0 || (o.alertAt != null && o.qty <= o.alertAt)) ? WARN : '') +
                     '<span class="st-q' + (o.qty <= 0 ? ' zero' : (o.alertAt != null && o.alertAt >= 0 && o.qty <= o.alertAt ? ' warn' : '')) + '">' + fmt(o.qty) + '</span>' +
@@ -257,6 +265,25 @@
         return html;
     }
 
+    // Sum of the numeric totals in a list, with the warehouse / Area Z split
+    function sum(list) {
+        let t = 0, w = 0, z = 0, cnt = 0;
+        list.forEach(i => {
+            const v = i.qty != null ? i.qty : (i.qtyText == null ? i.total : null);
+            if (typeof v !== 'number') return;
+            t += v; cnt++;
+            w += i.shelves || 0; z += (i.areaZ || []).reduce((a, x) => a + (x.qty || 0), 0);
+        });
+        return { t, w, z, cnt };
+    }
+    function totBar(list, unit, grand) {
+        const s = sum(list);
+        if (!s.cnt) return '';
+        return '<div class="st-tot' + (grand ? ' grand' : '') + '"><span class="lbl">المجموع</span><span class="big">' + fmt(s.t) + '</span><span class="lbl">' + unit + '</span>' +
+            '<span class="part">مستودع <b>' + fmt(s.w) + '</b></span><span class="part">Area Z <b>' + fmt(s.z) + '</b></span>' +
+            (s.t - s.w - s.z ? '<span class="part">محلات وغيرها <b>' + fmt(s.t - s.w - s.z) + '</b></span>' : '') + '</div>';
+    }
+    const cardTot = list => { const s = sum(list); return s.cnt ? ' · المجموع <b>' + fmt(s.t) + '</b>' : ''; };
     const sec = (t, n, fam) => '<div class="st-sec"><h2>' + t + '</h2><span>' + n +
         (IS_ADMIN && fam ? ' · <a href="/stock/groups/' + fam + '" style="color:#CA292E;font-weight:600">إدارة</a>' : '') + '</span></div>';
 
@@ -275,17 +302,17 @@
 
         let html = '<p class="text-sm text-bark"><b class="text-ink">' + n + '</b> نتيجة' + (raw.trim() ? ' لـ «' + esc(raw.trim()) + '»' : '') + '</p>';
         if (!n) html += '<div class="card empty-state"><h2 class="empty-state-title">لا يوجد صنف بهذا الاسم</h2><p class="empty-state-desc">جرّب كلمة أقصر، مثل «ميترو 500» أو «4x30» أو رقم الكنت.</p></div>';
-        if (dM.length + tM.length + cM.length) html += sec('جرار ميترو', (dM.length + tM.length + cM.length) + ' صنف', 'metro') + drawerCards(dM.filter(i => i.color), color) +
+        if (dM.length + tM.length + cM.length) html += sec('جرار ميترو', (dM.length + tM.length + cM.length) + ' صنف', 'metro') + totBar(dM.concat(tM), 'حبة') + drawerCards(dM.filter(i => i.color), color) +
             listCard('METRO', 'أصناف أخرى', dM.filter(i => !i.color), false, false) +
             listCard('METRO', 'سحاب تندم', tM, false, false) + listCard('METRO', 'أكواد G', cM, false, true);
-        if (dS.length) html += sec('جرار SH', dS.length + ' صنف', 'sh') + drawerCards(dS.filter(i => i.color), color) +
+        if (dS.length) html += sec('جرار SH', dS.length + ' صنف', 'sh') + totBar(dS, 'حبة') + drawerCards(dS.filter(i => i.color), color) +
             listCard('SH', 'أصناف أخرى', dS.filter(i => !i.color), false, false);
-        if (sc.length) html += sec('براغي اتيكو', sc.length + ' مقاس', 'screws') + listCard('ATIKO', 'براغي اتيكو', sc, false, true);
-        if (kt.length) html += sec('الكنت', kt.length + ' لون', 'kent') + listCard('KENT', 'الكنت', kt, false, true);
-        if (sm.length) html += sec('سميردكس', sm.length + ' صنف', 'smirdex') +
+        if (sc.length) html += sec('براغي اتيكو', sc.length + ' مقاس', 'screws') + totBar(sc, 'كرتونة') + listCard('ATIKO', 'براغي اتيكو', sc, false, true);
+        if (kt.length) html += sec('الكنت', kt.length + ' لون', 'kent') + totBar(kt, 'كرتونة') + listCard('KENT', 'الكنت', kt, false, true);
+        if (sm.length) html += sec('سميردكس', sm.length + ' صنف', 'smirdex') + totBar(sm, 'كرتونة') +
             listCard('SMIRDEX', 'ورق حف', sm.filter(i => i.type === 'ورق حف'), false, true) +
             listCard('SMIRDEX', 'رول اسفنج حف', sm.filter(i => i.type !== 'ورق حف'), false, true);
-        gs.forEach(({ g, list }) => { if (list.length) html += sec(esc(g.name), list.length + ' صنف', g.key) + listCard('', esc(g.name), list, false, false); });
+        gs.forEach(({ g, list }) => { if (list.length) html += sec(esc(g.name), list.length + ' صنف', g.key) + totBar(list, g.unit) + listCard('', esc(g.name), list, false, false); });
         if (!cats.size && !outOnly && !raw.trim()) gs.forEach(({ g, list }) => {
             if (!list.length && (cat === 'all' || cat === g.key)) html += sec(esc(g.name), '0 صنف', g.key) +
                 '<div class="card p-4 text-sm text-bark">لا توجد أسطر بعد.' + (IS_ADMIN ? ' <a href="/stock/groups/' + g.key + '" style="color:#CA292E;font-weight:600">أضف أسطر</a>' : '') + '</div>';
