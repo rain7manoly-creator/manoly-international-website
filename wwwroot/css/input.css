@@ -523,3 +523,7 @@
     font-weight: 500;
   }
 }
+
+/* Anything marked hidden (search filters, closed edit boxes) stays hidden,
+   even when a class like .list-item or .flex gives it a display value. */
+[hidden] { display: none !important; }
