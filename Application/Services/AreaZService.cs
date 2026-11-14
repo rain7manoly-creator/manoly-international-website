@@ -44,7 +44,15 @@ public class AreaZService : IAreaZService
             filtered = filtered.Where(az => EF.Functions.ILike(
                 az.Product.Name + " " + az.Product.Category.Name + " " + az.Warehouse.Name + " " + (az.Notes ?? ""), pattern));
         }
-        var query = filtered.OrderByDescending(az => az.CreatedAt);
+        // Same product together, in the stock-list order (type → height → length → colour, like the Excel);
+        // products not linked to a stock line follow, by category and name.
+        var query = filtered
+            .OrderBy(az => az.Product.StockItemId == null)
+            .ThenBy(az => az.Product.StockItem!.Family)
+            .ThenBy(az => az.Product.StockItem!.SortOrder)
+            .ThenBy(az => az.Product.Category.Name)
+            .ThenBy(az => az.Product.Name)
+            .ThenByDescending(az => az.CreatedAt);
 
         var total = await query.CountAsync(ct);
 
