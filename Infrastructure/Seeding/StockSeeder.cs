@@ -132,6 +132,114 @@ public static class StockSeeder
         const string smirdexStep2 = "smirdex-from-area-z-2026-11-10b";
         if (!await db.StockImports.AnyAsync(i => i.Name == smirdexStep2, ct))
             await FillSmirdexFromAreaZAsync(db, smirdexStep2, logger, ct, onlyEmpty: true);
+
+        // محلات is not used: clear it. Lines with no shelf product carried it inside their total, so take it out there.
+        const string shopsStep = "remove-shops-2026-11-14";
+        if (!await db.StockImports.AnyAsync(i => i.Name == shopsStep, ct))
+            await RemoveShopsAsync(db, shopsStep, logger, ct);
+
+        // Metro stock kept in Area Z › Metro Warehouse (file "stock for metro", 14/11)
+        const string metroZStep = "metro-area-z-2026-11-14";
+        if (!await db.StockImports.AnyAsync(i => i.Name == metroZStep, ct))
+            await LoadMetroAreaZAsync(db, metroZStep, logger, ct);
+    }
+
+    private static async Task RemoveShopsAsync(AppDbContext db, string step, ILogger logger, CancellationToken ct)
+    {
+        var lines = await db.StockItems.Where(s => s.Shops != null).ToListAsync(ct);
+        var linked = (await db.Products.Where(p => p.StockItemId != null).Select(p => p.StockItemId!.Value).Distinct().ToListAsync(ct)).ToHashSet();
+        var changed = 0;
+        foreach (var line in lines)
+        {
+            var shops = line.Shops ?? 0;
+            var before = line.Total;
+            // Linked lines already count only shelves + Area Z; unlinked ones had محلات inside the total
+            var after = !linked.Contains(line.Id) && before.HasValue && shops != 0 ? before - shops : before;
+            line.SetValues(line.Warehouse, null, line.Ordered, line.OnWay, after, "import");
+            if (before != after)
+            {
+                db.StockMovements.Add(StockMovement.Create(line, after - before, before, after, "حذف «محلات» من المخزون", null, "import"));
+                changed++;
+            }
+        }
+        db.StockImports.Add(StockImport.Create(step));
+        await db.SaveChangesAsync(ct);
+        logger.LogWarning("Remove shops: cleared {Count} lines, {Changed} totals changed", lines.Count, changed);
+    }
+
+    private record MetroZRow(string kind, int height, int length, string color, int cartons, int drawers, int perCarton);
+
+    private static async Task LoadMetroAreaZAsync(AppDbContext db, string step, ILogger logger, CancellationToken ct)
+    {
+        await using var stream = typeof(StockSeeder).Assembly.GetManifestResourceStream(ResourcePrefix + step + ".json")
+            ?? throw new InvalidOperationException($"{step}.json missing");
+        var rows = await JsonSerializer.DeserializeAsync<List<MetroZRow>>(stream, cancellationToken: ct) ?? new();
+
+        // The Area Z warehouse "Metro Warehouse" (created if it isn't there yet)
+        var warehouses = await db.AreaZWarehouses.ToListAsync(ct);
+        var wh = warehouses.FirstOrDefault(w => w.Name.Trim().Equals("Metro Warehouse", StringComparison.OrdinalIgnoreCase))
+              ?? warehouses.FirstOrDefault(w => w.Name.Contains("metro", StringComparison.OrdinalIgnoreCase) || w.Name.Contains("ميترو"));
+        if (wh == null)
+        {
+            wh = AreaZWarehouse.Create("Metro Warehouse", (warehouses.Max(w => (int?)w.SortOrder) ?? 0) + 1);
+            db.AreaZWarehouses.Add(wh);
+            await db.SaveChangesAsync(ct);
+        }
+
+        var lines = await db.StockItems.Where(s => s.Family == "metro" && s.Color != null && s.DrawerType != null).ToListAsync(ct);
+        string Kind(string t) => t.Replace(" مع ماسورة", "").Trim();
+        var products = await db.Products.Where(p => p.StockItemId != null).ToListAsync(ct);
+        var metroCategory = products.Where(p => lines.Any(l => l.Id == p.StockItemId)).GroupBy(p => p.CategoryId)
+            .OrderByDescending(g => g.Count()).Select(g => (int?)g.Key).FirstOrDefault();
+
+        int added = 0, updated = 0, created = 0; var missing = new List<string>();
+        foreach (var r in rows)
+        {
+            var line = lines.FirstOrDefault(l => Kind(l.DrawerType!) == r.kind && l.Height == r.height && l.Length == r.length && l.Color == r.color);
+            if (line == null) { missing.Add($"{r.kind} {r.height}-{r.length} {r.color}"); continue; }
+
+            // The product the Area Z entry belongs to: the line's own product (Arabic-named one first)
+            var product = products.Where(p => p.StockItemId == line.Id)
+                .OrderBy(p => p.Name.Contains("ميترو") ? 0 : 1).ThenBy(p => p.Id).FirstOrDefault();
+            if (product == null)
+            {
+                if (metroCategory == null) { missing.Add(line.DisplayName); continue; }
+                var color = r.color == "white" ? "ابيض" : "سكني";
+                var h = r.height == 84 ? "8.5" : r.height == 167 ? "17" : r.height == 199 ? "20" : r.height.ToString();
+                var kindWord = r.kind.StartsWith("سلم") ? "سلم" : r.kind.StartsWith("زجاج") ? "زجاج" : "بوكس";
+                product = Product.Create($"جرار ميترو {kindWord} {color} {r.length / 10}/{h}", metroCategory.Value, "import");
+                db.Products.Add(product);
+                await db.SaveChangesAsync(ct);
+                product.LinkStock(line.Id, "import");
+                products.Add(product);
+                // Now linked, the line follows the warehouse: shelves (none) + Area Z (added below)
+                var before = line.Total;
+                line.SetValues(0, null, line.Ordered, line.OnWay, 0, "import");
+                if (before != 0)
+                    db.StockMovements.Add(StockMovement.Create(line, 0 - before, before, 0, "رُبط بمنتج جديد — المجموع من المستودع و Area Z", null, "import"));
+                await db.SaveChangesAsync(ct);
+                created++;
+            }
+
+            // Set (not add): an entry already in Metro Warehouse for this product takes the file's number
+            var entry = await db.AreaZInventory.FirstOrDefaultAsync(a => a.ProductId == product.Id && a.WarehouseId == wh.Id && !a.IsDispatched, ct);
+            if (entry == null)
+            {
+                db.AreaZInventory.Add(AreaZInventory.Create(product.Id, r.cartons, r.perCarton, "import", wh.Id, "stock for metro 14/11"));
+                added++;
+            }
+            else
+            {
+                entry.Update(r.cartons, r.perCarton, entry.Notes ?? "stock for metro 14/11", "import");
+                updated++;
+            }
+            await db.SaveChangesAsync(ct);   // the stock sync adds the drawers to the line's total
+        }
+
+        db.StockImports.Add(StockImport.Create(step));
+        await db.SaveChangesAsync(ct);
+        logger.LogWarning("Metro Area Z: {Added} added, {Updated} updated, {Created} products created, missing: {Missing}",
+            added, updated, created, string.Join(" | ", missing));
     }
 
     private static async Task ApplyUpdateAsync(AppDbContext db, string file, ILogger logger, CancellationToken ct)

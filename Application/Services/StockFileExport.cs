@@ -66,7 +66,7 @@ public class StockFileExport : IStockFileExport
             switch (m.field)
             {
                 case "warehouse": Set(cell, item.Warehouse); break;
-                case "shops": Set(cell, item.Shops); break;
+                case "shops": Set(cell, null); break;   // محلات is no longer used
                 case "ordered": Set(cell, item.Ordered); break;
                 case "onWay": Set(cell, item.OnWay); break;
                 case "total": Set(cell, item.Total); break;

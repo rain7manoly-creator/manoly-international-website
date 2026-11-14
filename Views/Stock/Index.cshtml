@@ -281,7 +281,7 @@
         if (!s.cnt) return '';
         return '<div class="st-tot' + (grand ? ' grand' : '') + '"><span class="lbl">المجموع</span><span class="big">' + fmt(s.t) + '</span><span class="lbl">' + unit + '</span>' +
             '<span class="part">مستودع <b>' + fmt(s.w) + '</b></span><span class="part">Area Z <b>' + fmt(s.z) + '</b></span>' +
-            (s.t - s.w - s.z ? '<span class="part">محلات وغيرها <b>' + fmt(s.t - s.w - s.z) + '</b></span>' : '') + '</div>';
+            (s.t - s.w - s.z ? '<span class="part">أخرى <b>' + fmt(s.t - s.w - s.z) + '</b></span>' : '') + '</div>';
     }
     const cardTot = list => { const s = sum(list); return s.cnt ? ' · المجموع <b>' + fmt(s.t) + '</b>' : ''; };
     const sec = (t, n, fam) => '<div class="st-sec"><h2>' + t + '</h2><span>' + n +

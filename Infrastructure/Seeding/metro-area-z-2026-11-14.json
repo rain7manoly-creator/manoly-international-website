@@ -1,0 +1,677 @@
+[
+{
+"kind": "واطي",
+"height": 84,
+"length": 350,
+"color": "white",
+"cartons": 6,
+"drawers": 36,
+"perCarton": 6
+},
+{
+"kind": "واطي",
+"height": 84,
+"length": 350,
+"color": "grey",
+"cartons": 30,
+"drawers": 180,
+"perCarton": 6
+},
+{
+"kind": "واطي",
+"height": 84,
+"length": 400,
+"color": "grey",
+"cartons": 14,
+"drawers": 84,
+"perCarton": 6
+},
+{
+"kind": "واطي",
+"height": 84,
+"length": 450,
+"color": "white",
+"cartons": 20,
+"drawers": 120,
+"perCarton": 6
+},
+{
+"kind": "واطي",
+"height": 84,
+"length": 450,
+"color": "grey",
+"cartons": 18,
+"drawers": 108,
+"perCarton": 6
+},
+{
+"kind": "واطي",
+"height": 84,
+"length": 500,
+"color": "white",
+"cartons": 24,
+"drawers": 144,
+"perCarton": 6
+},
+{
+"kind": "واطي",
+"height": 84,
+"length": 500,
+"color": "grey",
+"cartons": 29,
+"drawers": 174,
+"perCarton": 6
+},
+{
+"kind": "واطي",
+"height": 84,
+"length": 550,
+"color": "white",
+"cartons": 38,
+"drawers": 228,
+"perCarton": 6
+},
+{
+"kind": "واطي",
+"height": 84,
+"length": 550,
+"color": "grey",
+"cartons": 28,
+"drawers": 168,
+"perCarton": 6
+},
+{
+"kind": "عالي",
+"height": 167,
+"length": 350,
+"color": "white",
+"cartons": 7,
+"drawers": 42,
+"perCarton": 6
+},
+{
+"kind": "عالي",
+"height": 167,
+"length": 350,
+"color": "grey",
+"cartons": 10,
+"drawers": 60,
+"perCarton": 6
+},
+{
+"kind": "عالي",
+"height": 167,
+"length": 400,
+"color": "white",
+"cartons": 5,
+"drawers": 30,
+"perCarton": 6
+},
+{
+"kind": "عالي",
+"height": 167,
+"length": 400,
+"color": "grey",
+"cartons": 19,
+"drawers": 114,
+"perCarton": 6
+},
+{
+"kind": "عالي",
+"height": 167,
+"length": 450,
+"color": "white",
+"cartons": 7,
+"drawers": 42,
+"perCarton": 6
+},
+{
+"kind": "عالي",
+"height": 167,
+"length": 450,
+"color": "grey",
+"cartons": 3,
+"drawers": 18,
+"perCarton": 6
+},
+{
+"kind": "عالي",
+"height": 167,
+"length": 500,
+"color": "white",
+"cartons": 3,
+"drawers": 18,
+"perCarton": 6
+},
+{
+"kind": "عالي",
+"height": 167,
+"length": 500,
+"color": "grey",
+"cartons": 41,
+"drawers": 246,
+"perCarton": 6
+},
+{
+"kind": "عالي",
+"height": 167,
+"length": 550,
+"color": "white",
+"cartons": 26,
+"drawers": 156,
+"perCarton": 6
+},
+{
+"kind": "عالي",
+"height": 167,
+"length": 550,
+"color": "grey",
+"cartons": 23,
+"drawers": 138,
+"perCarton": 6
+},
+{
+"kind": "سلم واطي",
+"height": 84,
+"length": 350,
+"color": "grey",
+"cartons": 10,
+"drawers": 60,
+"perCarton": 6
+},
+{
+"kind": "سلم واطي",
+"height": 84,
+"length": 400,
+"color": "grey",
+"cartons": 6,
+"drawers": 36,
+"perCarton": 6
+},
+{
+"kind": "سلم واطي",
+"height": 84,
+"length": 450,
+"color": "white",
+"cartons": 23,
+"drawers": 138,
+"perCarton": 6
+},
+{
+"kind": "سلم واطي",
+"height": 84,
+"length": 450,
+"color": "grey",
+"cartons": 19,
+"drawers": 114,
+"perCarton": 6
+},
+{
+"kind": "سلم واطي",
+"height": 84,
+"length": 500,
+"color": "white",
+"cartons": 25,
+"drawers": 150,
+"perCarton": 6
+},
+{
+"kind": "سلم واطي",
+"height": 84,
+"length": 500,
+"color": "grey",
+"cartons": 28,
+"drawers": 168,
+"perCarton": 6
+},
+{
+"kind": "سلم واطي",
+"height": 84,
+"length": 550,
+"color": "white",
+"cartons": 16,
+"drawers": 96,
+"perCarton": 6
+},
+{
+"kind": "سلم واطي",
+"height": 84,
+"length": 550,
+"color": "grey",
+"cartons": 25,
+"drawers": 150,
+"perCarton": 6
+},
+{
+"kind": "سلم عالي",
+"height": 167,
+"length": 350,
+"color": "white",
+"cartons": 3,
+"drawers": 15,
+"perCarton": 5
+},
+{
+"kind": "سلم عالي",
+"height": 167,
+"length": 400,
+"color": "white",
+"cartons": 8,
+"drawers": 40,
+"perCarton": 5
+},
+{
+"kind": "سلم عالي",
+"height": 167,
+"length": 400,
+"color": "grey",
+"cartons": 30,
+"drawers": 180,
+"perCarton": 6
+},
+{
+"kind": "سلم عالي",
+"height": 167,
+"length": 450,
+"color": "white",
+"cartons": 2,
+"drawers": 10,
+"perCarton": 5
+},
+{
+"kind": "سلم عالي",
+"height": 167,
+"length": 450,
+"color": "grey",
+"cartons": 3,
+"drawers": 18,
+"perCarton": 6
+},
+{
+"kind": "سلم عالي",
+"height": 167,
+"length": 500,
+"color": "white",
+"cartons": 13,
+"drawers": 65,
+"perCarton": 5
+},
+{
+"kind": "سلم عالي",
+"height": 167,
+"length": 500,
+"color": "grey",
+"cartons": 30,
+"drawers": 180,
+"perCarton": 6
+},
+{
+"kind": "سلم عالي",
+"height": 167,
+"length": 550,
+"color": "white",
+"cartons": 40,
+"drawers": 200,
+"perCarton": 5
+},
+{
+"kind": "سلم عالي",
+"height": 167,
+"length": 550,
+"color": "grey",
+"cartons": 37,
+"drawers": 222,
+"perCarton": 6
+},
+{
+"kind": "سلم عالي",
+"height": 199,
+"length": 350,
+"color": "white",
+"cartons": 10,
+"drawers": 40,
+"perCarton": 4
+},
+{
+"kind": "سلم عالي",
+"height": 199,
+"length": 400,
+"color": "white",
+"cartons": 10,
+"drawers": 40,
+"perCarton": 4
+},
+{
+"kind": "سلم عالي",
+"height": 199,
+"length": 400,
+"color": "grey",
+"cartons": 33,
+"drawers": 132,
+"perCarton": 4
+},
+{
+"kind": "سلم عالي",
+"height": 199,
+"length": 450,
+"color": "white",
+"cartons": 19,
+"drawers": 76,
+"perCarton": 4
+},
+{
+"kind": "سلم عالي",
+"height": 199,
+"length": 450,
+"color": "grey",
+"cartons": 10,
+"drawers": 40,
+"perCarton": 4
+},
+{
+"kind": "سلم عالي",
+"height": 199,
+"length": 500,
+"color": "white",
+"cartons": 22,
+"drawers": 88,
+"perCarton": 4
+},
+{
+"kind": "سلم عالي",
+"height": 199,
+"length": 500,
+"color": "grey",
+"cartons": 50,
+"drawers": 200,
+"perCarton": 4
+},
+{
+"kind": "سلم عالي",
+"height": 199,
+"length": 550,
+"color": "white",
+"cartons": 14,
+"drawers": 56,
+"perCarton": 4
+},
+{
+"kind": "سلم عالي",
+"height": 199,
+"length": 550,
+"color": "grey",
+"cartons": 34,
+"drawers": 136,
+"perCarton": 4
+},
+{
+"kind": "زجاج واطي",
+"height": 84,
+"length": 350,
+"color": "white",
+"cartons": 5,
+"drawers": 30,
+"perCarton": 6
+},
+{
+"kind": "زجاج واطي",
+"height": 84,
+"length": 350,
+"color": "grey",
+"cartons": 6,
+"drawers": 36,
+"perCarton": 6
+},
+{
+"kind": "زجاج واطي",
+"height": 84,
+"length": 400,
+"color": "white",
+"cartons": 13,
+"drawers": 78,
+"perCarton": 6
+},
+{
+"kind": "زجاج واطي",
+"height": 84,
+"length": 400,
+"color": "grey",
+"cartons": 4,
+"drawers": 24,
+"perCarton": 6
+},
+{
+"kind": "زجاج واطي",
+"height": 84,
+"length": 450,
+"color": "white",
+"cartons": 7,
+"drawers": 42,
+"perCarton": 6
+},
+{
+"kind": "زجاج واطي",
+"height": 84,
+"length": 450,
+"color": "grey",
+"cartons": 8,
+"drawers": 48,
+"perCarton": 6
+},
+{
+"kind": "زجاج واطي",
+"height": 84,
+"length": 500,
+"color": "white",
+"cartons": 24,
+"drawers": 144,
+"perCarton": 6
+},
+{
+"kind": "زجاج واطي",
+"height": 84,
+"length": 500,
+"color": "grey",
+"cartons": 10,
+"drawers": 60,
+"perCarton": 6
+},
+{
+"kind": "زجاج واطي",
+"height": 84,
+"length": 550,
+"color": "white",
+"cartons": 26,
+"drawers": 156,
+"perCarton": 6
+},
+{
+"kind": "زجاج واطي",
+"height": 84,
+"length": 550,
+"color": "grey",
+"cartons": 6,
+"drawers": 36,
+"perCarton": 6
+},
+{
+"kind": "زجاج عالي",
+"height": 167,
+"length": 350,
+"color": "white",
+"cartons": 4,
+"drawers": 16,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 167,
+"length": 350,
+"color": "grey",
+"cartons": 5,
+"drawers": 20,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 167,
+"length": 400,
+"color": "white",
+"cartons": 2,
+"drawers": 8,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 167,
+"length": 400,
+"color": "grey",
+"cartons": 8,
+"drawers": 32,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 167,
+"length": 450,
+"color": "white",
+"cartons": 2,
+"drawers": 8,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 167,
+"length": 450,
+"color": "grey",
+"cartons": 6,
+"drawers": 24,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 167,
+"length": 500,
+"color": "white",
+"cartons": 23,
+"drawers": 92,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 167,
+"length": 500,
+"color": "grey",
+"cartons": 25,
+"drawers": 100,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 167,
+"length": 550,
+"color": "white",
+"cartons": 6,
+"drawers": 24,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 167,
+"length": 550,
+"color": "grey",
+"cartons": 10,
+"drawers": 40,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 199,
+"length": 350,
+"color": "white",
+"cartons": 18,
+"drawers": 72,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 199,
+"length": 350,
+"color": "grey",
+"cartons": 7,
+"drawers": 28,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 199,
+"length": 400,
+"color": "white",
+"cartons": 11,
+"drawers": 44,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 199,
+"length": 400,
+"color": "grey",
+"cartons": 10,
+"drawers": 40,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 199,
+"length": 450,
+"color": "white",
+"cartons": 7,
+"drawers": 28,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 199,
+"length": 450,
+"color": "grey",
+"cartons": 11,
+"drawers": 44,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 199,
+"length": 500,
+"color": "white",
+"cartons": 17,
+"drawers": 68,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 199,
+"length": 500,
+"color": "grey",
+"cartons": 10,
+"drawers": 40,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 199,
+"length": 550,
+"color": "white",
+"cartons": 7,
+"drawers": 28,
+"perCarton": 4
+},
+{
+"kind": "زجاج عالي",
+"height": 199,
+"length": 550,
+"color": "grey",
+"cartons": 16,
+"drawers": 64,
+"perCarton": 4
+}
+]

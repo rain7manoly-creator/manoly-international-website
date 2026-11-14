@@ -394,15 +394,15 @@ public class StockService : IStockService
         {
             var ws = wb.Worksheets.Add(sheet);
             ws.RightToLeft = true;
-            var h = new[] { "الصنف", "اللون", "المخزن", "محلات", "للطلب", "بالطريق", "مجموع" };
+            var h = new[] { "الصنف", "اللون", "المخزن", "للطلب", "بالطريق", "مجموع" };
             for (int c = 0; c < h.Length; c++) ws.Cell(1, c + 1).Value = h[c];
             int r = 2;
             foreach (var s in items.Where(i => i.Family == family))
             {
                 ws.Cell(r, 1).Value = s.Name;
                 ws.Cell(r, 2).Value = s.ColorLabel;
-                Set(ws.Cell(r, 3), s.Warehouse); Set(ws.Cell(r, 4), s.Shops); Set(ws.Cell(r, 5), s.Ordered);
-                Set(ws.Cell(r, 6), s.OnWay); Set(ws.Cell(r, 7), s.Total);
+                Set(ws.Cell(r, 3), s.Warehouse); Set(ws.Cell(r, 4), s.Ordered);
+                Set(ws.Cell(r, 5), s.OnWay); Set(ws.Cell(r, 6), s.Total);
                 r++;
             }
             Style(ws);
