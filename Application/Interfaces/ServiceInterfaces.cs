@@ -68,7 +68,7 @@ public interface IPurchaseOrderService
 
 public interface IAreaZService
 {
-    Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(int page, int pageSize, int? warehouseId = null, CancellationToken ct = default, string? q = null);
+    Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(int page, int pageSize, int? warehouseId = null, CancellationToken ct = default, string? q = null, bool unlinkedOnly = false);
     Task<AreaZItemViewModel?> GetByIdAsync(int id, CancellationToken ct = default);
     Task<int> AddAsync(int productId, int bundleCount, int unitsPerBundle, string? notes, int warehouseId, CancellationToken ct = default);
     Task UpdateAsync(int id, int bundleCount, int unitsPerBundle, string? notes, int? warehouseId = null, CancellationToken ct = default);

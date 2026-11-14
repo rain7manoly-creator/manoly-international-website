@@ -6,7 +6,10 @@
     var current = ViewBag.WarehouseId as int?;
     var currentName = warehouses.FirstOrDefault(w => w.Id == current)?.Name;
     var q = ViewBag.Query as string;
-    var baseUrl = "/area-z" + (current is null && q is null ? "" : "?" + string.Join("&", new[] { current is null ? null : $"w={current}", q is null ? null : "q=" + Uri.EscapeDataString(q) }.Where(x => x != null)));
+    var unlinked = ViewBag.Unlinked is true;
+    var unlinkedCount = (int)ViewBag.UnlinkedCount;
+    var parts = new[] { current is null ? null : $"w={current}", q is null ? null : "q=" + Uri.EscapeDataString(q), unlinked ? "u=true" : null }.Where(x => x != null).ToList();
+    var baseUrl = "/area-z" + (parts.Count == 0 ? "" : "?" + string.Join("&", parts));
     var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, baseUrl);
     var isAdmin = User.IsInRole("Admin");
 }
@@ -30,6 +33,20 @@
     <button type="submit" class="btn-primary btn-sm shrink-0" style="min-height:44px">بحث</button>
     @if (q is not null) { <a href="/area-z@(current is null ? "" : $"?w={current}")" class="btn-ghost btn-sm shrink-0" style="min-height:44px">مسح</a> }
 </form>
+@if (unlinkedCount > 0 || unlinked)
+{
+    <div class="px-4 pb-3">
+        @if (unlinked)
+        {
+            <a href="/area-z@(current is null ? "" : $"?w={current}")" class="text-sm font-semibold" style="color:#CA292E">✕ إظهار الكل</a>
+            <p class="text-xs text-bark mt-1">هذه المنتجات غير مرتبطة بالمخزون، فأرقامها في Area Z لا تدخل في المخزون. افتح المنتج واضغط «ربط بالمخزون».</p>
+        }
+        else
+        {
+            <a href="/area-z?u=true@(current is null ? "" : $"&w={current}")" class="text-sm font-semibold" style="color:#CA292E">○ @unlinkedCount غير مرتبط بالمخزون — اعرضها</a>
+        }
+    </div>
+}
 @if (q is not null)
 {
     <p class="px-4 pb-2 text-sm text-bark"><b class="text-ink">@Model.TotalCount</b> نتيجة لـ «@q»</p>
@@ -77,6 +94,14 @@ else
                     @if (current is null)
                     {
                         <span class="az-tag">@item.WarehouseName</span>
+                    }
+                    @if (item.StockItemId is not null)
+                    {
+                        <span class="text-xs" style="color:#2F7A4A">● @item.StockLabel</span>
+                    }
+                    else
+                    {
+                        <span class="text-xs" style="color:#CA292E">○ غير مرتبط بالمخزون</span>
                     }
                     <span class="text-xs text-bark-l">@item.CategoryName</span>
                     <span class="text-xs text-bark-l">@item.TotalQuantity وحدة</span>

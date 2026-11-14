@@ -20,7 +20,8 @@ public class AreaZController : Controller
 
     /// <summary>Area Z (Inside company Warehouses): all warehouses, or one with ?w=id.</summary>
     [HttpGet("")]
-    public async Task<IActionResult> Index(int page = 1, int? w = null, string? q = null, CancellationToken ct = default)
+    public async Task<IActionResult> Index(int page = 1, int? w = null, string? q = null, bool u = false,
+        [FromServices] ManolyWarehouse.Infrastructure.Persistence.AppDbContext db = null!, CancellationToken ct = default)
     {
         page = Math.Max(1, page);
         var warehouses = await _areaZService.ListWarehousesAsync(ct);
@@ -29,7 +30,10 @@ public class AreaZController : Controller
         ViewBag.WarehouseId = w;
         q = string.IsNullOrWhiteSpace(q) ? null : q.Trim();
         ViewBag.Query = q;
-        var model = await _areaZService.ListActiveAsync(page, PageSize, w, ct, q);
+        ViewBag.Unlinked = u;
+        ViewBag.UnlinkedCount = await db.AreaZInventory.CountAsync(a => !a.IsDispatched && a.Product.StockItemId == null
+            && (w == null || a.WarehouseId == w), ct);
+        var model = await _areaZService.ListActiveAsync(page, PageSize, w, ct, q, u);
         return View(model);
     }
 

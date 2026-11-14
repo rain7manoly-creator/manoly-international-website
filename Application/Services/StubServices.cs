@@ -95,7 +95,7 @@ public class PurchaseOrderServiceStub : IPurchaseOrderService
 
 public class AreaZServiceStub : IAreaZService
 {
-    public Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(int page, int pageSize, int? warehouseId = null, CancellationToken ct = default, string? q = null)
+    public Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(int page, int pageSize, int? warehouseId = null, CancellationToken ct = default, string? q = null, bool unlinkedOnly = false)
         => throw new StubException(nameof(IAreaZService));
     public Task<AreaZItemViewModel?> GetByIdAsync(int id, CancellationToken ct = default)
         => throw new StubException(nameof(IAreaZService));

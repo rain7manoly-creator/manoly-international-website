@@ -28,11 +28,13 @@ public class AreaZService : IAreaZService
     }
 
     public async Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(
-        int page, int pageSize, int? warehouseId = null, CancellationToken ct = default, string? q = null)
+        int page, int pageSize, int? warehouseId = null, CancellationToken ct = default, string? q = null, bool unlinkedOnly = false)
     {
         var filtered = _db.AreaZInventory
             .AsNoTracking()
             .Where(az => !az.IsDispatched && (warehouseId == null || az.WarehouseId == warehouseId));
+
+        if (unlinkedOnly) filtered = filtered.Where(az => az.Product.StockItemId == null);
 
         // Search: every word must appear in the product, category, warehouse or note.
         // Letters written several ways (ا/أ/إ/آ, ة/ه, ى/ي, x/×/*) match each other.
@@ -70,6 +72,10 @@ public class AreaZService : IAreaZService
                 Notes = az.Notes,
                 WarehouseId = az.WarehouseId,
                 WarehouseName = az.Warehouse.Name,
+                StockItemId = az.Product.StockItemId,
+                StockName = az.Product.StockItem != null ? az.Product.StockItem.Name : null,
+                StockColor = az.Product.StockItem != null ? az.Product.StockItem.Color : null,
+                StockTotal = az.Product.StockItem != null ? az.Product.StockItem.Total : null,
                 EnteredAt = az.CreatedAt,
                 EnteredBy = _db.Users
                     .Where(u => u.Id == az.CreatedBy)
@@ -103,6 +109,10 @@ public class AreaZService : IAreaZService
                 Notes = az.Notes,
                 WarehouseId = az.WarehouseId,
                 WarehouseName = az.Warehouse.Name,
+                StockItemId = az.Product.StockItemId,
+                StockName = az.Product.StockItem != null ? az.Product.StockItem.Name : null,
+                StockColor = az.Product.StockItem != null ? az.Product.StockItem.Color : null,
+                StockTotal = az.Product.StockItem != null ? az.Product.StockItem.Total : null,
                 EnteredAt = az.CreatedAt,
                 EnteredBy = _db.Users
                     .Where(u => u.Id == az.CreatedBy)

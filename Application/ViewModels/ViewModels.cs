@@ -291,6 +291,12 @@ public class AreaZItemViewModel
     public string EnteredBy { get; init; } = default!;
     public int WarehouseId { get; init; }
     public string WarehouseName { get; init; } = default!;
+    /// <summary>The stock line this product counts in (null = not connected, so Area Z changes don't reach the stock).</summary>
+    public int? StockItemId { get; init; }
+    public string? StockName { get; init; }
+    public string? StockColor { get; init; }
+    public int? StockTotal { get; init; }
+    public string StockLabel => StockName == null ? "" : StockColor switch { "white" => StockName + " — أبيض", "grey" => StockName + " — سكني", _ => StockName };
 }
 
 /// <summary>A warehouse inside Area Z with how many products are in it right now.</summary>

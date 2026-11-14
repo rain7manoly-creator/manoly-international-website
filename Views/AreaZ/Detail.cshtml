@@ -40,6 +40,28 @@
     }
 </div>
 
+@* ── Connection to the stock ── *@
+<div class="mx-4 card p-4 mb-4">
+    <div class="text-sm font-semibold mb-2">المخزون</div>
+    @if (Model.StockItemId is int sid)
+    {
+        <a href="/stock/items/@sid" class="flex items-center justify-between gap-3" style="color:#2F7A4A">
+            <span class="text-sm min-w-0">● مرتبط بـ <b>@Model.StockLabel</b></span>
+            <span class="history-qty shrink-0" style="font-size:20px;color:#111">@(Model.StockTotal?.ToString("N0") ?? "—")</span>
+        </a>
+        <p class="text-xs text-bark-l mt-2">أي إضافة أو تعديل أو إخراج لهذا المنتج من Area Z يغيّر رقم المخزون تلقائياً.</p>
+    }
+    else
+    {
+        <p class="text-sm" style="color:#CA292E">○ غير مرتبط بالمخزون</p>
+        <p class="text-xs text-bark mt-1">رقمه في Area Z لا يدخل في المخزون حتى تربطه بصنف المخزون الصحيح.</p>
+    }
+    @if (User.IsInRole("Admin"))
+    {
+        <a href="/stock/connect?productId=@Model.ProductId&back=/area-z/@Model.Id" class="btn-secondary btn-sm w-full mt-3 text-center">@(Model.StockItemId is null ? "ربط بالمخزون" : "تغيير الربط")</a>
+    }
+</div>
+
 @if (User.IsInRole("Admin"))
 {
     <div class="px-4 flex flex-col gap-3 mb-6">
