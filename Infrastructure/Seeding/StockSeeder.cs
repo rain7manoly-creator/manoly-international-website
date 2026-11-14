@@ -143,6 +143,12 @@ public static class StockSeeder
         if (!await db.StockImports.AnyAsync(i => i.Name == metroZStep, ct))
             await LoadMetroAreaZAsync(db, metroZStep, logger, ct);
 
+        // «جرار ميترو بوكس 40/17» was made as its own colourless line: it is the white 167-400 box
+        const string box4017Step = "merge-metro-box-40-17-white-2026-11-14";
+        if (!await db.StockImports.AnyAsync(i => i.Name == box4017Step, ct))
+            await MergeColourlessMetroAsync(db, box4017Step, "عالي مع ماسورة", 167, 400, "white",
+                n => n.Contains("بوكس") && (n.Contains("40/17") || n.Contains("17/40")), logger, ct);
+
         // Mahmoud edits only the big warehouse (shelves); Mousa only Area Z
         const string scopeStep = "user-edit-scopes-2026-11-14";
         if (!await db.StockImports.AnyAsync(i => i.Name == scopeStep, ct))
@@ -182,6 +188,43 @@ public static class StockSeeder
         db.StockImports.Add(StockImport.Create(step));
         await db.SaveChangesAsync(ct);
         logger.LogWarning("Remove shops: cleared {Count} lines, {Changed} totals changed", lines.Count, changed);
+    }
+
+    /// <summary>Moves the products of colourless Metro lines matching <paramref name="match"/> onto the real line,
+    /// sets that line to shelves + Area Z of all its products, and deletes the extra lines.</summary>
+    private static async Task MergeColourlessMetroAsync(AppDbContext db, string step, string type, int height, int length,
+        string color, Func<string, bool> match, ILogger logger, CancellationToken ct)
+    {
+        var target = await db.StockItems.FirstOrDefaultAsync(s => s.Family == "metro" && s.DrawerType == type
+            && s.Height == height && s.Length == length && s.Color == color, ct);
+        var extras = (await db.StockItems.Where(s => s.Family == "metro" && s.Color == null).ToListAsync(ct))
+            .Where(s => match(System.Text.RegularExpressions.Regex.Replace(s.Name, @"\s+", " "))).ToList();
+        var moved = 0;
+        if (target != null && extras.Count > 0)
+        {
+            var ids = extras.Select(e => e.Id).ToList();
+            foreach (var p in await db.Products.Where(p => p.StockItemId != null && ids.Contains(p.StockItemId.Value)).ToListAsync(ct))
+            {
+                p.LinkStock(target.Id, "import");
+                moved++;
+            }
+            db.StockItems.RemoveRange(extras);
+            await db.SaveChangesAsync(ct);
+
+            var shelf = await db.ShelfInventory.Where(si => si.Product.StockItemId == target.Id)
+                .SumAsync(si => (int?)(si.BundleCount * si.UnitsPerBundle), ct) ?? 0;
+            var z = await db.AreaZInventory.Where(a => !a.IsDispatched && a.Product.StockItemId == target.Id)
+                .SumAsync(a => (int?)(a.BundleCount * a.UnitsPerBundle), ct) ?? 0;
+            var before = target.Total;
+            target.SetValues(shelf + z, target.Shops, target.Ordered, target.OnWay, shelf + z, "import");
+            if (before != shelf + z)
+                db.StockMovements.Add(StockMovement.Create(target, shelf + z - before, before, shelf + z,
+                    $"دُمج «{string.Join("، ", extras.Select(e => e.Name))}» في هذا الصنف", null, "import"));
+        }
+        db.StockImports.Add(StockImport.Create(step));
+        await db.SaveChangesAsync(ct);
+        logger.LogWarning("Merge colourless metro ({Step}): {Lines} lines removed, {Moved} products moved, target {Target}",
+            step, extras.Count, moved, target?.Id);
     }
 
     private record MetroZRow(string kind, int height, int length, string color, int cartons, int drawers, int perCarton);
