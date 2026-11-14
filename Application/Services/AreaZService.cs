@@ -28,12 +28,23 @@ public class AreaZService : IAreaZService
     }
 
     public async Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(
-        int page, int pageSize, int? warehouseId = null, CancellationToken ct = default)
+        int page, int pageSize, int? warehouseId = null, CancellationToken ct = default, string? q = null)
     {
-        var query = _db.AreaZInventory
+        var filtered = _db.AreaZInventory
             .AsNoTracking()
-            .Where(az => !az.IsDispatched && (warehouseId == null || az.WarehouseId == warehouseId))
-            .OrderByDescending(az => az.CreatedAt);
+            .Where(az => !az.IsDispatched && (warehouseId == null || az.WarehouseId == warehouseId));
+
+        // Search: every word must appear in the product, category, warehouse or note.
+        // Letters written several ways (ا/أ/إ/آ, ة/ه, ى/ي, x/×/*) match each other.
+        foreach (var word in (q ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(6))
+        {
+            var w = word.Replace("\\", "").Replace("%", "").Replace("_", "");
+            if (w.Length == 0) continue;
+            var pattern = "%" + new string(w.Select(c => "اأإآةهىيx×*".Contains(char.ToLowerInvariant(c)) ? '_' : c).ToArray()) + "%";
+            filtered = filtered.Where(az => EF.Functions.ILike(
+                az.Product.Name + " " + az.Product.Category.Name + " " + az.Warehouse.Name + " " + (az.Notes ?? ""), pattern));
+        }
+        var query = filtered.OrderByDescending(az => az.CreatedAt);
 
         var total = await query.CountAsync(ct);
 

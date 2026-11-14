@@ -58,7 +58,7 @@ public class ProductsController : Controller
 
     [HttpPost("add")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Add(string name, int categoryId, CancellationToken ct)
+    public async Task<IActionResult> Add(string name, int categoryId, CancellationToken ct, string? back = null)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -68,6 +68,11 @@ public class ProductsController : Controller
         }
 
         await _productService.CreateAsync(name, categoryId, ct);
+        if (!string.IsNullOrEmpty(back) && Url.IsLocalUrl(back))
+        {
+            TempData["SuccessMessage"] = $"تمت إضافة «{name.Trim()}».";
+            return LocalRedirect(back);
+        }
         return RedirectToAction(nameof(Index));
     }
 

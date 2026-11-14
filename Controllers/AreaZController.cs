@@ -20,18 +20,21 @@ public class AreaZController : Controller
 
     /// <summary>Area Z (Inside company Warehouses): all warehouses, or one with ?w=id.</summary>
     [HttpGet("")]
-    public async Task<IActionResult> Index(int page = 1, int? w = null, CancellationToken ct = default)
+    public async Task<IActionResult> Index(int page = 1, int? w = null, string? q = null, CancellationToken ct = default)
     {
         page = Math.Max(1, page);
         var warehouses = await _areaZService.ListWarehousesAsync(ct);
         if (w is not null && warehouses.All(x => x.Id != w)) w = null;
         ViewBag.Warehouses = warehouses;
         ViewBag.WarehouseId = w;
-        var model = await _areaZService.ListActiveAsync(page, PageSize, w, ct);
+        q = string.IsNullOrWhiteSpace(q) ? null : q.Trim();
+        ViewBag.Query = q;
+        var model = await _areaZService.ListActiveAsync(page, PageSize, w, ct, q);
         return View(model);
     }
 
     [HttpGet("add")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("areaz")]
     public async Task<IActionResult> Add([FromServices] IProductService productService, int? w, CancellationToken ct)
     {
         ViewBag.Products = await productService.ListAsync(ct);
@@ -41,6 +44,7 @@ public class AreaZController : Controller
     }
 
     [HttpPost("add")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("areaz")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Add(
         int productId, int bundleCount, int unitsPerBundle, string? notes, int warehouseId, CancellationToken ct)
@@ -84,6 +88,7 @@ public class AreaZController : Controller
     }
 
     [HttpGet("{id:int}/edit")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("areaz")]
     [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Edit(int id, CancellationToken ct)
     {
@@ -94,6 +99,7 @@ public class AreaZController : Controller
     }
 
     [HttpPost("{id:int}/edit")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("areaz")]
     [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(
@@ -104,6 +110,7 @@ public class AreaZController : Controller
     }
 
     [HttpPost("{id:int}/delete")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("areaz")]
     [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(int id, CancellationToken ct)
@@ -113,6 +120,7 @@ public class AreaZController : Controller
     }
 
     [HttpPost("{id:int}/dispatch")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("areaz")]
     [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Dispatch(int id, CancellationToken ct)
@@ -122,6 +130,7 @@ public class AreaZController : Controller
     }
 
     [HttpPost("{id:int}/shelve")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("areaz")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Shelve(
         int id, string shelfCode, int position,

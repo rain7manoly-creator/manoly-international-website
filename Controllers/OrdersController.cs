@@ -116,6 +116,7 @@ public class OrdersController : Controller
     }
 
     [HttpPost("{id:int}/items/{itemId:int}/receive-shelf")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("warehouse")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ReceiveToShelf(
         int id, int itemId, string shelfCode, int position,
@@ -137,6 +138,7 @@ public class OrdersController : Controller
     }
 
     [HttpPost("{id:int}/items/{itemId:int}/receive-areaz")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("areaz")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ReceiveToAreaZ(int id, int itemId, CancellationToken ct)
     {

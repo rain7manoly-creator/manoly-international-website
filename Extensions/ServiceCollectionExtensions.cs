@@ -112,6 +112,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
+        services.AddScoped<ManolyWarehouse.Infrastructure.Services.IEditAccess, ManolyWarehouse.Infrastructure.Services.EditAccess>();
 
         // Real service implementations
         services.AddScoped<IWarehouseGridService, WarehouseGridService>();

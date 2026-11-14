@@ -1,5 +1,7 @@
 @model ManolyWarehouse.Application.ViewModels.InventoryHistoryViewModel
+@inject ManolyWarehouse.Infrastructure.Services.IEditAccess EditAccess
 @{
+    var canEdit = await EditAccess.CanEditWarehouseAsync();
     ViewData["Title"] = "تعديل الكمية";
     var code = Model.ShelfCode;
     var isChanged = Model.OriginalBundleCount != Model.BundleCount
@@ -19,7 +21,7 @@
 
 @* ── Edit form ─────────────────────────────────────────────── *@
 <div class="mx-4 card p-5 mb-5">
-    <form action="/shelves/@code/inventory/@Model.InventoryId/adjust" method="post" class="flex flex-col gap-5">
+    <form hidden="@(!canEdit)" action="/shelves/@code/inventory/@Model.InventoryId/adjust" method="post" class="flex flex-col gap-5">
         @Html.AntiForgeryToken()
 
         <div class="form-group">
@@ -68,7 +70,7 @@
         </div>
         @if (isChanged)
         {
-            <form action="/shelves/@code/inventory/@Model.InventoryId/adjust?back=edit" method="post" id="restore-original">
+            <form hidden="@(!canEdit)" action="/shelves/@code/inventory/@Model.InventoryId/adjust?back=edit" method="post" id="restore-original">
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="bundleCount" value="@Model.OriginalBundleCount" />
                 <input type="hidden" name="unitsPerBundle" value="@Model.OriginalUnitsPerBundle" />
@@ -125,7 +127,7 @@ else
                     </div>
                     @if (c.PreviousBundleCount != Model.BundleCount || c.PreviousUnitsPerBundle != Model.UnitsPerBundle)
                     {
-                        <form action="/shelves/@code/inventory/@Model.InventoryId/adjust?back=edit" method="post" id="@formId">
+                        <form hidden="@(!canEdit)" action="/shelves/@code/inventory/@Model.InventoryId/adjust?back=edit" method="post" id="@formId">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="bundleCount" value="@c.PreviousBundleCount" />
                             <input type="hidden" name="unitsPerBundle" value="@c.PreviousUnitsPerBundle" />

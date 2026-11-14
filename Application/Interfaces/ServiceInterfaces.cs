@@ -68,7 +68,7 @@ public interface IPurchaseOrderService
 
 public interface IAreaZService
 {
-    Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(int page, int pageSize, int? warehouseId = null, CancellationToken ct = default);
+    Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(int page, int pageSize, int? warehouseId = null, CancellationToken ct = default, string? q = null);
     Task<AreaZItemViewModel?> GetByIdAsync(int id, CancellationToken ct = default);
     Task<int> AddAsync(int productId, int bundleCount, int unitsPerBundle, string? notes, int warehouseId, CancellationToken ct = default);
     Task UpdateAsync(int id, int bundleCount, int unitsPerBundle, string? notes, int? warehouseId = null, CancellationToken ct = default);
@@ -86,6 +86,7 @@ public interface IUserService
     Task<UserViewModel?> GetByIdAsync(string id, CancellationToken ct = default);
     Task<string> CreateAsync(CreateUserRequest request, CancellationToken ct = default);
     Task UpdateProfileAsync(string id, string fullName, bool isAdmin, CancellationToken ct = default);
+    Task SetEditScopeAsync(string id, string? scope, CancellationToken ct = default);
     Task ResetPasswordAsync(string id, string newPassword, CancellationToken ct = default);
     Task ToggleActiveAsync(string id, CancellationToken ct = default);
 }

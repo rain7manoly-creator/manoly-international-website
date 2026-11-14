@@ -29,6 +29,10 @@ public class ApplicationUser : IdentityUser
         IsAdmin = isAdmin;
     }
 
+    /// <summary>Where this user may change stock: null = everywhere, "warehouse" = shelves only, "areaz" = Area Z only.</summary>
+    public string? EditScope { get; private set; }
+    public void SetEditScope(string? scope) => EditScope = scope is "warehouse" or "areaz" ? scope : null;
+
     public void Deactivate() => IsActive = false;
     public void Activate() => IsActive = true;
 }

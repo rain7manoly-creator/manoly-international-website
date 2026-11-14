@@ -338,6 +338,7 @@ public class UserViewModel
     public bool IsAdmin { get; init; }
     public bool IsActive { get; init; }
     public DateTime CreatedAt { get; init; }
+    public string? EditScope { get; init; }
 }
 
 public class CreateUserRequest

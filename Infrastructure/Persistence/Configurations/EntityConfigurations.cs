@@ -283,6 +283,7 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
         builder.Property(u => u.IsAdmin).IsRequired();
         builder.Property(u => u.IsActive).IsRequired();
         builder.Property(u => u.CreatedAt).IsRequired();
+        builder.Property(u => u.EditScope).HasMaxLength(20);
 
         builder.HasIndex(u => u.IsActive).HasDatabaseName("IX_Users_IsActive");
     }

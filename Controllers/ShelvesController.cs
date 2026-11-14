@@ -37,6 +37,7 @@ public class ShelvesController : Controller
     }
 
     [HttpGet("{code}/add")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("warehouse")]
     public async Task<IActionResult> Add(string code, int? position, CancellationToken ct)
     {
         var shelf = await _shelfService.GetByCodeAsync(code, ct);
@@ -53,6 +54,7 @@ public class ShelvesController : Controller
     }
 
     [HttpPost("{code}/add")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("warehouse")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Add(string code, AddShelfInventoryRequest request, CancellationToken ct)
     {
@@ -83,6 +85,7 @@ public class ShelvesController : Controller
     }
 
     [HttpPost("{code}/inventory/{id:int}/adjust")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("warehouse")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Adjust(
         string code, int id, int bundleCount, int unitsPerBundle, string? notes, CancellationToken ct)
@@ -98,6 +101,7 @@ public class ShelvesController : Controller
     }
 
     [HttpPost("{code}/inventory/{id:int}/delete")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("warehouse")]
     [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(string code, int id, CancellationToken ct)

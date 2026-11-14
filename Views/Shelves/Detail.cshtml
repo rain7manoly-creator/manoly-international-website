@@ -1,4 +1,6 @@
 @model ManolyWarehouse.Application.ViewModels.ShelfDetailViewModel
+@inject ManolyWarehouse.Infrastructure.Services.IEditAccess EditAccess
+@{ var canEdit = await EditAccess.CanEditWarehouseAsync(); }
 @{ ViewData["Title"] = $"رف {Model.Code}"; }
 
 @* Back + header *@
@@ -18,7 +20,7 @@
             <span class="text-bark-l mx-1">·</span>
             @number
         </h1>
-        <a href="/shelves/@Model.Code/add" class="btn-primary btn-sm">+ إضافة</a>
+        @if (canEdit) { <a href="/shelves/@Model.Code/add" class="btn-primary btn-sm">+ إضافة</a> }
     </div>
 </div>
 
@@ -41,7 +43,11 @@
 <div class="mx-4 card mb-6">
     @foreach (var slot in Model.Slots)
     {
-        if (slot.IsEmpty)
+        if (slot.IsEmpty && !canEdit)
+        {
+            <div class="slot-row"><span class="slot-pos text-sand">@slot.Position</span><div class="flex-1"><span class="slot-empty-hint">— فارغ</span></div></div>
+        }
+        else if (slot.IsEmpty)
         {
             <a href="/shelves/@Model.Code/add?position=@slot.Position"
                class="slot-row"
@@ -78,6 +84,7 @@
             @* Inline action row (hidden) *@
             <div id="slot-menu-@slot.InventoryId" class="hidden slot-menu animate-fade-in">
                 @* Quick +/− on the bundle count. Units per bundle is carried over unchanged. *@
+                @if (canEdit) {
                 <form action="/shelves/@Model.Code/inventory/@slot.InventoryId/adjust" method="post"
                       class="flex items-end gap-2 mb-3">
                     @Html.AntiForgeryToken()
@@ -89,6 +96,7 @@
                     <input type="hidden" name="unitsPerBundle" value="@slot.UnitsPerBundle" />
                     <button type="submit" class="btn-primary btn-sm shrink-0" style="height:44px;">حفظ</button>
                 </form>
+                }
                 @* Connection to the stock *@
                 <div class="flex items-center justify-between gap-2 mb-3 text-xs">
                     @if (slot.StockItemId is int sid)
@@ -108,7 +116,7 @@
                     }
                 </div>
                 <div class="flex gap-2">
-                <a href="/shelves/@Model.Code/inventory/@slot.InventoryId/edit" class="btn-secondary btn-sm flex-1">تعديل كامل والسجل</a>
+                <a href="/shelves/@Model.Code/inventory/@slot.InventoryId/edit" class="btn-secondary btn-sm flex-1">@(canEdit ? "تعديل كامل والسجل" : "السجل")</a>
                 @if (User.IsInRole("Admin"))
                 {
                     <form id="delete-inv-@slot.InventoryId"

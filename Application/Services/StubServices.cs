@@ -95,7 +95,7 @@ public class PurchaseOrderServiceStub : IPurchaseOrderService
 
 public class AreaZServiceStub : IAreaZService
 {
-    public Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(int page, int pageSize, int? warehouseId = null, CancellationToken ct = default)
+    public Task<PagedResult<AreaZItemViewModel>> ListActiveAsync(int page, int pageSize, int? warehouseId = null, CancellationToken ct = default, string? q = null)
         => throw new StubException(nameof(IAreaZService));
     public Task<AreaZItemViewModel?> GetByIdAsync(int id, CancellationToken ct = default)
         => throw new StubException(nameof(IAreaZService));
@@ -128,6 +128,8 @@ public class UserServiceStub : IUserService
     public Task UpdateProfileAsync(string id, string fullName, bool isAdmin, CancellationToken ct = default)
         => throw new StubException(nameof(IUserService));
     public Task ResetPasswordAsync(string id, string newPassword, CancellationToken ct = default)
+        => throw new StubException(nameof(IUserService));
+    public Task SetEditScopeAsync(string id, string? scope, CancellationToken ct = default)
         => throw new StubException(nameof(IUserService));
     public Task ToggleActiveAsync(string id, CancellationToken ct = default)
         => throw new StubException(nameof(IUserService));

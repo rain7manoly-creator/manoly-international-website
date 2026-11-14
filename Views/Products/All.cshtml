@@ -68,6 +68,19 @@
                 <button type="submit" class="btn-primary btn-sm shrink-0">حفظ</button>
             </form>
 
+            @* Add a new product straight into this category *@
+            <div class="px-4 py-2 flex items-center justify-between gap-2" style="border-bottom:1px solid #F1F1F2">
+                <span class="text-xs text-bark-l">منتج جديد في «@c.Name»</span>
+                <button type="button" class="edit-btn" style="color:#CA292E;border-color:#CA292E" onclick="const f=this.parentElement.nextElementSibling; f.hidden=!f.hidden; if(!f.hidden) f.querySelector('input[name=name]').focus()">+ منتج</button>
+            </div>
+            <form method="post" action="/products/add" class="px-4 py-2 flex gap-2" style="border-bottom:1px solid #F1F1F2" hidden>
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="categoryId" value="@c.Id" />
+                <input type="hidden" name="back" value="/products/all#c@(c.Id)" />
+                <input type="text" name="name" class="form-input flex-1" required maxlength="200" placeholder="اسم المنتج الجديد" aria-label="اسم المنتج الجديد" />
+                <button type="submit" class="btn-primary btn-sm shrink-0">إضافة</button>
+            </form>
+
             @if (!c.Products.Any())
             {
                 <p class="px-4 py-3 text-sm text-bark-l">لا توجد منتجات في هذا الصنف.</p>

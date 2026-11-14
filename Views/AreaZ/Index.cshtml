@@ -1,10 +1,13 @@
 @model ManolyWarehouse.Application.ViewModels.PagedResult<ManolyWarehouse.Application.ViewModels.AreaZItemViewModel>
+@inject ManolyWarehouse.Infrastructure.Services.IEditAccess EditAccess
 @{
     ViewData["Title"] = "Area Z";
     var warehouses = (IReadOnlyList<ManolyWarehouse.Application.ViewModels.AreaZWarehouseViewModel>)ViewBag.Warehouses;
     var current = ViewBag.WarehouseId as int?;
     var currentName = warehouses.FirstOrDefault(w => w.Id == current)?.Name;
-    var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, current is null ? "/area-z" : $"/area-z?w={current}");
+    var q = ViewBag.Query as string;
+    var baseUrl = "/area-z" + (current is null && q is null ? "" : "?" + string.Join("&", new[] { current is null ? null : $"w={current}", q is null ? null : "q=" + Uri.EscapeDataString(q) }.Where(x => x != null)));
+    var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, baseUrl);
     var isAdmin = User.IsInRole("Admin");
 }
 
@@ -14,17 +17,32 @@
         <h1 class="page-title">Area Z</h1>
         <p class="text-sm text-bark mt-0.5">(Inside company Warehouses)</p>
     </div>
-    <a href="/area-z/add@(current is null ? "" : $"?w={current}")" class="btn-primary btn-sm shrink-0">+ إضافة</a>
+    @if (await EditAccess.CanEditAreaZAsync())
+    {
+        <a href="/area-z/add@(current is null ? "" : $"?w={current}")" class="btn-primary btn-sm shrink-0">+ إضافة</a>
+    }
 </div>
+
+@* ── Search: across all of Area Z, or inside the chosen warehouse ── *@
+<form method="get" action="/area-z" class="px-4 pb-3 flex gap-2" role="search">
+    @if (current is not null) { <input type="hidden" name="w" value="@current" /> }
+    <input type="search" name="q" value="@q" class="form-input flex-1" placeholder="ابحث في @(currentName ?? "Area Z"): منتج، صنف، ملاحظة…" autocomplete="off" enterkeyhint="search" aria-label="بحث في Area Z" />
+    <button type="submit" class="btn-primary btn-sm shrink-0" style="min-height:44px">بحث</button>
+    @if (q is not null) { <a href="/area-z@(current is null ? "" : $"?w={current}")" class="btn-ghost btn-sm shrink-0" style="min-height:44px">مسح</a> }
+</form>
+@if (q is not null)
+{
+    <p class="px-4 pb-2 text-sm text-bark"><b class="text-ink">@Model.TotalCount</b> نتيجة لـ «@q»</p>
+}
 
 @* ── Warehouses inside Area Z ─────────────────────────────── *@
 <div class="az-chips" role="group" aria-label="المستودعات">
-    <a href="/area-z" class="az-chip" aria-current="@(current is null ? "true" : "false")">
+    <a href="/area-z@(q is null ? "" : "?q=" + Uri.EscapeDataString(q))" class="az-chip" aria-current="@(current is null ? "true" : "false")">
         الكل <span>@warehouses.Sum(w => w.ActiveCount)</span>
     </a>
     @foreach (var w in warehouses)
     {
-        <a href="/area-z?w=@w.Id" class="az-chip" aria-current="@(current == w.Id ? "true" : "false")">
+        <a href="/area-z?w=@w.Id@(q is null ? "" : "&q=" + Uri.EscapeDataString(q))" class="az-chip" aria-current="@(current == w.Id ? "true" : "false")">
             @w.Name <span>@w.ActiveCount</span>
         </a>
     }
@@ -38,8 +56,8 @@
 {
     <div class="empty-state">
         <div class="empty-state-icon">📦</div>
-        <h2 class="empty-state-title">@(currentName is null ? "Area Z فارغة" : $"{currentName} فارغ")</h2>
-        <p class="empty-state-desc">لا توجد منتجات هنا بعد. اضغط «+ إضافة» لإدخال أول منتج.</p>
+        <h2 class="empty-state-title">@(q is not null ? "لا توجد نتيجة" : currentName is null ? "Area Z فارغة" : $"{currentName} فارغ")</h2>
+        <p class="empty-state-desc">@(q is not null ? "جرّب كلمة أقصر أو ابحث في «الكل»." : "لا توجد منتجات هنا بعد. اضغط «+ إضافة» لإدخال أول منتج.")</p>
     </div>
 }
 else

@@ -19,6 +19,8 @@
                         <span class="font-display text-base text-ink">@u.FullName</span>
                         @if (u.IsAdmin) { <span class="badge-admin">مسؤول</span> }
                         else { <span class="badge-worker">موظف</span> }
+                        @if (u.EditScope == "warehouse") { <span class="badge" style="background:#F1F1F2;color:#58595B;">يعدّل المستودع فقط</span> }
+                        @if (u.EditScope == "areaz") { <span class="badge" style="background:#FFF4E0;color:#9A6200;">يعدّل Area Z فقط</span> }
                         @if (!u.IsActive) { <span class="badge" style="background:rgba(168,68,58,0.15);color:#871518;">معطل</span> }
                     </div>
                     <div class="text-xs text-bark-l mt-0.5 font-ui">@@u.UserName</div>
@@ -30,7 +32,7 @@
                 </button>
             </div>
             <div id="user-menu-@u.Id" class="hidden mt-3 flex flex-wrap gap-2 animate-fade-in">
-                <button onclick="showEditUser('@u.Id', '@u.FullName', @u.IsAdmin.ToString().ToLower())"
+                <button onclick="showEditUser('@u.Id', '@u.FullName', @u.IsAdmin.ToString().ToLower(), '@(u.EditScope ?? "")')"
                         class="btn-secondary btn-sm">تعديل</button>
                 <button onclick="showResetPwd('@u.Id')"
                         class="btn-secondary btn-sm">كلمة المرور</button>
@@ -63,6 +65,15 @@
                 <input type="checkbox" name="isAdmin" id="edit-is-admin" value="true" class="w-5 h-5 rounded cursor-pointer accent-ink"/>
                 <span class="text-sm font-semibold text-ink">مسؤول (Admin)</span>
             </label>
+            <div class="form-group">
+                <label class="form-label" for="edit-scope">يستطيع تعديل الكميات في</label>
+                <select name="editScope" id="edit-scope" class="form-select">
+                    <option value="">كل الأماكن (المستودع و Area Z)</option>
+                    <option value="warehouse">المستودع الكبير فقط (الرفوف)</option>
+                    <option value="areaz">Area Z فقط</option>
+                </select>
+                <p class="text-xs text-bark-l mt-1">يستطيع رؤية كل شيء، لكن الإضافة والتعديل فقط في المكان المختار.</p>
+            </div>
             <div class="flex gap-3">
                 <button type="submit" class="btn-primary flex-1">حفظ</button>
                 <button type="button" onclick="closeEditUser()" class="btn-secondary flex-1">إلغاء</button>
@@ -96,8 +107,9 @@
 function toggleUserMenu(id) {
     document.getElementById('user-menu-' + id).classList.toggle('hidden');
 }
-function showEditUser(id, name, isAdmin) {
+function showEditUser(id, name, isAdmin, scope) {
     document.getElementById('edit-fullname').value = name;
+    document.getElementById('edit-scope').value = scope || '';
     document.getElementById('edit-is-admin').checked = isAdmin;
     document.getElementById('edit-user-form').action = '/users/' + id + '/edit';
     document.getElementById('edit-user-sheet').classList.remove('hidden');

@@ -38,9 +38,11 @@ public class UsersController : Controller
 
     [HttpPost("{id}/edit")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(string id, string fullName, bool isAdmin, CancellationToken ct)
+    public async Task<IActionResult> Edit(string id, string fullName, bool isAdmin, CancellationToken ct, string? editScope = null)
     {
         await _userService.UpdateProfileAsync(id, fullName, isAdmin, ct);
+        if (Request.HasFormContentType && Request.Form.ContainsKey("editScope"))
+            await _userService.SetEditScopeAsync(id, editScope, ct);
         return RedirectToAction(nameof(Index));
     }
 

@@ -142,6 +142,23 @@ public static class StockSeeder
         const string metroZStep = "metro-area-z-2026-11-14";
         if (!await db.StockImports.AnyAsync(i => i.Name == metroZStep, ct))
             await LoadMetroAreaZAsync(db, metroZStep, logger, ct);
+
+        // Mahmoud edits only the big warehouse (shelves); Mousa only Area Z
+        const string scopeStep = "user-edit-scopes-2026-11-14";
+        if (!await db.StockImports.AnyAsync(i => i.Name == scopeStep, ct))
+        {
+            var users = await db.Users.ToListAsync(ct);
+            bool Is(ApplicationUser u, string[] names) => names.Any(n =>
+                (u.UserName ?? "").Contains(n, StringComparison.OrdinalIgnoreCase) || (u.FullName ?? "").Contains(n, StringComparison.OrdinalIgnoreCase));
+            var mahmoud = users.Where(u => Is(u, new[] { "mahmoud", "mahmood", "mahmud", "محمود" })).ToList();
+            var mousa = users.Where(u => Is(u, new[] { "mousa", "moussa", "musa", "mosa", "موسى", "موسي" })).ToList();
+            if (mahmoud.Count == 1) mahmoud[0].SetEditScope("warehouse");
+            if (mousa.Count == 1) mousa[0].SetEditScope("areaz");
+            db.StockImports.Add(StockImport.Create(scopeStep));
+            await db.SaveChangesAsync(ct);
+            logger.LogWarning("Edit scopes: mahmoud matches {M} ({MN}), mousa matches {S} ({SN})",
+                mahmoud.Count, string.Join(",", mahmoud.Select(u => u.UserName)), mousa.Count, string.Join(",", mousa.Select(u => u.UserName)));
+        }
     }
 
     private static async Task RemoveShopsAsync(AppDbContext db, string step, ILogger logger, CancellationToken ct)

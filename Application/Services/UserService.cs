@@ -37,7 +37,8 @@ public class UserService : IUserService
                 FullName = u.FullName,
                 IsAdmin = u.IsAdmin,
                 IsActive = u.IsActive,
-                CreatedAt = u.CreatedAt
+                CreatedAt = u.CreatedAt,
+                EditScope = u.EditScope
             })
             .ToListAsync(ct);
     }
@@ -54,7 +55,8 @@ public class UserService : IUserService
             FullName = user.FullName,
             IsAdmin = user.IsAdmin,
             IsActive = user.IsActive,
-            CreatedAt = user.CreatedAt
+            CreatedAt = user.CreatedAt,
+            EditScope = user.EditScope
         };
     }
 
@@ -87,6 +89,13 @@ public class UserService : IUserService
             user.Id, user.UserName, role, userId);
 
         return user.Id;
+    }
+
+    public async Task SetEditScopeAsync(string id, string? scope, CancellationToken ct = default)
+    {
+        var user = await _userManager.FindByIdAsync(id) ?? throw new DomainException("المستخدم غير موجود.");
+        user.SetEditScope(scope);
+        await _userManager.UpdateAsync(user);
     }
 
     public async Task UpdateProfileAsync(
