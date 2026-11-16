@@ -171,10 +171,31 @@ public static class StockSeeder
                 var adminRole = await db.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).FirstOrDefaultAsync(ct);
                 var ur = await db.UserRoles.Where(x => x.UserId == found[0].Id && x.RoleId == adminRole).ToListAsync(ct);
                 db.UserRoles.RemoveRange(ur);
+                var workerRole = await db.Roles.Where(r => r.Name == "Worker").Select(r => r.Id).FirstOrDefaultAsync(ct);
+                if (workerRole != null && !await db.UserRoles.AnyAsync(x => x.UserId == found[0].Id && x.RoleId == workerRole, ct))
+                    db.UserRoles.Add(new Microsoft.AspNetCore.Identity.IdentityUserRole<string> { UserId = found[0].Id, RoleId = workerRole });
             }
             db.StockImports.Add(StockImport.Create(wissamStep));
             await db.SaveChangesAsync(ct);
             logger.LogWarning("Wissam view only: {N} match(es) {Names}", found.Count, string.Join(",", found.Select(u => u.UserName)));
+        }
+
+        // Repair: a user left with no role (admin removed directly) gets the Worker role back,
+        // and signs in fresh so the old admin sign-in isn't kept
+        const string roleFixStep = "users-without-role-get-worker-2026-11-16";
+        if (!await db.StockImports.AnyAsync(i => i.Name == roleFixStep, ct))
+        {
+            var workerRole = await db.Roles.Where(r => r.Name == "Worker").Select(r => r.Id).FirstOrDefaultAsync(ct);
+            var noRole = await db.Users.Where(u => !db.UserRoles.Any(r => r.UserId == u.Id)).ToListAsync(ct);
+            if (workerRole != null)
+                foreach (var u in noRole)
+                {
+                    db.UserRoles.Add(new Microsoft.AspNetCore.Identity.IdentityUserRole<string> { UserId = u.Id, RoleId = workerRole });
+                    u.SecurityStamp = Guid.NewGuid().ToString();
+                }
+            db.StockImports.Add(StockImport.Create(roleFixStep));
+            await db.SaveChangesAsync(ct);
+            logger.LogWarning("Role repair: {N} user(s) given Worker", noRole.Count);
         }
 
         // Mahmoud edits only the big warehouse (shelves); Mousa only Area Z
