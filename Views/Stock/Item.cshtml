@@ -109,11 +109,11 @@
     </div>
 }
 
-@* ── Admin correction ──────────────────────────────────── *@
-@if (isAdmin && s.QtyText == null)
+@* ── Admin: order numbers (the total itself follows the shelves + Area Z) ─── *@
+@if (isAdmin && s.QtyText == null && (hasWarehouse || s.Family == "smirdex"))
 {
     <div class="mx-4 card p-5 mb-5">
-        <p class="eyebrow mb-3">EDIT · تعديل يدوي</p>
+        <p class="eyebrow mb-3">ORDERS · للطلب وبالطريق</p>
         <form method="post" action="/stock/items/@s.Id" class="flex flex-col gap-4" id="stock-form">
             @Html.AntiForgeryToken()
             @if (hasWarehouse)
@@ -136,10 +136,9 @@
                     <input type="number" id="ordered" name="ordered" min="0" value="@s.Ordered" class="form-input" inputmode="numeric" />
                 </div>
             }
-            <div class="form-group">
-                <label class="form-label" for="total">@(s.Family == "smirdex" ? "العدد بالكرتونة" : "المجموع")</label>
-                <input type="number" id="total" name="total" value="@s.Total" class="form-input" inputmode="numeric" />
-            </div>
+            @* The total is always shelves + Area Z, so it isn't typed here *@
+            <input type="hidden" name="total" value="@s.Total" />
+            <p class="text-xs text-bark-l">المجموع يُحسب تلقائياً من الرفوف و Area Z. لتغييره عدّل الكمية على الرف أو في Area Z.</p>
             <div class="form-group">
                 <label class="form-label" for="note">ملاحظة (اختيارية)</label>
                 <input type="text" id="note" name="note" maxlength="200" class="form-input" placeholder="مثلاً: وصلت الطلبية، جرد…" />

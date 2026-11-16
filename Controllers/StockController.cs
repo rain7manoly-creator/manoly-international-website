@@ -105,6 +105,29 @@ public class StockController : Controller
         return File(result.Value.Bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", result.Value.FileName);
     }
 
+    // ── Area Z warnings ─────────────────────────────────────────────
+    /// <summary>mode: off | out (when it runs out) | at (when bundles ≤ number)</summary>
+    [HttpPost("/area-z/alert")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AreaZAlert(int productId, string mode, int? at, string? back, CancellationToken ct)
+    {
+        int? value = mode switch { "out" => 0, "at" => Math.Max(0, at ?? 0), _ => null };
+        await _stock.SetAreaZAlertAsync(productId, value, ct);
+        TempData["SuccessMessage"] = "تم حفظ تنبيه Area Z.";
+        return LocalRedirect(!string.IsNullOrEmpty(back) && Url.IsLocalUrl(back) ? back : "/alerts");
+    }
+
+    [HttpPost("/area-z/alert-warehouse")]
+    [Authorize(Policy = "AdminOnly")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AreaZAlertWarehouse(int warehouseId, bool on, CancellationToken ct)
+    {
+        var n = await _stock.SetAreaZAlertForWarehouseAsync(warehouseId, on ? 0 : null, ct);
+        TempData["SuccessMessage"] = on ? $"سيصلك تنبيه عند نفاد أي من {n} منتج في هذا المستودع." : $"تم إيقاف تنبيه Area Z لـ {n} منتج.";
+        return LocalRedirect($"/area-z?w={warehouseId}");
+    }
+
     // ── Created stock groups (e.g. مفصلات SH) ─────────────────────────
 
     [HttpGet("groups/new")]

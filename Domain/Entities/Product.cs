@@ -39,6 +39,10 @@ public class Product : AuditableEntity
     public int? AlertAt { get; private set; }
     public void SetAlertAt(int? alertAt) => AlertAt = alertAt;
 
+    /// <summary>Area Z warning: null = off; N = warn when this product's Area Z bundles are N or fewer (0 = when it runs out).</summary>
+    public int? AreaZAlertAt { get; private set; }
+    public void SetAreaZAlertAt(int? at) => AreaZAlertAt = at is < 0 ? null : at;
+
     public void LinkStock(int? stockItemId, string updatedBy)
     {
         StockItemId = stockItemId;

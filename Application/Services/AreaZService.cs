@@ -76,6 +76,7 @@ public class AreaZService : IAreaZService
                 StockName = az.Product.StockItem != null ? az.Product.StockItem.Name : null,
                 StockColor = az.Product.StockItem != null ? az.Product.StockItem.Color : null,
                 StockTotal = az.Product.StockItem != null ? az.Product.StockItem.Total : null,
+                AreaZAlertAt = az.Product.AreaZAlertAt,
                 EnteredAt = az.CreatedAt,
                 EnteredBy = _db.Users
                     .Where(u => u.Id == az.CreatedBy)
@@ -113,6 +114,7 @@ public class AreaZService : IAreaZService
                 StockName = az.Product.StockItem != null ? az.Product.StockItem.Name : null,
                 StockColor = az.Product.StockItem != null ? az.Product.StockItem.Color : null,
                 StockTotal = az.Product.StockItem != null ? az.Product.StockItem.Total : null,
+                AreaZAlertAt = az.Product.AreaZAlertAt,
                 EnteredAt = az.CreatedAt,
                 EnteredBy = _db.Users
                     .Where(u => u.Id == az.CreatedBy)

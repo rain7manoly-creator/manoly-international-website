@@ -296,6 +296,7 @@ public class AreaZItemViewModel
     public string? StockName { get; init; }
     public string? StockColor { get; init; }
     public int? StockTotal { get; init; }
+    public int? AreaZAlertAt { get; init; }
     public string StockLabel => StockName == null ? "" : StockColor switch { "white" => StockName + " — أبيض", "grey" => StockName + " — سكني", _ => StockName };
 }
 

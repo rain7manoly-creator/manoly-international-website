@@ -149,6 +149,16 @@ public static class StockSeeder
             await MergeColourlessMetroAsync(db, box4017Step, "عالي مع ماسورة", 167, 400, "white",
                 n => n.Contains("بوكس") && (n.Contains("40/17") || n.Contains("17/40")), logger, ct);
 
+        // The stock is only what is in the warehouse (shelves) or Area Z: unconnected lines go to 0
+        const string whOnlyStep = "stock-is-warehouse-only-2026-11-16";
+        if (!await db.StockImports.AnyAsync(i => i.Name == whOnlyStep, ct))
+        {
+            var r = await ManolyWarehouse.Application.Services.StockService.MatchWithWarehouseAsync(db, null, "المستودع فقط", ct);
+            db.StockImports.Add(StockImport.Create(whOnlyStep));
+            await db.SaveChangesAsync(ct);
+            logger.LogWarning("Stock = warehouse only: linked {L}, changed {C}", r.Linked, r.Changed);
+        }
+
         // Mahmoud edits only the big warehouse (shelves); Mousa only Area Z
         const string scopeStep = "user-edit-scopes-2026-11-14";
         if (!await db.StockImports.AnyAsync(i => i.Name == scopeStep, ct))

@@ -2,8 +2,9 @@
 @{
     ViewData["Title"] = "التنبيهات";
     var isAdmin = User.IsInRole("Admin");
-    var outRows = Model.Where(r => r.IsOut).ToList();
-    var lowRows = Model.Where(r => !r.IsOut).ToList();
+    var zRows = Model.Where(r => r.AreaZ).ToList();
+    var outRows = Model.Where(r => !r.AreaZ && r.IsOut).ToList();
+    var lowRows = Model.Where(r => !r.AreaZ && !r.IsOut).ToList();
 }
 
 <style>
@@ -22,7 +23,7 @@
     <p class="eyebrow mb-1">ALERTS · التنبيهات</p>
     <h1 class="page-title">التنبيهات</h1>
     <p class="text-sm text-bark mt-1">
-        <b style="color:#CA292E">@outRows.Count</b> نفد · <b style="color:#CA292E">@lowRows.Count</b> قارب على النفاد
+        <b style="color:#CA292E">@outRows.Count</b> نفد · <b style="color:#CA292E">@lowRows.Count</b> قارب على النفاد · <b style="color:#9A6200">@zRows.Count</b> Area Z
     </p>
 </div>
 
@@ -35,7 +36,7 @@
     </div>
 }
 
-@foreach (var (title, rows, kind) in new[] { ("نفد", outRows, "out"), ("قارب على النفاد", lowRows, "low") })
+@foreach (var (title, rows, kind) in new[] { ("نفد", outRows, "out"), ("قارب على النفاد", lowRows, "low"), ("Area Z — نفد أو قارب", zRows, "z") })
 {
     if (!rows.Any()) { continue; }
     <div class="px-4 mb-2 flex items-end justify-between">
@@ -45,9 +46,9 @@
     <div class="mx-4 card mb-6">
         @foreach (var r in rows)
         {
-            var href = r.IsLine ? $"/stock/items/{r.Id}" : (isAdmin ? $"/products/{r.Id}" : null);
+            var href = r.IsLine ? $"/stock/items/{r.Id}" : r.AreaZ ? $"/area-z?q={Uri.EscapeDataString(r.Name)}" : (isAdmin ? $"/products/{r.Id}" : null);
             <div class="al-row">
-                <span class="al-ic @kind" aria-hidden="true">
+                <span class="al-ic @(kind == "z" ? (r.IsOut ? "out" : "low") : kind)" aria-hidden="true">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>
                     </svg>
@@ -55,13 +56,20 @@
                 <div class="flex-1 min-w-0">
                     @if (href != null) { <a href="@href" class="text-sm font-semibold text-ink">@r.Name</a> }
                     else { <span class="text-sm font-semibold text-ink">@r.Name</span> }
-                    <div class="al-sub">@r.Group@(r.AlertAt is > 0 ? $" · التنبيه عند {r.AlertAt}" : "")</div>
+                    <div class="al-sub">@r.Group@(r.AlertAt is > 0 ? $" · التنبيه عند {r.AlertAt}" : "")@(r.AreaZ && r.IsOut ? " · نفد من Area Z" : "")</div>
                     @if (isAdmin)
                     {
                         <details class="al-edit mt-1">
                             <summary>تغيير التنبيه</summary>
                             <div class="mt-2">
-                                <partial name="_AlertForm" model='(r.IsLine ? "line" : "product", r.Id, r.AlertAt, r.Unit, "/alerts")' />
+                                @if (r.AreaZ)
+                                {
+                                    <partial name="_AreaZAlertForm" model='(r.Id, r.AlertAt, "/alerts")' />
+                                }
+                                else
+                                {
+                                    <partial name="_AlertForm" model='(r.IsLine ? "line" : "product", r.Id, r.AlertAt, r.Unit, "/alerts")' />
+                                }
                             </div>
                         </details>
                     }

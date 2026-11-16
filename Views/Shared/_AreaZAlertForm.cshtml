@@ -1,0 +1,18 @@
+@model (int ProductId, int? At, string Back)
+@{
+    var mode = Model.At is null ? "off" : Model.At == 0 ? "out" : "at";
+    var uid = "az" + Model.ProductId + Guid.NewGuid().ToString("N")[..4];
+}
+<form method="post" action="/area-z/alert" class="flex flex-col gap-2">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="productId" value="@Model.ProductId" />
+    <input type="hidden" name="back" value="@Model.Back" />
+    <label class="flex items-center gap-2 text-sm"><input type="radio" name="mode" value="off" checked="@(mode == "off")" /> بدون تنبيه</label>
+    <label class="flex items-center gap-2 text-sm"><input type="radio" name="mode" value="out" checked="@(mode == "out")" /> نبّهني عندما ينفد من Area Z</label>
+    <label class="flex items-center gap-2 text-sm flex-wrap">
+        <input type="radio" name="mode" value="at" id="@uid" checked="@(mode == "at")" /> نبّهني عندما يصبح في Area Z
+        <input type="number" name="at" min="1" value="@(mode == "at" ? Model.At : null)" class="form-input" style="width:80px;min-height:36px"
+               inputmode="numeric" oninput="document.getElementById('@uid').checked = true" /> ربطة أو أقل
+    </label>
+    <button type="submit" class="btn-primary btn-sm self-start">حفظ</button>
+</form>

@@ -336,6 +336,9 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                     b.Property<int?>("AlertAt")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("AreaZAlertAt")
+                        .HasColumnType("integer");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 

@@ -128,6 +128,10 @@
 <div class="px-4 pt-4 pb-6 flex flex-col gap-4" id="results"></div>
 
 <script id="stock-items" type="application/json">@Html.Raw(itemsJson.Replace("</", "<\\/"))</script>
+<div id="away" class="px-4 pb-6 text-xs text-bark-l" hidden>
+    <span data-n></span> سطر غير موجود في المستودع ولا في Area Z (غير مرتبط بمنتج) — مخفي من المخزون.
+    <button type="button" class="font-semibold" style="color:#CA292E">إظهار</button>
+</div>
 <script id="stock-groups" type="application/json">@Html.Raw(groupsJson.Replace("</", "<\\/"))</script>
 <script id="stock-others" type="application/json">@Html.Raw(othersJson.Replace("</", "<\\/"))</script>
 
@@ -141,7 +145,19 @@
     const OTHERS = JSON.parse(document.getElementById('stock-others').textContent);
     const qEl = document.getElementById('q'), resEl = document.getElementById('results');
     const clearBtn = document.getElementById('clear'), outBtn = document.getElementById('outOnly');
-    let cat = 'all', outOnly = false;
+    let cat = 'all', outOnly = false, showAway = false;
+    // Lines with no product on a shelf or in Area Z aren't in the stock; they stay hidden unless asked for
+    const AWAY = ITEMS.filter(i => !(i.linked > 0) && i.qtyText == null).length;
+    const awayBox = document.getElementById('away');
+    if (awayBox && AWAY) {
+        awayBox.hidden = false;
+        awayBox.querySelector('[data-n]').textContent = AWAY;
+        awayBox.querySelector('button').addEventListener('click', e => {
+            showAway = !showAway;
+            e.target.textContent = showAway ? 'إخفاء' : 'إظهار';
+            render();
+        });
+    }
 
     function norm(s) {
         return String(s == null ? '' : s).toLowerCase()
@@ -291,7 +307,7 @@
         const raw = qEl.value; clearBtn.hidden = !raw;
         const { tokens, color, cats } = parse(raw);
         const want = c => (cat === 'all' || cat === c) && (!cats.size || cats.has(c));
-        const pick = (fams, c) => want(c) ? ITEMS.filter(i => fams.includes(i.family) && match(i.key, tokens)
+        const pick = (fams, c) => want(c) ? ITEMS.filter(i => fams.includes(i.family) && (showAway || i.linked > 0 || i.qtyText != null) && match(i.key, tokens)
             && (!outOnly || ((!color || i.color === color) && i.qtyText == null && isWarn(i.total, i.alertAt)))) : [];
 
         const dM = pick(['metro'], 'metro'), tM = pick(['metro-tandem'], 'metro'), cM = pick(['metro-code'], 'metro');

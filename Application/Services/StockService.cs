@@ -70,6 +70,8 @@ public interface IStockService
     Task<int> CountAlertsAsync(CancellationToken ct = default);
     Task SetAlertAsync(bool isLine, int id, int? alertAt, CancellationToken ct = default);
     Task<int?> GetProductAlertAtAsync(int productId, CancellationToken ct = default);
+    Task SetAreaZAlertAsync(int productId, int? at, CancellationToken ct = default);
+    Task<int> SetAreaZAlertForWarehouseAsync(int warehouseId, int? at, CancellationToken ct = default);
     Task<string> CreateGroupAsync(string name, bool inCartons, string? lines, CancellationToken ct = default);
     Task UpdateGroupAsync(string family, string name, bool inCartons, CancellationToken ct = default);
     Task DeleteGroupAsync(string family, CancellationToken ct = default);
@@ -79,7 +81,7 @@ public interface IStockService
 }
 
 /// <summary>One item on the notifications page.</summary>
-public record AlertRow(bool IsLine, int Id, string Group, string Name, int Qty, int? AlertAt, string Unit)
+public record AlertRow(bool IsLine, int Id, string Group, string Name, int Qty, int? AlertAt, string Unit, bool AreaZ = false)
 {
     public bool IsOut => Qty <= 0;
 }
@@ -340,6 +342,9 @@ public class StockService : IStockService
         var item = await _db.StockItems.FirstOrDefaultAsync(s => s.Id == id, ct)
             ?? throw new DomainException("صنف المخزون غير موجود.");
 
+        // The warehouse and total numbers come only from the shelves + Area Z; محلات is gone.
+        warehouse = item.Warehouse; total = item.Total; shops = null;
+
         if (item.Warehouse == warehouse && item.Shops == shops && item.Ordered == ordered
             && item.OnWay == onWay && item.Total == total)
             return;
@@ -506,12 +511,14 @@ public class StockService : IStockService
     public static async Task<(int Linked, int Changed)> MatchWithWarehouseAsync(
         AppDbContext db, string? userId, string? userName, CancellationToken ct = default)
     {
-        var lines = await db.StockItems.Where(s => WarehouseFamilies.Contains(s.Family)).OrderBy(s => s.SortOrder).ToListAsync(ct);
+        // Every line follows the warehouse: shelves + Area Z of its products. A line with no product is 0.
+        var lines = await db.StockItems.Where(s => s.QtyText == null).OrderBy(s => s.SortOrder).ToListAsync(ct);
+        var matchable = lines.Where(s => WarehouseFamilies.Contains(s.Family)).ToList();
 
         var linked = 0;
         foreach (var p in await db.Products.Where(p => p.StockItemId == null).ToListAsync(ct))
         {
-            var line = StockMatcher.Match(p.Name, lines);
+            var line = StockMatcher.Match(p.Name, matchable);
             if (line is null) continue;
             p.LinkStock(line.Id, userId ?? "import");
             linked++;
@@ -529,7 +536,7 @@ public class StockService : IStockService
             .Select(p => p.StockItemId!.Value).Distinct().ToListAsync(ct)).ToHashSet();
 
         var changed = 0;
-        foreach (var line in lines.Where(l => hasLink.Contains(l.Id)))
+        foreach (var line in lines)
         {
             var cartons = StockItem.CountsInCartons(line.Family);
             var qty = shelf.Where(s => s.Sid == line.Id).Sum(s => cartons ? s.BundleCount : s.BundleCount * s.UnitsPerBundle)
@@ -539,7 +546,8 @@ public class StockService : IStockService
             var before = line.Total;
             line.SetValues(drawer ? qty : line.Warehouse, line.Shops, line.Ordered, line.OnWay, qty, userId ?? "import");
             db.StockMovements.Add(StockMovement.Create(line, qty - (before ?? 0), before, qty,
-                "مطابقة مع المستودع (الرفوف + Area Z)", userId, userName ?? "مطابقة"));
+                hasLink.Contains(line.Id) ? "مطابقة مع المستودع (الرفوف + Area Z)" : "غير موجود في المستودع ولا في Area Z — المجموع 0",
+                userId, userName ?? "مطابقة"));
             changed++;
         }
         await db.SaveChangesAsync(ct);
@@ -652,6 +660,7 @@ public class StockService : IStockService
         var lines = await _db.StockItems.AsNoTracking()
             .Where(s => s.Total != null && s.QtyText == null && (s.AlertAt == null || s.AlertAt >= 0))
             .Where(s => s.Total <= (s.AlertAt ?? 0))
+            .Where(s => _db.Products.Any(p => p.StockItemId == s.Id))   // not in the warehouse = not in the stock
             .OrderBy(s => s.SortOrder)
             .Select(s => new { s.Id, s.Family, s.Name, s.Color, s.Total, s.AlertAt })
             .ToListAsync(ct);
@@ -672,7 +681,42 @@ public class StockService : IStockService
             .OrderBy(p => p.Cat).ThenBy(p => p.Name)
             .ToListAsync(ct);
         rows.AddRange(products.Select(p => new AlertRow(false, p.Id, p.Cat, p.Name, p.Qty, p.AlertAt, "ربطة")));
+
+        // Area Z warnings: products whose Area Z bundles reached their Area Z number
+        var z = await _db.Products.AsNoTracking()
+            .Where(p => p.AreaZAlertAt != null)
+            .Select(p => new
+            {
+                p.Id, p.Name, p.AreaZAlertAt,
+                Qty = p.AreaZInventories.Where(a => !a.IsDispatched).Sum(a => (int?)a.BundleCount) ?? 0,
+                Wh = p.AreaZInventories.OrderByDescending(a => a.CreatedAt).Select(a => a.Warehouse.Name).FirstOrDefault()
+            })
+            .Where(p => p.Qty <= p.AreaZAlertAt)
+            .OrderBy(p => p.Name)
+            .ToListAsync(ct);
+        rows.AddRange(z.Select(p => new AlertRow(false, p.Id, "Area Z" + (p.Wh == null ? "" : " · " + p.Wh), p.Name, p.Qty, p.AreaZAlertAt, "ربطة", AreaZ: true)));
         return rows;
+    }
+
+    public async Task SetAreaZAlertAsync(int productId, int? at, CancellationToken ct = default)
+    {
+        var p = await _db.Products.FirstOrDefaultAsync(x => x.Id == productId, ct) ?? throw new DomainException("المنتج غير موجود.");
+        p.SetAreaZAlertAt(at);
+        await _db.SaveChangesAsync(ct);
+        await _activityLog.RecordAsync(ActivityArea.Stock, at is null ? $"تنبيه Area Z «{p.Name}»: متوقف"
+            : at == 0 ? $"تنبيه Area Z «{p.Name}»: عند النفاد" : $"تنبيه Area Z «{p.Name}»: عند {at} ربطة أو أقل", ct);
+    }
+
+    /// <summary>Turns the Area Z warning on (or off) for every product now in one Area Z warehouse.</summary>
+    public async Task<int> SetAreaZAlertForWarehouseAsync(int warehouseId, int? at, CancellationToken ct = default)
+    {
+        var products = await _db.Products.Where(p => p.AreaZInventories.Any(a => !a.IsDispatched && a.WarehouseId == warehouseId)).ToListAsync(ct);
+        foreach (var p in products) p.SetAreaZAlertAt(at);
+        await _db.SaveChangesAsync(ct);
+        var wh = await _db.AreaZWarehouses.Where(w => w.Id == warehouseId).Select(w => w.Name).FirstOrDefaultAsync(ct);
+        await _activityLog.RecordAsync(ActivityArea.Stock, at is null ? $"أوقف تنبيه Area Z لكل منتجات {wh} ({products.Count})"
+            : $"شغّل تنبيه Area Z عند النفاد لكل منتجات {wh} ({products.Count})", ct);
+        return products.Count;
     }
 
     public async Task<int?> GetProductAlertAtAsync(int productId, CancellationToken ct = default)
