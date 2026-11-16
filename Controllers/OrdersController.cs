@@ -52,6 +52,7 @@ public class OrdersController : Controller
     }
 
     [HttpPost("{id:int}/advance")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("any")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Advance(int id, CancellationToken ct)
     {
@@ -98,6 +99,7 @@ public class OrdersController : Controller
     }
 
     [HttpPost("{id:int}/items/{itemId:int}/edit")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("any")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> EditItem(
         int id, int itemId, int bundleCount, int unitsPerBundle, CancellationToken ct)

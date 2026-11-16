@@ -40,6 +40,7 @@ public class UsersController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(string id, string fullName, bool isAdmin, CancellationToken ct, string? editScope = null)
     {
+        if (editScope == "view") isAdmin = false;   // view only = no admin rights either
         await _userService.UpdateProfileAsync(id, fullName, isAdmin, ct);
         if (Request.HasFormContentType && Request.Form.ContainsKey("editScope"))
             await _userService.SetEditScopeAsync(id, editScope, ct);
