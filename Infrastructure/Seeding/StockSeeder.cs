@@ -159,6 +159,24 @@ public static class StockSeeder
             logger.LogWarning("Stock = warehouse only: linked {L}, changed {C}", r.Linked, r.Changed);
         }
 
+        // Wissam: view only (can't edit anything, not admin)
+        const string wissamStep = "user-wissam-view-only-2026-11-16";
+        if (!await db.StockImports.AnyAsync(i => i.Name == wissamStep, ct))
+        {
+            var found = (await db.Users.ToListAsync(ct)).Where(u => new[] { "wissam", "wisam", "wesam", "weesam", "وسام" }.Any(n =>
+                (u.UserName ?? "").Contains(n, StringComparison.OrdinalIgnoreCase) || (u.FullName ?? "").Contains(n, StringComparison.OrdinalIgnoreCase))).ToList();
+            if (found.Count == 1)
+            {
+                found[0].SetEditScope("view");
+                var adminRole = await db.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).FirstOrDefaultAsync(ct);
+                var ur = await db.UserRoles.Where(x => x.UserId == found[0].Id && x.RoleId == adminRole).ToListAsync(ct);
+                db.UserRoles.RemoveRange(ur);
+            }
+            db.StockImports.Add(StockImport.Create(wissamStep));
+            await db.SaveChangesAsync(ct);
+            logger.LogWarning("Wissam view only: {N} match(es) {Names}", found.Count, string.Join(",", found.Select(u => u.UserName)));
+        }
+
         // Mahmoud edits only the big warehouse (shelves); Mousa only Area Z
         const string scopeStep = "user-edit-scopes-2026-11-14";
         if (!await db.StockImports.AnyAsync(i => i.Name == scopeStep, ct))
