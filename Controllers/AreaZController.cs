@@ -93,7 +93,6 @@ public class AreaZController : Controller
 
     [HttpGet("{id:int}/edit")]
     [ManolyWarehouse.Infrastructure.Services.EditArea("areaz")]
-    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Edit(int id, CancellationToken ct)
     {
         var model = await _areaZService.GetByIdAsync(id, ct);
@@ -104,13 +103,35 @@ public class AreaZController : Controller
 
     [HttpPost("{id:int}/edit")]
     [ManolyWarehouse.Infrastructure.Services.EditArea("areaz")]
-    [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(
         int id, int bundleCount, int unitsPerBundle, string? notes, int? warehouseId, CancellationToken ct)
     {
         await _areaZService.UpdateAsync(id, bundleCount, unitsPerBundle, notes, warehouseId, ct);
         return RedirectToAction(nameof(Detail), new { id });
+    }
+
+    /// <summary>Quick change from the list: bundles (0 = taken out of Area Z), and optionally units, note, warehouse.</summary>
+    [HttpPost("{id:int}/quick")]
+    [ManolyWarehouse.Infrastructure.Services.EditArea("areaz")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Quick(int id, int bundleCount, int? unitsPerBundle, int? warehouseId, string? back, CancellationToken ct)
+    {
+        var cur = await _areaZService.GetByIdAsync(id, ct);
+        if (cur is null) return NotFound();
+        if (bundleCount <= 0)
+        {
+            await _areaZService.DispatchAsync(id, ct);
+            TempData["SuccessMessage"] = $"أُخرج «{cur.ProductName}» من Area Z.";
+        }
+        else
+        {
+            var notes = Request.Form.ContainsKey("notes") ? Request.Form["notes"].ToString() : cur.Notes;
+            await _areaZService.UpdateAsync(id, bundleCount, unitsPerBundle ?? cur.UnitsPerBundle, notes, warehouseId, ct);
+            TempData["SuccessMessage"] = $"«{cur.ProductName}»: {bundleCount} ربطة.";
+        }
+        var to = !string.IsNullOrEmpty(back) && Url.IsLocalUrl(back) ? back : "/area-z";
+        return LocalRedirect(to + "#az" + id);
     }
 
     [HttpPost("{id:int}/delete")]

@@ -12,7 +12,23 @@
     var baseUrl = "/area-z" + (parts.Count == 0 ? "" : "?" + string.Join("&", parts));
     var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, baseUrl);
     var isAdmin = User.IsInRole("Admin");
+    var canEditZ = await EditAccess.CanEditAreaZAsync();
+    var backUrl = baseUrl + (Model.Page > 1 ? (baseUrl.Contains('?') ? "&" : "?") + "page=" + Model.Page : "");
 }
+
+<style>
+    .az-row:hover { background:transparent; }
+    .az-row:target { background:#FBECEC; }
+    .az-q { display:flex; align-items:center; gap:4px; }
+    .az-step { width:36px; height:36px; border-radius:10px; border:1px solid #E3E4E5; background:#fff; font-size:20px; line-height:1; color:#111; }
+    .az-step:active { background:#F1F1F2; }
+    .az-n { width:56px; height:36px; text-align:center; border:1px solid #E3E4E5; border-radius:10px;
+            font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:700; font-size:17px; -moz-appearance:textfield; }
+    .az-n::-webkit-outer-spin-button, .az-n::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+    .az-q.changed .az-n { border-color:#CA292E; color:#CA292E; }
+    .az-save { height:36px; padding:0 12px; border-radius:10px; background:#CA292E; color:#fff; font-weight:700; font-size:13px; }
+    .edit-btn { font-size:12px; color:#58595B; background:none; border:1px solid #E3E4E5; border-radius:8px; padding:2px 10px; }
+</style>
 
 <div class="px-4 pt-5 pb-3 flex items-end justify-between gap-3">
     <div class="min-w-0">
@@ -97,13 +113,27 @@ else
     <div class="mx-4 card mb-4">
         @foreach (var item in Model.Items)
         {
-            <a href="/area-z/@item.Id" class="list-item items-start flex-col gap-1">
+            <div class="list-item items-start flex-col gap-1 az-row" id="az@(item.Id)">
                 <div class="flex items-center justify-between w-full gap-3">
-                    <span class="text-base font-semibold text-ink">@item.ProductName</span>
-                    <div class="text-left shrink-0">
-                        <span class="history-qty" style="font-size:18px">@item.BundleCount</span>
-                        <span class="text-xs text-bark-l"> ربطة</span>
-                    </div>
+                    <a href="/area-z/@item.Id" class="text-base font-semibold text-ink min-w-0">@item.ProductName</a>
+                    @if (canEditZ)
+                    {
+                        <form method="post" action="/area-z/@item.Id/quick" class="az-q shrink-0" data-orig="@item.BundleCount">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="back" value="@backUrl" />
+                            <button type="button" class="az-step" data-d="-1" aria-label="إنقاص">−</button>
+                            <input type="number" name="bundleCount" value="@item.BundleCount" min="0" inputmode="numeric" class="az-n" aria-label="عدد الربطات" />
+                            <button type="button" class="az-step" data-d="1" aria-label="زيادة">+</button>
+                            <button type="submit" class="az-save" hidden>حفظ</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="text-left shrink-0">
+                            <span class="history-qty" style="font-size:18px">@item.BundleCount</span>
+                            <span class="text-xs text-bark-l"> ربطة</span>
+                        </div>
+                    }
                 </div>
                 <div class="flex items-center gap-3 flex-wrap">
                     @if (current is null)
@@ -118,15 +148,43 @@ else
                     {
                         <span class="text-xs" style="color:#CA292E">○ غير مرتبط بالمخزون</span>
                     }
-                    <span class="text-xs text-bark-l">@item.CategoryName</span>
-                    <span class="text-xs text-bark-l">@item.TotalQuantity وحدة</span>
+                    <span class="text-xs text-bark-l">@item.BundleCount × @item.UnitsPerBundle = @item.TotalQuantity وحدة</span>
                     <span class="text-xs text-bark-l font-ui">@item.EnteredAt.ToLocal().ToString("yyyy/MM/dd")</span>
+                    @if (canEditZ)
+                    {
+                        <button type="button" class="edit-btn az-more">تعديل</button>
+                    }
                 </div>
                 @if (!string.IsNullOrEmpty(item.Notes))
                 {
                     <p class="text-xs text-bark-l">@item.Notes</p>
                 }
-            </a>
+                @if (canEditZ)
+                {
+                    <form method="post" action="/area-z/@item.Id/quick" class="az-full w-full grid gap-2 mt-1" hidden>
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="back" value="@backUrl" />
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="text-xs text-bark">ربطات<input type="number" name="bundleCount" min="0" value="@item.BundleCount" class="form-input mt-1" inputmode="numeric" /></label>
+                            <label class="text-xs text-bark">وحدة في الربطة<input type="number" name="unitsPerBundle" min="1" value="@item.UnitsPerBundle" class="form-input mt-1" inputmode="numeric" /></label>
+                        </div>
+                        <label class="text-xs text-bark">المستودع
+                            <select name="warehouseId" class="form-select mt-1">
+                                @foreach (var w in warehouses)
+                                {
+                                    <option value="@w.Id" selected="@(w.Id == item.WarehouseId)">@w.Name</option>
+                                }
+                            </select>
+                        </label>
+                        <label class="text-xs text-bark">ملاحظة<input type="text" name="notes" value="@item.Notes" maxlength="500" class="form-input mt-1" /></label>
+                        <div class="flex gap-2">
+                            <button type="submit" class="btn-primary btn-sm flex-1">حفظ</button>
+                            <a href="/area-z/@item.Id" class="btn-ghost btn-sm">التفاصيل</a>
+                        </div>
+                        <p class="text-xs text-bark-l">0 ربطة = إخراجه من Area Z.</p>
+                    </form>
+                }
+            </div>
         }
     </div>
 
@@ -145,3 +203,24 @@ else
     .az-chip.add:hover { color:#CA292E; border-color:#CA292E; }
     .az-tag { font-size:11px; font-weight:600; padding:1px 8px; border-radius:5px; background:#F1F1F2; color:#58595B; }
 </style>
+
+@section Scripts {
+<script>
+document.querySelectorAll('.az-q').forEach(f => {
+    const n = f.querySelector('.az-n'), save = f.querySelector('.az-save'), orig = +f.dataset.orig;
+    const sync = () => { const ch = (+n.value) !== orig; f.classList.toggle('changed', ch); save.hidden = !ch; };
+    f.querySelectorAll('.az-step').forEach(b => b.addEventListener('click', () => {
+        n.value = Math.max(0, (parseInt(n.value, 10) || 0) + +b.dataset.d); sync();
+    }));
+    n.addEventListener('input', sync);
+    f.addEventListener('submit', e => {
+        if (+n.value === 0 && !confirm('0 ربطة يعني إخراج المنتج من Area Z. متأكد؟')) e.preventDefault();
+    });
+});
+document.querySelectorAll('.az-more').forEach(b => b.addEventListener('click', () => {
+    const f = b.closest('.az-row').querySelector('.az-full'); f.hidden = !f.hidden;
+}));
+const t = location.hash && document.querySelector(location.hash);
+if (t) t.scrollIntoView({ block: 'center' });
+</script>
+}
