@@ -4,7 +4,7 @@ using ManolyWarehouse.Application.Interfaces;
 
 namespace ManolyWarehouse.Controllers;
 
-[Authorize(Policy = "AdminOnly")]
+[Authorize(Policy = "AuthenticatedUser")]   // viewing is for everyone; every change is admin-only (below)
 [Route("products")]
 public class ProductsController : Controller
 {
@@ -41,6 +41,7 @@ public class ProductsController : Controller
 
     /// <summary>Inline save from the «كل الأصناف» page: name and/or category, then back to the same spot.</summary>
     [HttpPost("{id:int}/quick")]
+    [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Quick(int id, string name, int categoryId, CancellationToken ct)
     {
@@ -50,6 +51,7 @@ public class ProductsController : Controller
     }
 
     [HttpGet("add")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Add(CancellationToken ct)
     {
         ViewBag.Categories = await _categoryService.ListAsync(ct);
@@ -57,6 +59,7 @@ public class ProductsController : Controller
     }
 
     [HttpPost("add")]
+    [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Add(string name, int categoryId, CancellationToken ct, string? back = null)
     {
@@ -87,6 +90,7 @@ public class ProductsController : Controller
     }
 
     [HttpGet("{id:int}/edit")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Edit(int id, CancellationToken ct)
     {
         var model = await _productService.GetByIdAsync(id, ct);
@@ -98,6 +102,7 @@ public class ProductsController : Controller
     }
 
     [HttpPost("{id:int}/edit")]
+    [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, string name, int categoryId, int? stockItemId, string? back, CancellationToken ct)
     {
@@ -110,6 +115,7 @@ public class ProductsController : Controller
     }
 
     [HttpGet("{id:int}/delete")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> ConfirmDelete(int id, CancellationToken ct)
     {
         var product = await _productService.GetByIdAsync(id, ct);
@@ -122,6 +128,7 @@ public class ProductsController : Controller
     }
 
     [HttpPost("{id:int}/delete")]
+    [Authorize(Policy = "AdminOnly")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(int id, CancellationToken ct)
     {

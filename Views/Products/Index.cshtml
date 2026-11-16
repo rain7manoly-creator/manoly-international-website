@@ -7,6 +7,10 @@
         : $"/products?q={Uri.EscapeDataString(searchQuery)}";
     var pager = ManolyWarehouse.Application.ViewModels.PaginationViewModel.From(Model, baseUrl);
 }
+@if (!User.IsInRole("Admin"))
+{
+    <style>.edit-btn, .admin-only, form[method=post] { display:none !important; }</style>
+}
 
 <div class="px-4 pt-5 pb-3 flex items-end justify-between">
     <div>
@@ -17,7 +21,7 @@
     {
         <span class="flex gap-2">
             <a href="/products/all" class="btn-secondary btn-sm">حسب الصنف</a>
-            <a href="/products/add" class="btn-primary btn-sm">+ إضافة</a>
+            <a href="/products/add" class="btn-primary btn-sm admin-only">+ إضافة</a>
         </span>
     }
 </div>
@@ -41,7 +45,7 @@
         <h2 class="empty-state-title">لا توجد منتجات</h2>
         @if (User.IsInRole("Admin"))
         {
-            <a href="/products/add" class="btn-primary btn-sm">إضافة أول منتج</a>
+            <a href="/products/add" class="btn-primary btn-sm admin-only">إضافة أول منتج</a>
         }
     </div>
 }

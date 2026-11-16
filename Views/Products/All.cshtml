@@ -4,6 +4,10 @@
     var cats = (IReadOnlyList<ManolyWarehouse.Application.ViewModels.CategoryViewModel>)ViewBag.Categories;
     var total = Model.Sum(c => c.Products.Count);
 }
+@if (!User.IsInRole("Admin"))
+{
+    <style>.edit-btn, .admin-only, form[method=post] { display:none !important; }</style>
+}
 
 <style>
     #cats [hidden] { display:none !important; }   /* edit boxes stay closed until «تعديل» */
@@ -36,8 +40,8 @@
         <p class="text-sm text-bark mt-1">@Model.Count صنف · @total منتج</p>
     </div>
     <div class="flex gap-2 shrink-0">
-        <a href="/categories/add" class="btn-secondary btn-sm">+ صنف</a>
-        <a href="/products/add" class="btn-primary btn-sm">+ منتج</a>
+        <a href="/categories/add" class="btn-secondary btn-sm admin-only">+ صنف</a>
+        <a href="/products/add" class="btn-primary btn-sm admin-only">+ منتج</a>
     </div>
 </div>
 
