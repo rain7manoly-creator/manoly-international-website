@@ -81,7 +81,7 @@ public interface IStockService
 }
 
 /// <summary>One item on the notifications page.</summary>
-public record AlertRow(bool IsLine, int Id, string Group, string Name, int Qty, int? AlertAt, string Unit, bool AreaZ = false)
+public record AlertRow(bool IsLine, int Id, string Group, string Name, int Qty, int? AlertAt, string Unit, bool AreaZ = false, bool Wood = false)
 {
     public bool IsOut => Qty <= 0;
 }
@@ -695,6 +695,11 @@ public class StockService : IStockService
             .OrderBy(p => p.Name)
             .ToListAsync(ct);
         rows.AddRange(z.Select(p => new AlertRow(false, p.Id, "Area Z" + (p.Wh == null ? "" : " · " + p.Wh), p.Name, p.Qty, p.AreaZAlertAt, "ربطة", AreaZ: true)));
+
+        // The wood warehouse (separate): wood at or below its warning number
+        var wood = (await _db.WoodItems.AsNoTracking().Where(w => w.AlertAt != -1 && w.Quantity <= (w.AlertAt ?? 0))
+            .OrderBy(w => w.Type).ThenBy(w => w.ThicknessMm).ToListAsync(ct));
+        rows.AddRange(wood.Select(w => new AlertRow(false, w.Id, "مستودع الخشب · " + w.Type, w.DisplayName, w.Quantity, w.AlertAt, "لوح", Wood: true)));
         return rows;
     }
 

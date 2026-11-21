@@ -31,7 +31,7 @@ public class ApplicationUser : IdentityUser
 
     /// <summary>Where this user may change stock: null = everywhere, "warehouse" = shelves only, "areaz" = Area Z only, "view" = nothing (view only).</summary>
     public string? EditScope { get; private set; }
-    public void SetEditScope(string? scope) => EditScope = scope is "warehouse" or "areaz" or "view" ? scope : null;
+    public void SetEditScope(string? scope) => EditScope = scope is "warehouse" or "areaz" or "view" or "wood" ? scope : null;
 
     public void Deactivate() => IsActive = false;
     public void Activate() => IsActive = true;

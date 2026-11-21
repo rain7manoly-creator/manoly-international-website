@@ -3,8 +3,9 @@
     ViewData["Title"] = "التنبيهات";
     var isAdmin = User.IsInRole("Admin");
     var zRows = Model.Where(r => r.AreaZ).ToList();
-    var outRows = Model.Where(r => !r.AreaZ && r.IsOut).ToList();
-    var lowRows = Model.Where(r => !r.AreaZ && !r.IsOut).ToList();
+    var woodRows = Model.Where(r => r.Wood).ToList();
+    var outRows = Model.Where(r => !r.AreaZ && !r.Wood && r.IsOut).ToList();
+    var lowRows = Model.Where(r => !r.AreaZ && !r.Wood && !r.IsOut).ToList();
 }
 
 <style>
@@ -23,7 +24,7 @@
     <p class="eyebrow mb-1">ALERTS · التنبيهات</p>
     <h1 class="page-title">التنبيهات</h1>
     <p class="text-sm text-bark mt-1">
-        <b style="color:#CA292E">@outRows.Count</b> نفد · <b style="color:#CA292E">@lowRows.Count</b> قارب على النفاد · <b style="color:#9A6200">@zRows.Count</b> Area Z
+        <b style="color:#CA292E">@outRows.Count</b> نفد · <b style="color:#CA292E">@lowRows.Count</b> قارب على النفاد · <b style="color:#9A6200">@zRows.Count</b> Area Z · <b style="color:#7A5320">@woodRows.Count</b> خشب
     </p>
 </div>
 
@@ -36,7 +37,7 @@
     </div>
 }
 
-@foreach (var (title, rows, kind) in new[] { ("نفد", outRows, "out"), ("قارب على النفاد", lowRows, "low"), ("Area Z — نفد أو قارب", zRows, "z") })
+@foreach (var (title, rows, kind) in new[] { ("نفد", outRows, "out"), ("قارب على النفاد", lowRows, "low"), ("Area Z — نفد أو قارب", zRows, "z"), ("مستودع الخشب", woodRows, "z") })
 {
     if (!rows.Any()) { continue; }
     <div class="px-4 mb-2 flex items-end justify-between">
@@ -46,7 +47,7 @@
     <div class="mx-4 card mb-6">
         @foreach (var r in rows)
         {
-            var href = r.IsLine ? $"/stock/items/{r.Id}" : r.AreaZ ? $"/area-z?q={Uri.EscapeDataString(r.Name)}" : (isAdmin ? $"/products/{r.Id}" : null);
+            var href = r.Wood ? $"/wood/{r.Id}" : r.IsLine ? $"/stock/items/{r.Id}" : r.AreaZ ? $"/area-z?q={Uri.EscapeDataString(r.Name)}" : (isAdmin ? $"/products/{r.Id}" : null);
             <div class="al-row">
                 <span class="al-ic @(kind == "z" ? (r.IsOut ? "out" : "low") : kind)" aria-hidden="true">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
@@ -57,7 +58,7 @@
                     @if (href != null) { <a href="@href" class="text-sm font-semibold text-ink">@r.Name</a> }
                     else { <span class="text-sm font-semibold text-ink">@r.Name</span> }
                     <div class="al-sub">@r.Group@(r.AlertAt is > 0 ? $" · التنبيه عند {r.AlertAt}" : "")@(r.AreaZ && r.IsOut ? " · نفد من Area Z" : "")</div>
-                    @if (isAdmin)
+                    @if (isAdmin && !r.Wood)
                     {
                         <details class="al-edit mt-1">
                             <summary>تغيير التنبيه</summary>

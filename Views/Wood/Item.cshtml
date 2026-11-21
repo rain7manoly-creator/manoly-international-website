@@ -1,0 +1,102 @@
+@model ManolyWarehouse.Application.Services.WoodDetail
+@inject ManolyWarehouse.Infrastructure.Services.IEditAccess EditAccess
+@{
+    var w = Model.Item;
+    ViewData["Title"] = w.Name;
+    var canEdit = await EditAccess.CanEditWoodAsync();
+    var mode = w.AlertAt == -1 ? "never" : w.AlertAt is > 0 ? "at" : "out";
+    var types = (IReadOnlyList<string>)ViewBag.Types;
+}
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/wood#w@(w.Id)" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        مستودع الخشب · @w.Type
+    </a>
+    <h1 class="page-title" dir="auto">@w.Name</h1>
+    @if (w.Notes != null) { <p class="text-sm text-bark mt-1">@w.Notes</p> }
+</div>
+
+<div class="mx-4 card p-5 mb-4 flex items-end justify-between gap-4">
+    <div>
+        <div class="text-xs text-bark-l mb-1">الكمية</div>
+        <div class="history-qty" style="font-size:40px;line-height:1;@(w.IsLow ? "color:#CA292E" : "")">@w.Quantity.ToString("N0")</div>
+        <div class="text-xs text-bark-l mt-1">لوح@(w.IsLow ? " · ناقص" : "")</div>
+    </div>
+    <div class="text-xs text-bark-l text-left">آخر تغيير<br /><span dir="ltr">@w.UpdatedAt.ToLocalString()</span></div>
+</div>
+
+@if (canEdit)
+{
+    <form method="post" action="/wood/@w.Id/qty" class="mx-4 card p-4 mb-4 flex flex-col gap-3">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="back" value="/wood/@w.Id" />
+        <div class="text-sm font-semibold">تغيير الكمية</div>
+        <div class="flex gap-2">
+            <input type="number" name="quantity" min="0" value="@w.Quantity" class="form-input flex-1" inputmode="numeric" aria-label="الكمية الجديدة" />
+            <button type="submit" class="btn-primary btn-sm shrink-0" style="min-height:44px">حفظ</button>
+        </div>
+        <input type="text" name="note" maxlength="200" class="form-input" placeholder="السبب (اختياري): وصلت طلبية، بيع، جرد…" />
+    </form>
+
+    <div class="mx-4 card p-4 mb-4">
+        <div class="text-sm font-semibold mb-2">التنبيه</div>
+        <form method="post" action="/wood/@w.Id/alert" class="flex flex-col gap-2">
+            @Html.AntiForgeryToken()
+            <label class="flex items-center gap-2 text-sm"><input type="radio" name="mode" value="out" checked="@(mode == "out")" /> عندما ينفد</label>
+            <label class="flex items-center gap-2 text-sm flex-wrap"><input type="radio" name="mode" value="at" id="wd-at" checked="@(mode == "at")" /> عندما يصبح
+                <input type="number" name="at" min="1" value="@(mode == "at" ? w.AlertAt : null)" class="form-input" style="width:80px;min-height:36px" inputmode="numeric" oninput="document.getElementById('wd-at').checked=true" /> لوح أو أقل</label>
+            <label class="flex items-center gap-2 text-sm"><input type="radio" name="mode" value="never" checked="@(mode == "never")" /> بدون تنبيه</label>
+            <button type="submit" class="btn-secondary btn-sm self-start">حفظ</button>
+        </form>
+    </div>
+
+    <details class="mx-4 card mb-4">
+        <summary class="px-4 py-3 text-sm font-semibold" style="cursor:pointer">تعديل التفاصيل</summary>
+        <form method="post" action="/wood/@w.Id/edit" class="px-4 pb-4 flex flex-col gap-3">
+            @Html.AntiForgeryToken()
+            <label class="text-xs text-bark">النوع
+                <input type="text" name="type" value="@w.Type" list="wood-types" class="form-input mt-1" required maxlength="60" />
+                <datalist id="wood-types">@foreach (var t in types) { <option value="@t"></option> }</datalist>
+            </label>
+            <div class="grid grid-cols-3 gap-2">
+                <label class="text-xs text-bark">السماكة mm<input type="number" name="thickness" step="0.1" min="0" value="@w.Thickness?.ToString("0.##")" class="form-input mt-1" inputmode="decimal" /></label>
+                <label class="text-xs text-bark">الطول cm<input type="number" name="length" step="0.1" min="0" value="@w.Length?.ToString("0.##")" class="form-input mt-1" inputmode="decimal" /></label>
+                <label class="text-xs text-bark">العرض cm<input type="number" name="width" step="0.1" min="0" value="@w.Width?.ToString("0.##")" class="form-input mt-1" inputmode="decimal" /></label>
+            </div>
+            <label class="text-xs text-bark">اللون / التشطيب<input type="text" name="color" value="@w.Color" maxlength="80" class="form-input mt-1" /></label>
+            <label class="text-xs text-bark">ملاحظة<input type="text" name="notes" value="@w.Notes" maxlength="300" class="form-input mt-1" /></label>
+            <button type="submit" class="btn-primary btn-sm">حفظ</button>
+        </form>
+    </details>
+}
+
+<div class="px-4 mb-2 flex items-end justify-between">
+    <div><p class="eyebrow mb-1">HISTORY · السجل</p><h2 class="section-title">حركة الكمية</h2></div>
+    <span class="text-xs text-bark-l">@Model.Movements.Count حركة</span>
+</div>
+<ol class="mx-4 card mb-6 history-list">
+    @foreach (var m in Model.Movements)
+    {
+        var d = m.After - m.Before;
+        <li class="history-row">
+            <div class="flex items-center gap-2 flex-wrap">
+                <span class="history-from">@m.Before</span>
+                <svg class="w-3.5 h-3.5 text-bark-l shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                <span class="history-to">@m.After</span>
+                @if (d != 0) { <span class="delta-chip @(d > 0 ? "delta-up" : "delta-down")" dir="ltr">@(d > 0 ? "+" : "")@d</span> }
+            </div>
+            <div class="history-note">@m.Reason</div>
+            <div class="text-xs text-bark-l mt-1">@(m.UserName ?? "—") · <span dir="ltr">@m.CreatedAt.ToLocalString()</span></div>
+        </li>
+    }
+</ol>
+
+@if (User.IsInRole("Admin"))
+{
+    <form method="post" action="/wood/@w.Id/delete" id="wd-del" class="mx-4 mb-8">
+        @Html.AntiForgeryToken()
+        <button type="button" class="btn-ghost btn-sm w-full" style="color:#CA292E"
+                onclick="confirmSubmit('حذف صنف الخشب', 'سيُحذف «@w.Name» وسجله نهائياً.', 'wd-del', 'حذف')">حذف هذا الصنف</button>
+    </form>
+}

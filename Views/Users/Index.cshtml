@@ -20,6 +20,7 @@
                         @if (u.IsAdmin) { <span class="badge-admin">مسؤول</span> }
                         else { <span class="badge-worker">موظف</span> }
                         @if (u.EditScope == "warehouse") { <span class="badge" style="background:#F1F1F2;color:#58595B;">يعدّل المستودع فقط</span> }
+                        @if (u.EditScope == "wood") { <span class="badge" style="background:#F3EBDD;color:#7A5320;">يعدّل الخشب فقط</span> }
                         @if (u.EditScope == "view") { <span class="badge" style="background:#FBECEC;color:#CA292E;">عرض فقط</span> }
                         @if (u.EditScope == "areaz") { <span class="badge" style="background:#FFF4E0;color:#9A6200;">يعدّل Area Z فقط</span> }
                         @if (!u.IsActive) { <span class="badge" style="background:rgba(168,68,58,0.15);color:#871518;">معطل</span> }
@@ -72,6 +73,7 @@
                     <option value="">كل الأماكن (المستودع و Area Z)</option>
                     <option value="warehouse">المستودع الكبير فقط (الرفوف)</option>
                     <option value="areaz">Area Z فقط</option>
+                    <option value="wood">مستودع الخشب فقط</option>
                     <option value="view">لا شيء — عرض فقط</option>
                 </select>
                 <p class="text-xs text-bark-l mt-1">يستطيع رؤية كل شيء، لكن الإضافة والتعديل فقط في المكان المختار.</p>

@@ -1,0 +1,149 @@
+@model IReadOnlyList<ManolyWarehouse.Application.Services.WoodRow>
+@inject ManolyWarehouse.Infrastructure.Services.IEditAccess EditAccess
+@{
+    ViewData["Title"] = "مستودع الخشب";
+    var canEdit = await EditAccess.CanEditWoodAsync();
+    var groups = Model.GroupBy(w => w.Type).ToList();
+    var low = Model.Count(w => w.IsLow);
+}
+
+<style>
+    .wd-chip { white-space:nowrap; border:1px solid #E3E4E5; background:#fff; border-radius:999px; padding:6px 14px; font-size:13px; color:#58595B; }
+    .wd-chip[aria-pressed="true"] { background:#111; color:#fff; border-color:#111; }
+    .wd-sec { display:flex; align-items:baseline; justify-content:space-between; margin:18px 2px 8px; }
+    .wd-sec h2 { font-size:17px; font-weight:700; color:#111; }
+    .wd-sec span { font-size:12px; color:#58595B; }
+    .wd-sec b { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; color:#111; font-size:15px; }
+    .wd-row { display:flex; align-items:center; gap:10px; padding:12px 14px; border-top:1px solid #F1F1F2; }
+    .wd-row:first-child { border-top:0; }
+    .wd-row:target { background:#FBECEC; }
+    .wd-name { font-size:15px; font-weight:600; color:#111; }
+    .wd-sub { font-size:11px; color:#58595B; }
+    .wd-q { display:flex; align-items:center; gap:4px; }
+    .wd-step { width:36px; height:36px; border-radius:10px; border:1px solid #E3E4E5; background:#fff; font-size:20px; line-height:1; color:#111; }
+    .wd-step:active { background:#F1F1F2; }
+    .wd-n { width:60px; height:36px; text-align:center; border:1px solid #E3E4E5; border-radius:10px;
+            font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:700; font-size:17px; -moz-appearance:textfield; }
+    .wd-n::-webkit-outer-spin-button, .wd-n::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+    .wd-q.changed .wd-n { border-color:#CA292E; color:#CA292E; }
+    .wd-save { height:36px; padding:0 12px; border-radius:10px; background:#CA292E; color:#fff; font-weight:700; font-size:13px; }
+    .wd-qty { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:700; font-size:20px; }
+    .wd-low .wd-qty, .wd-low .wd-n { color:#CA292E; }
+    .wd-dot { width:8px; height:8px; border-radius:50%; background:#CA292E; display:inline-block; margin-left:4px; }
+</style>
+
+<div class="px-4 pt-5 pb-3 flex items-end justify-between gap-3">
+    <div>
+        <p class="eyebrow mb-1">WOOD · مستودع منفصل</p>
+        <h1 class="page-title">مستودع الخشب</h1>
+        <p class="text-sm text-bark mt-1">
+            @Model.Count صنف · <b class="text-ink">@Model.Sum(w => w.Quantity).ToString("N0")</b> لوح
+            @if (low > 0) { <span>· <b style="color:#CA292E">@low</b> ناقص</span> }
+        </p>
+    </div>
+    <div class="flex gap-2 shrink-0">
+        <a href="/wood/export" class="btn-ghost btn-sm">Excel</a>
+        @if (canEdit) { <a href="/wood/add" class="btn-primary btn-sm">+ خشب</a> }
+    </div>
+</div>
+
+<div class="px-4 mb-3">
+    <input type="search" id="wd-q" class="form-input w-full" placeholder="ابحث: MDF 18 أبيض، 244…" autocomplete="off" aria-label="بحث في مستودع الخشب" />
+</div>
+@if (groups.Count > 1)
+{
+    <div class="px-4 mb-1 flex gap-2 overflow-x-auto pb-1" id="wd-chips">
+        <button type="button" class="wd-chip" data-t="" aria-pressed="true">الكل</button>
+        @foreach (var g in groups) { <button type="button" class="wd-chip" data-t="@g.Key" aria-pressed="false">@g.Key</button> }
+        @if (low > 0) { <button type="button" class="wd-chip" data-low="1" aria-pressed="false" style="color:#CA292E">⚠ ناقص</button> }
+    </div>
+}
+
+<div class="px-4 pb-8" id="wd-list">
+    @if (!Model.Any())
+    {
+        <div class="card p-6 text-center mt-4">
+            <div class="font-semibold text-ink">مستودع الخشب فارغ</div>
+            <p class="text-sm text-bark mt-1">@(canEdit ? "اضغط «+ خشب» لإضافة أول صنف: النوع، السماكة، المقاس، اللون والكمية." : "لم يُضف أي خشب بعد.")</p>
+        </div>
+    }
+    @foreach (var g in groups)
+    {
+        <section data-type="@g.Key">
+            <div class="wd-sec"><h2>@g.Key</h2><span><b data-sum>@g.Sum(w => w.Quantity).ToString("N0")</b> لوح · <span data-n>@g.Count()</span> صنف</span></div>
+            <div class="card">
+                @foreach (var w in g)
+                {
+                    var key = (w.Name + " " + (w.Notes ?? "")).ToLowerInvariant();
+                    var dims = string.Join(" ", new[] {
+                        w.Thickness is decimal t ? t.ToString("0.##") + "mm" : null,
+                        w.Length is decimal l ? (w.Width is decimal wi ? l.ToString("0.##") + "×" + wi.ToString("0.##") : l.ToString("0.##")) : null
+                    }.Where(x => x != null));
+                    <div class="wd-row @(w.IsLow ? "wd-low" : "")" id="w@(w.Id)" data-k="@key" data-q="@w.Quantity" data-low="@(w.IsLow ? 1 : 0)">
+                        <a href="/wood/@w.Id" class="flex-1 min-w-0">
+                            <div class="wd-name" dir="ltr" style="text-align:right">@if (w.IsLow) { <span class="wd-dot"></span> }@(dims.Length > 0 ? dims : w.Type)</div>
+                            <div class="wd-sub">@(w.Color ?? "")@(w.Color != null && w.Notes != null ? " · " : "")@(w.Notes ?? "")</div>
+                        </a>
+                        @if (canEdit)
+                        {
+                            <form method="post" action="/wood/@w.Id/qty" class="wd-q shrink-0" data-orig="@w.Quantity">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="back" value="/wood#w@(w.Id)" />
+                                <button type="button" class="wd-step" data-d="-1" aria-label="سحب لوح">−</button>
+                                <input type="number" name="quantity" value="@w.Quantity" min="0" inputmode="numeric" class="wd-n" aria-label="الكمية" />
+                                <button type="button" class="wd-step" data-d="1" aria-label="إضافة لوح">+</button>
+                                <button type="submit" class="wd-save" hidden>حفظ</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="shrink-0 text-left"><span class="wd-qty">@w.Quantity</span> <span class="wd-sub">لوح</span></div>
+                        }
+                    </div>
+                }
+            </div>
+        </section>
+    }
+    <p id="wd-none" class="text-sm text-bark mt-4" hidden>لا يوجد خشب بهذا البحث.</p>
+</div>
+
+@section Scripts {
+<script>
+(function () {
+    const norm = s => (s || '').toLowerCase().replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/[×*x]/g, 'x').replace(/\s+/g, ' ');
+    const q = document.getElementById('wd-q');
+    let type = '', lowOnly = false;
+    function apply() {
+        const t = norm(q.value).split(' ').filter(Boolean);
+        let any = false;
+        document.querySelectorAll('#wd-list section').forEach(sec => {
+            let n = 0, sum = 0;
+            sec.querySelectorAll('.wd-row').forEach(r => {
+                const k = norm(sec.dataset.type + ' ' + r.dataset.k);
+                const ok = (!type || sec.dataset.type === type) && (!lowOnly || r.dataset.low === '1') && t.every(x => k.includes(x));
+                r.hidden = !ok; if (ok) { n++; sum += +r.dataset.q; }
+            });
+            sec.hidden = n === 0; if (n) any = true;
+            sec.querySelector('[data-n]').textContent = n;
+            sec.querySelector('[data-sum]').textContent = sum.toLocaleString('en-US');
+        });
+        const none = document.getElementById('wd-none'); if (none) none.hidden = any || !document.querySelector('#wd-list section');
+    }
+    q.addEventListener('input', apply);
+    document.querySelectorAll('.wd-chip').forEach(c => c.addEventListener('click', () => {
+        if (c.dataset.low) { lowOnly = !lowOnly; c.setAttribute('aria-pressed', lowOnly); }
+        else { type = c.dataset.t; document.querySelectorAll('.wd-chip[data-t]').forEach(x => x.setAttribute('aria-pressed', x === c)); }
+        apply();
+    }));
+    // − / + / typing; «حفظ» appears when the number changes
+    document.querySelectorAll('.wd-q').forEach(f => {
+        const n = f.querySelector('.wd-n'), save = f.querySelector('.wd-save'), orig = +f.dataset.orig;
+        const sync = () => { const ch = (+n.value) !== orig; f.classList.toggle('changed', ch); save.hidden = !ch; };
+        f.querySelectorAll('.wd-step').forEach(b => b.addEventListener('click', () => { n.value = Math.max(0, (parseInt(n.value, 10) || 0) + +b.dataset.d); sync(); }));
+        n.addEventListener('input', sync);
+    });
+    const tgt = location.hash && document.querySelector(location.hash);
+    if (tgt) tgt.scrollIntoView({ block: 'center' });
+})();
+</script>
+}

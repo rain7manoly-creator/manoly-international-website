@@ -26,6 +26,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>, IDataProtectionK
     public DbSet<StockImport> StockImports => Set<StockImport>();
     public DbSet<AreaZWarehouse> AreaZWarehouses => Set<AreaZWarehouse>();
     public DbSet<StockGroup> StockGroups => Set<StockGroup>();
+    public DbSet<WoodItem> WoodItems => Set<WoodItem>();
+    public DbSet<WoodMovement> WoodMovements => Set<WoodMovement>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

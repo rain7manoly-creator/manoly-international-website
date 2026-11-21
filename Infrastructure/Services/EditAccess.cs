@@ -17,6 +17,8 @@ public interface IEditAccess
     Task<bool> CanEditAreaZAsync();
     /// <summary>False only for view-only users.</summary>
     Task<bool> CanEditAnythingAsync();
+    /// <summary>The wood warehouse: users who edit everywhere, and "wood only" users.</summary>
+    Task<bool> CanEditWoodAsync();
 }
 
 public class EditAccess : IEditAccess
@@ -39,6 +41,7 @@ public class EditAccess : IEditAccess
     public async Task<bool> CanEditWarehouseAsync() => await ScopeAsync() is null or "warehouse";
     public async Task<bool> CanEditAreaZAsync() => await ScopeAsync() is null or "areaz";
     public async Task<bool> CanEditAnythingAsync() => await ScopeAsync() is not "view";
+    public async Task<bool> CanEditWoodAsync() => await ScopeAsync() is null or "wood";
 }
 
 /// <summary>Blocks a stock change outside the user's area: [EditArea("warehouse")] or [EditArea("areaz")].</summary>
@@ -55,12 +58,14 @@ public class EditAreaAttribute : Attribute, IAsyncActionFilter
         {
             "areaz" => await access.CanEditAreaZAsync(),
             "any" => await access.CanEditAnythingAsync(),
+            "wood" => await access.CanEditWoodAsync(),
             _ => await access.CanEditWarehouseAsync()
         };
         if (!ok && (_area == "any" || !await access.CanEditAnythingAsync()))
             throw new DomainException("حسابك للعرض فقط — لا يمكنك تعديل أي شيء.");
         if (!ok)
-            throw new DomainException(_area == "areaz"
+            throw new DomainException(_area == "wood" ? "ليس لديك صلاحية التعديل في مستودع الخشب."
+                : _area == "areaz"
                 ? "ليس لديك صلاحية التعديل في Area Z. يمكنك التعديل في المستودع فقط."
                 : "ليس لديك صلاحية التعديل في المستودع. يمكنك التعديل في Area Z فقط.");
         await next();

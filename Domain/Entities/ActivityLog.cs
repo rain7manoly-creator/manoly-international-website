@@ -1,7 +1,7 @@
 namespace ManolyWarehouse.Domain.Entities;
 
 /// <summary>Which part of the warehouse an activity-log entry belongs to.</summary>
-public enum ActivityArea { Shelves, AreaZ, Orders, Stock }
+public enum ActivityArea { Shelves, AreaZ, Orders, Stock, Wood }
 
 /// <summary>
 /// Append-only audit record. Captures a single change to the warehouse

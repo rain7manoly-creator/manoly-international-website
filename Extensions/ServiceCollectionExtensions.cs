@@ -123,6 +123,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IAreaZService, AreaZService>();
         services.AddScoped<IInventoryService, InventoryService>();
         services.AddScoped<IStockService, StockService>();
+        services.AddScoped<IWoodService, WoodService>();
         services.AddScoped<IWarehouseMapExport, WarehouseMapExport>();
         services.AddScoped<IStockFileExport, StockFileExport>();
         services.AddScoped<IUserService, UserService>();

@@ -358,3 +358,35 @@ public class StockGroupConfiguration : IEntityTypeConfiguration<StockGroup>
         builder.Ignore(g => g.Key);
     }
 }
+
+public class WoodItemConfiguration : IEntityTypeConfiguration<WoodItem>
+{
+    public void Configure(EntityTypeBuilder<WoodItem> builder)
+    {
+        builder.ToTable("WoodItems");
+        builder.HasKey(w => w.Id);
+        builder.Property(w => w.Type).HasMaxLength(60).IsRequired();
+        builder.Property(w => w.ThicknessMm).HasPrecision(8, 2);
+        builder.Property(w => w.LengthCm).HasPrecision(8, 2);
+        builder.Property(w => w.WidthCm).HasPrecision(8, 2);
+        builder.Property(w => w.Color).HasMaxLength(80);
+        builder.Property(w => w.Notes).HasMaxLength(300);
+        builder.Property(w => w.Area).HasMaxLength(60);
+        builder.Ignore(w => w.DisplayName);
+        builder.Ignore(w => w.IsLow);
+        builder.HasIndex(w => w.Type);
+    }
+}
+
+public class WoodMovementConfiguration : IEntityTypeConfiguration<WoodMovement>
+{
+    public void Configure(EntityTypeBuilder<WoodMovement> builder)
+    {
+        builder.ToTable("WoodMovements");
+        builder.HasKey(m => m.Id);
+        builder.Property(m => m.Reason).HasMaxLength(200).IsRequired();
+        builder.Property(m => m.UserName).HasMaxLength(100);
+        builder.HasIndex(m => new { m.WoodItemId, m.CreatedAt });
+        builder.HasOne<WoodItem>().WithMany().HasForeignKey(m => m.WoodItemId).OnDelete(DeleteBehavior.Cascade);
+    }
+}
