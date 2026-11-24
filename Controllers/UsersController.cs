@@ -47,6 +47,20 @@ public class UsersController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    /// <summary>Where the user may edit — set straight from the users list.</summary>
+    [HttpPost("{id}/scope")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Scope(string id, string? editScope, CancellationToken ct)
+    {
+        var u = await _userService.GetByIdAsync(id, ct);
+        if (u is null) return NotFound();
+        if (editScope is "view" or "wood" or "warehouse" or "areaz" && u.IsAdmin)
+            await _userService.UpdateProfileAsync(id, u.FullName, false, ct);   // a limited user isn't an admin
+        await _userService.SetEditScopeAsync(id, editScope, ct);
+        TempData["SuccessMessage"] = $"تم حفظ صلاحيات {u.FullName}.";
+        return Redirect("/users#u-" + id);
+    }
+
     [HttpPost("{id}/reset-password")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ResetPassword(string id, string newPassword, CancellationToken ct)

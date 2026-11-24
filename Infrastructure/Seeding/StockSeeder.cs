@@ -203,6 +203,32 @@ public static class StockSeeder
         if (!await db.StockImports.AnyAsync(i => i.Name == woodStep, ct))
             await LoadWoodAsync(db, woodStep, logger, ct);
 
+        // Two staff accounts edit only the wood warehouse
+        const string woodUsersStep = "users-wood-only-2026-11-24";
+        if (!await db.StockImports.AnyAsync(i => i.Name == woodUsersStep, ct))
+        {
+            var users = await db.Users.ToListAsync(ct);
+            var workerRole = await db.Roles.Where(r => r.Name == "Worker").Select(r => r.Id).FirstOrDefaultAsync(ct);
+            var adminRole = await db.Roles.Where(r => r.Name == "Admin").Select(r => r.Id).FirstOrDefaultAsync(ct);
+            var done = new List<string>();
+            foreach (var names in new[] { new[] { "layal", "layyal", "lyal", "ليال" }, new[] { "hamza", "hamzeh", "hamzah", "حمزة", "حمزه" } })
+            {
+                var found = users.Where(u => names.Any(n => (u.UserName ?? "").Contains(n, StringComparison.OrdinalIgnoreCase)
+                    || (u.FullName ?? "").Contains(n, StringComparison.OrdinalIgnoreCase))).ToList();
+                if (found.Count != 1) continue;
+                var u = found[0];
+                u.SetEditScope("wood");
+                db.UserRoles.RemoveRange(await db.UserRoles.Where(x => x.UserId == u.Id && x.RoleId == adminRole).ToListAsync(ct));
+                if (workerRole != null && !await db.UserRoles.AnyAsync(x => x.UserId == u.Id && x.RoleId == workerRole, ct))
+                    db.UserRoles.Add(new Microsoft.AspNetCore.Identity.IdentityUserRole<string> { UserId = u.Id, RoleId = workerRole });
+                u.SecurityStamp = Guid.NewGuid().ToString();
+                done.Add(u.UserName ?? u.Id);
+            }
+            db.StockImports.Add(StockImport.Create(woodUsersStep));
+            await db.SaveChangesAsync(ct);
+            logger.LogWarning("Wood-only users set: {Users}", string.Join(",", done));
+        }
+
         // Mahmoud edits only the big warehouse (shelves); Mousa only Area Z
         const string scopeStep = "user-edit-scopes-2026-11-14";
         if (!await db.StockImports.AnyAsync(i => i.Name == scopeStep, ct))

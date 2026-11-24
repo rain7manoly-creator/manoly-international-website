@@ -19,6 +19,8 @@ public interface IEditAccess
     Task<bool> CanEditAnythingAsync();
     /// <summary>The wood warehouse: users who edit everywhere, and "wood only" users.</summary>
     Task<bool> CanEditWoodAsync();
+    /// <summary>null = everywhere, or warehouse / areaz / wood / view.</summary>
+    Task<string?> ScopeAsync();
 }
 
 public class EditAccess : IEditAccess
@@ -29,7 +31,7 @@ public class EditAccess : IEditAccess
 
     public EditAccess(IHttpContextAccessor http, AppDbContext db) { _http = http; _db = db; }
 
-    private async Task<string?> ScopeAsync()
+    public async Task<string?> ScopeAsync()
     {
         if (_loaded) return _scope;
         var id = _http.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -40,7 +42,7 @@ public class EditAccess : IEditAccess
 
     public async Task<bool> CanEditWarehouseAsync() => await ScopeAsync() is null or "warehouse";
     public async Task<bool> CanEditAreaZAsync() => await ScopeAsync() is null or "areaz";
-    public async Task<bool> CanEditAnythingAsync() => await ScopeAsync() is not "view";
+    public async Task<bool> CanEditAnythingAsync() => await ScopeAsync() is not "view" and not "wood";   // orders: main-warehouse users only
     public async Task<bool> CanEditWoodAsync() => await ScopeAsync() is null or "wood";
 }
 
@@ -61,8 +63,13 @@ public class EditAreaAttribute : Attribute, IAsyncActionFilter
             "wood" => await access.CanEditWoodAsync(),
             _ => await access.CanEditWarehouseAsync()
         };
-        if (!ok && (_area == "any" || !await access.CanEditAnythingAsync()))
+        var scope = await access.ScopeAsync();
+        if (!ok && scope == "view")
             throw new DomainException("حسابك للعرض فقط — لا يمكنك تعديل أي شيء.");
+        if (!ok && scope == "wood")
+            throw new DomainException("حسابك يعدّل في مستودع الخشب فقط.");
+        if (!ok && _area == "any")
+            throw new DomainException("ليس لديك صلاحية لهذا التعديل.");
         if (!ok)
             throw new DomainException(_area == "wood" ? "ليس لديك صلاحية التعديل في مستودع الخشب."
                 : _area == "areaz"
