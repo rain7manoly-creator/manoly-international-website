@@ -146,7 +146,7 @@
     // − / + / typing; «حفظ» appears when the number changes
     document.querySelectorAll('.wd-q').forEach(f => {
         const n = f.querySelector('.wd-n'), save = f.querySelector('.wd-save'), orig = +f.dataset.orig;
-        const sync = () => { const ch = Math.abs((+n.value) - orig) > 0.0001; f.classList.toggle('changed', ch); save.hidden = !ch; };
+        const sync = () => { const t = n.value.trim(), ch = isNaN(+t) ? t !== '' : Math.abs((+t) - orig) > 0.0001; f.classList.toggle('changed', ch); save.hidden = !ch; };
         f.querySelectorAll('.wd-step').forEach(b => b.addEventListener('click', () => { n.value = Math.max(0, Math.round(((parseFloat(n.value) || 0) + +b.dataset.d) * 1000) / 1000); sync(); }));
         n.addEventListener('input', sync);
     });

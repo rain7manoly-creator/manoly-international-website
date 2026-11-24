@@ -97,6 +97,8 @@ public class ShelvesController : Controller
         // and immediately sees the restore recorded as a new history entry.
         if (string.Equals(Request?.Query["back"].ToString(), "edit", StringComparison.Ordinal))
             return RedirectToAction(nameof(Edit), new { code, id });
+        var backTo = Request?.HasFormContentType == true ? Request.Form["back"].ToString() : "";
+        if (!string.IsNullOrEmpty(backTo) && Url.IsLocalUrl(backTo)) return LocalRedirect(backTo);
         return RedirectToAction(nameof(Detail), new { code });
     }
 
