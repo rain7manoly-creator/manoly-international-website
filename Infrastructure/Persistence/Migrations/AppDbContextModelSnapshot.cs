@@ -4514,6 +4514,10 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("character varying(60)");
 
+                    b.Property<string>("Code")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
                     b.Property<string>("Color")
                         .HasMaxLength(80)
                         .HasColumnType("character varying(80)");
@@ -4525,11 +4529,23 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                         .HasPrecision(8, 2)
                         .HasColumnType("numeric(8,2)");
 
+                    b.Property<string>("Name")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
                     b.Property<string>("Notes")
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)");
 
-                    b.Property<int>("Quantity")
+                    b.Property<string>("PerBundle")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<decimal>("Quantity")
+                        .HasPrecision(12, 3)
+                        .HasColumnType("numeric(12,3)");
+
+                    b.Property<int>("SortOrder")
                         .HasColumnType("integer");
 
                     b.Property<decimal?>("ThicknessMm")
@@ -4541,6 +4557,13 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("character varying(60)");
 
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasDefaultValue("لوح");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -4549,6 +4572,8 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
                         .HasColumnType("numeric(8,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code");
 
                     b.HasIndex("Type");
 
@@ -4563,11 +4588,13 @@ namespace ManolyWarehouse.Infrastructure.Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("After")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("After")
+                        .HasPrecision(12, 3)
+                        .HasColumnType("numeric(12,3)");
 
-                    b.Property<int>("Before")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("Before")
+                        .HasPrecision(12, 3)
+                        .HasColumnType("numeric(12,3)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");

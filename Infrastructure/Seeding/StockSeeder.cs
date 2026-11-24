@@ -198,6 +198,11 @@ public static class StockSeeder
             logger.LogWarning("Role repair: {N} user(s) given Worker", noRole.Count);
         }
 
+        // The wood warehouse stock (file of the wood stock downstairs, count 23.12.2025)
+        const string woodStep = "wood-stock-2025-12-23";
+        if (!await db.StockImports.AnyAsync(i => i.Name == woodStep, ct))
+            await LoadWoodAsync(db, woodStep, logger, ct);
+
         // Mahmoud edits only the big warehouse (shelves); Mousa only Area Z
         const string scopeStep = "user-edit-scopes-2026-11-14";
         if (!await db.StockImports.AnyAsync(i => i.Name == scopeStep, ct))
@@ -274,6 +279,43 @@ public static class StockSeeder
         await db.SaveChangesAsync(ct);
         logger.LogWarning("Merge colourless metro ({Step}): {Lines} lines removed, {Moved} products moved, target {Target}",
             step, extras.Count, moved, target?.Id);
+    }
+
+    private record WoodRowJson(string? code, string name, string type, string unit, decimal qty, string? perBundle,
+        decimal? thickness, decimal? length, decimal? width, string? notes, int sort);
+
+    /// <summary>Each line of the file: an item with the same code takes the file's quantity; others are added.</summary>
+    private static async Task LoadWoodAsync(AppDbContext db, string step, ILogger logger, CancellationToken ct)
+    {
+        await using var stream = typeof(StockSeeder).Assembly.GetManifestResourceStream(ResourcePrefix + step + ".json")
+            ?? throw new InvalidOperationException($"{step}.json missing");
+        var rows = await JsonSerializer.DeserializeAsync<List<WoodRowJson>>(stream, cancellationToken: ct) ?? new();
+        var existing = await db.WoodItems.ToListAsync(ct);
+        int added = 0, updated = 0;
+        foreach (var r in rows)
+        {
+            var w = existing.FirstOrDefault(x => r.code != null && x.Code == r.code) ?? existing.FirstOrDefault(x => x.Name == r.name);
+            if (w == null)
+            {
+                w = WoodItem.Create(r.type, r.thickness, r.length, r.width, null, r.notes, r.qty, r.code, r.name, r.unit, r.perBundle, r.sort);
+                db.WoodItems.Add(w);
+                await db.SaveChangesAsync(ct);
+                db.WoodMovements.Add(WoodMovement.Create(w.Id, 0, w.Quantity, "من ملف مخزون الخشب (جرد 23.12.2025)", null, "استيراد"));
+                added++;
+            }
+            else
+            {
+                var before = w.Quantity;
+                w.SetIdentity(r.code, r.name, r.unit, r.perBundle);
+                w.SetQuantity(r.qty);
+                if (before != w.Quantity)
+                    db.WoodMovements.Add(WoodMovement.Create(w.Id, before, w.Quantity, "من ملف مخزون الخشب (جرد 23.12.2025)", null, "استيراد"));
+                updated++;
+            }
+        }
+        db.StockImports.Add(StockImport.Create(step));
+        await db.SaveChangesAsync(ct);
+        logger.LogWarning("Wood stock: {Added} added, {Updated} updated", added, updated);
     }
 
     private record MetroZRow(string kind, int height, int length, string color, int cartons, int drawers, int perCarton);

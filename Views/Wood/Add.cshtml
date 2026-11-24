@@ -16,7 +16,26 @@
 <form method="post" action="/wood/add" class="mx-4 card p-5 mb-8 flex flex-col gap-4">
     @Html.AntiForgeryToken()
     <div class="form-group">
-        <label class="form-label" for="type">النوع</label>
+        <label class="form-label" for="name">اسم الصنف</label>
+        <input type="text" id="name" name="name" maxlength="200" class="form-input" placeholder="مثلاً: م د ف 17 ملم اخضر مشلح" />
+        <p class="text-xs text-bark-l mt-1">اختياري — إذا تركته فارغاً يُكتب الاسم من النوع والسماكة والمقاس.</p>
+    </div>
+    <div class="grid grid-cols-3 gap-2">
+        <div class="form-group">
+            <label class="form-label" for="code">الكود</label>
+            <input type="text" id="code" name="code" maxlength="30" class="form-input" dir="ltr" placeholder="MDF100022" />
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="unit">الوحدة</label>
+            <select id="unit" name="unit" class="form-select"><option>لوح</option><option>م³</option><option>قطعة</option></select>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="perBundle">لوح بالربطة</label>
+            <input type="text" id="perBundle" name="perBundle" maxlength="20" class="form-input" dir="ltr" placeholder="55" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="form-label" for="type">المجموعة / النوع</label>
         <input type="text" id="type" name="type" list="wood-types" value="@preType" class="form-input" required maxlength="60" placeholder="MDF، ابلكاش، ميلامين…" autofocus="@(string.IsNullOrEmpty(preType))" />
         <datalist id="wood-types">@foreach (var t in types) { <option value="@t"></option> }</datalist>
     </div>
@@ -39,8 +58,8 @@
         <input type="text" id="color" name="color" maxlength="80" class="form-input" placeholder="أبيض، جوز، Egger H1145…" />
     </div>
     <div class="form-group">
-        <label class="form-label" for="quantity">الكمية (لوح)</label>
-        <input type="number" id="quantity" name="quantity" min="0" value="0" class="form-input" inputmode="numeric" required />
+        <label class="form-label" for="quantity">الكمية</label>
+        <input type="number" id="quantity" name="quantity" min="0" step="any" value="0" class="form-input" inputmode="decimal" required />
     </div>
     <div class="form-group">
         <label class="form-label" for="notes">ملاحظة (اختيارية)</label>

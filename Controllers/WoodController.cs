@@ -27,9 +27,10 @@ public class WoodController : Controller
     [HttpPost("add")]
     [EditArea("wood")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Add(string type, decimal? thickness, decimal? length, decimal? width, string? color, string? notes, int quantity, string? again, CancellationToken ct)
+    public async Task<IActionResult> Add(string type, decimal? thickness, decimal? length, decimal? width, string? color, string? notes, decimal quantity,
+        string? code, string? name, string? unit, string? perBundle, string? again, CancellationToken ct)
     {
-        var id = await _wood.CreateAsync(type, thickness, length, width, color, notes, quantity, ct);
+        var id = await _wood.CreateAsync(type, thickness, length, width, color, notes, quantity, code, name, unit, perBundle, ct);
         TempData["SuccessMessage"] = "تمت إضافة صنف الخشب.";
         return again == "1" ? Redirect($"/wood/add?type={Uri.EscapeDataString(type ?? "")}") : Redirect($"/wood#w{id}");
     }
@@ -47,19 +48,20 @@ public class WoodController : Controller
     [HttpPost("{id:int}/qty")]
     [EditArea("wood")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Qty(int id, int quantity, string? note, string? back, CancellationToken ct)
+    public async Task<IActionResult> Qty(int id, decimal quantity, string? note, string? back, CancellationToken ct)
     {
         await _wood.SetQuantityAsync(id, quantity, note, ct);
-        TempData["SuccessMessage"] = $"تم الحفظ: {quantity} لوح.";
+        TempData["SuccessMessage"] = $"تم الحفظ: {quantity:#,0.###}.";
         return LocalRedirect(!string.IsNullOrEmpty(back) && Url.IsLocalUrl(back) ? back : $"/wood#w{id}");
     }
 
     [HttpPost("{id:int}/edit")]
     [EditArea("wood")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, string type, decimal? thickness, decimal? length, decimal? width, string? color, string? notes, CancellationToken ct)
+    public async Task<IActionResult> Edit(int id, string type, decimal? thickness, decimal? length, decimal? width, string? color, string? notes,
+        string? code, string? name, string? unit, string? perBundle, CancellationToken ct)
     {
-        await _wood.UpdateDetailsAsync(id, type, thickness, length, width, color, notes, ct);
+        await _wood.UpdateDetailsAsync(id, type, thickness, length, width, color, notes, code, name, unit, perBundle, ct);
         TempData["SuccessMessage"] = "تم حفظ التفاصيل.";
         return Redirect($"/wood/{id}");
     }
@@ -91,22 +93,23 @@ public class WoodController : Controller
         using var wb = new ClosedXML.Excel.XLWorkbook();
         var ws = wb.AddWorksheet("مستودع الخشب");
         ws.RightToLeft = true;
-        string[] head = { "النوع", "السماكة mm", "الطول cm", "العرض cm", "اللون / التشطيب", "الكمية (لوح)", "ملاحظة" };
+        string[] head = { "كود", "الصنف", "المجموعة", "الكمية", "الوحدة", "لوح بالربطة", "ربطة", "ملاحظة" };
         for (var c = 0; c < head.Length; c++) ws.Cell(1, c + 1).Value = head[c];
         ws.Row(1).Style.Font.Bold = true;
         var r = 2;
         foreach (var w in rows)
         {
-            ws.Cell(r, 1).Value = w.Type;
-            if (w.Thickness is decimal t) ws.Cell(r, 2).Value = t;
-            if (w.Length is decimal l) ws.Cell(r, 3).Value = l;
-            if (w.Width is decimal wd) ws.Cell(r, 4).Value = wd;
-            ws.Cell(r, 5).Value = w.Color ?? "";
-            ws.Cell(r, 6).Value = w.Quantity;
-            ws.Cell(r, 7).Value = w.Notes ?? "";
+            ws.Cell(r, 1).Value = w.Code ?? "";
+            ws.Cell(r, 2).Value = w.Name;
+            ws.Cell(r, 3).Value = w.Type;
+            ws.Cell(r, 4).Value = w.Quantity;
+            ws.Cell(r, 5).Value = w.Unit;
+            ws.Cell(r, 6).Value = w.PerBundle ?? "";
+            if (w.Bundles is decimal bn) ws.Cell(r, 7).Value = bn;
+            ws.Cell(r, 8).Value = w.Notes ?? "";
             r++;
         }
-        ws.Cell(r, 5).Value = "المجموع"; ws.Cell(r, 6).FormulaA1 = $"SUM(F2:F{r - 1})"; ws.Row(r).Style.Font.Bold = true;
+        ws.Cell(r, 3).Value = "مجموع الألواح"; ws.Cell(r, 4).FormulaA1 = $"SUMIF(E2:E{r - 1},\"لوح\",D2:D{r - 1})"; ws.Row(r).Style.Font.Bold = true;
         ws.Columns().AdjustToContents();
         using var ms = new MemoryStream();
         wb.SaveAs(ms);

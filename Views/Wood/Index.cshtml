@@ -22,7 +22,7 @@
     .wd-q { display:flex; align-items:center; gap:4px; }
     .wd-step { width:36px; height:36px; border-radius:10px; border:1px solid #E3E4E5; background:#fff; font-size:20px; line-height:1; color:#111; }
     .wd-step:active { background:#F1F1F2; }
-    .wd-n { width:60px; height:36px; text-align:center; border:1px solid #E3E4E5; border-radius:10px;
+    .wd-n { width:68px; height:36px; text-align:center; border:1px solid #E3E4E5; border-radius:10px;
             font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:700; font-size:17px; -moz-appearance:textfield; }
     .wd-n::-webkit-outer-spin-button, .wd-n::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
     .wd-q.changed .wd-n { border-color:#CA292E; color:#CA292E; }
@@ -37,7 +37,7 @@
         <p class="eyebrow mb-1">WOOD · مستودع منفصل</p>
         <h1 class="page-title">مستودع الخشب</h1>
         <p class="text-sm text-bark mt-1">
-            @Model.Count صنف · <b class="text-ink">@Model.Sum(w => w.Quantity).ToString("N0")</b> لوح
+            @Model.Count صنف · <b class="text-ink">@Model.Where(w => w.Unit == "لوح").Sum(w => w.Quantity).ToString("#,0")</b> لوح
             @if (low > 0) { <span>· <b style="color:#CA292E">@low</b> ناقص</span> }
         </p>
     </div>
@@ -48,7 +48,7 @@
 </div>
 
 <div class="px-4 mb-3">
-    <input type="search" id="wd-q" class="form-input w-full" placeholder="ابحث: MDF 18 أبيض، 244…" autocomplete="off" aria-label="بحث في مستودع الخشب" />
+    <input type="search" id="wd-q" class="form-input w-full" placeholder="ابحث: م د ف 17 اخضر، توين، كود…" autocomplete="off" aria-label="بحث في مستودع الخشب" />
 </div>
 @if (groups.Count > 1)
 {
@@ -70,34 +70,41 @@
     @foreach (var g in groups)
     {
         <section data-type="@g.Key">
-            <div class="wd-sec"><h2>@g.Key</h2><span><b data-sum>@g.Sum(w => w.Quantity).ToString("N0")</b> لوح · <span data-n>@g.Count()</span> صنف</span></div>
+            <div class="wd-sec"><h2>@g.Key</h2><span><b data-sum>@g.Sum(w => w.Quantity).ToString("#,0.###")</b> @g.First().Unit · <span data-n>@g.Count()</span> صنف</span></div>
             <div class="card">
                 @foreach (var w in g)
                 {
-                    var key = (w.Name + " " + (w.Notes ?? "")).ToLowerInvariant();
+                    var key = (w.Name + " " + (w.Code ?? "") + " " + (w.Notes ?? "")).ToLowerInvariant();
                     var dims = string.Join(" ", new[] {
                         w.Thickness is decimal t ? t.ToString("0.##") + "mm" : null,
                         w.Length is decimal l ? (w.Width is decimal wi ? l.ToString("0.##") + "×" + wi.ToString("0.##") : l.ToString("0.##")) : null
                     }.Where(x => x != null));
-                    <div class="wd-row @(w.IsLow ? "wd-low" : "")" id="w@(w.Id)" data-k="@key" data-q="@w.Quantity" data-low="@(w.IsLow ? 1 : 0)">
+                    <div class="wd-row @(w.IsLow ? "wd-low" : "")" id="w@(w.Id)" data-k="@key" data-q="@w.Quantity.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture)" data-low="@(w.IsLow ? 1 : 0)">
                         <a href="/wood/@w.Id" class="flex-1 min-w-0">
-                            <div class="wd-name" dir="ltr" style="text-align:right">@if (w.IsLow) { <span class="wd-dot"></span> }@(dims.Length > 0 ? dims : w.Type)</div>
-                            <div class="wd-sub">@(w.Color ?? "")@(w.Color != null && w.Notes != null ? " · " : "")@(w.Notes ?? "")</div>
+                            @if (w.HasName)
+                            {
+                                <div class="wd-name">@if (w.IsLow) { <span class="wd-dot"></span> }@w.Name</div>
+                            }
+                            else
+                            {
+                                <div class="wd-name" dir="ltr" style="text-align:right">@if (w.IsLow) { <span class="wd-dot"></span> }@(dims.Length > 0 ? dims : w.Type)</div>
+                            }
+                            <div class="wd-sub">@(w.Code != null ? w.Code + " · " : "")@(w.Bundles is decimal bn ? $"≈ {bn:0.#} ربطة × {w.PerBundle}" : w.PerBundle != null ? $"ربطة = {w.PerBundle}" : "")@(w.Color != null && !w.HasName ? " · " + w.Color : "")@(w.Notes != null ? " · " + w.Notes : "")</div>
                         </a>
                         @if (canEdit)
                         {
-                            <form method="post" action="/wood/@w.Id/qty" class="wd-q shrink-0" data-orig="@w.Quantity">
+                            <form method="post" action="/wood/@w.Id/qty" class="wd-q shrink-0" data-orig="@w.Quantity.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture)">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="back" value="/wood#w@(w.Id)" />
                                 <button type="button" class="wd-step" data-d="-1" aria-label="سحب لوح">−</button>
-                                <input type="number" name="quantity" value="@w.Quantity" min="0" inputmode="numeric" class="wd-n" aria-label="الكمية" />
+                                <input type="number" name="quantity" value="@w.Quantity.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture)" min="0" step="any" inputmode="decimal" class="wd-n" aria-label="الكمية" />
                                 <button type="button" class="wd-step" data-d="1" aria-label="إضافة لوح">+</button>
                                 <button type="submit" class="wd-save" hidden>حفظ</button>
                             </form>
                         }
                         else
                         {
-                            <div class="shrink-0 text-left"><span class="wd-qty">@w.Quantity</span> <span class="wd-sub">لوح</span></div>
+                            <div class="shrink-0 text-left"><span class="wd-qty">@w.Qty</span> <span class="wd-sub">@w.Unit</span></div>
                         }
                     </div>
                 }
@@ -125,7 +132,7 @@
             });
             sec.hidden = n === 0; if (n) any = true;
             sec.querySelector('[data-n]').textContent = n;
-            sec.querySelector('[data-sum]').textContent = sum.toLocaleString('en-US');
+            sec.querySelector('[data-sum]').textContent = (Math.round(sum * 1000) / 1000).toLocaleString('en-US');
         });
         const none = document.getElementById('wd-none'); if (none) none.hidden = any || !document.querySelector('#wd-list section');
     }
@@ -138,8 +145,8 @@
     // − / + / typing; «حفظ» appears when the number changes
     document.querySelectorAll('.wd-q').forEach(f => {
         const n = f.querySelector('.wd-n'), save = f.querySelector('.wd-save'), orig = +f.dataset.orig;
-        const sync = () => { const ch = (+n.value) !== orig; f.classList.toggle('changed', ch); save.hidden = !ch; };
-        f.querySelectorAll('.wd-step').forEach(b => b.addEventListener('click', () => { n.value = Math.max(0, (parseInt(n.value, 10) || 0) + +b.dataset.d); sync(); }));
+        const sync = () => { const ch = Math.abs((+n.value) - orig) > 0.0001; f.classList.toggle('changed', ch); save.hidden = !ch; };
+        f.querySelectorAll('.wd-step').forEach(b => b.addEventListener('click', () => { n.value = Math.max(0, Math.round(((parseFloat(n.value) || 0) + +b.dataset.d) * 1000) / 1000); sync(); }));
         n.addEventListener('input', sync);
     });
     const tgt = location.hash && document.querySelector(location.hash);

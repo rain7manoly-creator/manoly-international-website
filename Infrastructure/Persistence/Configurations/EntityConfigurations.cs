@@ -372,6 +372,13 @@ public class WoodItemConfiguration : IEntityTypeConfiguration<WoodItem>
         builder.Property(w => w.Color).HasMaxLength(80);
         builder.Property(w => w.Notes).HasMaxLength(300);
         builder.Property(w => w.Area).HasMaxLength(60);
+        builder.Property(w => w.Code).HasMaxLength(30);
+        builder.Property(w => w.Name).HasMaxLength(200);
+        builder.Property(w => w.Unit).HasMaxLength(10).HasDefaultValue("لوح");
+        builder.Property(w => w.PerBundle).HasMaxLength(20);
+        builder.Property(w => w.Quantity).HasPrecision(12, 3);
+        builder.Ignore(w => w.Bundles);
+        builder.HasIndex(w => w.Code);
         builder.Ignore(w => w.DisplayName);
         builder.Ignore(w => w.IsLow);
         builder.HasIndex(w => w.Type);
@@ -384,6 +391,8 @@ public class WoodMovementConfiguration : IEntityTypeConfiguration<WoodMovement>
     {
         builder.ToTable("WoodMovements");
         builder.HasKey(m => m.Id);
+        builder.Property(m => m.Before).HasPrecision(12, 3);
+        builder.Property(m => m.After).HasPrecision(12, 3);
         builder.Property(m => m.Reason).HasMaxLength(200).IsRequired();
         builder.Property(m => m.UserName).HasMaxLength(100);
         builder.HasIndex(m => new { m.WoodItemId, m.CreatedAt });

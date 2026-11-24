@@ -699,7 +699,7 @@ public class StockService : IStockService
         // The wood warehouse (separate): wood at or below its warning number
         var wood = (await _db.WoodItems.AsNoTracking().Where(w => w.AlertAt != -1 && w.Quantity <= (w.AlertAt ?? 0))
             .OrderBy(w => w.Type).ThenBy(w => w.ThicknessMm).ToListAsync(ct));
-        rows.AddRange(wood.Select(w => new AlertRow(false, w.Id, "مستودع الخشب · " + w.Type, w.DisplayName, w.Quantity, w.AlertAt, "لوح", Wood: true)));
+        rows.AddRange(wood.Select(w => new AlertRow(false, w.Id, "مستودع الخشب · " + w.Type, w.DisplayName, (int)Math.Floor(w.Quantity), w.AlertAt, w.Unit, Wood: true)));
         return rows;
     }
 
