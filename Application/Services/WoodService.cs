@@ -29,6 +29,7 @@ public interface IWoodService
     Task DeleteAsync(int id, CancellationToken ct = default);
     Task SetAlertAsync(int id, int? at, CancellationToken ct = default);
     Task<IReadOnlyList<WoodRow>> LowAsync(CancellationToken ct = default);
+    Task<int> CountLowAsync(CancellationToken ct = default);
 }
 
 public class WoodService : IWoodService
@@ -123,6 +124,9 @@ public class WoodService : IWoodService
     public async Task<IReadOnlyList<WoodRow>> LowAsync(CancellationToken ct = default) =>
         (await _db.WoodItems.AsNoTracking().Where(w => w.AlertAt != -1 && w.Quantity <= (w.AlertAt ?? 0))
             .OrderBy(w => w.SortOrder).ThenBy(w => w.Type).ToListAsync(ct)).Select(Row).ToList();
+
+    public Task<int> CountLowAsync(CancellationToken ct = default) =>
+        _db.WoodItems.CountAsync(w => w.AlertAt != -1 && w.Quantity <= (w.AlertAt ?? 0), ct);
 
     private async Task<WoodItem> Find(int id, CancellationToken ct) =>
         await _db.WoodItems.FirstOrDefaultAsync(w => w.Id == id, ct) ?? throw new DomainException("صنف الخشب غير موجود.");

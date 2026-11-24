@@ -24,7 +24,7 @@
     <p class="eyebrow mb-1">ALERTS · التنبيهات</p>
     <h1 class="page-title">التنبيهات</h1>
     <p class="text-sm text-bark mt-1">
-        <b style="color:#CA292E">@outRows.Count</b> نفد · <b style="color:#CA292E">@lowRows.Count</b> قارب على النفاد · <b style="color:#9A6200">@zRows.Count</b> Area Z · <b style="color:#7A5320">@woodRows.Count</b> خشب
+        <b style="color:#CA292E">@outRows.Count</b> نفد · <b style="color:#CA292E">@lowRows.Count</b> قارب على النفاد · <b style="color:#9A6200">@zRows.Count</b> Area Z
     </p>
 </div>
 
@@ -37,7 +37,7 @@
     </div>
 }
 
-@foreach (var (title, rows, kind) in new[] { ("نفد", outRows, "out"), ("قارب على النفاد", lowRows, "low"), ("Area Z — نفد أو قارب", zRows, "z"), ("مستودع الخشب", woodRows, "z") })
+@foreach (var (title, rows, kind) in new[] { ("نفد", outRows, "out"), ("قارب على النفاد", lowRows, "low"), ("Area Z — نفد أو قارب", zRows, "z") })
 {
     if (!rows.Any()) { continue; }
     <div class="px-4 mb-2 flex items-end justify-between">

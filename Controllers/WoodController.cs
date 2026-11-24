@@ -16,6 +16,10 @@ public class WoodController : Controller
     [HttpGet("")]
     public async Task<IActionResult> Index(CancellationToken ct) => View(await _wood.ListAsync(ct));
 
+    /// <summary>The wood warehouse's own warnings (separate from the main warehouse's).</summary>
+    [HttpGet("alerts")]
+    public async Task<IActionResult> Alerts(CancellationToken ct) => View(await _wood.LowAsync(ct));
+
     [HttpGet("add")]
     [EditArea("wood")]
     public async Task<IActionResult> Add(CancellationToken ct)

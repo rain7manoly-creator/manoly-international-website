@@ -696,10 +696,7 @@ public class StockService : IStockService
             .ToListAsync(ct);
         rows.AddRange(z.Select(p => new AlertRow(false, p.Id, "Area Z" + (p.Wh == null ? "" : " · " + p.Wh), p.Name, p.Qty, p.AreaZAlertAt, "ربطة", AreaZ: true)));
 
-        // The wood warehouse (separate): wood at or below its warning number
-        var wood = (await _db.WoodItems.AsNoTracking().Where(w => w.AlertAt != -1 && w.Quantity <= (w.AlertAt ?? 0))
-            .OrderBy(w => w.Type).ThenBy(w => w.ThicknessMm).ToListAsync(ct));
-        rows.AddRange(wood.Select(w => new AlertRow(false, w.Id, "مستودع الخشب · " + w.Type, w.DisplayName, (int)Math.Floor(w.Quantity), w.AlertAt, w.Unit, Wood: true)));
+        // The wood warehouse has its own warnings page (/wood/alerts), kept apart from these
         return rows;
     }
 

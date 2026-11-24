@@ -1,0 +1,149 @@
+@model ManolyWarehouse.Controllers.DayReport
+@using ManolyWarehouse.Extensions
+@{
+    ViewData["Title"] = "تقرير اليوم";
+    var d = Model.Day;
+    string[] days = { "الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت" };
+    var dayName = days[(int)d.DayOfWeek];
+    string N(decimal v) => v.ToString("#,0.###");
+    string S(decimal v) => (v > 0 ? "+" : "") + v.ToString("#,0.###");
+    var mainWarn = Model.MainLines.Where(l => l.Warn).ToList();
+    var woodWarn = Model.WoodLines.Where(l => l.Warn).ToList();
+}
+
+<style>
+    .rp-kpis { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+    .rp-kpi { background:#fff; border:1px solid #E3E4E5; border-radius:14px; padding:12px; }
+    .rp-kpi b { display:block; font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:24px; line-height:1.1; color:#111; }
+    .rp-kpi span { font-size:12px; color:#58595B; }
+    .rp-kpi.red b { color:#CA292E; }
+    .rp-h { display:flex; align-items:baseline; justify-content:space-between; margin:22px 0 8px; }
+    .rp-h h2 { font-size:19px; font-weight:800; color:#111; }
+    .rp-h .tag { font-size:11px; font-weight:700; padding:2px 8px; border-radius:999px; }
+    .rp-sub { font-size:13px; font-weight:700; color:#58595B; margin:14px 2px 6px; }
+    .rp-row { display:flex; align-items:center; gap:10px; padding:10px 14px; border-top:1px solid #F1F1F2; }
+    .rp-row:first-child { border-top:0; }
+    .rp-net { font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:700; font-size:15px; min-width:56px; text-align:left; }
+    .rp-net.up { color:#2F7A4A; } .rp-net.down { color:#CA292E; }
+    .rp-ev { padding:9px 14px; border-top:1px solid #F1F1F2; font-size:13px; color:#111; }
+    .rp-ev:first-child { border-top:0; }
+    .rp-ev small { display:block; color:#A7A9AC; font-size:11px; margin-top:2px; }
+    .rp-warn { display:flex; align-items:center; gap:8px; padding:10px 14px; border-top:1px solid #F5D5D6; }
+    .rp-warn:first-child { border-top:0; }
+    .rp-dot { width:9px; height:9px; border-radius:50%; background:#CA292E; flex:none; }
+    @@media print {
+        header, .bottom-nav, .rp-nav, .no-print { display:none !important; }
+        main { padding:0 !important; }
+        .card, .rp-kpi { box-shadow:none !important; break-inside:avoid; }
+        body { background:#fff !important; }
+    }
+</style>
+
+<div class="px-4 pt-5 pb-2">
+    <p class="eyebrow mb-1">DAILY REPORT · التقرير اليومي</p>
+    <h1 class="page-title">@(Model.IsToday ? "تقرير اليوم" : "تقرير يوم")</h1>
+    <p class="text-sm text-bark mt-1">@dayName <span dir="ltr">@d.ToString("yyyy/MM/dd")</span></p>
+</div>
+
+<div class="px-4 pb-2 flex items-center gap-2 flex-wrap rp-nav">
+    <a href="/report?d=@d.AddDays(-1).ToString("yyyy-MM-dd")" class="btn-ghost btn-sm">→ اليوم السابق</a>
+    @if (!Model.IsToday) { <a href="/report?d=@d.AddDays(1).ToString("yyyy-MM-dd")" class="btn-ghost btn-sm">اليوم التالي ←</a> }
+    <form method="get" action="/report" class="flex-1 flex justify-end">
+        <input type="date" name="d" value="@d.ToString("yyyy-MM-dd")" max="@LocalTimeExtensions.LocalToday().ToString("yyyy-MM-dd")" class="form-input" style="max-width:160px;min-height:36px" onchange="this.form.submit()" aria-label="اختر يوماً" />
+    </form>
+    <button type="button" class="btn-secondary btn-sm no-print" onclick="window.print()">طباعة</button>
+</div>
+
+<div class="px-4 pb-10">
+
+    @* ── Important warnings ─────────────────────────── *@
+    <div class="rp-h"><h2>⚠ التنبيهات المهمة</h2></div>
+    <div class="rp-kpis mb-2">
+        <a href="/alerts" class="rp-kpi red"><b>@Model.MainOutNow</b><span>نفد الآن — المستودع</span></a>
+        <a href="/wood/alerts" class="rp-kpi red"><b>@Model.WoodLowNow</b><span>ناقص الآن — الخشب</span></a>
+    </div>
+    @if (mainWarn.Any() || woodWarn.Any())
+    {
+        <div class="rp-sub" style="color:#CA292E">نفد أو وصل لرقم التنبيه @(Model.IsToday ? "اليوم" : "في هذا اليوم")</div>
+        <div class="card" style="border-color:#F5D5D6">
+            @foreach (var l in mainWarn)
+            {
+                <a href="/stock/items/@l.Id" class="rp-warn"><span class="rp-dot"></span><span class="flex-1 min-w-0 text-sm"><b>@l.Name</b><span class="text-xs text-bark-l"> · المستودع · @l.Group</span></span><b class="rp-net down">@N(l.After)</b></a>
+            }
+            @foreach (var l in woodWarn)
+            {
+                <a href="/wood/@l.Id" class="rp-warn"><span class="rp-dot"></span><span class="flex-1 min-w-0 text-sm"><b>@l.Name</b><span class="text-xs text-bark-l"> · الخشب · @l.Group</span></span><b class="rp-net down">@N(l.After)</b></a>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-sm text-bark">لم ينفد شيء @(Model.IsToday ? "اليوم" : "في هذا اليوم").</p>
+    }
+
+    @* ── Main warehouse ─────────────────────────────── *@
+    <div class="rp-h"><h2>المستودع</h2><span class="tag" style="background:#F1F1F2;color:#58595B">الرفوف · Area Z · المخزون</span></div>
+    <div class="rp-kpis">
+        <div class="rp-kpi"><b>@Model.MainEvents.Count</b><span>حركة</span></div>
+        <div class="rp-kpi"><b>@Model.MainLines.Count</b><span>صنف مخزون تغيّر</span></div>
+    </div>
+    @if (Model.MainLines.Any())
+    {
+        <div class="rp-sub">تغيّر المخزون (من أول اليوم إلى آخره)</div>
+        <div class="card">
+            @foreach (var l in Model.MainLines)
+            {
+                <a href="/stock/items/@l.Id" class="rp-row">
+                    <span class="flex-1 min-w-0"><span class="text-sm font-semibold text-ink block">@l.Name</span>
+                        <span class="text-xs text-bark-l">@l.Group · من @N(l.Before) إلى @N(l.After) @l.Unit · @l.Moves حركة</span></span>
+                    <span class="rp-net @(l.Net > 0 ? "up" : l.Net < 0 ? "down" : "")" dir="ltr">@S(l.Net)</span>
+                </a>
+            }
+        </div>
+    }
+    <div class="rp-sub">كل الحركات</div>
+    @if (Model.MainEvents.Any())
+    {
+        <div class="card">
+            @foreach (var e in Model.MainEvents)
+            {
+                <div class="rp-ev">@e.Text<small><span dir="ltr">@e.At.ToLocal().ToString("HH:mm")</span> · @e.Who · @e.Area</small></div>
+            }
+        </div>
+    }
+    else { <p class="text-sm text-bark">لا توجد حركات.</p> }
+
+    @* ── Wood warehouse ─────────────────────────────── *@
+    <div class="rp-h"><h2>مستودع الخشب</h2><span class="tag" style="background:#F3EBDD;color:#7A5320">منفصل</span></div>
+    <div class="rp-kpis">
+        <div class="rp-kpi"><b>@Model.WoodEvents.Count</b><span>حركة</span></div>
+        <div class="rp-kpi"><b>@Model.WoodLines.Count</b><span>صنف تغيّر</span></div>
+        <div class="rp-kpi"><b dir="ltr">@N(Model.WoodLines.Where(l => l.Unit == "لوح" && l.Net < 0).Sum(l => -l.Net))</b><span>لوح خرج</span></div>
+        <div class="rp-kpi"><b dir="ltr">@N(Model.WoodLines.Where(l => l.Unit == "لوح" && l.Net > 0).Sum(l => l.Net))</b><span>لوح دخل</span></div>
+    </div>
+    @if (Model.WoodLines.Any())
+    {
+        <div class="rp-sub">تغيّر الكميات</div>
+        <div class="card">
+            @foreach (var l in Model.WoodLines)
+            {
+                <a href="/wood/@l.Id" class="rp-row">
+                    <span class="flex-1 min-w-0"><span class="text-sm font-semibold text-ink block">@l.Name</span>
+                        <span class="text-xs text-bark-l">@l.Group · من @N(l.Before) إلى @N(l.After) @l.Unit · @l.Moves حركة</span></span>
+                    <span class="rp-net @(l.Net > 0 ? "up" : l.Net < 0 ? "down" : "")" dir="ltr">@S(l.Net)</span>
+                </a>
+            }
+        </div>
+    }
+    <div class="rp-sub">كل الحركات</div>
+    @if (Model.WoodEvents.Any())
+    {
+        <div class="card">
+            @foreach (var e in Model.WoodEvents)
+            {
+                <div class="rp-ev">@e.Text<small><span dir="ltr">@e.At.ToLocal().ToString("HH:mm")</span> · @e.Who · @e.Area</small></div>
+            }
+        </div>
+    }
+    else { <p class="text-sm text-bark">لا توجد حركات.</p> }
+</div>

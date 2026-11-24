@@ -23,6 +23,18 @@ public static class LocalTimeExtensions
     public static DateTime ToLocal(this DateTime utc) =>
         TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(utc, DateTimeKind.Utc), Zone);
 
+    /// <summary>Today's date in the warehouse's time zone.</summary>
+    public static DateOnly LocalToday() => DateOnly.FromDateTime(DateTime.UtcNow.ToLocal());
+
+    /// <summary>A local calendar day as a UTC range [from, to).</summary>
+    public static (DateTime From, DateTime To) LocalDayUtc(DateOnly day)
+    {
+        var start = DateTime.SpecifyKind(day.ToDateTime(TimeOnly.MinValue), DateTimeKind.Unspecified);
+        var from = TimeZoneInfo.ConvertTimeToUtc(start, Zone);
+        var to = TimeZoneInfo.ConvertTimeToUtc(start.AddDays(1), Zone);
+        return (from, to);
+    }
+
     /// <summary>e.g. "2026/11/02 15:21"</summary>
     public static string ToLocalString(this DateTime utc) => utc.ToLocal().ToString("yyyy/MM/dd HH:mm");
 }

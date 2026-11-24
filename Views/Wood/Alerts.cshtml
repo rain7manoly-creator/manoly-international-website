@@ -1,0 +1,39 @@
+@model IReadOnlyList<ManolyWarehouse.Application.Services.WoodRow>
+@{
+    ViewData["Title"] = "تنبيهات الخشب";
+    var outRows = Model.Where(w => w.Quantity <= 0).ToList();
+    var lowRows = Model.Where(w => w.Quantity > 0).ToList();
+}
+
+<div class="px-4 pt-5 pb-3">
+    <a href="/wood" class="eyebrow text-bark-l hover:text-bark mb-2 inline-flex items-center gap-1">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        مستودع الخشب
+    </a>
+    <h1 class="page-title">تنبيهات الخشب</h1>
+    <p class="text-sm text-bark mt-1"><b style="color:#CA292E">@outRows.Count</b> نفد · <b style="color:#CA292E">@lowRows.Count</b> قارب على النفاد</p>
+    <p class="text-xs text-bark-l mt-1">منفصلة عن تنبيهات المستودع. لتغيير تنبيه صنف أو إيقافه افتحه واختر «بدون تنبيه» أو رقماً.</p>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="mx-4 card p-6 text-center mb-6"><div style="font-size:32px">✓</div><div class="font-semibold text-ink mt-1">لا يوجد خشب ناقص</div></div>
+}
+@foreach (var (title, rows) in new[] { ("نفد", outRows), ("قارب على النفاد", lowRows) })
+{
+    if (!rows.Any()) { continue; }
+    <div class="px-4 mb-2 flex items-end justify-between"><h2 class="section-title" style="color:#CA292E">@title</h2><span class="text-xs text-bark-l">@rows.Count</span></div>
+    <div class="mx-4 card mb-6">
+        @foreach (var w in rows)
+        {
+            <a href="/wood/@w.Id" class="flex items-center gap-3 px-4 py-3" style="border-top:1px solid #F1F1F2">
+                <span style="width:10px;height:10px;border-radius:50%;flex:none;@(w.Quantity <= 0 ? "background:#CA292E" : "border:2px solid #CA292E")"></span>
+                <span class="flex-1 min-w-0">
+                    <span class="text-sm font-semibold text-ink block">@w.Name</span>
+                    <span class="text-xs text-bark-l">@w.Type@(w.Code != null ? " · " + w.Code : "")@(w.AlertAt is > 0 ? $" · التنبيه عند {w.AlertAt}" : "")</span>
+                </span>
+                <span class="text-left shrink-0"><b class="history-qty" style="font-size:20px;color:#CA292E">@w.Qty</b> <span class="text-xs text-bark-l">@w.Unit</span></span>
+            </a>
+        }
+    </div>
+}

@@ -527,3 +527,9 @@
 /* Anything marked hidden (search filters, closed edit boxes) stays hidden,
    even when a class like .list-item or .flex gives it a display value. */
 [hidden] { display: none !important; }
+
+/* Small red count on a bottom-bar button (wood warnings) */
+.bottom-nav-item { position: relative; }
+.nav-badge { position: absolute; top: 2px; left: 50%; margin-left: 4px; min-width: 18px; height: 18px; padding: 0 5px;
+  border-radius: 999px; background: #CA292E; color: #fff; font-size: 11px; font-weight: 700; line-height: 18px; text-align: center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }

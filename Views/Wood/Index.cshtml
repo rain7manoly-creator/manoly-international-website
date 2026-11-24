@@ -42,6 +42,7 @@
         </p>
     </div>
     <div class="flex gap-2 shrink-0">
+        <a href="/wood/alerts" class="btn-ghost btn-sm" style="@(low > 0 ? "color:#CA292E" : "")">🔔 @low</a>
         <a href="/wood/export" class="btn-ghost btn-sm">Excel</a>
         @if (canEdit) { <a href="/wood/add" class="btn-primary btn-sm">+ خشب</a> }
     </div>
