@@ -202,7 +202,7 @@ public class StockController : Controller
     {
         var family = await _stock.DeleteLineAsync(id, ct);
         TempData["SuccessMessage"] = "تم حذف السطر.";
-        return Redirect($"/stock/groups/{family}");
+        return Redirect(StockService.NewLineFamilies.Contains(family) ? $"/stock/groups/{family}" : "/stock");
     }
 
     /// <summary>A created group as a plain sheet: name, warehouse, each Area Z warehouse, total.</summary>

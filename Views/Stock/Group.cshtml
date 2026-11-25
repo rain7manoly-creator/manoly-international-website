@@ -48,13 +48,13 @@
                 </a>
                 <div class="flex items-center gap-2 shrink-0">
                     <b class="history-qty" style="font-size:17px">@(i.Total?.ToString("N0") ?? "—")</b>
-                    @if (custom)
+                    @if (true)
                     {
                         <button type="button" class="btn-ghost btn-sm" onclick="this.closest('div.px-4').querySelector('.ln-edit').hidden = !this.closest('div.px-4').querySelector('.ln-edit').hidden">تعديل</button>
                     }
                 </div>
             </div>
-            @if (custom)
+            @if (true)
             {
                 <div class="ln-edit mt-2 flex flex-col gap-2" hidden>
                     <form method="post" action="/stock/items/@i.Id/rename" class="flex gap-2">
@@ -63,14 +63,11 @@
                         <input type="text" name="name" value="@i.Name" class="form-input flex-1" required maxlength="200" />
                         <button type="submit" class="btn-primary btn-sm shrink-0">حفظ</button>
                     </form>
-                    @if (i.Linked == 0)
-                    {
-                        <form method="post" action="/stock/items/@i.Id/delete" id="del-@i.Id">
-                            @Html.AntiForgeryToken()
-                            <button type="button" class="btn-ghost btn-sm" style="color:#CA292E"
-                                    onclick="confirmSubmit('حذف السطر', 'سيُحذف «@i.Name» وسجله من المخزون.', 'del-@i.Id', 'حذف')">حذف السطر</button>
-                        </form>
-                    }
+                    <form method="post" action="/stock/items/@i.Id/delete" id="del-@i.Id">
+                        @Html.AntiForgeryToken()
+                        <button type="button" class="btn-ghost btn-sm" style="color:#CA292E"
+                                onclick="confirmSubmit('حذف السطر', '@(i.Linked > 0 ? "سيُحذف السطر وسجله. منتجاته تبقى على الرفوف لكنها لن تُحسب هنا." : "سيُحذف السطر وسجله من المخزون.")', 'del-@i.Id', 'حذف')">حذف السطر</button>
+                    </form>
                 </div>
             }
         </div>

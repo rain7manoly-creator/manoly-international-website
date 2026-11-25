@@ -209,7 +209,6 @@ public class StockService : IStockService
     public async Task RenameLineAsync(int id, string name, CancellationToken ct = default)
     {
         var line = await _db.StockItems.FirstOrDefaultAsync(s => s.Id == id, ct) ?? throw new DomainException("السطر غير موجود.");
-        if (!StockGroupRegistry.IsCustom(line.Family)) throw new DomainException("يمكن تعديل اسم الأسطر في المخازن التي أنشأتها فقط.");
         name = (name ?? "").Trim();
         if (name.Length == 0) throw new DomainException("اكتب الاسم.");
         line.Rename(name.Length > 200 ? name[..200] : name);
@@ -219,8 +218,9 @@ public class StockService : IStockService
     public async Task<string> DeleteLineAsync(int id, CancellationToken ct = default)
     {
         var line = await _db.StockItems.FirstOrDefaultAsync(s => s.Id == id, ct) ?? throw new DomainException("السطر غير موجود.");
-        if (!StockGroupRegistry.IsCustom(line.Family)) throw new DomainException("يمكن حذف الأسطر في المخازن التي أنشأتها فقط.");
-        if (await _db.Products.AnyAsync(p => p.StockItemId == id, ct)) throw new DomainException("ألغِ ربط المنتجات أولاً.");
+        // Its products stay on the shelves / in Area Z, just no longer counted in this line
+        foreach (var p in await _db.Products.Where(p => p.StockItemId == id).ToListAsync(ct))
+            p.LinkStock(null, _currentUser.UserId ?? "admin");
         _db.StockItems.Remove(line);
         await _db.SaveChangesAsync(ct);
         return line.Family;
