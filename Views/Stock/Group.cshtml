@@ -90,13 +90,10 @@
         <button type="submit" class="btn-primary btn-sm">حفظ</button>
     </form>
 
-    @if (!Model.Any())
-    {
-        <form method="post" action="/stock/groups/@family/delete" id="del-group" class="mx-4 mb-8">
+    <form method="post" action="/stock/groups/@family/delete" id="del-group" class="mx-4 mb-8">
             @Html.AntiForgeryToken()
             <button type="button" class="btn-ghost btn-sm w-full" style="color:#CA292E"
-                    onclick="confirmSubmit('حذف المخزون', 'سيُحذف «@name» من صفحة المخزون.', 'del-group', 'حذف')">حذف هذا المخزون</button>
+                    onclick="confirmSubmit('حذف المخزون', 'سيُحذف «@name» و@(Model.Count) سطر بداخله. المنتجات المرتبطة تبقى على الرفوف وفي Area Z.', 'del-group', 'حذف')">حذف هذا المخزون</button>
         </form>
-    }
 }
 <div class="mb-8"></div>

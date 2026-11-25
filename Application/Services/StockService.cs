@@ -175,8 +175,12 @@ public class StockService : IStockService
     public async Task DeleteGroupAsync(string family, CancellationToken ct = default)
     {
         var group = await FindGroupAsync(family, ct);
-        if (await _db.StockItems.AnyAsync(s => s.Family == family, ct))
-            throw new DomainException("احذف الأسطر التي بداخله أولاً.");
+        // Its lines go with it; their products stay on the shelves / in Area Z, just unlinked
+        var lines = await _db.StockItems.Where(s => s.Family == family).ToListAsync(ct);
+        var ids = lines.Select(l => l.Id).ToList();
+        foreach (var p in await _db.Products.Where(p => p.StockItemId != null && ids.Contains(p.StockItemId.Value)).ToListAsync(ct))
+            p.LinkStock(null, _currentUser.UserId ?? "admin");
+        _db.StockItems.RemoveRange(lines);
         _db.StockGroups.Remove(group);
         await _db.SaveChangesAsync(ct);
         await ReloadGroupsAsync(_db, ct);
