@@ -7,6 +7,11 @@
     <RootNamespace>ManolyWarehouse</RootNamespace>
     <AssemblyName>ManolyWarehouse</AssemblyName>
     <UserSecretsId>manoly-warehouse-secrets</UserSecretsId>
+      <!-- The server is small (256 MB): use the low-memory garbage collector instead of the
+         big-server one, which reserves far more memory than this app needs -->
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+    <ConcurrentGarbageCollection>false</ConcurrentGarbageCollection>
+    <TieredPGO>true</TieredPGO>
   </PropertyGroup>
 
   <ItemGroup>

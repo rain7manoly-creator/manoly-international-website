@@ -6,6 +6,8 @@ primary_region = "dxb"
 
 [env]
   ASPNETCORE_ENVIRONMENT = "Production"
+  # Keep memory low on the small server: give unused memory back sooner
+  DOTNET_GCConserveMemory = "7"
 
 # Secrets — set these once via the Fly.io dashboard or CLI, never commit them:
 #   fly secrets set DATABASE_URL="postgres://user:pass@host:port/db"
