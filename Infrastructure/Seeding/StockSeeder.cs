@@ -229,6 +229,21 @@ public static class StockSeeder
             logger.LogWarning("Wood-only users set: {Users}", string.Join(",", done));
         }
 
+        // Mousa Shaheen: edits everywhere now
+        const string mousaAllStep = "user-mousa-everywhere-2026-11-26";
+        if (!await db.StockImports.AnyAsync(i => i.Name == mousaAllStep, ct))
+        {
+            var found = (await db.Users.ToListAsync(ct)).Where(u => new[] { "mousa", "moussa", "musa", "mosa", "موسى", "موسي" }.Any(n =>
+                (u.UserName ?? "").Contains(n, StringComparison.OrdinalIgnoreCase) || (u.FullName ?? "").Contains(n, StringComparison.OrdinalIgnoreCase))).ToList();
+            if (found.Count > 1)
+                found = found.Where(u => new[] { "shaheen", "shahin", "شاهين" }.Any(n =>
+                    (u.UserName ?? "").Contains(n, StringComparison.OrdinalIgnoreCase) || (u.FullName ?? "").Contains(n, StringComparison.OrdinalIgnoreCase))).ToList();
+            if (found.Count == 1) { found[0].SetEditScope(null); found[0].SecurityStamp = Guid.NewGuid().ToString(); }
+            db.StockImports.Add(StockImport.Create(mousaAllStep));
+            await db.SaveChangesAsync(ct);
+            logger.LogWarning("Everywhere: {N} match(es) {Users}", found.Count, string.Join(",", found.Select(u => u.UserName)));
+        }
+
         // Mahmoud edits only the big warehouse (shelves); Mousa only Area Z
         const string scopeStep = "user-edit-scopes-2026-11-14";
         if (!await db.StockImports.AnyAsync(i => i.Name == scopeStep, ct))

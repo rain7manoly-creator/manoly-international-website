@@ -50,13 +50,15 @@ public class UsersController : Controller
     /// <summary>Where the user may edit — set straight from the users list.</summary>
     [HttpPost("{id}/scope")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Scope(string id, string? editScope, CancellationToken ct)
+    public async Task<IActionResult> Scope(string id, string[]? areas, bool isAdmin, CancellationToken ct)
     {
         var u = await _userService.GetByIdAsync(id, ct);
         if (u is null) return NotFound();
-        if (editScope is "view" or "wood" or "warehouse" or "areaz" && u.IsAdmin)
-            await _userService.UpdateProfileAsync(id, u.FullName, false, ct);   // a limited user isn't an admin
-        await _userService.SetEditScopeAsync(id, editScope, ct);
+        // An admin edits everywhere; otherwise the ticked places (none ticked = view only)
+        var scope = isAdmin ? null : ManolyWarehouse.Domain.Entities.ApplicationUser.NormalizeScope(string.Join(",", areas ?? Array.Empty<string>()) is var j && j.Length == 0 ? "view" : j);
+        if (u.IsAdmin != isAdmin)
+            await _userService.UpdateProfileAsync(id, u.FullName, isAdmin, ct);
+        await _userService.SetEditScopeAsync(id, scope ?? "", ct);
         TempData["SuccessMessage"] = $"تم حفظ صلاحيات {u.FullName}.";
         return Redirect("/users#u-" + id);
     }

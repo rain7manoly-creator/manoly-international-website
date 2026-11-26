@@ -1,3 +1,4 @@
+using ManolyWarehouse.Domain.Entities;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -40,10 +41,11 @@ public class EditAccess : IEditAccess
         return _scope;
     }
 
-    public async Task<bool> CanEditWarehouseAsync() => await ScopeAsync() is null or "warehouse";
-    public async Task<bool> CanEditAreaZAsync() => await ScopeAsync() is null or "areaz";
-    public async Task<bool> CanEditAnythingAsync() => await ScopeAsync() is not "view" and not "wood";   // orders: main-warehouse users only
-    public async Task<bool> CanEditWoodAsync() => await ScopeAsync() is null or "wood";
+    public async Task<bool> CanEditWarehouseAsync() => ApplicationUser.ScopeHas(await ScopeAsync(), "warehouse");
+    public async Task<bool> CanEditAreaZAsync() => ApplicationUser.ScopeHas(await ScopeAsync(), "areaz");
+    /// <summary>Orders belong to the main warehouse: users who may edit the shelves or Area Z.</summary>
+    public async Task<bool> CanEditAnythingAsync() { var s = await ScopeAsync(); return ApplicationUser.ScopeHas(s, "warehouse") || ApplicationUser.ScopeHas(s, "areaz"); }
+    public async Task<bool> CanEditWoodAsync() => ApplicationUser.ScopeHas(await ScopeAsync(), "wood");
 }
 
 /// <summary>Blocks a stock change outside the user's area: [EditArea("warehouse")] or [EditArea("areaz")].</summary>
@@ -68,6 +70,8 @@ public class EditAreaAttribute : Attribute, IAsyncActionFilter
             throw new DomainException("حسابك للعرض فقط — لا يمكنك تعديل أي شيء.");
         if (!ok && scope == "wood")
             throw new DomainException("حسابك يعدّل في مستودع الخشب فقط.");
+        if (!ok && _area == "wood")
+            throw new DomainException("ليس لديك صلاحية التعديل في مستودع الخشب.");
         if (!ok && _area == "any")
             throw new DomainException("ليس لديك صلاحية لهذا التعديل.");
         if (!ok)

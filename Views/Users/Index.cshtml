@@ -19,25 +19,35 @@
                         <span class="font-display text-base text-ink">@u.FullName</span>
                         @if (u.IsAdmin) { <span class="badge-admin">مسؤول</span> }
                         else { <span class="badge-worker">موظف</span> }
-                        @if (u.EditScope == "warehouse") { <span class="badge" style="background:#F1F1F2;color:#58595B;">يعدّل المستودع فقط</span> }
-                        @if (u.EditScope == "wood") { <span class="badge" style="background:#F3EBDD;color:#7A5320;">يعدّل الخشب فقط</span> }
                         @if (u.EditScope == "view") { <span class="badge" style="background:#FBECEC;color:#CA292E;">عرض فقط</span> }
-                        @if (u.EditScope == "areaz") { <span class="badge" style="background:#FFF4E0;color:#9A6200;">يعدّل Area Z فقط</span> }
+                        else if (u.EditScope != null) { <span class="badge" style="background:#F1F1F2;color:#58595B;">يعدّل في: @string.Join(" + ", u.EditScope.Split(',').Select(a => a switch { "warehouse" => "الرفوف", "areaz" => "Area Z", "wood" => "الخشب", _ => a }))</span> }
                         @if (!u.IsActive) { <span class="badge" style="background:rgba(168,68,58,0.15);color:#871518;">معطل</span> }
                     </div>
                     <div class="text-xs text-bark-l mt-0.5 font-ui" dir="ltr" style="text-align:right">@("@" + u.UserName)</div>
-                    @* Edit area, right beside the user *@
-                    <form method="post" action="/users/@u.Id/scope" class="mt-2 flex items-center gap-2" id="u-@u.Id">
+                    @* What the user may do, right beside them — saved as soon as a box is ticked *@
+                    @{
+                        var self = u.UserName == User.Identity?.Name;
+                        bool Has(string a) => u.IsAdmin || u.EditScope == null || (u.EditScope != "view" && u.EditScope.Split(',').Contains(a));
+                    }
+                    <form method="post" action="/users/@u.Id/scope" class="mt-2 flex items-center gap-1.5 flex-wrap perm" id="u-@u.Id">
                         @Html.AntiForgeryToken()
-                        <label class="text-xs text-bark shrink-0" for="scope-@u.Id">يعدّل في:</label>
-                        <select name="editScope" id="scope-@u.Id" class="form-select" style="min-height:34px;font-size:13px;padding-top:4px;padding-bottom:4px"
-                                onchange="this.form.submit()" disabled="@(u.UserName == User.Identity?.Name)">
-                            <option value="" selected="@(u.EditScope == null)">كل الأماكن</option>
-                            <option value="warehouse" selected="@(u.EditScope == "warehouse")">المستودع الكبير فقط (الرفوف)</option>
-                            <option value="areaz" selected="@(u.EditScope == "areaz")">Area Z فقط</option>
-                            <option value="wood" selected="@(u.EditScope == "wood")">مستودع الخشب فقط</option>
-                            <option value="view" selected="@(u.EditScope == "view")">لا شيء — عرض فقط</option>
-                        </select>
+                        <span class="text-xs text-bark shrink-0">يعدّل في:</span>
+                        @foreach (var (key, label) in new[] { ("warehouse", "الرفوف"), ("areaz", "Area Z"), ("wood", "الخشب") })
+                        {
+                            <label class="perm-chip @(u.IsAdmin ? "locked" : "")">
+                                <input type="checkbox" name="areas" value="@key" checked="@Has(key)" disabled="@(self || u.IsAdmin)" onchange="this.form.submit()" />
+                                <span>@label</span>
+                            </label>
+                        }
+                        <label class="perm-chip admin">
+                            <input type="checkbox" name="isAdmin" value="true" checked="@u.IsAdmin" disabled="@self" onchange="this.form.submit()" />
+                            <span>مسؤول</span>
+                        </label>
+                        @if (u.IsAdmin)
+                        {
+                            @* an admin edits everywhere; keep the places ticked when admin is removed *@
+                            @foreach (var a in new[] { "warehouse", "areaz", "wood" }) { <input type="hidden" name="areas" value="@a" /> }
+                        }
                     </form>
                 </div>
                 <button onclick="toggleUserMenu('@u.Id')" class="btn-ghost btn-sm">
@@ -80,17 +90,7 @@
                 <input type="checkbox" name="isAdmin" id="edit-is-admin" value="true" class="w-5 h-5 rounded cursor-pointer accent-ink"/>
                 <span class="text-sm font-semibold text-ink">مسؤول (Admin)</span>
             </label>
-            <div class="form-group">
-                <label class="form-label" for="edit-scope">يستطيع تعديل الكميات في</label>
-                <select name="editScope" id="edit-scope" class="form-select">
-                    <option value="">كل الأماكن (المستودع و Area Z)</option>
-                    <option value="warehouse">المستودع الكبير فقط (الرفوف)</option>
-                    <option value="areaz">Area Z فقط</option>
-                    <option value="wood">مستودع الخشب فقط</option>
-                    <option value="view">لا شيء — عرض فقط</option>
-                </select>
-                <p class="text-xs text-bark-l mt-1">يستطيع رؤية كل شيء، لكن الإضافة والتعديل فقط في المكان المختار.</p>
-            </div>
+
             <div class="flex gap-3">
                 <button type="submit" class="btn-primary flex-1">حفظ</button>
                 <button type="button" onclick="closeEditUser()" class="btn-secondary flex-1">إلغاء</button>
@@ -119,6 +119,15 @@
     </div>
 </div>
 
+<style>
+    .perm-chip { display:inline-flex; align-items:center; gap:5px; border:1px solid #E3E4E5; border-radius:999px; padding:4px 10px; font-size:12px; color:#58595B; background:#fff; cursor:pointer; user-select:none; }
+    .perm-chip input { width:15px; height:15px; accent-color:#CA292E; }
+    .perm-chip:has(input:checked) { border-color:#CA292E; color:#111; background:#FBECEC; }
+    .perm-chip.admin:has(input:checked) { border-color:#111; background:#111; color:#fff; }
+    .perm-chip.admin input { accent-color:#111; }
+    .perm-chip:has(input:disabled) { opacity:.6; cursor:default; }
+</style>
+
 @section Scripts {
 <script>
 function toggleUserMenu(id) {
@@ -126,7 +135,6 @@ function toggleUserMenu(id) {
 }
 function showEditUser(id, name, isAdmin, scope) {
     document.getElementById('edit-fullname').value = name;
-    document.getElementById('edit-scope').value = scope || '';
     document.getElementById('edit-is-admin').checked = isAdmin;
     document.getElementById('edit-user-form').action = '/users/' + id + '/edit';
     document.getElementById('edit-user-sheet').classList.remove('hidden');
